@@ -26,7 +26,7 @@ program
   .command('build')
   .description('Build documentation site from Markdown files')
   .argument('<src-dir>', 'Source directory containing Markdown files')
-  .option('-o, --out <dir>', 'Output directory for generated HTML', 'dist')
+  .option('-o, --out <value>', 'Output directory for generated HTML')
   .option('-t, --template <file>', 'Custom template file')
   .option('-w, --watch', 'Watch for changes and rebuild automatically')
   .option('-v, --verbose', 'Show detailed output')
@@ -50,11 +50,12 @@ program
       // 合并命令行参数和配置
       const buildOptions = {
         srcDir: path.resolve(srcDir),
-        outDir: path.resolve(options.out),
+        outDir: path.resolve(options.out || 'dist'),
         template: options.template ? path.resolve(options.template) : undefined,
         watch: options.watch,
         verbose: options.verbose
       };
+
 
       const builder = new ZenBuilder(config);
 
@@ -256,7 +257,8 @@ For more help, run: zengen --help
     `);
   });
 
-// 默认命令（兼容旧格式）
+// 默认命令（兼容旧格式） - 暂时注释掉以调试
+/*
 program
   .argument('[src-dir]', 'Source directory')
   .option('-o, --out <dir>', 'Output directory')
@@ -264,6 +266,10 @@ program
   .option('-w, --watch', 'Watch for changes')
   .option('-v, --verbose', 'Show detailed output')
   .action(async (srcDir, options) => {
+    console.log(`DEBUG: Default command called`);
+    console.log(`DEBUG: srcDir = ${srcDir}`);
+    console.log(`DEBUG: options.out = ${options.out}`);
+
     if (!srcDir) {
       program.help();
       return;
@@ -280,6 +286,12 @@ program
         verbose: options.verbose
       };
 
+      // 调试信息
+      if (options.verbose) {
+        console.log(`DEBUG (default): options.out = ${options.out}`);
+        console.log(`DEBUG (default): buildOptions.outDir = ${buildOptions.outDir}`);
+      }
+
       if (options.watch) {
         await builder.watch(buildOptions);
       } else {
@@ -290,6 +302,7 @@ program
       process.exit(1);
     }
   });
+*/
 
 // 错误处理
 program.showHelpAfterError();
