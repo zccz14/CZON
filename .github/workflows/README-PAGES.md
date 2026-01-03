@@ -20,7 +20,8 @@
 3. **安装依赖**：使用 `npm ci` 安装项目依赖
 4. **构建 zengen**：构建本地 zengen 包
 5. **安装 zengen**：将本地构建的 zengen 安装为全局工具
-6. **构建文档站点**：使用 `zengen build demo/src --out docs-dist` 构建文档
+6. **测试 zengen CLI**：验证 CLI 工具正常工作
+7. **构建文档站点**：使用 `zengen build demo/src --out docs-dist` 构建文档，包含自动回退机制
 7. **配置 Pages**：设置 GitHub Pages
 8. **上传制品**：将构建的文档站点上传为 Pages 制品
 9. **部署到 GitHub Pages**：自动部署到 GitHub Pages
@@ -72,6 +73,7 @@ zengen build demo/src --out docs-dist --clean --verbose
 1. **检查 Node.js 版本**：确保使用支持的 Node.js 版本
 2. **验证依赖安装**：确保 `npm ci` 成功执行
 3. **检查构建输出**：查看 `zengen build` 的详细输出
+4. **CLI 输出目录问题**：如果 `--out` 参数未生效，构建可能输出到 `dist` 目录而不是指定目录。工作流程包含自动检测和修复机制。
 
 ### 部署失败
 

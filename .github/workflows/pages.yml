@@ -56,15 +56,44 @@ jobs:
           # 验证安装
           zengen --version
 
+      - name: Test zengen CLI
+        run: |
+          # 测试 CLI 命令
+          echo "Testing zengen CLI..."
+          zengen --help
+          zengen build --help
+
       - name: Create documentation site
         run: |
           # 使用 zengen 构建文档站点
           echo "Building documentation site from demo/src..."
+
+          # 首先清理可能存在的旧输出（保留 dist 目录中的 CLI 文件）
+          rm -rf docs-dist
+          # 只删除 dist 目录中的 HTML 文件，保留 CLI 文件
+          find dist -name "*.html" -delete 2>/dev/null || true
+          find dist -name "*.json" -delete 2>/dev/null || true
+          find dist -name "*.xml" -delete 2>/dev/null || true
+
+          # 使用 zengen 构建
           zengen build demo/src --out docs-dist --clean --verbose
 
-          # 验证构建结果
-          echo "Build output:"
-          ls -la docs-dist/
+          # 检查构建结果
+          echo "Checking build output..."
+          if [ -d "docs-dist" ] && [ -f "docs-dist/index.html" ]; then
+            echo "✅ Build successful - docs-dist directory exists with index.html"
+            ls -la docs-dist/
+          else
+            echo "⚠️ Build may have output to dist directory instead"
+            if [ -d "dist" ] && [ -f "dist/index.html" ]; then
+              echo "Found output in dist directory, copying to docs-dist"
+              cp -r dist docs-dist
+              ls -la docs-dist/
+            else
+              echo "❌ Build failed - no output found"
+              exit 1
+            fi
+          fi
 
           # 创建 CNAME 文件（如果需要自定义域名）
           # echo "docs.example.com" > docs-dist/CNAME
