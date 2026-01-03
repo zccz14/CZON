@@ -5,6 +5,8 @@ import { NavigationGenerator } from './navigation';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import * as chokidar from 'chokidar';
+import express from 'express';
+import * as http from 'http';
 
 export class ZenBuilder {
   private markdownConverter: MarkdownConverter;
@@ -111,13 +113,20 @@ export class ZenBuilder {
    * 监听文件变化并自动重建
    */
   async watch(options: BuildOptions): Promise<void> {
-    const { srcDir, outDir, template, verbose = false } = options;
+    const { srcDir, outDir, template, verbose = false, serve = false, port = 3000, host = 'localhost' } = options;
 
     console.log(`👀 Watching for changes in ${srcDir}...`);
     console.log(`Press Ctrl+C to stop watching`);
 
     // 初始构建
     await this.build(options);
+
+    // 启动 HTTP 服务器（如果启用）
+    let server: http.Server | null = null;
+    if (serve) {
+      server = await this.startHttpServer(outDir, port, host);
+      console.log(`🌐 HTTP server started at http://${host}:${port}`);
+    }
 
     // 设置文件监听
     const watcher = chokidar.watch(srcDir, {
@@ -189,7 +198,42 @@ export class ZenBuilder {
     process.on('SIGINT', () => {
       console.log(`\n👋 Stopping watcher...`);
       watcher.close();
-      process.exit(0);
+
+      // 关闭 HTTP 服务器（如果存在）
+      if (server) {
+        console.log(`🌐 Stopping HTTP server...`);
+        server.close(() => {
+          console.log(`✅ HTTP server stopped`);
+          process.exit(0);
+        });
+      } else {
+        process.exit(0);
+      }
+    });
+  }
+
+  /**
+   * 启动 HTTP 服务器
+   */
+  private async startHttpServer(outDir: string, port: number, host: string): Promise<http.Server> {
+    return new Promise((resolve, reject) => {
+      const app = express();
+
+      // 提供静态文件服务
+      app.use(express.static(outDir));
+
+      // 处理 SPA 路由 - 所有未找到的路径返回 index.html
+      app.get('*', (req: express.Request, res: express.Response) => {
+        res.sendFile(path.join(outDir, 'index.html'));
+      });
+
+      const server = app.listen(port, host, () => {
+        resolve(server);
+      });
+
+      server.on('error', (error: Error) => {
+        reject(error);
+      });
     });
   }
 
