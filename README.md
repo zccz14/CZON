@@ -30,43 +30,27 @@
 
 ## 快速开始
 
-### 安装
+### 推荐使用方式
+
+**推荐用户切换到包含 Markdown 文件的目录下，直接使用以下命令开始构建：**
 
 ```bash
-npm install -g zengen
+npx zengen build
 ```
 
-或者作为项目依赖安装：
+### 其他用法
 
+1. **实时预览（监听文件变化）**：
 ```bash
-npm install zengen
+npx zengen build --watch
 ```
 
-### 使用
-
-1. **初始化项目**：
+2. **查看更多参数或帮助**：
 ```bash
-zengen init
+npx zengen
 ```
 
-2. **构建文档站点**：
-```bash
-cd /path/to/your/markdown/files
-zengen build
-```
-
-3. **实时预览（监听文件变化）**：
-```bash
-cd /path/to/your/markdown/files
-zengen build --watch
-```
-
-4. **查看帮助**：
-```bash
-zengen --help
-```
-
-**注意**：ZEN 现在强制使用当前目录作为源目录，输出到 `.zen/dist` 目录。不再支持指定源目录和输出目录参数。
+**注意**：ZEN 强制使用当前目录作为源目录，输出到 `.zen/dist` 目录。不再支持指定源目录和输出目录参数。
 
 ---
 
