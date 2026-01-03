@@ -30,7 +30,39 @@
 
 ## 快速开始
 
-*即将推出*
+### 安装
+
+```bash
+npm install -g zengen
+```
+
+或者作为项目依赖安装：
+
+```bash
+npm install zengen
+```
+
+### 使用
+
+1. **初始化项目**：
+```bash
+zengen init
+```
+
+2. **构建文档站点**：
+```bash
+zengen build ./docs
+```
+
+3. **实时预览（监听文件变化）**：
+```bash
+zengen build ./docs --watch
+```
+
+4. **查看帮助**：
+```bash
+zengen --help
+```
 
 ---
 
@@ -66,7 +98,39 @@ Life is short, I use AI translation. Stay connected with the world.
 
 ## Quick Start
 
-*Coming Soon*
+### Installation
+
+```bash
+npm install -g zengen
+```
+
+Or install as a project dependency:
+
+```bash
+npm install zengen
+```
+
+### Usage
+
+1. **Initialize a project**:
+```bash
+zengen init
+```
+
+2. **Build documentation site**:
+```bash
+zengen build ./docs
+```
+
+3. **Live preview (watch for changes)**:
+```bash
+zengen build ./docs --watch
+```
+
+4. **View help**:
+```bash
+zengen --help
+```
 
 ---
 
