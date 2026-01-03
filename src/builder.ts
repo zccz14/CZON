@@ -181,7 +181,7 @@ export class ZenBuilder {
           setTimeout(debouncedBuild, 300);
         }
       })
-      .on('error', (error: Error) => {
+      .on('error', (error: unknown) => {
         console.error(`❌ Watcher error:`, error);
       });
 
