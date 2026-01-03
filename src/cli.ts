@@ -29,6 +29,9 @@ program
   .option('-o, --out <dir>', 'Output directory for generated HTML', 'dist')
   .option('-t, --template <file>', 'Custom template file')
   .option('-w, --watch', 'Watch for changes and rebuild automatically')
+  .option('-s, --serve', 'Start HTTP server for preview (requires --watch)')
+  .option('-p, --port <number>', 'HTTP server port', '3000')
+  .option('--host <host>', 'HTTP server host', 'localhost')
   .option('-v, --verbose', 'Show detailed output')
   .option('-c, --config <file>', 'Configuration file')
   .option('--clean', 'Clean output directory before building')
@@ -53,6 +56,9 @@ program
         outDir: path.resolve(options.out),
         template: options.template ? path.resolve(options.template) : undefined,
         watch: options.watch,
+        serve: options.serve,
+        port: parseInt(options.port, 10),
+        host: options.host,
         verbose: options.verbose
       };
 
@@ -64,6 +70,12 @@ program
         console.error('❌ Configuration errors:');
         errors.forEach(error => console.error(`  - ${error}`));
         process.exit(1);
+      }
+
+      // 警告 --serve 选项需要 --watch 选项
+      if (options.serve && !options.watch) {
+        console.warn('⚠️ Warning: --serve option requires --watch option, ignoring --serve');
+        buildOptions.serve = false;
       }
 
       // 清理输出目录
@@ -174,6 +186,7 @@ console.log('Hello ZEN!');
 
         packageJson.scripts.build = 'zengen build docs --out dist';
         packageJson.scripts['build:watch'] = 'zengen build docs --out dist --watch';
+        packageJson.scripts['build:serve'] = 'zengen build docs --out dist --watch --serve';
         packageJson.scripts.clean = 'zengen clean dist';
 
         await fs.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2), 'utf-8');
@@ -185,6 +198,7 @@ console.log('Hello ZEN!');
           scripts: {
             build: 'zengen build docs --out dist',
             'build:watch': 'zengen build docs --out dist --watch',
+            'build:serve': 'zengen build docs --out dist --watch --serve',
             clean: 'zengen clean dist'
           }
         };
@@ -203,6 +217,7 @@ Next steps:
 1. Add your Markdown files to the 'docs' directory
 2. Run 'npm run build' to generate the site
 3. Run 'npm run build:watch' for development with auto-reload
+4. Run 'npm run build:serve' for development with auto-reload and HTTP server
 
 Project structure:
 ${targetDir}/
@@ -249,6 +264,8 @@ Commands:
 Examples:
   $ zengen build ./docs --out ./dist
   $ zengen build ./docs --out ./dist --watch
+  $ zengen build ./docs --out ./dist --watch --serve
+  $ zengen build ./docs --out ./dist --watch --serve --port 8080
   $ zengen init --dir ./my-docs
   $ zengen clean ./dist
 
@@ -262,6 +279,9 @@ program
   .option('-o, --out <dir>', 'Output directory')
   .option('-t, --template <file>', 'Custom template file')
   .option('-w, --watch', 'Watch for changes')
+  .option('-s, --serve', 'Start HTTP server for preview (requires --watch)')
+  .option('-p, --port <number>', 'HTTP server port', '3000')
+  .option('--host <host>', 'HTTP server host', 'localhost')
   .option('-v, --verbose', 'Show detailed output')
   .action(async (srcDir, options) => {
     if (!srcDir) {
@@ -277,8 +297,17 @@ program
         outDir: path.resolve(options.out || 'dist'),
         template: options.template ? path.resolve(options.template) : undefined,
         watch: options.watch,
+        serve: options.serve,
+        port: parseInt(options.port, 10),
+        host: options.host,
         verbose: options.verbose
       };
+
+      // 警告 --serve 选项需要 --watch 选项
+      if (options.serve && !options.watch) {
+        console.warn('⚠️ Warning: --serve option requires --watch option, ignoring --serve');
+        buildOptions.serve = false;
+      }
 
       if (options.watch) {
         await builder.watch(buildOptions);

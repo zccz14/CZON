@@ -4,6 +4,9 @@ export interface BuildOptions {
   template?: string;
   watch?: boolean;
   verbose?: boolean;
+  serve?: boolean;
+  port?: number;
+  host?: string;
 }
 
 export interface FileInfo {
