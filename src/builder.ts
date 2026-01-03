@@ -110,6 +110,10 @@ export class ZenBuilder {
     // 复制静态资源（如果存在）
     await this.copyStaticAssets(srcDir, outDir);
 
+    // 确保每个目录都有 index.html
+    if (verbose) console.log(`📁 Ensuring index.html in all directories...`);
+    await this.ensureDirectoryIndexHtml(outDir);
+
     const duration = Date.now() - startTime;
     if (verbose) {
       console.log(`🎉 Build completed!`);
@@ -328,6 +332,79 @@ export class ZenBuilder {
       await copyDir(staticDir, path.join(outDir, 'static'));
     } catch (error) {
       // 静态目录不存在是正常的，忽略错误
+    }
+  }
+
+  /**
+   * 确保每个目录都有 index.html 文件
+   * 为缺少 index.html 的目录创建重定向页面
+   */
+  private async ensureDirectoryIndexHtml(outDir: string): Promise<void> {
+    try {
+      // 递归遍历所有目录
+      async function processDirectory(dirPath: string): Promise<void> {
+        const entries = await fs.readdir(dirPath, { withFileTypes: true });
+
+        // 检查当前目录是否有 index.html
+        const hasIndexHtml = entries.some(entry =>
+          entry.isFile() && entry.name === 'index.html'
+        );
+
+        if (!hasIndexHtml) {
+          // 查找当前目录下的第一个 .html 文件（不包括 index.html）
+          const htmlFiles = entries
+            .filter(entry => entry.isFile() && entry.name.endsWith('.html') && entry.name !== 'index.html')
+            .map(entry => entry.name)
+            .sort();
+
+          let redirectTarget: string;
+
+          if (htmlFiles.length > 0) {
+            // 重定向到第一个 .html 文件
+            redirectTarget = htmlFiles[0];
+          } else {
+            // 如果没有 .html 文件，重定向到父目录
+            const parentDir = path.dirname(dirPath);
+            if (parentDir === dirPath) {
+              // 已经是根目录，重定向到根目录的 index.html（如果存在）
+              redirectTarget = 'index.html';
+            } else {
+              // 计算相对路径到父目录
+              const relativePath = path.relative(dirPath, parentDir);
+              redirectTarget = path.join(relativePath, 'index.html');
+            }
+          }
+
+          // 创建重定向 HTML
+          const redirectHtml = `<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="refresh" content="0; url=${redirectTarget}">
+  <title>Redirecting...</title>
+  <script>
+    window.location.href = "${redirectTarget}";
+  </script>
+</head>
+<body>
+  <p>正在重定向到 <a href="${redirectTarget}">${redirectTarget}</a>...</p>
+</body>
+</html>`;
+
+          await fs.writeFile(path.join(dirPath, 'index.html'), redirectHtml, 'utf-8');
+        }
+
+        // 递归处理子目录
+        for (const entry of entries) {
+          if (entry.isDirectory()) {
+            await processDirectory(path.join(dirPath, entry.name));
+          }
+        }
+      }
+
+      await processDirectory(outDir);
+    } catch (error) {
+      console.warn(`⚠️ Failed to ensure index.html in directories:`, error);
     }
   }
 
