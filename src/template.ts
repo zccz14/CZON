@@ -9,141 +9,247 @@ export class TemplateEngine {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{title}}</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          typography: {
+            DEFAULT: {
+              css: {
+                maxWidth: '65ch',
+                color: '#374151',
+                lineHeight: '1.75',
+                fontSize: '1.125rem',
+                a: {
+                  color: '#2563eb',
+                  textDecoration: 'none',
+                  fontWeight: '500',
+                  '&:hover': {
+                    color: '#1d4ed8',
+                    textDecoration: 'underline',
+                  },
+                },
+                'h1, h2, h3, h4': {
+                  color: '#111827',
+                  fontWeight: '700',
+                  letterSpacing: '-0.025em',
+                  marginTop: '2.5em',
+                  marginBottom: '0.5em',
+                },
+                h1: {
+                  fontSize: '2.25rem',
+                  lineHeight: '1.2',
+                },
+                h2: {
+                  fontSize: '1.875rem',
+                  lineHeight: '1.3',
+                },
+                h3: {
+                  fontSize: '1.5rem',
+                  lineHeight: '1.4',
+                },
+                h4: {
+                  fontSize: '1.25rem',
+                  lineHeight: '1.5',
+                },
+                p: {
+                  marginTop: '1.25em',
+                  marginBottom: '1.25em',
+                },
+                code: {
+                  color: '#dc2626',
+                  backgroundColor: '#f3f4f6',
+                  padding: '0.2em 0.4em',
+                  borderRadius: '0.25rem',
+                  fontWeight: '400',
+                  fontSize: '0.875em',
+                },
+                'code::before': {
+                  content: '""',
+                },
+                'code::after': {
+                  content: '""',
+                },
+                pre: {
+                  backgroundColor: '#1f2937',
+                  color: '#f9fafb',
+                  borderRadius: '0.5rem',
+                  padding: '1rem',
+                  overflowX: 'auto',
+                  fontSize: '0.875rem',
+                  lineHeight: '1.5',
+                },
+                'pre code': {
+                  backgroundColor: 'transparent',
+                  color: 'inherit',
+                  padding: '0',
+                  fontSize: 'inherit',
+                },
+                blockquote: {
+                  borderLeftColor: '#d1d5db',
+                  borderLeftWidth: '4px',
+                  fontStyle: 'normal',
+                  paddingLeft: '1.5rem',
+                  marginTop: '2rem',
+                  marginBottom: '2rem',
+                  color: '#4b5563',
+                },
+                ul: {
+                  marginTop: '1.25em',
+                  marginBottom: '1.25em',
+                  paddingLeft: '1.625em',
+                },
+                ol: {
+                  marginTop: '1.25em',
+                  marginBottom: '1.25em',
+                  paddingLeft: '1.625em',
+                },
+                li: {
+                  marginTop: '0.5em',
+                  marginBottom: '0.5em',
+                },
+                table: {
+                  width: '100%',
+                  marginTop: '2em',
+                  marginBottom: '2em',
+                  fontSize: '0.875em',
+                  lineHeight: '1.5',
+                },
+                thead: {
+                  borderBottomWidth: '2px',
+                  borderBottomColor: '#e5e7eb',
+                },
+                'thead th': {
+                  color: '#374151',
+                  fontWeight: '600',
+                  textAlign: 'left',
+                  paddingTop: '0.75rem',
+                  paddingBottom: '0.75rem',
+                  paddingLeft: '1rem',
+                  paddingRight: '1rem',
+                },
+                'tbody tr': {
+                  borderBottomWidth: '1px',
+                  borderBottomColor: '#e5e7eb',
+                },
+                'tbody td': {
+                  paddingTop: '0.75rem',
+                  paddingBottom: '0.75rem',
+                  paddingLeft: '1rem',
+                  paddingRight: '1rem',
+                },
+                'tbody tr:hover': {
+                  backgroundColor: '#f9fafb',
+                },
+                img: {
+                  marginTop: '2em',
+                  marginBottom: '2em',
+                  borderRadius: '0.5rem',
+                },
+                hr: {
+                  borderColor: '#e5e7eb',
+                  marginTop: '3em',
+                  marginBottom: '3em',
+                },
+              },
+            },
+          },
+        },
+      },
+    }
+  </script>
+  <!-- Highlight.js -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css">
   <style>
-    /* Critical CSS for initial render */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      font-size: 16px;
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      line-height: 1.6;
-      color: #1e293b;
-      background: #f8fafc;
-      display: flex;
-      min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    .sidebar {
-      width: 280px;
-      background: #ffffff;
-      border-right: 1px solid #e2e8f0;
-      padding: 2rem 1rem;
-      overflow-y: auto;
-      position: fixed;
-      height: 100vh;
-      left: 0;
-      top: 0;
-      z-index: 10;
-      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    }
-
-    .content {
-      flex: 1;
-      margin-left: 280px;
-      padding: 3rem 4rem;
-      max-width: 900px;
-      min-height: 100vh;
-    }
-
-    @media (max-width: 768px) {
-      body {
-        flex-direction: column;
-      }
-
-      .sidebar {
-        width: 100%;
-        height: auto;
-        position: static;
-        border-right: none;
-        border-bottom: 1px solid #e2e8f0;
-        padding: 1.5rem 1rem;
-      }
-
-      .content {
-        margin-left: 0;
-        padding: 2rem;
-      }
+    .hljs {
+      background: transparent;
     }
   </style>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/github.min.css">
-  <link rel="stylesheet" href="/styles.css">
 </head>
-<body>
-  <nav class="sidebar">
-    <div class="sidebar-header">
-      <h1>ZEN Documentation</h1>
-      <p>A minimalist Markdown documentation site builder</p>
-    </div>
-    {{navigation}}
-    <div class="sidebar-footer">
-      <div class="theme-toggle">
-        <button class="theme-toggle-btn" aria-label="Toggle dark mode">
-          <svg class="theme-icon-light" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8 12C10.2091 12 12 10.2091 12 8C12 5.79086 10.2091 4 8 4C5.79086 4 4 5.79086 4 8C4 10.2091 5.79086 12 8 12Z" fill="currentColor"/>
-            <path d="M8 2V3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M8 13V14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M2 8H3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M13 8H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M3.51465 3.51465L4.22183 4.22183" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M11.7782 11.7782L12.4854 12.4854" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M3.51465 12.4854L4.22183 11.7782" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M11.7782 4.22183L12.4854 3.51465" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          <svg class="theme-icon-dark" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14 8C14 11.3137 11.3137 14 8 14C4.68629 14 2 11.3137 2 8C2 4.68629 4.68629 2 8 2C11.3137 2 14 4.68629 14 8Z" fill="currentColor"/>
-          </svg>
-        </button>
-      </div>
-    </div>
-  </nav>
+<body class="bg-gray-50 min-h-screen">
+  <div class="flex flex-col lg:flex-row min-h-screen">
+    <!-- Sidebar -->
+    <aside class="lg:w-64 bg-white border-r border-gray-200 lg:h-screen lg:sticky lg:top-0 lg:overflow-y-auto">
+      <div class="p-6">
+        <div class="mb-8">
+          <h1 class="text-xl font-bold text-gray-900">ZEN Documentation</h1>
+          <p class="text-sm text-gray-600 mt-2">A minimalist Markdown documentation site builder</p>
+        </div>
 
-  <main class="content">
-    <header class="content-header">
-      <h1>{{title}}</h1>
-      <div class="meta">
-        <span class="last-updated">Last updated: <time datetime="{{metadata.lastUpdated}}">{{metadata.lastUpdated}}</time></span>
-        <span class="reading-time">Reading time: {{metadata.readingTime}} min</span>
-      </div>
-    </header>
+        <nav class="space-y-1">
+          {{navigation}}
+        </nav>
 
-    <article class="content-body">
-      {{{content}}}
-    </article>
-
-    <div class="content-navigation">
-      <div class="prev-next">
-        <a href="{{prevLink}}" class="nav-btn prev-btn" {{prevLinkDisabled}}>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span>Previous</span>
-        </a>
-        <a href="{{nextLink}}" class="nav-btn next-btn" {{nextLinkDisabled}}>
-          <span>Next</span>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
+        <div class="mt-8 pt-6 border-t border-gray-200">
+          <div class="text-sm text-gray-600">
+            <p class="mb-2">Version {{metadata.version}}</p>
+            <p>Built on {{metadata.buildDate}}</p>
+          </div>
+        </div>
       </div>
-    </div>
+    </aside>
 
-    <footer class="footer">
-      <div class="footer-content">
-        <p>Generated by <strong>ZEN</strong> • <a href="https://github.com/zccz14/ZEN" target="_blank" rel="noopener">View on GitHub</a></p>
-        <p class="footer-meta">Version {{metadata.version}} • Built on {{metadata.buildDate}}</p>
+    <!-- Main Content -->
+    <main class="flex-1">
+      <div class="max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <header class="mb-8 pb-6 border-b border-gray-200">
+          <h1 class="text-3xl font-bold text-gray-900 mb-4">{{title}}</h1>
+          <div class="flex flex-wrap gap-4 text-sm text-gray-600">
+            <div class="flex items-center">
+              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span>Updated: {{metadata.lastUpdated}}</span>
+            </div>
+            <div class="flex items-center">
+              <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>{{metadata.readingTime}} min read</span>
+            </div>
+          </div>
+        </header>
+
+        <!-- Article Content -->
+        <article class="prose prose-gray max-w-none">
+          {{{content}}}
+        </article>
+
+        <!-- Navigation -->
+        <div class="mt-12 pt-8 border-t border-gray-200">
+          <div class="flex justify-between">
+            <a href="{{prevLink}}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 {{prevLinkDisabled}}" {{prevLinkDisabled}}>
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+              </svg>
+              Previous
+            </a>
+            <a href="{{nextLink}}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 {{nextLinkDisabled}}" {{nextLinkDisabled}}>
+              Next
+              <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-12 pt-8 border-t border-gray-200">
+          <div class="text-center text-sm text-gray-600">
+            <p class="mb-2">Generated by <strong class="font-semibold">ZEN</strong></p>
+            <p>
+              <a href="https://github.com/zccz14/ZEN" target="_blank" rel="noopener" class="text-blue-600 hover:text-blue-800 hover:underline">
+                View on GitHub
+              </a>
+            </p>
+          </div>
+        </footer>
       </div>
-    </footer>
-  </main>
+    </main>
+  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
   <script>hljs.highlightAll();</script>
@@ -154,24 +260,52 @@ export class TemplateEngine {
    * 生成导航 HTML
    */
   private generateNavigationHtml(navigation: NavigationItem[], currentPath?: string): string {
-    const renderItem = (item: NavigationItem): string => {
+    const renderItem = (item: NavigationItem, depth = 0): string => {
       const isActive = currentPath === item.path;
-      const activeClass = isActive ? 'active' : '';
+      const activeClasses = isActive
+        ? 'bg-blue-50 text-blue-700 border-blue-200'
+        : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900 border-transparent';
 
-      let html = `<li class="nav-item">`;
-      html += `<a href="${item.path}" class="nav-link ${activeClass}">${item.title}</a>`;
+      // Predefined padding classes for different depths
+      const paddingClasses = [
+        'pl-0', // depth 0
+        'pl-4', // depth 1
+        'pl-8', // depth 2
+        'pl-12', // depth 3
+        'pl-16', // depth 4
+      ];
+      const paddingLeft = paddingClasses[Math.min(depth, paddingClasses.length - 1)];
 
+      // Predefined margin classes for children containers
+      const marginClasses = [
+        'ml-0', // depth 0
+        'ml-4', // depth 1
+        'ml-8', // depth 2
+        'ml-12', // depth 3
+        'ml-16', // depth 4
+      ];
+      const marginLeft = marginClasses[Math.min(depth, marginClasses.length - 1)];
+
+      let html = '';
+
+      // Main item
+      html += `<div class="mb-1">`;
+      html += `<a href="${item.path}" class="block py-2 px-3 ${paddingLeft} border-l-2 ${activeClasses} rounded-r text-sm font-medium transition-colors duration-150">`;
+      html += item.title;
+      html += `</a>`;
+      html += `</div>`;
+
+      // Children
       if (item.children && item.children.length > 0) {
-        html += `<ul class="nav-submenu">`;
-        html += item.children.map(child => renderItem(child)).join('');
-        html += `</ul>`;
+        html += `<div class="${marginLeft}">`;
+        html += item.children.map(child => renderItem(child, depth + 1)).join('');
+        html += `</div>`;
       }
 
-      html += `</li>`;
       return html;
     };
 
-    return `<ul class="nav-list">${navigation.map(item => renderItem(item)).join('')}</ul>`;
+    return navigation.map(item => renderItem(item)).join('');
   }
 
   /**
