@@ -1,0 +1,117 @@
+name: Bump Version
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version bump type'
+        required: true
+        type: choice
+        options:
+          - major
+          - minor
+          - patch
+        default: 'patch'
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Git
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Sync with remote
+        run: |
+          git fetch origin
+          git checkout -b bump-version-${{ github.run_id }}
+          git reset --hard origin/main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24.x'
+
+      - name: Get current version
+        id: get_version
+        run: |
+          CURRENT_VERSION=$(jq -r '.version' package.json)
+          echo "current_version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
+          echo "Current version: $CURRENT_VERSION"
+
+      - name: Bump version
+        id: bump_version
+        run: |
+          # 解析当前版本号 (支持 semver 格式)
+          CURRENT_VERSION="${{ steps.get_version.outputs.current_version }}"
+          echo "Current version: $CURRENT_VERSION"
+
+          # 使用 npm version 命令来安全地更新版本
+          # 这会自动处理 semver 规则
+          npm version "${{ github.event.inputs.version }}" --no-git-tag-version
+
+          # 获取新版本
+          NEW_VERSION=$(jq -r '.version' package.json)
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "New version: $NEW_VERSION"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: |
+          npm run test:types
+          npm run test:build
+          npm run test:cli
+
+      - name: Commit changes
+        run: |
+          git add package.json
+          git commit -m "chore: bump version from ${{ steps.get_version.outputs.current_version }} to ${{ steps.bump_version.outputs.new_version }}"
+
+      - name: Push changes
+        run: |
+          git push origin bump-version-${{ github.run_id }}
+
+      - name: Create Pull Request
+        id: create_pr
+        run: |
+          PR_TITLE="chore: bump version from ${{ steps.get_version.outputs.current_version }} to ${{ steps.bump_version.outputs.new_version }}"
+          PR_BODY="This PR was automatically created by the Bump Version workflow.
+
+          ## Changes
+          - Bumped version from **${{ steps.get_version.outputs.current_version }}** to **${{ steps.bump_version.outputs.new_version }}**
+          - Version bump type: **${{ github.event.inputs.version }}**
+
+          ## Test Results
+          - Type checking: ✅ Passed
+          - Build test: ✅ Passed
+          - CLI test: ✅ Passed
+
+          🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+          Co-Authored-By: Claude <noreply@anthropic.com>"
+
+          gh pr create \
+            --title "$PR_TITLE" \
+            --body "$PR_BODY" \
+            --base main \
+            --head bump-version-${{ github.run_id }} \
+            --label "automated-pr" \
+            --label "version-bump"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Output PR URL
+        run: |
+          echo "Pull Request created: ${{ steps.create_pr.outputs.pr_url }}"
