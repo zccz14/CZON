@@ -66,9 +66,18 @@ export class NavigationGenerator {
         });
       } else {
         // 查找或创建目录节点
+        // 首先尝试通过路径查找（最准确）
         let dirItem = currentLevel.find(item =>
-          item.title === displayName && !item.path.endsWith('.html')
+          item.path === itemPath
         );
+
+        // 如果没找到，尝试通过格式化后的标题查找
+        if (!dirItem) {
+          const formattedTitle = this.formatTitle(displayName);
+          dirItem = currentLevel.find(item =>
+            item.title === formattedTitle && item.children !== undefined
+          );
+        }
 
         if (!dirItem) {
           dirItem = {
