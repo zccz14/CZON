@@ -250,17 +250,9 @@ export class TemplateEngine {
   </nav>
 
   <main class="content">
-    {{#if hasMetadata}}
     <header class="content-header">
       <h1>{{title}}</h1>
-      {{#if metadata}}
-      <div class="meta">
-        {{#if metadata.author}}By {{metadata.author}} • {{/if}}
-        {{#if metadata.date}}{{metadata.date}}{{/if}}
-      </div>
-      {{/if}}
     </header>
-    {{/if}}
 
     <article class="content-body">
       {{{content}}}
@@ -310,77 +302,11 @@ export class TemplateEngine {
     const navigationHtml = this.generateNavigationHtml(data.navigation, data.currentPath);
     result = result.replace('{{navigation}}', navigationHtml);
 
-    // 替换其他变量
-    result = result.replace('{{title}}', data.title || 'Untitled');
-    result = result.replace('{{{content}}}', data.content || '');
-
-    // 检查是否有 metadata（metadata 存在且不为空对象）
-    const hasMetadata = data.metadata && Object.keys(data.metadata).length > 0;
-
-    // 处理条件语句
-    result = this.processConditionalBlocks(result, data);
-
-    // 处理 metadata 变量替换
-    if (data.metadata) {
-      // 简单的 metadata 替换逻辑
-      for (const [key, value] of Object.entries(data.metadata)) {
-        const placeholder = `{{metadata.${key}}}`;
-        if (result.includes(placeholder)) {
-          result = result.replace(new RegExp(placeholder, 'g'), String(value));
-        }
-      }
-
-      // 替换 metadata 对象为 JSON（如果需要）
-      if (result.includes('{{metadata}}')) {
-        result = result.replace('{{metadata}}', JSON.stringify(data.metadata));
-      }
-    }
-
-    // 移除未使用的 metadata 占位符
-    result = result.replace(/\{\{metadata\.[^}]*\}\}/g, '');
+    // 替换其他变量 - 使用全局替换
+    result = result.replace(/{{title}}/g, data.title || 'Untitled');
+    result = result.replace(/{{{content}}}/g, data.content || '');
 
     return result;
-  }
-
-  /**
-   * 处理模板中的条件语句块
-   */
-  private processConditionalBlocks(template: string, data: TemplateData): string {
-    let result = template;
-
-    // 定义条件变量
-    const conditions: Record<string, boolean> = {
-      hasMetadata: !!(data.metadata && Object.keys(data.metadata).length > 0),
-      metadata: !!data.metadata,
-      'metadata.author': !!(data.metadata && data.metadata.author),
-      'metadata.date': !!(data.metadata && data.metadata.date),
-    };
-
-    // 递归处理所有条件语句块
-    let changed;
-    do {
-      changed = false;
-      for (const [condition, value] of Object.entries(conditions)) {
-        const oldResult = result;
-        result = this.processIfBlock(result, condition, value);
-        if (oldResult !== result) {
-          changed = true;
-        }
-      }
-    } while (changed);
-
-    return result;
-  }
-
-  /**
-   * 处理单个条件语句块
-   */
-  private processIfBlock(template: string, condition: string, value: boolean): string {
-    const ifPattern = new RegExp(`\\{\\{#if ${condition}\\}\\}([\\s\\S]*?)\\{\\{/if\\}\\}`, 'g');
-
-    return template.replace(ifPattern, (match, content) => {
-      return value ? content : '';
-    });
   }
 
   /**
@@ -408,10 +334,10 @@ export class TemplateEngine {
    */
   generateTemplateData(fileInfo: FileInfo, navigation: NavigationItem[]): TemplateData {
     return {
-      title: fileInfo.metadata?.title || fileInfo.name,
+      title: fileInfo.name, // 直接使用文件名作为标题
       content: fileInfo.html || '',
       navigation,
-      metadata: fileInfo.metadata,
+      metadata: fileInfo.metadata, // 保留但不再使用
       currentPath: `/${fileInfo.relativePath.replace(/\.md$/, '.html')}`,
     };
   }
