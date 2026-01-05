@@ -24,3 +24,9 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Test files and directories
+test-ai-docs/
+test-ai.js
+test-ai-integration.js
+.zen/

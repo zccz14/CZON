@@ -25,6 +25,20 @@ export interface FileInfo {
   html?: string;
   metadata?: { title: string }; // 简化，只保留标题
   hash?: string; // 文件内容的 sha256 hash
+  aiMetadata?: AIMetadata; // AI 提取的元数据
+}
+
+export interface AIMetadata {
+  title: string; // AI 提取的标题
+  summary: string; // AI 提取的摘要，控制在 100字以内
+  tags: string[]; // AI 提取的关键字
+  inferred_date?: string; // 正文中隐含的文档创建日期，没有就留空
+  inferred_lang: string; // 文章使用的语言，例如 zh-Hans 或者 en-US
+  tokens_used?: {
+    prompt: number;
+    completion: number;
+    total: number;
+  }; // tokens 使用情况
 }
 
 export interface NavigationItem {
@@ -55,6 +69,12 @@ export interface ZenConfig {
     sourceLang: string;
     targetLangs: string[];
     apiKey?: string;
+  };
+  ai?: {
+    enabled?: boolean;
+    model?: string;
+    temperature?: number;
+    maxTokens?: number;
   };
   processors?: MarkdownProcessor[];
   includePattern?: string;
