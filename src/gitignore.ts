@@ -10,6 +10,19 @@ export class GitIgnoreProcessor {
   private patterns: string[] = [];
   private baseDir: string;
 
+  // 始终忽略的硬编码模式列表
+  private readonly hardcodedPatterns: string[] = [
+    'node_modules', // Node.js 依赖目录
+    '**/node_modules', // 任意深度的 node_modules
+    '**/node_modules/**', // node_modules 中的所有内容
+    '.git', // Git 目录
+    '**/.git', // 任意深度的 .git 目录
+    '**/.git/**', // .git 目录中的所有内容
+    '.zen', // ZEN 构建输出目录
+    '**/.zen', // 任意深度的 .zen 目录
+    '**/.zen/**', // .zen 目录中的所有内容
+  ];
+
   constructor(baseDir: string) {
     this.baseDir = baseDir;
   }
@@ -90,7 +103,14 @@ export class GitIgnoreProcessor {
     // 标准化路径分隔符为 /
     const normalizedPath = relativePath.replace(/\\/g, '/');
 
-    // 检查每个模式
+    // 首先检查硬编码模式（始终忽略）
+    for (const pattern of this.hardcodedPatterns) {
+      if (minimatch(normalizedPath, pattern, { dot: true })) {
+        return true;
+      }
+    }
+
+    // 然后检查用户定义的 .gitignore 模式
     for (const pattern of this.patterns) {
       // 首先尝试直接匹配
       if (minimatch(normalizedPath, pattern, { dot: true })) {
@@ -142,10 +162,10 @@ export class GitIgnoreProcessor {
   }
 
   /**
-   * 获取所有忽略模式
+   * 获取所有忽略模式（包括硬编码模式）
    */
   getPatterns(): string[] {
-    return [...this.patterns];
+    return [...this.hardcodedPatterns, ...this.patterns];
   }
 
   /**
