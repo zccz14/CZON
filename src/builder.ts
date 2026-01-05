@@ -376,11 +376,55 @@ export class ZenBuilder {
 
     for (const file of files) {
       try {
-        // 读取文件内容
-        const filePath = file.path.startsWith('/')
-          ? file.path
-          : path.join(process.cwd(), file.path);
-        const content = await fs.readFile(filePath, 'utf-8');
+        let content: string;
+        let filePath: string;
+        let finalHash = file.hash;
+        let finalMetadata = file.metadata;
+
+        // 获取源语言
+        const sourceLang = file.metadata?.inferred_lang || 'zh-Hans';
+
+        if (lang === sourceLang) {
+          // 如果是源语言，读取原始文件
+          filePath = file.path.startsWith('/') ? file.path : path.join(process.cwd(), file.path);
+          content = await fs.readFile(filePath, 'utf-8');
+        } else {
+          // 如果是目标语言，尝试读取翻译文件
+          const translationService = new TranslationService();
+          try {
+            // 创建临时 FileInfo 对象用于获取翻译
+            const tempFileInfo: FileInfo = {
+              path: file.path,
+              name: path.basename(file.path, '.md'),
+              ext: '.md',
+              content: '', // 临时内容
+              hash: file.hash,
+              aiMetadata: file.metadata,
+            };
+
+            // 确保翻译文件存在并获取内容
+            content = await translationService.ensureTranslatedFile(
+              tempFileInfo,
+              sourceLang,
+              lang,
+              file.hash
+            );
+
+            // 翻译文件的路径
+            filePath = translationService.getTranslatedFilePath(file.path, lang, file.hash);
+
+            // 对于翻译文件，我们可以使用相同的 hash，或者生成新的 hash
+            // 这里我们使用相同的 hash，因为翻译是基于原始内容的
+          } catch (translationError) {
+            console.warn(
+              `⚠️ Failed to get translation for ${file.path} to ${lang}, using source file:`,
+              translationError
+            );
+            // 如果翻译失败，回退到源文件
+            filePath = file.path.startsWith('/') ? file.path : path.join(process.cwd(), file.path);
+            content = await fs.readFile(filePath, 'utf-8');
+          }
+        }
 
         // 创建 FileInfo 对象
         const fileInfo: FileInfo = {
@@ -388,8 +432,8 @@ export class ZenBuilder {
           name: path.basename(file.path, '.md'),
           ext: '.md',
           content,
-          hash: file.hash,
-          aiMetadata: file.metadata,
+          hash: finalHash,
+          aiMetadata: finalMetadata,
         };
 
         // 转换为 HTML
