@@ -259,32 +259,50 @@ export class ZenBuilder {
     // 确保输出目录存在
     await fs.mkdir(outDir, { recursive: true });
 
-    // 加载 meta.json
-    const aiService = new AIService();
-    const metaData = await aiService.loadMetaData();
+    // 扫描阶段：生成文件列表（与普通构建保持一致）
+    if (verbose) console.log(`🔍 Scanning source directory...`);
+    const scannedFiles = await this.scanner.scanDirectory(srcDir);
 
-    if (verbose) {
-      console.log(`📊 Loaded ${metaData.files.length} entries from meta.json`);
-    }
-
-    // 过滤有效的文件项
-    let validFiles = metaData.files;
-
-    if (filterOrphans) {
-      const originalCount = validFiles.length;
-      validFiles = await this.filterValidFiles(validFiles, srcDir, verbose);
-      if (verbose) {
-        console.log(`🧹 Filtered ${originalCount - validFiles.length} orphan files`);
-      }
-    }
-
-    if (validFiles.length === 0) {
-      console.warn(`⚠️ No valid files found in meta.json`);
+    if (scannedFiles.length === 0) {
+      console.warn(`⚠️ No Markdown files found in ${srcDir}`);
       return;
     }
 
+    if (verbose) console.log(`✅ Found ${scannedFiles.length} Markdown files`);
+
+    // 清理 meta.json 中的孤儿条目（文件已删除但缓存仍存在）
+    if (this.aiProcessor.isEnabled()) {
+      if (verbose) console.log(`🧹 Cleaning orphan entries in meta.json...`);
+      const aiService = new AIService();
+      const existingFilePaths = scannedFiles.map(file => file.path);
+      await aiService.removeOrphanEntries(existingFilePaths);
+    }
+
+    // 构建阶段：读取文件内容并转换
+    if (verbose) console.log(`📄 Reading and converting Markdown files...`);
+    const files = await this.markdownConverter.convertScannedFiles(scannedFiles, srcDir);
+
+    if (files.length === 0) {
+      console.warn(`⚠️ Failed to read any Markdown files`);
+      return;
+    }
+
+    // AI 批量处理（如果启用）- 更新 meta.json
+    if (this.aiProcessor.isEnabled()) {
+      if (verbose) console.log(`🤖 Running AI metadata extraction...`);
+      await this.aiProcessor.processBatch(files);
+    }
+
+    // 存储母语文件到 .zen/src
+    if (verbose) console.log(`💾 Storing native language files...`);
+    await this.storeNativeFiles(files, verbose);
+
+    // 使用扫描得到的 files 数组，而不是从 meta.json 重新加载
+    // 这些 files 已经包含了最新的 AI 元数据
+    let validFiles = files;
+
     if (verbose) {
-      console.log(`✅ Found ${validFiles.length} valid files to build`);
+      console.log(`✅ Using ${validFiles.length} scanned files for build`);
     }
 
     // 为每个语言构建
@@ -349,7 +367,7 @@ export class ZenBuilder {
    * 为特定语言构建文件
    */
   private async buildForLanguage(
-    files: any[],
+    files: FileInfo[],
     lang: string,
     srcDir: string,
     outDir: string,
@@ -378,11 +396,12 @@ export class ZenBuilder {
       try {
         let content: string;
         let filePath: string;
-        let finalHash = file.hash;
-        let finalMetadata = file.metadata;
+        // 确保 hash 存在，如果不存在则计算
+        let finalHash = file.hash || aiService.calculateFileHash(file.content);
+        let finalMetadata = file.aiMetadata;
 
         // 获取源语言
-        const sourceLang = file.metadata?.inferred_lang || 'zh-Hans';
+        const sourceLang = file.aiMetadata?.inferred_lang || 'zh-Hans';
 
         if (lang === sourceLang) {
           // 如果是源语言，读取原始文件
@@ -392,26 +411,16 @@ export class ZenBuilder {
           // 如果是目标语言，尝试读取翻译文件
           const translationService = new TranslationService();
           try {
-            // 创建临时 FileInfo 对象用于获取翻译
-            const tempFileInfo: FileInfo = {
-              path: file.path,
-              name: path.basename(file.path, '.md'),
-              ext: '.md',
-              content: '', // 临时内容
-              hash: file.hash,
-              aiMetadata: file.metadata,
-            };
-
             // 确保翻译文件存在并获取内容
             content = await translationService.ensureTranslatedFile(
-              tempFileInfo,
+              file,
               sourceLang,
               lang,
-              file.hash
+              finalHash
             );
 
             // 翻译文件的路径
-            filePath = translationService.getTranslatedFilePath(file.path, lang, file.hash);
+            filePath = translationService.getTranslatedFilePath(file.path, lang, finalHash);
 
             // 对于翻译文件，我们可以使用相同的 hash，或者生成新的 hash
             // 这里我们使用相同的 hash，因为翻译是基于原始内容的
@@ -426,11 +435,9 @@ export class ZenBuilder {
           }
         }
 
-        // 创建 FileInfo 对象
+        // 创建 FileInfo 对象（使用现有的 file 对象，但更新内容）
         const fileInfo: FileInfo = {
-          path: file.path,
-          name: path.basename(file.path, '.md'),
-          ext: '.md',
+          ...file,
           content,
           hash: finalHash,
           aiMetadata: finalMetadata,
