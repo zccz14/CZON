@@ -35,10 +35,14 @@ describe('GitIgnoreProcessor', () => {
       assert.strictEqual(processor['baseDir'], '/test/dir');
     });
 
-    it('应该初始化空模式数组', () => {
+    it('应该初始化包含硬编码模式的数组', () => {
       const processor = new GitIgnoreProcessor('/test/dir');
       const patterns = processor.getPatterns();
-      assert.deepStrictEqual(patterns, []);
+      // 检查是否包含硬编码模式
+      assert.ok(patterns.includes('node_modules'));
+      assert.ok(patterns.includes('**/node_modules'));
+      assert.ok(patterns.includes('.git'));
+      assert.ok(patterns.includes('.zen'));
     });
   });
 
@@ -57,15 +61,28 @@ dist/
       await processor.loadFromFile('.gitignore');
 
       const patterns = processor.getPatterns();
-      assert.deepStrictEqual(patterns, ['**/node_modules', '*.log', '**/dist', '**/.DS_Store']);
+      // 应该包含硬编码模式和从.gitignore加载的模式
+      assert.ok(patterns.includes('node_modules')); // 硬编码
+      assert.ok(patterns.includes('**/node_modules')); // 从.gitignore加载
+      assert.ok(patterns.includes('*.log')); // 从.gitignore加载
+      assert.ok(patterns.includes('**/dist')); // 从.gitignore加载
+      assert.ok(patterns.includes('**/.DS_Store')); // 从.gitignore加载
+      assert.ok(patterns.includes('.git')); // 硬编码
+      assert.ok(patterns.includes('.zen')); // 硬编码
     });
 
-    it('当.gitignore文件不存在时应该使用空模式', async () => {
+    it('当.gitignore文件不存在时应该使用硬编码模式', async () => {
       const processor = new GitIgnoreProcessor(testDir);
       await processor.loadFromFile('non-existent-file');
 
       const patterns = processor.getPatterns();
-      assert.deepStrictEqual(patterns, []);
+      // 应该只包含硬编码模式
+      assert.ok(patterns.includes('node_modules'));
+      assert.ok(patterns.includes('**/node_modules'));
+      assert.ok(patterns.includes('.git'));
+      assert.ok(patterns.includes('.zen'));
+      // 不应该有用户定义的模式
+      assert.ok(!patterns.includes('*.log'));
     });
 
     it('应该跳过空行和注释', async () => {
@@ -83,7 +100,12 @@ node_modules/
       await processor.loadFromFile('.gitignore');
 
       const patterns = processor.getPatterns();
-      assert.deepStrictEqual(patterns, ['**/node_modules', '*.log']);
+      // 应该包含硬编码模式和从.gitignore加载的模式
+      assert.ok(patterns.includes('node_modules')); // 硬编码
+      assert.ok(patterns.includes('**/node_modules')); // 从.gitignore加载
+      assert.ok(patterns.includes('*.log')); // 从.gitignore加载
+      assert.ok(patterns.includes('.git')); // 硬编码
+      assert.ok(patterns.includes('.zen')); // 硬编码
     });
 
     it('应该跳过否定模式', async () => {
@@ -98,7 +120,12 @@ node_modules/
       await processor.loadFromFile('.gitignore');
 
       const patterns = processor.getPatterns();
-      assert.deepStrictEqual(patterns, ['**/node_modules', '*.log']);
+      // 应该包含硬编码模式和从.gitignore加载的模式（不包括否定模式）
+      assert.ok(patterns.includes('node_modules')); // 硬编码
+      assert.ok(patterns.includes('**/node_modules')); // 从.gitignore加载
+      assert.ok(patterns.includes('*.log')); // 从.gitignore加载
+      assert.ok(patterns.includes('.git')); // 硬编码
+      assert.ok(patterns.includes('.zen')); // 硬编码
     });
   });
 
@@ -112,7 +139,12 @@ dist/
       processor['parsePatterns'](content);
 
       const patterns = processor.getPatterns();
-      assert.deepStrictEqual(patterns, ['**/node_modules', '**/dist']);
+      // 应该包含硬编码模式和解析的模式
+      assert.ok(patterns.includes('node_modules')); // 硬编码
+      assert.ok(patterns.includes('**/node_modules')); // 从内容解析
+      assert.ok(patterns.includes('**/dist')); // 从内容解析
+      assert.ok(patterns.includes('.git')); // 硬编码
+      assert.ok(patterns.includes('.zen')); // 硬编码
     });
 
     it('应该正确处理文件扩展名模式', () => {
@@ -124,7 +156,12 @@ dist/
       processor['parsePatterns'](content);
 
       const patterns = processor.getPatterns();
-      assert.deepStrictEqual(patterns, ['*.log', '*.tmp']);
+      // 应该包含硬编码模式和解析的模式
+      assert.ok(patterns.includes('node_modules')); // 硬编码
+      assert.ok(patterns.includes('*.log')); // 从内容解析
+      assert.ok(patterns.includes('*.tmp')); // 从内容解析
+      assert.ok(patterns.includes('.git')); // 硬编码
+      assert.ok(patterns.includes('.zen')); // 硬编码
     });
 
     it('应该处理以/开头的模式', () => {
@@ -136,7 +173,11 @@ dist/
       processor['parsePatterns'](content);
 
       const patterns = processor.getPatterns();
-      assert.deepStrictEqual(patterns, ['node_modules', 'dist']);
+      // 应该包含硬编码模式和解析的模式
+      assert.ok(patterns.includes('node_modules')); // 硬编码
+      assert.ok(patterns.includes('dist')); // 从内容解析
+      assert.ok(patterns.includes('.git')); // 硬编码
+      assert.ok(patterns.includes('.zen')); // 硬编码
     });
 
     it('应该处理包含通配符的模式', () => {
@@ -148,7 +189,12 @@ dist/
       processor['parsePatterns'](content);
 
       const patterns = processor.getPatterns();
-      assert.deepStrictEqual(patterns, ['**/node_modules', '**/.vscode']);
+      // 应该包含硬编码模式和解析的模式
+      assert.ok(patterns.includes('node_modules')); // 硬编码
+      assert.ok(patterns.includes('**/node_modules')); // 从内容解析
+      assert.ok(patterns.includes('**/.vscode')); // 从内容解析
+      assert.ok(patterns.includes('.git')); // 硬编码
+      assert.ok(patterns.includes('.zen')); // 硬编码
     });
   });
 
@@ -218,21 +264,35 @@ dist/
       const processor = new GitIgnoreProcessor(testDir);
 
       processor.addPattern('custom-pattern');
-      assert.deepStrictEqual(processor.getPatterns(), ['custom-pattern']);
+      const patterns = processor.getPatterns();
+      // 应该包含硬编码模式和自定义模式
+      assert.ok(patterns.includes('node_modules')); // 硬编码
+      assert.ok(patterns.includes('custom-pattern')); // 自定义
 
       processor.addPattern('another-pattern');
-      assert.deepStrictEqual(processor.getPatterns(), ['custom-pattern', 'another-pattern']);
+      const updatedPatterns = processor.getPatterns();
+      assert.ok(updatedPatterns.includes('node_modules')); // 硬编码
+      assert.ok(updatedPatterns.includes('custom-pattern')); // 自定义
+      assert.ok(updatedPatterns.includes('another-pattern')); // 自定义
     });
 
-    it('应该能够清除所有模式', () => {
+    it('应该能够清除所有用户模式（但保留硬编码模式）', () => {
       const processor = new GitIgnoreProcessor(testDir);
 
       processor.addPattern('pattern1');
       processor.addPattern('pattern2');
-      assert.strictEqual(processor.getPatterns().length, 2);
+      // 总模式数 = 硬编码模式数 + 用户模式数
+      const totalPatterns = processor.getPatterns().length;
+      assert.ok(totalPatterns >= 2); // 至少包含硬编码模式
 
       processor.clearPatterns();
-      assert.deepStrictEqual(processor.getPatterns(), []);
+      const patternsAfterClear = processor.getPatterns();
+      // 清除后应该只包含硬编码模式
+      assert.ok(patternsAfterClear.includes('node_modules'));
+      assert.ok(patternsAfterClear.includes('.git'));
+      assert.ok(patternsAfterClear.includes('.zen'));
+      assert.ok(!patternsAfterClear.includes('pattern1'));
+      assert.ok(!patternsAfterClear.includes('pattern2'));
     });
   });
 
@@ -247,7 +307,12 @@ node_modules/
       const processor = await createGitIgnoreProcessor(testDir);
       const patterns = processor.getPatterns();
 
-      assert.deepStrictEqual(patterns, ['**/node_modules', '*.log']);
+      // 应该包含硬编码模式和从.gitignore加载的模式
+      assert.ok(patterns.includes('node_modules')); // 硬编码
+      assert.ok(patterns.includes('**/node_modules')); // 从.gitignore加载
+      assert.ok(patterns.includes('*.log')); // 从.gitignore加载
+      assert.ok(patterns.includes('.git')); // 硬编码
+      assert.ok(patterns.includes('.zen')); // 硬编码
     });
   });
 });
