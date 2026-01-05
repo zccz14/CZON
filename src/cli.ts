@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { config } from 'dotenv';
 import { Cli, Command, Option } from 'clipanion';
 import { ZenBuilder } from './builder';
 import { ZenConfig } from './types';
@@ -7,6 +8,9 @@ import * as path from 'path';
 import * as fs from 'fs/promises';
 import * as fsSync from 'fs';
 import * as url from 'url';
+
+// 加载 .env 文件中的环境变量
+config();
 
 // 获取版本号 - 从 package.json 读取
 function getVersion(): string {
@@ -56,7 +60,9 @@ class BuildCommand extends BaseCommand {
   baseUrl = Option.String('--base-url');
   clean = Option.Boolean('--clean');
   ai = Option.Boolean('--ai', { description: 'Enable AI metadata extraction' });
-  lang = Option.Array('--lang', { description: 'Target languages for translation (e.g., en-US, ja-JP)' });
+  lang = Option.Array('--lang', {
+    description: 'Target languages for translation (e.g., en-US, ja-JP)',
+  });
 
   static usage = Command.Usage({
     description: 'Build documentation site from Markdown files in current directory',
@@ -93,11 +99,14 @@ class BuildCommand extends BaseCommand {
 
       // 处理语言配置：命令行参数优先于配置文件
       const targetLangs = this.lang && this.lang.length > 0 ? this.lang : config.i18n?.targetLangs;
-      const i18nConfig = targetLangs && targetLangs.length > 0 ? {
-        ...config.i18n,
-        sourceLang: config.i18n?.sourceLang || 'zh-Hans', // 默认源语言为中文
-        targetLangs,
-      } : undefined;
+      const i18nConfig =
+        targetLangs && targetLangs.length > 0
+          ? {
+              ...config.i18n,
+              sourceLang: config.i18n?.sourceLang || 'zh-Hans', // 默认源语言为中文
+              targetLangs,
+            }
+          : undefined;
 
       // 合并命令行参数和配置
       const buildOptions = {
