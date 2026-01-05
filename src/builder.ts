@@ -4,6 +4,7 @@ import { TemplateEngine } from './template';
 import { NavigationGenerator } from './navigation';
 import { GitIgnoreProcessor } from './gitignore';
 import { Scanner } from './scanner';
+import { AIProcessor } from './ai-processor';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import * as chokidar from 'chokidar';
@@ -15,11 +16,24 @@ export class ZenBuilder {
   private templateEngine: TemplateEngine;
   private navigationGenerator: NavigationGenerator;
   private scanner: Scanner;
+  private aiProcessor: AIProcessor;
   private config: ZenConfig = {};
 
   constructor(config: ZenConfig = {}) {
     this.config = config;
-    this.markdownConverter = new MarkdownConverter(config.processors || []);
+
+    // 创建 AI 处理器
+    this.aiProcessor = new AIProcessor(config);
+
+    // 获取现有的 processors 或创建空数组
+    const existingProcessors = config.processors || [];
+
+    // 如果 AI 处理器启用，将其添加到 processors 列表的开头
+    const processors = this.aiProcessor.isEnabled()
+      ? [this.aiProcessor, ...existingProcessors]
+      : existingProcessors;
+
+    this.markdownConverter = new MarkdownConverter(processors);
     this.templateEngine = new TemplateEngine();
     this.navigationGenerator = new NavigationGenerator(config.baseUrl);
     this.scanner = new Scanner(config);
@@ -74,6 +88,12 @@ export class ZenBuilder {
     if (files.length === 0) {
       console.warn(`⚠️ Failed to read any Markdown files`);
       return;
+    }
+
+    // AI 批量处理（如果启用）
+    if (this.aiProcessor.isEnabled()) {
+      if (verbose) console.log(`🤖 Running AI metadata extraction...`);
+      await this.aiProcessor.processBatch(files);
     }
 
     // 更新导航生成器的 baseUrl（优先使用命令行参数）
@@ -468,6 +488,23 @@ export class ZenBuilder {
 
       if (!config.i18n.targetLangs || config.i18n.targetLangs.length === 0) {
         errors.push('i18n.targetLangs must have at least one language');
+      }
+    }
+
+    if (config.ai) {
+      if (config.ai.enabled && !process.env.OPENAI_API_KEY && !config.i18n?.apiKey) {
+        errors.push('OPENAI_API_KEY environment variable is required when AI is enabled');
+      }
+
+      if (
+        config.ai.temperature !== undefined &&
+        (config.ai.temperature < 0 || config.ai.temperature > 2)
+      ) {
+        errors.push('ai.temperature must be between 0 and 2');
+      }
+
+      if (config.ai.maxTokens !== undefined && config.ai.maxTokens < 1) {
+        errors.push('ai.maxTokens must be greater than 0');
       }
     }
 
