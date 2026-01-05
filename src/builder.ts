@@ -77,6 +77,9 @@ export class ZenBuilder {
     // 确保输出目录存在
     await fs.mkdir(outDir, { recursive: true });
 
+    // 清理输出目录（删除 --clean 选项后始终执行）
+    await this.clean(outDir);
+
     // 确保 .zen/.gitignore 文件存在且内容正确
     const zenDir = path.dirname(outDir); // .zen 目录
     const zenGitignorePath = path.join(zenDir, '.gitignore');
@@ -251,6 +254,9 @@ export class ZenBuilder {
 
     // 确保输出目录存在
     await fs.mkdir(outDir, { recursive: true });
+
+    // 清理输出目录（删除 --clean 选项后始终执行）
+    await this.clean(outDir);
 
     // 扫描阶段：生成文件列表（与普通构建保持一致）
     if (verbose) console.log(`🔍 Scanning source directory...`);

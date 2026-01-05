@@ -30,7 +30,7 @@ npx zengen build --watch
 npx zengen build --watch --serve
 
 # 生产构建
-npx zengen build --clean
+npx zengen build
 ```
 
 ## 部署策略
@@ -63,7 +63,7 @@ jobs:
       - name: Build documentation
         run: |
           cd docs
-          npx zengen build --clean --base-url /my-docs
+          npx zengen build --base-url /my-docs
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
@@ -81,8 +81,8 @@ jobs:
 # 切换到文档目录
 cd docs
 
-# 清理并构建
-npx zengen build --clean
+# 构建文档
+npx zengen build
 
 # 同步到服务器
 rsync -avz .zen/dist/ user@server:/var/www/docs/
