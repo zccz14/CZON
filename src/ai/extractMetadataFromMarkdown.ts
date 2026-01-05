@@ -5,53 +5,41 @@ import { completeMessages, OpenAIMessage, OpenAIResponse } from '../services/ope
  * 从 markdown 内容中提取 metadata
  * @param content Markdown 内容
  * @param filePath 文件路径（用于日志）
- * @returns Promise<AIMetadata | null> 提取的元数据，失败时返回 null
+ * @returns Promise<AIMetadata> 提取的元数据，失败时抛出错误
  */
 export async function extractMetadataFromMarkdown(
   content: string,
   filePath: string
-): Promise<AIMetadata | null> {
-  const apiKey = process.env.OPENAI_API_KEY || '';
+): Promise<AIMetadata> {
+  console.log(`🤖 Extracting AI metadata for: ${filePath}`);
 
-  if (!apiKey) {
-    console.log(`⚠️ API key not configured for: ${filePath}`);
-    return null;
-  }
+  const prompt = buildMetadataPrompt(content);
+  const messages: OpenAIMessage[] = [
+    {
+      role: 'system',
+      content:
+        '你是一个专业的文档分析助手，擅长从文档中提取结构化信息。请严格按照要求的 JSON 格式返回结果。',
+    },
+    {
+      role: 'user',
+      content: prompt,
+    },
+  ];
 
-  try {
-    console.log(`🤖 Extracting AI metadata for: ${filePath}`);
+  const response = await completeMessages(messages, {
+    response_format: { type: 'json_object' },
+  });
 
-    const prompt = buildMetadataPrompt(content);
-    const messages: OpenAIMessage[] = [
-      {
-        role: 'system',
-        content:
-          '你是一个专业的文档分析助手，擅长从文档中提取结构化信息。请严格按照要求的 JSON 格式返回结果。',
-      },
-      {
-        role: 'user',
-        content: prompt,
-      },
-    ];
+  const metadata = parseMetadataResponse(response.choices[0].message.content);
 
-    const response = await completeMessages(messages, {
-      response_format: { type: 'json_object' },
-    });
+  // 添加 tokens 使用情况
+  metadata.tokens_used = {
+    prompt: response.usage.prompt_tokens,
+    completion: response.usage.completion_tokens,
+    total: response.usage.total_tokens,
+  };
 
-    const metadata = parseMetadataResponse(response.choices[0].message.content);
-
-    // 添加 tokens 使用情况
-    metadata.tokens_used = {
-      prompt: response.usage.prompt_tokens,
-      completion: response.usage.completion_tokens,
-      total: response.usage.total_tokens,
-    };
-
-    return metadata;
-  } catch (error) {
-    console.error(`❌ Failed to extract AI metadata for ${filePath}:`, error);
-    return null;
-  }
+  return metadata;
 }
 
 /**
