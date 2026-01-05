@@ -41,16 +41,12 @@ export class AIService {
   private metaDataPath: string;
 
   constructor(config: Omit<Partial<AIConfig>, 'enabled'> = {}) {
-    // 从环境变量读取配置
-    const apiKey = process.env.OPENAI_API_KEY || '';
-    const baseUrl = process.env.OPENAI_BASE_URL || 'https://api.openai.com/v1';
-
-    // 配置优先级：构造函数参数 > 环境变量 > 默认值
-    const model = config.model || process.env.OPENAI_MODEL || 'gpt-3.5-turbo';
+    // 配置优先级：构造函数参数 > 默认值
+    const model = config.model || 'gpt-3.5-turbo';
 
     this.config = {
-      apiKey,
-      baseUrl,
+      apiKey: config.apiKey || '',
+      baseUrl: config.baseUrl || 'https://api.openai.com/v1',
       model,
       temperature: 0, // 总是设置为 0，提取内容不需要随机性
       maxTokens: config.maxTokens || 500,
@@ -73,7 +69,7 @@ export class AIService {
     // AI 总是启用，但如果没有 API key 会显示警告
     if (this.config.apiKey === '') {
       console.warn(
-        '⚠️ AI is enabled but API key is missing. Please set OPENAI_API_KEY environment variable.'
+        '⚠️ AI is enabled but API key is missing. Please provide API key in configuration.'
       );
     }
     return true; // AI 总是启用

@@ -72,6 +72,8 @@ export interface ZenConfig {
     targetLangs: string[];
   };
   ai?: {
+    apiKey?: string;
+    baseUrl?: string;
     model?: string;
     temperature?: number;
     maxTokens?: number;

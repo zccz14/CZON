@@ -115,7 +115,7 @@ export class ZenBuilder {
     // 清理 meta.json 中的孤儿条目（文件已删除但缓存仍存在）
     if (this.aiProcessor.isEnabled()) {
       if (verbose) console.log(`🧹 Cleaning orphan entries in meta.json...`);
-      const aiService = new AIService();
+      const aiService = new AIService(this.config.ai);
       const existingFilePaths = scannedFiles.map(file => file.path);
       await aiService.removeOrphanEntries(existingFilePaths);
     }
@@ -273,7 +273,7 @@ export class ZenBuilder {
     // 清理 meta.json 中的孤儿条目（文件已删除但缓存仍存在）
     if (this.aiProcessor.isEnabled()) {
       if (verbose) console.log(`🧹 Cleaning orphan entries in meta.json...`);
-      const aiService = new AIService();
+      const aiService = new AIService(this.config.ai);
       const existingFilePaths = scannedFiles.map(file => file.path);
       await aiService.removeOrphanEntries(existingFilePaths);
     }
@@ -376,7 +376,7 @@ export class ZenBuilder {
     verbose?: boolean,
     allLangs?: string[]
   ): Promise<number> {
-    const aiService = new AIService();
+    const aiService = new AIService(this.config.ai);
     const langDir = path.join(outDir, lang);
     await fs.mkdir(langDir, { recursive: true });
 
@@ -409,7 +409,7 @@ export class ZenBuilder {
           content = await fs.readFile(filePath, 'utf-8');
         } else {
           // 如果是目标语言，尝试读取翻译文件
-          const translationService = new TranslationService();
+          const translationService = new TranslationService(this.config.ai);
           try {
             // 确保翻译文件存在并获取内容
             content = await translationService.ensureTranslatedFile(
@@ -873,7 +873,7 @@ export class ZenBuilder {
    * 存储母语文件到 .zen/src 目录
    */
   private async storeNativeFiles(files: FileInfo[], verbose: boolean): Promise<void> {
-    const aiService = new AIService();
+    const aiService = new AIService(this.config.ai);
 
     for (const file of files) {
       try {
@@ -920,7 +920,7 @@ export class ZenBuilder {
     targetLangs: string[],
     verbose: boolean
   ): Promise<void> {
-    const aiService = new AIService();
+    const aiService = new AIService(this.config.ai);
 
     for (const file of files) {
       try {
@@ -974,8 +974,8 @@ export class ZenBuilder {
 
     if (config.ai) {
       // AI 总是启用，检查 API key
-      if (!process.env.OPENAI_API_KEY) {
-        errors.push('OPENAI_API_KEY environment variable is required for AI functionality');
+      if (!config.ai.apiKey) {
+        errors.push('ai.apiKey is required for AI functionality');
       }
 
       if (

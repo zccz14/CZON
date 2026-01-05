@@ -37,17 +37,13 @@ export class TranslationService {
   private translationCachePath: string;
 
   constructor(config: Partial<TranslationConfig> = {}) {
-    // 从环境变量读取配置
-    const apiKey = process.env.OPENAI_API_KEY || '';
-    const baseUrl = process.env.OPENAI_BASE_URL || 'https://api.openai.com/v1';
-
-    // 配置优先级：构造函数参数 > 环境变量 > 默认值
-    const model = config.model || process.env.OPENAI_MODEL || 'gpt-3.5-turbo';
+    // 配置优先级：构造函数参数 > 默认值
+    const model = config.model || 'gpt-3.5-turbo';
 
     this.config = {
-      enabled: config.enabled ?? apiKey !== '',
-      apiKey,
-      baseUrl,
+      enabled: config.enabled ?? (config.apiKey !== undefined && config.apiKey !== ''),
+      apiKey: config.apiKey || '',
+      baseUrl: config.baseUrl || 'https://api.openai.com/v1',
       model,
       temperature: 0, // 总是设置为 0，翻译不需要随机性
       maxTokens: config.maxTokens || 2000,
@@ -64,7 +60,7 @@ export class TranslationService {
     const enabled = this.config.enabled && this.config.apiKey !== '';
     if (!enabled && this.config.enabled) {
       console.warn(
-        '⚠️ Translation is enabled but API key is missing. Please set OPENAI_API_KEY environment variable.'
+        '⚠️ Translation is enabled but API key is missing. Please provide API key in configuration.'
       );
     }
     return enabled;
