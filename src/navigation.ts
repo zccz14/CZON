@@ -49,8 +49,8 @@ export class NavigationGenerator {
 
       // 生成标题（对于 Markdown 文件优先使用提取的标题）
       const title =
-        isMarkdownFile && file.metadata?.title
-          ? file.metadata.title
+        isMarkdownFile && (file.aiMetadata?.title || file.metadata?.title)
+          ? file.aiMetadata?.title || file.metadata?.title || this.formatTitle(displayName)
           : this.formatTitle(displayName);
 
       // 生成路径
@@ -136,7 +136,7 @@ export class NavigationGenerator {
   generateFlat(files: FileInfo[]): NavigationItem[] {
     return files
       .map(file => {
-        const title = file.metadata?.title || this.formatTitle(file.name); // 优先使用提取的标题
+        const title = file.aiMetadata?.title || file.metadata?.title || this.formatTitle(file.name); // 优先使用提取的标题
         const rawPath = `/${file.path.replace(/\.md$/, '.html')}`;
         const itemPath = this.generatePath(rawPath);
 
