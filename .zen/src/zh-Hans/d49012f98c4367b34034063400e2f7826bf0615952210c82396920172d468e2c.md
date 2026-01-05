@@ -52,12 +52,11 @@ echo "docs.example.com" > docs-dist/CNAME
 
 ```bash
 cd demo/src
-zengen build --clean --verbose
+zengen build --verbose
 ```
 
 可用的选项：
 
-- `--clean`：在构建前清理输出目录
 - `--verbose`：显示详细输出
 - `--watch`：监听模式（不适用于 CI/CD）
 - `--template`：指定自定义模板文件

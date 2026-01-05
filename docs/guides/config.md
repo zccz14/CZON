@@ -19,9 +19,6 @@ npx zengen build --watch --serve
 # 自定义端口
 npx zengen build --watch --serve --port 8080
 
-# 清理输出目录
-npx zengen build --clean
-
 # 显示详细日志
 npx zengen build --verbose
 
@@ -47,6 +44,5 @@ npx zengen
 | `--port`     | `-p` | 开发服务器端口                   | `3000`      |
 | `--host`     |      | 开发服务器主机                   | `localhost` |
 | `--verbose`  | `-v` | 显示详细日志                     | `false`     |
-| `--clean`    |      | 清理输出目录                     | `false`     |
 | `--base-url` |      | 站点基础 URL                     | 无          |
 | `--help`     | `-h` | 显示帮助信息                     | 无          |

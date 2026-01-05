@@ -42,7 +42,6 @@ class BuildCommand extends BaseCommand {
   host = Option.String('--host', 'localhost');
   verbose = Option.Boolean('-v,--verbose');
   baseUrl = Option.String('--base-url');
-  clean = Option.Boolean('--clean');
   lang = Option.Array('--lang', {
     description: 'Target languages for translation (e.g., en-US, ja-JP)',
   });
@@ -58,13 +57,19 @@ class BuildCommand extends BaseCommand {
         $ zengen build --watch
         $ zengen build --watch --serve
         $ zengen build --watch --serve --port 8080
-        $ zengen build --clean
         $ zengen build --lang en-US --lang ja-JP (translate to English and Japanese)
     `,
   });
 
   async execute() {
     try {
+      // 检查是否传递了 --clean 选项（向后兼容性）
+      if (process.argv.includes('--clean')) {
+        this.context.stdout.write(
+          '⚠️ Warning: --clean option is deprecated and always enabled. The option will be ignored.\n'
+        );
+      }
+
       // 强制使用当前目录作为 src 目录，输出到 .zen/dist 目录
       const currentDir = process.cwd();
       const outDir = this.getOutDir();
@@ -112,11 +117,6 @@ class BuildCommand extends BaseCommand {
           '⚠️ Warning: --serve option requires --watch option, ignoring --serve\n'
         );
         buildOptions.serve = false;
-      }
-
-      // 清理输出目录
-      if (this.clean) {
-        await builder.clean(buildOptions.outDir);
       }
 
       // 构建或监听
