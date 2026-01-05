@@ -11,9 +11,6 @@ import { TemplateEngine } from './template';
 import { NavigationGenerator } from './navigation';
 import { GitIgnoreProcessor } from './gitignore';
 import { Scanner } from './scanner';
-import { AIProcessor } from './ai-processor';
-import { TranslationService } from './translation-service';
-import { AIService } from './ai-service';
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import * as chokidar from 'chokidar';
@@ -25,28 +22,15 @@ export class ZenBuilder {
   private templateEngine: TemplateEngine;
   private navigationGenerator: NavigationGenerator;
   private scanner: Scanner;
-  private aiProcessor: AIProcessor;
-  private translationService: TranslationService;
   private config: ZenConfig = {};
 
   constructor(config: ZenConfig = {}) {
     this.config = config;
 
-    // 创建 AI 处理器
-    this.aiProcessor = new AIProcessor(config);
-
-    // 创建翻译服务
-    this.translationService = new TranslationService(config.ai);
-
     // 获取现有的 processors 或创建空数组
     const existingProcessors = config.processors || [];
 
-    // 如果 AI 处理器启用，将其添加到 processors 列表的开头
-    const processors = this.aiProcessor.isEnabled()
-      ? [this.aiProcessor, ...existingProcessors]
-      : existingProcessors;
-
-    this.markdownConverter = new MarkdownConverter(processors);
+    this.markdownConverter = new MarkdownConverter(existingProcessors);
     this.templateEngine = new TemplateEngine();
     this.navigationGenerator = new NavigationGenerator(config.baseUrl);
     this.scanner = new Scanner(config);
@@ -112,14 +96,6 @@ export class ZenBuilder {
 
     if (verbose) console.log(`✅ Found ${scannedFiles.length} Markdown files`);
 
-    // 清理 meta.json 中的孤儿条目（文件已删除但缓存仍存在）
-    if (this.aiProcessor.isEnabled()) {
-      if (verbose) console.log(`🧹 Cleaning orphan entries in meta.json...`);
-      const aiService = new AIService(this.config.ai);
-      const existingFilePaths = scannedFiles.map(file => file.path);
-      await aiService.removeOrphanEntries(existingFilePaths);
-    }
-
     // 保存扫描结果到 .zen/dist 目录
     const zenDistDir = path.join(path.dirname(outDir), 'dist');
     const scanResultPath = path.join(zenDistDir, 'scan-result.json');
@@ -133,22 +109,6 @@ export class ZenBuilder {
     if (files.length === 0) {
       console.warn(`⚠️ Failed to read any Markdown files`);
       return;
-    }
-
-    // AI 批量处理（如果启用）
-    if (this.aiProcessor.isEnabled()) {
-      if (verbose) console.log(`🤖 Running AI metadata extraction...`);
-      await this.aiProcessor.processBatch(files);
-    }
-
-    // 存储母语文件到 .zen/src
-    if (verbose) console.log(`💾 Storing native language files...`);
-    await this.storeNativeFiles(files, verbose);
-
-    // 处理翻译（如果指定了目标语言）
-    if (langs && langs.length > 0 && this.translationService.isEnabled()) {
-      if (verbose) console.log(`🌐 Processing translations...`);
-      await this.processTranslations(files, langs, verbose);
     }
 
     // 更新导航生成器的 baseUrl（优先使用命令行参数）
@@ -270,14 +230,6 @@ export class ZenBuilder {
 
     if (verbose) console.log(`✅ Found ${scannedFiles.length} Markdown files`);
 
-    // 清理 meta.json 中的孤儿条目（文件已删除但缓存仍存在）
-    if (this.aiProcessor.isEnabled()) {
-      if (verbose) console.log(`🧹 Cleaning orphan entries in meta.json...`);
-      const aiService = new AIService(this.config.ai);
-      const existingFilePaths = scannedFiles.map(file => file.path);
-      await aiService.removeOrphanEntries(existingFilePaths);
-    }
-
     // 构建阶段：读取文件内容并转换
     if (verbose) console.log(`📄 Reading and converting Markdown files...`);
     const files = await this.markdownConverter.convertScannedFiles(scannedFiles, srcDir);
@@ -287,18 +239,7 @@ export class ZenBuilder {
       return;
     }
 
-    // AI 批量处理（如果启用）- 更新 meta.json
-    if (this.aiProcessor.isEnabled()) {
-      if (verbose) console.log(`🤖 Running AI metadata extraction...`);
-      await this.aiProcessor.processBatch(files);
-    }
-
-    // 存储母语文件到 .zen/src
-    if (verbose) console.log(`💾 Storing native language files...`);
-    await this.storeNativeFiles(files, verbose);
-
-    // 使用扫描得到的 files 数组，而不是从 meta.json 重新加载
-    // 这些 files 已经包含了最新的 AI 元数据
+    // 使用扫描得到的 files 数组
     let validFiles = files;
 
     if (verbose) {
@@ -376,7 +317,6 @@ export class ZenBuilder {
     verbose?: boolean,
     allLangs?: string[]
   ): Promise<number> {
-    const aiService = new AIService(this.config.ai);
     const langDir = path.join(outDir, lang);
     await fs.mkdir(langDir, { recursive: true });
 
@@ -394,53 +334,16 @@ export class ZenBuilder {
 
     for (const file of files) {
       try {
-        let content: string;
-        let filePath: string;
-        // 确保 hash 存在，如果不存在则计算
-        let finalHash = file.hash || aiService.calculateFileHash(file.content);
-        let finalMetadata = file.aiMetadata;
-
-        // 获取源语言
-        const sourceLang = file.aiMetadata?.inferred_lang || 'zh-Hans';
-
-        if (lang === sourceLang) {
-          // 如果是源语言，读取原始文件
-          filePath = file.path.startsWith('/') ? file.path : path.join(process.cwd(), file.path);
-          content = await fs.readFile(filePath, 'utf-8');
-        } else {
-          // 如果是目标语言，尝试读取翻译文件
-          const translationService = new TranslationService(this.config.ai);
-          try {
-            // 确保翻译文件存在并获取内容
-            content = await translationService.ensureTranslatedFile(
-              file,
-              sourceLang,
-              lang,
-              finalHash
-            );
-
-            // 翻译文件的路径
-            filePath = translationService.getTranslatedFilePath(file.path, lang, finalHash);
-
-            // 对于翻译文件，我们可以使用相同的 hash，或者生成新的 hash
-            // 这里我们使用相同的 hash，因为翻译是基于原始内容的
-          } catch (translationError) {
-            console.warn(
-              `⚠️ Failed to get translation for ${file.path} to ${lang}, using source file:`,
-              translationError
-            );
-            // 如果翻译失败，回退到源文件
-            filePath = file.path.startsWith('/') ? file.path : path.join(process.cwd(), file.path);
-            content = await fs.readFile(filePath, 'utf-8');
-          }
-        }
+        // 读取原始文件
+        const filePath = file.path.startsWith('/')
+          ? file.path
+          : path.join(process.cwd(), file.path);
+        const content = await fs.readFile(filePath, 'utf-8');
 
         // 创建 FileInfo 对象（使用现有的 file 对象，但更新内容）
         const fileInfo: FileInfo = {
           ...file,
           content,
-          hash: finalHash,
-          aiMetadata: finalMetadata,
         };
 
         // 转换为 HTML
@@ -869,92 +772,6 @@ export class ZenBuilder {
     }
   }
 
-  /**
-   * 存储母语文件到 .zen/src 目录
-   */
-  private async storeNativeFiles(files: FileInfo[], verbose: boolean): Promise<void> {
-    const aiService = new AIService(this.config.ai);
-
-    for (const file of files) {
-      try {
-        // 获取源语言（从AI元数据或默认值）
-        const sourceLang = file.aiMetadata?.inferred_lang || 'zh-Hans';
-        const nativeHash = file.hash || aiService.calculateFileHash(file.content);
-
-        if (verbose) {
-          console.log(`📄 Storing native file: ${file.path} (${sourceLang})`);
-        }
-
-        // 生成母语文件路径
-        const zenSrcDir = path.join(process.cwd(), '.zen', 'src');
-        const sourceLangDir = path.join(zenSrcDir, sourceLang);
-        const nativeFilePath = path.join(sourceLangDir, `${nativeHash}.md`);
-
-        // 确保目录存在
-        await fs.mkdir(sourceLangDir, { recursive: true });
-
-        // 检查文件是否已存在
-        try {
-          await fs.access(nativeFilePath);
-          if (verbose) {
-            console.log(`  ✅ Native file already exists: ${nativeFilePath}`);
-          }
-        } catch (error) {
-          // 文件不存在，保存母语文件
-          await fs.writeFile(nativeFilePath, file.content, 'utf-8');
-          if (verbose) {
-            console.log(`  💾 Saved native file: ${nativeFilePath}`);
-          }
-        }
-      } catch (error) {
-        console.error(`❌ Failed to store native file for ${file.path}:`, error);
-      }
-    }
-  }
-
-  /**
-   * 处理文件翻译
-   */
-  private async processTranslations(
-    files: FileInfo[],
-    targetLangs: string[],
-    verbose: boolean
-  ): Promise<void> {
-    const aiService = new AIService(this.config.ai);
-
-    for (const file of files) {
-      try {
-        // 获取文件的AI元数据（包含inferred_lang）
-        const sourceLang = file.aiMetadata?.inferred_lang || 'zh-Hans';
-        const nativeHash = file.hash || aiService.calculateFileHash(file.content);
-
-        if (verbose) {
-          console.log(`📄 Processing translations for: ${file.path} (${sourceLang})`);
-        }
-
-        for (const targetLang of targetLangs) {
-          try {
-            // 确保翻译文件存在
-            await this.translationService.ensureTranslatedFile(
-              file,
-              sourceLang,
-              targetLang,
-              nativeHash
-            );
-
-            if (verbose) {
-              console.log(`  ✅ Translated to ${targetLang}`);
-            }
-          } catch (error) {
-            console.error(`  ❌ Failed to translate to ${targetLang}:`, error);
-          }
-        }
-      } catch (error) {
-        console.error(`❌ Failed to process translations for ${file.path}:`, error);
-      }
-    }
-  }
-
   validateConfig(config: ZenConfig): string[] {
     const errors: string[] = [];
 
@@ -969,24 +786,6 @@ export class ZenBuilder {
     if (config.i18n) {
       if (!config.i18n.targetLangs || config.i18n.targetLangs.length === 0) {
         errors.push('i18n.targetLangs must have at least one language');
-      }
-    }
-
-    if (config.ai) {
-      // AI 总是启用，检查 API key
-      if (!config.ai.apiKey) {
-        errors.push('ai.apiKey is required for AI functionality');
-      }
-
-      if (
-        config.ai.temperature !== undefined &&
-        (config.ai.temperature < 0 || config.ai.temperature > 2)
-      ) {
-        errors.push('ai.temperature must be between 0 and 2');
-      }
-
-      if (config.ai.maxTokens !== undefined && config.ai.maxTokens < 1) {
-        errors.push('ai.maxTokens must be greater than 0');
       }
     }
 
