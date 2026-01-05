@@ -26,15 +26,14 @@ export class ZenBuilder {
   }
 
   /**
-   * 扫描源文件
+   * 扫描源文件，返回文件列表
    */
-  async scan(options: ScanOptions): Promise<void> {
-    const { srcDir, scanDir, verbose = false } = options;
+  async scan(options: ScanOptions): Promise<FileInfo[]> {
+    const { srcDir, verbose = false } = options;
 
     if (verbose) {
       console.log(`🔍 Starting ZEN scan...`);
       console.log(`📁 Source: ${srcDir}`);
-      console.log(`📁 Scan directory: ${scanDir || path.join(srcDir, '.zen', 'src')}`);
       console.log(`🔍 Verbose mode enabled`);
     }
 
@@ -46,47 +45,30 @@ export class ZenBuilder {
     }
 
     // 执行扫描
-    const scanResult = await this.fileScanner.scan({
+    const files = await this.fileScanner.scan({
       srcDir,
-      scanDir,
       verbose,
     });
 
     if (verbose) {
       console.log(`✅ Scan completed!`);
-      console.log(`   Files scanned: ${scanResult.files.length}`);
-      console.log(`   Scan directory: ${scanResult.scanDir}`);
-      console.log(`   Timestamp: ${new Date(scanResult.timestamp).toISOString()}`);
+      console.log(`   Files scanned: ${files.length}`);
     } else {
-      console.log(`✅ Scanned ${scanResult.files.length} files to ${scanResult.scanDir}`);
+      console.log(`✅ Scanned ${files.length} files`);
     }
+
+    return files;
   }
 
   /**
-   * 从扫描目录加载文件
+   * 扫描源文件获取文件列表
    */
-  private async loadFilesFromScan(srcDir: string, verbose: boolean): Promise<FileInfo[]> {
-    const scanDir = this.config.scanDir || path.join(srcDir, '.zen', 'src');
-
-    try {
-      // 检查扫描目录是否存在
-      await fs.access(scanDir);
-
-      if (verbose) console.log(`📄 Loading files from scan directory: ${scanDir}`);
-      const scanResult = await this.fileScanner.loadScanResult(scanDir);
-
-      if (verbose) console.log(`✅ Loaded ${scanResult.files.length} files from scan`);
-      return scanResult.files;
-    } catch (error) {
-      // 扫描目录不存在，回退到传统扫描
-      if (verbose) console.log(`📄 Scan directory not found, scanning source directory...`);
-      const scanResult = await this.fileScanner.scan({
-        srcDir,
-        scanDir,
-        verbose,
-      });
-      return scanResult.files;
-    }
+  private async scanFiles(srcDir: string, verbose: boolean): Promise<FileInfo[]> {
+    const files = await this.fileScanner.scan({
+      srcDir,
+      verbose,
+    });
+    return files;
   }
 
   /**
@@ -114,9 +96,9 @@ export class ZenBuilder {
     // 确保输出目录存在
     await fs.mkdir(outDir, { recursive: true });
 
-    // 加载文件（从扫描目录或直接扫描）
-    if (verbose) console.log(`📄 Loading Markdown files...`);
-    const rawFiles = await this.loadFilesFromScan(srcDir, verbose);
+    // 扫描文件获取文件列表
+    if (verbose) console.log(`📄 Scanning Markdown files...`);
+    const rawFiles = await this.scanFiles(srcDir, verbose);
 
     if (rawFiles.length === 0) {
       console.warn(`⚠️ No Markdown files found in ${srcDir}`);

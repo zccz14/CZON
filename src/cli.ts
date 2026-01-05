@@ -46,21 +46,19 @@ abstract class BaseCommand extends Command {
 class ScanCommand extends BaseCommand {
   static paths = [['scan']];
 
-  scanDir = Option.String('--scan-dir');
   verbose = Option.Boolean('-v,--verbose');
   config = Option.String('-c,--config');
 
   static usage = Command.Usage({
-    description: 'Scan Markdown files in current directory and save to scan directory',
+    description: 'Scan Markdown files in current directory and display file list',
     details: `
-      This command scans all Markdown files in the current directory and saves the results
-      to a scan directory (default: .zen/src). This enables incremental builds and better
-      build performance.
+      This command scans all Markdown files in the current directory and displays
+      the file list. This is useful for verifying which files will be included in
+      the build process.
 
       Examples:
         $ zengen scan
         $ zengen scan --verbose
-        $ zengen scan --scan-dir .zen/cache
         $ zengen scan --config zen.config.json
     `,
   });
@@ -76,14 +74,21 @@ class ScanCommand extends BaseCommand {
       // 合并命令行参数和配置
       const scanOptions = {
         srcDir: currentDir,
-        scanDir: this.scanDir || config.scanDir,
         verbose: this.verbose,
       };
 
       const builder = new ZenBuilder(config);
 
       // 执行扫描
-      await builder.scan(scanOptions);
+      const files = await builder.scan(scanOptions);
+
+      // 显示文件列表
+      if (!this.verbose) {
+        console.log(`📋 Found ${files.length} Markdown files:`);
+        files.forEach(file => {
+          console.log(`  - ${file.relativePath}`);
+        });
+      }
 
       return 0;
     } catch (error) {
@@ -113,8 +118,8 @@ class BuildCommand extends BaseCommand {
       This command builds a documentation site from Markdown files in the current directory.
       The output will be placed in the .zen/dist directory.
 
-      The build process now uses a scan directory (.zen/src by default) for better performance
-      and incremental builds. You can run 'zengen scan' first to populate the scan directory.
+      The build process includes a scanning phase to identify all Markdown files before
+      conversion. You can run 'zengen scan' first to see which files will be included.
 
       Examples:
         $ zengen build
