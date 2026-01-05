@@ -126,6 +126,10 @@ export class ZenBuilder {
       await this.aiProcessor.processBatch(files);
     }
 
+    // 存储母语文件到 .zen/src
+    if (verbose) console.log(`💾 Storing native language files...`);
+    await this.storeNativeFiles(files, verbose);
+
     // 处理翻译（如果指定了目标语言）
     if (langs && langs.length > 0 && this.translationService.isEnabled()) {
       if (verbose) console.log(`🌐 Processing translations...`);
@@ -500,6 +504,49 @@ export class ZenBuilder {
       console.log(`🧹 Cleaned output directory: ${outDir}`);
     } catch (error) {
       console.error(`❌ Failed to clean output directory:`, error);
+    }
+  }
+
+  /**
+   * 存储母语文件到 .zen/src 目录
+   */
+  private async storeNativeFiles(files: FileInfo[], verbose: boolean): Promise<void> {
+    const aiService = new AIService();
+
+    for (const file of files) {
+      try {
+        // 获取源语言（从AI元数据或默认值）
+        const sourceLang = file.aiMetadata?.inferred_lang || 'zh-Hans';
+        const nativeHash = file.hash || aiService.calculateFileHash(file.content);
+
+        if (verbose) {
+          console.log(`📄 Storing native file: ${file.path} (${sourceLang})`);
+        }
+
+        // 生成母语文件路径
+        const zenSrcDir = path.join(process.cwd(), '.zen', 'src');
+        const sourceLangDir = path.join(zenSrcDir, sourceLang);
+        const nativeFilePath = path.join(sourceLangDir, `${nativeHash}.md`);
+
+        // 确保目录存在
+        await fs.mkdir(sourceLangDir, { recursive: true });
+
+        // 检查文件是否已存在
+        try {
+          await fs.access(nativeFilePath);
+          if (verbose) {
+            console.log(`  ✅ Native file already exists: ${nativeFilePath}`);
+          }
+        } catch (error) {
+          // 文件不存在，保存母语文件
+          await fs.writeFile(nativeFilePath, file.content, 'utf-8');
+          if (verbose) {
+            console.log(`  💾 Saved native file: ${nativeFilePath}`);
+          }
+        }
+      } catch (error) {
+        console.error(`❌ Failed to store native file for ${file.path}:`, error);
+      }
     }
   }
 
