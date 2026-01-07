@@ -7,6 +7,7 @@ import { extractMetadataByAI } from '../process/extractMetadataByAI';
 import { renderTemplates } from '../process/template';
 import { scanMarkdownFiles } from '../scan/files';
 import { BuildOptions, ScannedFile } from '../types';
+import { updateFrontmatter } from '../utils/frontmatter';
 
 /**
  * 验证构建配置
@@ -64,17 +65,13 @@ async function storeNativeFiles(): Promise<void> {
       const filePath = path.join(ZEN_SRC_DIR, file.metadata.inferred_lang, file.hash + '.md');
       const originalContent = await fs.readFile(path.join(INPUT_DIR, file.path), 'utf-8');
 
-      const enhancedContent = [
-        `---`,
-        `title: ${file.metadata.title || 'Untitled'}`,
-        `summary: ${file.metadata.summary || ''}`,
-        `tags: [${(file.metadata.tags || []).join(', ')}]`,
-        `date: ${file.metadata.inferred_date || ''}`,
-        `lang: ${file.metadata.inferred_lang || ''}`,
-        `---`,
-        '',
-        originalContent,
-      ].join('\n');
+      const enhancedContent = updateFrontmatter(originalContent, {
+        title: file.metadata.title,
+        summary: file.metadata.summary,
+        tags: file.metadata.tags,
+        inferred_date: file.metadata.inferred_date,
+        inferred_lang: file.metadata.inferred_lang,
+      });
       await fs.mkdir(path.dirname(filePath), { recursive: true });
 
       await fs.writeFile(filePath, enhancedContent, 'utf-8');

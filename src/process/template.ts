@@ -2,8 +2,9 @@ import * as fs from 'fs/promises';
 import * as path from 'path';
 import { MetaData } from '../metadata';
 import { ZEN_DIST_DIR, ZEN_SRC_DIR } from '../paths';
-import { MetaDataStore, NavigationItem } from '../types';
+import { MetaDataStore } from '../types';
 import { convertMarkdownToHtml } from '../utils/convertMarkdownToHtml';
+import { parseFrontmatter } from '../utils/frontmatter';
 
 const langNames: Record<string, string> = {
   'zh-Hans': '简体中文',
@@ -39,53 +40,53 @@ function generateLanguageSwitcher(templateData: TemplateData): string {
     <ul class="lang-list">${items}</ul>
   </div>`;
 }
-function generateFlatNavigation(lang: string): NavigationItem[] {
-  const {
-    files,
-    options: { baseUrl = '/' },
-  } = MetaData;
-  return files
-    .map(file => {
-      const title = file.metadata?.title || file.path; // 优先使用提取的标题
 
-      return {
-        title,
-        path: path.join(baseUrl, lang, file.hash + '.html'),
-      };
-    })
-    .sort((a, b) => a.title.localeCompare(b.title));
-}
 /**
  * 生成导航 HTML
  * @param navigation 导航树
  * @param currentPath 当前路径（可选，用于高亮当前页面）
  * @returns 导航 HTML 字符串
  */
-function generateNavigationHtml(lang: string, currentPath?: string): string {
-  const navigation = generateFlatNavigation(lang);
+async function generateNavigationHtml(data: TemplateData): Promise<string> {
+  const {
+    files,
+    options: { baseUrl = '/' },
+  } = MetaData;
 
-  const renderItem = (item: NavigationItem): string => {
-    const isActive = currentPath === item.path;
-    const activeClass = isActive ? 'active' : '';
+  const navigation = await Promise.all(
+    files.map(async file => {
+      const content = await fs.readFile(
+        path.join(ZEN_SRC_DIR, data.lang, file.hash + '.md'),
+        'utf-8'
+      );
+      const { frontmatter } = parseFrontmatter(content);
+      const title = frontmatter.title || file.metadata?.title || file.path; // 优先使用提取的标题
 
-    let html = `<li class="nav-item">`;
-    html += `<a href="${item.path}" class="nav-link ${activeClass}">${item.title}</a>`;
+      return {
+        title,
+        path: path.join(baseUrl, data.lang, file.hash + '.html'),
+        isActive: data.file.hash === file.hash,
+      };
+    })
+  );
+  navigation.sort((a, b) => a.title.localeCompare(b.title));
 
-    if (item.children && item.children.length > 0) {
-      html += `<ul class="nav-submenu">`;
-      html += item.children.map(child => renderItem(child)).join('');
-      html += `</ul>`;
-    }
+  return `<ul class="nav-list">${navigation
+    .map(item => {
+      const activeClass = item.isActive ? 'active' : '';
 
-    html += `</li>`;
-    return html;
-  };
+      let html = `<li class="nav-item">`;
+      html += `<a href="${item.path}" class="nav-link ${activeClass}">${item.title}</a>`;
 
-  return `<ul class="nav-list">${navigation.map(item => renderItem(item)).join('')}</ul>`;
+      html += `</li>`;
+      return html;
+    })
+    .join('')}</ul>`;
 }
 
 interface TemplateData {
   file: MetaDataStore['files'][0];
+  content: string;
   lang: string;
 }
 
@@ -99,29 +100,27 @@ async function renderTemplate(template: string, data: TemplateData): Promise<str
   const {
     options: { langs = [] },
   } = MetaData;
-  const markdownContent = await fs.readFile(
-    path.join(ZEN_SRC_DIR, data.lang, data.file.hash + '.md'),
-    'utf-8'
-  );
+  const markdownContent = data.content;
+  const { frontmatter, body } = parseFrontmatter(markdownContent);
 
-  const htmlContent = convertMarkdownToHtml(markdownContent);
+  const htmlContent = convertMarkdownToHtml(body);
 
   let result = template;
 
   // 替换导航
-  const navigationHtml = generateNavigationHtml(data.lang, data.file.hash);
+  const navigationHtml = await generateNavigationHtml(data);
   result = result.replace('{{navigation}}', navigationHtml);
 
   // 替换其他变量 - 使用全局替换
-  result = result.replace(/{{title}}/g, data.file.metadata.title || 'Untitled');
+  result = result.replace(/{{title}}/g, frontmatter.title || 'Untitled');
   result = result.replace(/{{content}}/g, htmlContent);
 
   // 替换元数据变量
-  if (data.file.metadata) {
-    result = result.replace(/{{summary}}/g, data.file.metadata.summary || '');
-    result = result.replace(/{{tags}}/g, data.file.metadata.tags?.join(', ') || '');
-    result = result.replace(/{{inferred_date}}/g, data.file.metadata.inferred_date || '');
-    result = result.replace(/{{inferred_lang}}/g, data.file.metadata.inferred_lang || '');
+  if (frontmatter) {
+    result = result.replace(/{{summary}}/g, frontmatter.summary || '');
+    result = result.replace(/{{tags}}/g, frontmatter.tags?.join(', ') || '');
+    result = result.replace(/{{inferred_date}}/g, frontmatter.inferred_date || '');
+    result = result.replace(/{{inferred_lang}}/g, frontmatter.inferred_lang || '');
   }
 
   // 替换语言相关变量
@@ -153,9 +152,11 @@ export async function renderTemplates(): Promise<void> {
     for (const lang of langs || []) {
       console.info(`📄 Preparing file for language: ${file.path} [${file.hash}] [${lang}]`);
       const targetPath = path.join(ZEN_DIST_DIR, lang, file.hash + '.html');
+      const content = await fs.readFile(path.join(ZEN_SRC_DIR, lang, file.hash + '.md'), 'utf-8');
       try {
         const html = await renderTemplate(layoutTemplate, {
           file,
+          content,
           lang,
         });
         await fs.mkdir(path.dirname(targetPath), { recursive: true });
