@@ -3,7 +3,7 @@ import * as path from 'path';
 import { translateMarkdown } from '../ai/translateMarkdown';
 import { loadMetaData, MetaData, saveMetaData } from '../metadata';
 import { INPUT_DIR, ZEN_DIR, ZEN_DIST_DIR, ZEN_SRC_DIR } from '../paths';
-import { runAIMetadataExtraction } from '../process/ai-client';
+import { extractMetadataByAI } from '../process/extractMetadataByAI';
 import { renderTemplates } from '../process/template';
 import { scanMarkdownFiles } from '../scan/files';
 import { BuildOptions, ScannedFile } from '../types';
@@ -62,8 +62,22 @@ async function storeNativeFiles(): Promise<void> {
       if (!file.hash) throw new Error(`Missing hash`);
       if (!file.metadata.inferred_lang) throw new Error(`Missing inferred language`);
       const filePath = path.join(ZEN_SRC_DIR, file.metadata.inferred_lang, file.hash + '.md');
+      const originalContent = await fs.readFile(path.join(INPUT_DIR, file.path), 'utf-8');
+
+      const enhancedContent = [
+        `---`,
+        `title: ${file.metadata.title || 'Untitled'}`,
+        `summary: ${file.metadata.summary || ''}`,
+        `tags: [${(file.metadata.tags || []).join(', ')}]`,
+        `date: ${file.metadata.inferred_date || ''}`,
+        `lang: ${file.metadata.inferred_lang || ''}`,
+        `---`,
+        '',
+        originalContent,
+      ].join('\n');
       await fs.mkdir(path.dirname(filePath), { recursive: true });
-      await fs.copyFile(path.join(INPUT_DIR, file.path), filePath);
+
+      await fs.writeFile(filePath, enhancedContent, 'utf-8');
     } catch (error) {
       console.warn(`⚠️ Failed to store native file ${file.path}:`, error);
     }
@@ -88,10 +102,11 @@ async function processTranslations(): Promise<void> {
     for (const lang of langs) {
       if (verbose) console.log(`🌐 Translating to ${lang}...`);
       // 存储翻译文件到 .zen/src/{lang}
+      const sourcePath = path.join(ZEN_SRC_DIR, file.metadata.inferred_lang, file.hash + '.md'); // 使用已经加强的母语文件路径
       const targetPath = path.join(ZEN_SRC_DIR, lang, file.hash + '.md');
 
       try {
-        const content = await fs.readFile(path.join(INPUT_DIR, file.path), 'utf-8');
+        const content = await fs.readFile(sourcePath, 'utf-8');
         if (file.metadata.inferred_lang === lang) {
           if (verbose)
             console.log(`ℹ️ Skipping translation for ${file.path}, already in target language`);
@@ -140,7 +155,7 @@ async function buildPipeline(options: BuildOptions): Promise<void> {
   await scanSourceFiles();
 
   // 运行 AI 元数据提取
-  await runAIMetadataExtraction();
+  await extractMetadataByAI();
 
   // 存储母语文件
   await storeNativeFiles();
