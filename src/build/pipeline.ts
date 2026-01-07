@@ -1,12 +1,13 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { translateMarkdown } from '../ai/translateMarkdown';
+import { findMarkdownEntries } from '../findEntries';
 import { loadMetaData, MetaData, saveMetaData } from '../metadata';
 import { INPUT_DIR, ZEN_DIR, ZEN_DIST_DIR, ZEN_SRC_DIR } from '../paths';
 import { extractMetadataByAI } from '../process/extractMetadataByAI';
 import { renderTemplates } from '../process/template';
-import { scanMarkdownFiles } from '../scan/files';
-import { BuildOptions, ScannedFile } from '../types';
+import { calculateFileHash } from '../scan/files';
+import { BuildOptions } from '../types';
 import { updateFrontmatter } from '../utils/frontmatter';
 
 /**
@@ -30,24 +31,44 @@ async function validateConfig(options: BuildOptions): Promise<void> {
 /**
  * 扫描源文件
  */
-async function scanSourceFiles(): Promise<{ scannedFiles: ScannedFile[] }> {
-  const verbose = MetaData.options.verbose;
+async function scanSourceFiles(): Promise<void> {
+  console.log(`🔍 Scanning source directory...`);
+  const markdownFiles = await findMarkdownEntries(INPUT_DIR);
+  const hashes = new Set<string>();
 
-  if (verbose) console.log(`🔍 Scanning source directory...`);
-  const scannedFiles = await scanMarkdownFiles(INPUT_DIR);
+  for (const relativePath of markdownFiles) {
+    const fullPath = path.join(INPUT_DIR, relativePath);
 
-  if (scannedFiles.length === 0) {
-    console.warn(`⚠️ No Markdown files found in ${INPUT_DIR}`);
-    return { scannedFiles: [] };
+    try {
+      // 检查文件是否存在
+      await fs.access(fullPath);
+
+      const hash = await calculateFileHash(fullPath);
+
+      hashes.add(hash);
+
+      const metaWithSameHash = MetaData.files.find(f => f.hash === hash);
+      if (metaWithSameHash) {
+        metaWithSameHash.path = relativePath;
+      } else {
+        // 如果没有相同哈希的元数据，则添加一个新的占位符
+        MetaData.files.push({
+          hash,
+          path: relativePath,
+        });
+      }
+    } catch (error) {
+      console.warn(`⚠️ File not found or inaccessible: ${fullPath}`, error);
+    }
   }
+  // 移除不再存在的文件元数据
+  MetaData.files = MetaData.files.filter(f => hashes.has(f.hash));
 
-  if (verbose) console.log(`✅ Found ${scannedFiles.length} Markdown files`);
+  console.log(`✅ Found ${MetaData.files.length} Markdown files`);
 
-  if (scannedFiles.length === 0) {
+  if (MetaData.files.length === 0) {
     console.warn(`⚠️ No Markdown files found in ${INPUT_DIR}`);
   }
-
-  return { scannedFiles };
 }
 
 /**
@@ -61,7 +82,7 @@ async function storeNativeFiles(): Promise<void> {
   for (const file of MetaData.files) {
     try {
       if (!file.hash) throw new Error(`Missing hash`);
-      if (!file.metadata.inferred_lang) throw new Error(`Missing inferred language`);
+      if (!file.metadata?.inferred_lang) throw new Error(`Missing inferred language`);
       const filePath = path.join(ZEN_SRC_DIR, file.metadata.inferred_lang, file.hash + '.md');
       const originalContent = await fs.readFile(path.join(INPUT_DIR, file.path), 'utf-8');
 
@@ -96,6 +117,10 @@ async function processTranslations(): Promise<void> {
 
   for (const file of files) {
     if (verbose) console.info(`📄 Processing file for translation: ${file.path}`);
+    if (!file.metadata) {
+      console.warn(`⚠️ Missing metadata for file: ${file.path}, skipping translation.`);
+      continue;
+    }
     for (const lang of langs) {
       if (verbose) console.log(`🌐 Translating to ${lang}...`);
       // 存储翻译文件到 .zen/src/{lang}

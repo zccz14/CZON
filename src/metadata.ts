@@ -1,7 +1,7 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { ZEN_META_PATH } from './paths';
-import { AIMetadata, MetaDataStore } from './types';
+import { MetaDataStore } from './types';
 
 /**
  * 全局 MetaDataStore 单例
@@ -41,114 +41,4 @@ export async function saveMetaData(): Promise<void> {
 
   // 保存文件
   await fs.writeFile(ZEN_META_PATH, JSON.stringify(MetaData, null, 2), 'utf-8');
-}
-
-/**
- * 根据文件 hash 获取缓存的 metadata
- */
-export async function getCachedMetadata(
-  fileHash: string,
-  filePath: string
-): Promise<AIMetadata | null> {
-  try {
-    const cachedFile = MetaData.files.find(f => f.hash === fileHash);
-
-    if (cachedFile) {
-      if (cachedFile.path === filePath) {
-        // 完全匹配：hash 和 path 都相同
-        console.log(`📚 Using cached AI metadata for: ${filePath}`);
-        return cachedFile.metadata;
-      } else {
-        // 文件移动情况：hash 相同但 path 不同
-        // 更新缓存中的 path 为最新路径
-        console.log(`🔄 File moved detected: ${cachedFile.path} -> ${filePath}`);
-        await cacheMetadata(fileHash, filePath, cachedFile.metadata);
-        return cachedFile.metadata;
-      }
-    }
-  } catch (error) {
-    console.warn(`⚠️ Failed to load cached metadata:`, error);
-  }
-
-  return null;
-}
-
-/**
- * 缓存 metadata 到 .zen/meta.json
- */
-export async function cacheMetadata(
-  fileHash: string,
-  filePath: string,
-  metadata: AIMetadata
-): Promise<void> {
-  try {
-    // 查找是否已存在相同 hash 的缓存（文件移动情况）
-    const sameHashIndex = MetaData.files.findIndex(f => f.hash === fileHash);
-
-    // 查找是否已存在相同 path 但不同 hash 的缓存（文件内容更新情况）
-    const samePathIndex = MetaData.files.findIndex(f => f.path === filePath && f.hash !== fileHash);
-
-    if (sameHashIndex >= 0) {
-      // 文件移动情况：相同 hash 但 path 可能不同
-      // 更新现有缓存项的 path 和 metadata
-      MetaData.files[sameHashIndex] = {
-        hash: fileHash,
-        path: filePath,
-        metadata,
-        lastUpdated: new Date().toISOString(),
-      };
-
-      // 如果存在相同 path 但不同 hash 的旧缓存项，删除它
-      if (samePathIndex >= 0 && samePathIndex !== sameHashIndex) {
-        MetaData.files.splice(samePathIndex, 1);
-      }
-    } else if (samePathIndex >= 0) {
-      // 文件内容更新情况：相同 path 但 hash 不同
-      // 删除旧的缓存项，添加新的
-      MetaData.files.splice(samePathIndex, 1);
-      MetaData.files.push({
-        hash: fileHash,
-        path: filePath,
-        metadata,
-        lastUpdated: new Date().toISOString(),
-      });
-    } else {
-      // 全新的文件，添加新缓存
-      MetaData.files.push({
-        hash: fileHash,
-        path: filePath,
-        metadata,
-        lastUpdated: new Date().toISOString(),
-      });
-    }
-
-    console.log(`💾 Cached AI metadata for: ${filePath}`);
-  } catch (error) {
-    console.warn(`⚠️ Failed to cache metadata:`, error);
-  }
-}
-
-/**
- * 移除孤儿条目（文件已删除但缓存仍存在）
- * @param existingFilePaths 当前存在的文件路径列表
- */
-export async function removeOrphanEntries(existingFilePaths: string[]): Promise<void> {
-  try {
-    const originalCount = MetaData.files.length;
-
-    // 创建现有文件路径的 Set 用于快速查找
-    const existingPathsSet = new Set(existingFilePaths);
-
-    // 过滤掉文件已经不存在的缓存条目
-    MetaData.files = MetaData.files.filter(fileData => {
-      return existingPathsSet.has(fileData.path);
-    });
-
-    const removedCount = originalCount - MetaData.files.length;
-    if (removedCount > 0) {
-      console.log(`🗑️ Removed ${removedCount} orphan AI metadata entries`);
-    }
-  } catch (error) {
-    console.warn(`⚠️ Failed to remove orphan entries:`, error);
-  }
 }

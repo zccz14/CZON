@@ -4,8 +4,7 @@
 export interface FileMetaData {
   hash: string;
   path: string;
-  metadata: AIMetadata;
-  lastUpdated: string;
+  metadata?: AIMetadata;
 }
 
 /**
@@ -19,31 +18,9 @@ export interface MetaDataStore {
 
 export interface BuildOptions {
   template?: string;
-  watch?: boolean;
   verbose?: boolean;
-  serve?: boolean;
-  port?: number;
-  host?: string;
   baseUrl?: string;
   langs?: string[]; // 目标语言数组
-}
-
-export interface ScannedFile {
-  path: string; // 相对路径
-  name: string;
-  ext: string;
-  hash?: string; // 文件内容的 sha256 hash
-}
-
-export interface FileInfo {
-  path: string; // 相对路径
-  name: string;
-  ext: string;
-  content: string;
-  html?: string;
-  metadata?: { title: string }; // 简化，只保留标题
-  hash?: string; // 文件内容的 sha256 hash
-  aiMetadata?: AIMetadata; // AI 提取的元数据
 }
 
 export interface AIMetadata {
@@ -57,25 +34,4 @@ export interface AIMetadata {
     completion: number;
     total: number;
   }; // tokens 使用情况
-}
-
-export interface NavigationItem {
-  title: string;
-  path: string;
-  children?: NavigationItem[];
-}
-
-export interface TemplateData {
-  title: string;
-  content: string;
-  navigation: NavigationItem[];
-  metadata?: AIMetadata; // 使用完整的 AI 元数据
-  currentPath?: string;
-  lang?: string; // 当前语言
-  availableLangs?: string[]; // 可用的语言列表
-}
-
-export interface MarkdownProcessor {
-  beforeParse?(content: string, fileInfo: FileInfo): string | Promise<string>;
-  afterParse?(html: string, fileInfo: FileInfo): string | Promise<string>;
 }
