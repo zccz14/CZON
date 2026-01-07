@@ -1,8 +1,6 @@
-import * as chokidar from 'chokidar';
-import express from 'express';
 import * as fs from 'fs/promises';
-import * as http from 'http';
 import * as path from 'path';
+import { ZEN_DIR, ZEN_DIST_DIR, ZEN_SRC_DIR } from '../paths';
 import { batchProcessAI } from '../process/ai';
 import { convertScannedFiles } from '../process/markdown';
 import { batchRenderAndSave } from '../process/template';
@@ -52,16 +50,6 @@ export async function validateConfig(options: BuildOptions): Promise<BuildOption
   }
 
   return options;
-}
-
-/**
- * 确保 .zen/.gitignore 文件存在且内容正确
- */
-async function ensureZenGitignore(outDir: string): Promise<void> {
-  const zenDir = path.dirname(outDir); // .zen 目录
-  const zenGitignorePath = path.join(zenDir, '.gitignore');
-
-  await fs.writeFile(zenGitignorePath, 'dist\n', 'utf-8');
 }
 
 /**
@@ -134,10 +122,8 @@ export async function runAIMetadataExtraction(
  * 存储母语文件到 .zen/src
  */
 async function storeNativeFiles(files: FileInfo[], verbose = false): Promise<void> {
-  const zenSrcDir = path.join(process.cwd(), '.zen', 'src');
-
   for (const file of files) {
-    const filePath = path.join(zenSrcDir, file.path);
+    const filePath = path.join(ZEN_SRC_DIR, file.path);
     const dirPath = path.dirname(filePath);
 
     try {
@@ -234,43 +220,6 @@ async function renderTemplates(
 }
 
 /**
- * 生成站点地图
- */
-async function generateSitemap(files: FileInfo[], outDir: string, baseUrl?: string): Promise<void> {
-  const sitemapPath = path.join(outDir, 'sitemap.xml');
-
-  const urls = files
-    .map(file => {
-      const urlPath = `/${file.path.replace(/\.md$/, '.html')}`;
-      const fullUrl = baseUrl ? `${baseUrl}${urlPath}` : urlPath;
-      return `  <url>
-    <loc>${fullUrl}</loc>
-    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
-  </url>`;
-    })
-    .join('\n');
-
-  const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls}
-</urlset>`;
-
-  await fs.writeFile(sitemapPath, sitemapXml, 'utf-8');
-  console.log(`🗺️ Generated sitemap: ${sitemapPath}`);
-}
-
-/**
- * 生成导航 JSON 文件
- */
-async function generateNavigationJson(files: FileInfo[], outDir: string): Promise<void> {
-  const navigationJsonPath = path.join(outDir, 'navigation.json');
-  const navigation = generateNavigation(files);
-
-  await fs.writeFile(navigationJsonPath, JSON.stringify(navigation, null, 2), 'utf-8');
-  console.log(`📊 Generated navigation data: ${navigationJsonPath}`);
-}
-
-/**
  * 复制静态资源
  */
 async function copyStaticAssets(srcDir: string, outDir: string): Promise<void> {
@@ -312,10 +261,10 @@ async function buildPipeline(options: BuildOptions): Promise<void> {
   const validatedOptions = await validateConfig(options);
 
   // 清理输出目录
-  await fs.rm(validatedOptions.outDir, { recursive: true, force: true });
+  await fs.rm(ZEN_DIST_DIR, { recursive: true, force: true });
 
   // 确保 .zen/.gitignore 文件
-  await ensureZenGitignore(validatedOptions.outDir);
+  await fs.writeFile(path.join(ZEN_DIR, '.gitignore'), 'dist\n', 'utf-8');
 
   // 扫描源文件
   const scanResult = await scanSourceFiles(validatedOptions);
@@ -347,12 +296,6 @@ async function buildPipeline(options: BuildOptions): Promise<void> {
 
   // 渲染模板
   await renderTemplates(navigationResult);
-
-  // 生成站点地图
-  await generateSitemap(navigationResult.files, navigationResult.outDir, navigationResult.baseUrl);
-
-  // 生成导航 JSON
-  await generateNavigationJson(navigationResult.files, navigationResult.outDir);
 
   // 复制静态资源
   await copyStaticAssets(navigationResult.srcDir, navigationResult.outDir);

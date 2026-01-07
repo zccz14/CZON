@@ -12,20 +12,14 @@ export async function translateMarkdown(
   sourceLang: string,
   targetLang: string
 ): Promise<string> {
-  const prompt = `请将以下${sourceLang}文本翻译成${targetLang}。保持Markdown格式不变，只翻译文本内容：
-
-${content}
-
-翻译结果（保持原格式）：`;
-
   const messages: OpenAIMessage[] = [
     {
       role: 'system',
-      content: '你是一个专业的翻译助手，擅长将文档翻译成不同语言，同时保持原有的格式和结构。',
+      content: `你是一个专业的翻译助手，擅长将文档翻译成不同语言，同时保持原有的格式和结构。请将用户输入翻译成 ${targetLang}，注意保持 Markdown 格式不变，链接不变，不要翻译代码，但是可以翻译代码中的注释。`,
     },
     {
       role: 'user',
-      content: prompt,
+      content: content,
     },
   ];
 

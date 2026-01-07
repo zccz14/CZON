@@ -62,22 +62,3 @@ export interface MarkdownProcessor {
   beforeParse?(content: string, fileInfo: FileInfo): string | Promise<string>;
   afterParse?(html: string, fileInfo: FileInfo): string | Promise<string>;
 }
-
-export interface ZenConfig {
-  srcDir?: string;
-  outDir?: string;
-  template?: string;
-  baseUrl?: string;
-  i18n?: {
-    targetLangs: string[];
-  };
-  processors?: MarkdownProcessor[];
-  includePattern?: string;
-  excludePattern?: string;
-}
-
-export interface MultiLangBuildOptions extends BuildOptions {
-  langs: string[]; // 必须指定目标语言
-  useMetaData?: boolean; // 是否使用 meta.json 中的元数据
-  filterOrphans?: boolean; // 是否过滤孤儿文件
-}

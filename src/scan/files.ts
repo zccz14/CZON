@@ -1,8 +1,8 @@
-import { ScannedFile } from '../types';
-import { findMarkdownEntries } from '../findEntries';
+import * as crypto from 'crypto';
 import * as fs from 'fs/promises';
 import * as path from 'path';
-import * as crypto from 'crypto';
+import { findMarkdownEntries } from '../findEntries';
+import { ScannedFile } from '../types';
 
 /**
  * 计算文件内容的 SHA256 哈希值
@@ -126,25 +126,4 @@ export async function isScanOutdated(scanResultPath: string, dirPath: string): P
     // 如果扫描结果文件不存在或读取失败，视为过期
     return true;
   }
-}
-
-/**
- * 批量计算文件哈希值（性能优化版本）
- * @param filePaths 文件路径数组
- * @returns 文件路径到哈希值的映射
- */
-export async function batchCalculateFileHashes(filePaths: string[]): Promise<Map<string, string>> {
-  const hashMap = new Map<string, string>();
-  const promises = filePaths.map(async (filePath) => {
-    try {
-      const hash = await calculateFileHash(filePath);
-      hashMap.set(filePath, hash);
-    } catch (error) {
-      console.warn(`⚠️ Failed to calculate hash for ${filePath}:`, error);
-      hashMap.set(filePath, '');
-    }
-  });
-
-  await Promise.all(promises);
-  return hashMap;
 }
