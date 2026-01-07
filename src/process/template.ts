@@ -1,17 +1,12 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
+import { LANGUAGE_NAMES } from '../languages';
 import { MetaData } from '../metadata';
 import { ZEN_DIST_DIR, ZEN_SRC_DIR } from '../paths';
 import { MetaDataStore } from '../types';
 import { convertMarkdownToHtml } from '../utils/convertMarkdownToHtml';
 import { parseFrontmatter } from '../utils/frontmatter';
 
-const langNames: Record<string, string> = {
-  'zh-Hans': '简体中文',
-  'en-US': 'English',
-  'ja-JP': '日本語',
-  'ko-KR': '한국어',
-};
 /**
  * 生成语言切换器 HTML
  * @param currentLang 当前语言
@@ -25,7 +20,7 @@ function generateLanguageSwitcher(templateData: TemplateData): string {
 
   const items = langs
     .map(lang => {
-      const langName = langNames[lang] || lang;
+      const langName = LANGUAGE_NAMES[lang] || lang;
       const isCurrent = lang === templateData.lang;
       const activeClass = isCurrent ? 'active' : '';
 
