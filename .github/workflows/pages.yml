@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
-  workflow_dispatch:  # 允许手动触发
+  workflow_dispatch: # 允许手动触发
 
 # 设置 GITHUB_TOKEN 的权限以允许部署到 GitHub Pages
 permissions:
@@ -13,7 +13,7 @@ permissions:
 
 # 只允许一个并发部署，跳过正在运行的队列
 concurrency:
-  group: "pages"
+  group: 'pages'
   cancel-in-progress: false
 
 jobs:
@@ -35,7 +35,7 @@ jobs:
 
       - name: Create documentation site
         run: |
-          npx zengen@latest build --base-url /ZEN --lang zh-Hans --lang en-US
+          npm run build:doc
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
