@@ -1,0 +1,115 @@
+{
+  "version": "1.0.0",
+  "options": {
+    "verbose": true,
+    "langs": [
+      "zh-Hans",
+      "en-US",
+      "ja-JP",
+      "ko-KR",
+      "es-ES",
+      "fr-FR",
+      "de-DE",
+      "ru-RU",
+      "pt-PT",
+      "it-IT",
+      "nl-NL",
+      "pl-PL",
+      "sv-SE",
+      "fi-FI",
+      "da-DK",
+      "no-NO",
+      "zh-Hant",
+      "hi-IN",
+      "ar-SA",
+      "th-TH",
+      "vi-VN",
+      "id-ID",
+      "pt-BR",
+      "es-MX",
+      "tr-TR",
+      "uk-UA"
+    ]
+  },
+  "files": [
+    {
+      "hash": "208cda83557292fd2c71554b1d63259e63bf100b09b850d49d0d55f3f69e324d",
+      "path": "README.md",
+      "links": [
+        "https://czon.zccz14.com/",
+        "https://nodejs.org/",
+        "https://platform.openai.com/account/api-keys"
+      ],
+      "metadata": {
+        "title": "CZON - 极简主义 Markdown + AI 静态站点构建器",
+        "summary": "CZON 是一个结合 AI 功能的静态站点生成器，专为 Markdown 文档设计。它允许用户将包含 Markdown 文件的 Git 文件夹快速构建成静态 HTML 站点，无需复杂配置。核心功能包括智能分类导航，通过 AI 分析内容自动生成站点地图和导航，以及自动增量翻译，支持用户用母语写作并一键生成多语言版本。工具强调回归内容本质，最小化写作干扰，并利用 LLM 处理标题生成、摘要、翻译等任务，简化文档管理流程。快速开始部分提供了环境配置和构建命令的详细说明。",
+        "tags": [
+          "静态站点生成器",
+          "Markdown",
+          "AI",
+          "多语言翻译",
+          "极简主义",
+          "文档工具",
+          "Git",
+          "Node.js"
+        ],
+        "inferred_lang": "zh-Hans",
+        "tokens_used": {
+          "prompt": 1014,
+          "completion": 213,
+          "total": 1227
+        }
+      }
+    },
+    {
+      "hash": "579c3a203225b8b7aead541f42381de0619d8bc1d451d0d9c3267dbc74205503",
+      "path": "docs/test-katex.md",
+      "links": [],
+      "metadata": {
+        "title": "KaTeX 公式显示效果测试",
+        "summary": "该文档是一个用于测试 KaTeX 公式显示效果的示例，包含多个行内和块级数学公式，如 E=mc^2、积分、导数、级数、分段函数、表格、矩阵等，旨在验证公式的正确渲染。",
+        "tags": ["KaTeX", "公式测试", "数学公式", "LaTeX", "文档分析", "显示效果"],
+        "inferred_lang": "zh-Hans",
+        "tokens_used": {
+          "prompt": 552,
+          "completion": 119,
+          "total": 671
+        }
+      }
+    },
+    {
+      "hash": "8938d6aac9c056c06137a041b8e82379bfb619bb6d435b9ecec515337dd0cd69",
+      "path": "docs/test-mermaid.md",
+      "links": [],
+      "metadata": {
+        "title": "Mermaid 图表测试文档",
+        "summary": "这是一个测试文件，用于验证 CZON 中的 Mermaid 图表渲染功能。文档包含多种 Mermaid 图表类型的示例，如流程图、序列图、甘特图、类图、状态图和饼图，并包括一个错误语法测试以检查错误处理。主要内容展示了图表代码和描述，旨在测试集成是否正常工作。",
+        "tags": ["Mermaid", "图表测试", "流程图", "序列图", "甘特图", "类图", "状态图", "饼图"],
+        "inferred_date": "2024-01-01",
+        "inferred_lang": "zh-Hans",
+        "tokens_used": {
+          "prompt": 901,
+          "completion": 152,
+          "total": 1053
+        }
+      }
+    },
+    {
+      "hash": "0a45691830406b3e23e4b7a96e8cf09fba179e96e3c0e97af8dfd502ba22e057",
+      "path": "docs/tricks.md",
+      "links": [],
+      "metadata": {
+        "title": "CZON 文档日期声明技巧",
+        "summary": "本文档介绍了 CZON 中在正文中直接声明日期的使用技巧，与传统 Markdown 的 YAML Frontmatter 方法相比，它更灵活智能，避免了忘记填写字段的问题。AI 会自动提取日期作为文档创建日期，并支持生成时间线视图，适用于日记、博客等内容类型。",
+        "tags": ["CZON", "日期声明", "Markdown", "AI 提取", "时间线视图", "文档管理", "用户体验"],
+        "inferred_date": "2026-01-08",
+        "inferred_lang": "zh-Hans",
+        "tokens_used": {
+          "prompt": 417,
+          "completion": 147,
+          "total": 564
+        }
+      }
+    }
+  ]
+}
