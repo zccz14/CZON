@@ -33,7 +33,7 @@
   },
   "files": [
     {
-      "hash": "208cda83557292fd2c71554b1d63259e63bf100b09b850d49d0d55f3f69e324d",
+      "hash": "69ee572da190638b7f4ce646da54f4aa0b764f0b4beef374d506e129fb969d0f",
       "path": "README.md",
       "links": [
         "https://czon.zccz14.com/",
@@ -41,23 +41,15 @@
         "https://platform.openai.com/account/api-keys"
       ],
       "metadata": {
-        "title": "CZON - 极简主义 Markdown + AI 静态站点构建器",
-        "summary": "CZON 是一个结合 AI 的静态站点构建器，专注于简化文档写作和站点生成。它允许用户使用 Markdown 文件构建静态 HTML 站点，通过 AI 自动处理标题生成、分类导航和增量翻译，支持多语言版本。工具强调最小化配置，隐藏复杂设置，让用户专注于母语写作，同时自动生成多语言内容，适合需要高效、无干扰文档管理的用户。",
-        "slug": "czon-markdown-ai-static-site-builder",
-        "tags": [
-          "静态站点生成",
-          "AI 翻译",
-          "Markdown",
-          "极简主义",
-          "多语言支持",
-          "文档工具",
-          "Node.js"
-        ],
+        "title": "CZON - AI-Native Markdown 内容引擎",
+        "summary": "CZON 是一个 AI 驱动的 Markdown 内容引擎，旨在简化内容创作流程，让用户专注于写作。它提供自动多语言翻译、摘要提取和智能分类导航功能，通过 AI 处理标题生成、内容整理等任务，减少配置复杂性。文档介绍了其基本功能、静态站点生成能力以及快速开始指南，包括环境变量设置和构建命令。",
+        "slug": "czon-ai-native-markdown-content-engine",
+        "tags": ["AI", "Markdown", "内容引擎", "多语言翻译", "静态站点生成", "文档工具"],
         "inferred_lang": "zh-Hans",
         "tokens_used": {
-          "prompt": 1049,
-          "completion": 189,
-          "total": 1238
+          "prompt": 1184,
+          "completion": 166,
+          "total": 1350
         }
       }
     },

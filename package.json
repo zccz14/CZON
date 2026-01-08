@@ -1,7 +1,7 @@
 {
   "name": "czon",
-  "version": "0.1.4",
-  "description": "CZone - A minimalist Markdown documentation site builder",
+  "version": "0.1.5",
+  "description": "CZone - AI enhanced Markdown content engine",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": "dist/cli.js",
