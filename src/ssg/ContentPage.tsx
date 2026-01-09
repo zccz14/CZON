@@ -381,7 +381,7 @@ export const ContentPage: React.FC<{
       </head>
       <body>
         <nav className="sidebar">
-          <Navigator ctx={props.ctx} file={props.file} />
+          <Navigator ctx={props.ctx} file={props.file} lang={props.lang} />
           <hr />
           <div>
             <LanguageSwitcher ctx={props.ctx} lang={props.lang} file={props.file} />
