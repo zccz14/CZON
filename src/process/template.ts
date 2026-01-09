@@ -1,223 +1,90 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
-import { LANGUAGE_NAMES } from '../languages';
 import { MetaData } from '../metadata';
 import { CZON_DIST_DIR, CZON_SRC_DIR } from '../paths';
-import { MetaDataStore } from '../types';
+import { renderToHTML } from '../ssg';
+import { IRenderContext } from '../types';
 import { convertMarkdownToHtml } from '../utils/convertMarkdownToHtml';
 import { parseFrontmatter } from '../utils/frontmatter';
 import { writeFile } from '../utils/writeFile';
 
 /**
- * 生成语言切换器 HTML
- * @param currentLang 当前语言
- * @param availableLangs 可用语言列表
- * @returns 语言切换器 HTML 字符串
+ * 使用简单的爬虫抓取生成的站点页面
  */
-function generateLanguageSwitcher(templateData: TemplateData): string {
-  const {
-    options: { langs = [] },
-  } = MetaData;
+export const spiderStaticSiteGenerator = async () => {
+  const queue = ['/index.html', '/404.html'];
 
-  const items = langs
-    .map(lang => {
-      const langName = LANGUAGE_NAMES[lang] || lang;
-      const isCurrent = lang === templateData.lang;
-      const activeClass = isCurrent ? 'active' : '';
+  // 将每个语言的首页加入队列
+  for (const lang of MetaData.options.langs || []) {
+    queue.push(`/${lang}/index.html`);
+  }
 
-      const link = path.join('..', lang, templateData.file.metadata!.slug + '.html');
+  const isVisited = new Set<string>();
+  const contents: IRenderContext['contents'] = [];
 
-      return `<li class="lang-item ${activeClass}">
-        <a href="${link}" class="lang-link">${langName}</a>
-      </li>`;
-    })
-    .join('');
+  // 预加载所有 Markdown 内容
+  for (const file of MetaData.files) {
+    for (const lang of MetaData.options.langs || []) {
+      const markdown = await fs.readFile(path.join(CZON_SRC_DIR, lang, file.hash + '.md'), 'utf-8');
+      const { frontmatter, body } = parseFrontmatter(markdown);
+      const markdownHtml = convertMarkdownToHtml(body);
 
-  return `<div class="language-switcher">
-    <ul class="lang-list">${items}</ul>
-  </div>`;
-}
-
-const generateTagsHtml = (tags: string[]): string => {
-  return `<ul class="tags-list">${tags
-    .map(tag => `<li class="tag-item">${tag}</li>`)
-    .join('')}</ul>`;
-};
-
-/**
- * 生成导航 HTML
- * @param navigation 导航树
- * @param currentPath 当前路径（可选，用于高亮当前页面）
- * @returns 导航 HTML 字符串
- */
-async function generateNavigationHtml(data: TemplateData): Promise<string> {
-  const { files } = MetaData;
-
-  const navigation = await Promise.all(
-    files.map(async file => {
-      const content = await fs.readFile(
-        path.join(CZON_SRC_DIR, data.lang, file.hash + '.md'),
-        'utf-8'
-      );
-      const { frontmatter } = parseFrontmatter(content);
-      const title = frontmatter.title || file.metadata?.title || file.path; // 优先使用提取的标题
-
-      // 使用相对链接
-      const link = file.metadata!.slug + '.html';
-
-      return {
-        title,
-        link,
-        isActive: data.file.hash === file.hash,
-      };
-    })
-  );
-
-  return `<ul class="nav-list">${navigation
-    .map(item => {
-      const activeClass = item.isActive ? 'active' : '';
-
-      let html = `<li class="nav-item">`;
-      html += `<a href="${item.link}" class="nav-link ${activeClass}">${item.title}</a>`;
-
-      html += `</li>`;
-      return html;
-    })
-    .join('')}</ul>`;
-}
-
-const replaceInnerLinks = (data: TemplateData, markdownContent: string): string => {
-  let content = markdownContent;
-  for (const link of data.file.links) {
-    if (URL.canParse(link)) continue; // 跳过绝对 URL
-
-    const targetPath = path.resolve('/', path.dirname(data.file.path), link).slice(1);
-
-    const targetFile = MetaData.files.find(f => f.path === targetPath);
-
-    if (!targetFile) {
-      console.warn(`⚠️ Link target not found for ${link} in file ${data.file.path}`);
-      continue;
+      contents.push({
+        lang,
+        hash: file.hash,
+        body: markdownHtml,
+        frontmatter,
+      });
     }
-    // 替换链接 (使用相对链接)
-    const targetLink = path.join(targetFile.hash + '.html');
-
-    // 全局替换链接
-    const linksRegex = new RegExp(`\\]\\(${link.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\)`, 'g');
-    content = content.replace(linksRegex, `](${targetLink})`);
-  }
-  return content;
-};
-
-interface TemplateData {
-  file: MetaDataStore['files'][0];
-  content: string;
-  lang: string;
-}
-
-/**
- * 简单的模板变量替换
- * @param template 模板字符串
- * @param data 模板数据
- * @returns 渲染后的 HTML 字符串
- */
-async function renderTemplate(template: string, data: TemplateData): Promise<string> {
-  const {
-    options: { langs = [] },
-  } = MetaData;
-  const markdownContent = data.content;
-  const { frontmatter, body } = parseFrontmatter(markdownContent);
-
-  const htmlContent = convertMarkdownToHtml(replaceInnerLinks(data, body));
-
-  let result = template;
-
-  // 替换导航
-  const navigationHtml = await generateNavigationHtml(data);
-  result = result.replace(/{{navigation}}/g, navigationHtml);
-
-  // 替换其他变量 - 使用全局替换
-  result = result.replace(/{{title}}/g, frontmatter.title || 'Untitled');
-  result = result.replace(/{{content}}/g, htmlContent);
-
-  // 替换元数据变量
-  if (frontmatter) {
-    result = result.replace(/{{summary}}/g, frontmatter.summary || '');
-    result = result.replace(/{{tags}}/g, generateTagsHtml(frontmatter.tags || []));
-    result = result.replace(/{{date}}/g, frontmatter.date || '--');
   }
 
-  // 替换语言相关变量
-  result = result.replace(/{{lang}}/g, data.lang || '');
-  if (langs && langs.length > 1 && data.lang) {
-    const langSwitcher = generateLanguageSwitcher(data);
-    result = result.replace(/{{language_switcher}}/g, langSwitcher);
-  }
+  while (queue.length > 0) {
+    const currentPath = queue.shift()!;
+    if (isVisited.has(currentPath)) continue;
+    isVisited.add(currentPath);
 
-  return result;
-}
+    let html = renderToHTML({
+      path: currentPath,
+      site: MetaData,
+      contents,
+    });
 
-const renderRedirectTemplate = async (from: string, to: string): Promise<void> => {
-  const toURL = path.relative(path.dirname(from), to);
-  const html = `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="refresh" content="0; url=${toURL}">
-    <title>Redirecting...</title>
-</head>
-<body>
-    <p>Redirecting to <a href="${toURL}">${toURL}</a></p>
-</body>
-</html>`;
-  const targetPath = path.join(CZON_DIST_DIR, from);
-  await writeFile(targetPath, html);
-};
+    // 内部链接: czon://hash 格式的链接替换为 /{lang}/{slug}.html
+    html = html.replace(/href="([^"]+)"/g, (match, link) => {
+      console.info(`🕷️ Processing link: ${link} in path: ${currentPath}`);
 
-/**
- * 渲染模板并保存文件
- */
-export async function renderTemplates(): Promise<void> {
-  const {
-    files,
-    options: { langs, verbose },
-  } = MetaData;
-
-  if (verbose) console.log(`⚡ Processing files...`);
-  const layoutTemplate = await fs.readFile(
-    path.join(__dirname, '../../assets/templates/default/layout.html'),
-    'utf-8'
-  );
-
-  for (const file of files) {
-    for (const lang of langs || []) {
-      console.info(`📄 Preparing file for language: ${file.path} [${file.hash}] [${lang}]`);
-      const content = await fs.readFile(path.join(CZON_SRC_DIR, lang, file.hash + '.md'), 'utf-8');
-      try {
-        const html = await renderTemplate(layoutTemplate, {
-          file,
-          content,
-          lang,
-        });
-
-        if (file.metadata?.slug) {
-          await writeFile(path.join(CZON_DIST_DIR, lang, file.metadata.slug + '.html'), html);
+      if (link.startsWith('czon://')) {
+        const hash = link.replace('czon://', '');
+        console.info(`   🔗 Replacing internal link for hash: ${hash}`);
+        const file = MetaData.files.find(f => f.hash === hash);
+        if (!file || !file.metadata) {
+          console.warn(`⚠️ Link target not found for hash ${hash} in path ${currentPath}`);
+          return match;
         }
-      } catch (error) {
-        console.error(`❌ Failed to render ${file.path}:`, error);
+        const slug = file.metadata.slug;
+        const targetPath = path.resolve('/', path.dirname(currentPath), `${slug}.html`);
+        const href = path.relative(path.dirname(currentPath), targetPath);
+        return `href="${href}"`;
+      }
+      return match;
+    });
+
+    console.info(`🕷️ Crawled ${currentPath}`);
+
+    await writeFile(path.join(CZON_DIST_DIR, currentPath), html);
+
+    // 提取生成的 HTML 中的站内链接，加入爬取队列
+    const linkRegex = /href="([^"]+)"/g;
+    for (const match of html.matchAll(linkRegex)) {
+      const link = match[1];
+      if (URL.canParse(link)) continue; // 跳过绝对 URL
+      const resolvedPath = path.resolve('/', path.dirname(currentPath), link);
+      console.info(
+        `   ➕ Found link: ${link} -> ${resolvedPath} (${isVisited.has(resolvedPath) ? 'visited' : 'new'})`
+      );
+      if (!isVisited.has(resolvedPath)) {
+        queue.push(resolvedPath);
       }
     }
   }
-
-  for (const lang of langs || []) {
-    await renderRedirectTemplate(
-      path.join(lang, 'index.html'),
-      path.join(lang, files[0].metadata!.slug + '.html')
-    );
-  }
-  await renderRedirectTemplate('index.html', path.join(langs?.[0] || 'en-US', 'index.html'));
-  // 404 页面重定向到首页
-  await renderRedirectTemplate('404.html', 'index.html');
-}
+};
