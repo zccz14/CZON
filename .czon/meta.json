@@ -57,14 +57,22 @@
         ],
         "summary": "CZON 是一个 AI-Native Markdown 内容引擎，旨在帮助内容创作者专注于写作，减少配置和翻译的负担。它通过 AI 自动生成标题、摘要、分类和导航，支持多语言翻译，并内置静态站点生成功能。CZON 强调回归内容本质和母语写作，简化了内容创作和发布的流程，让用户能够更高效地管理和发布内容。",
         "slug": "czon-ai-native-markdown-content-engine",
-        "tags": ["AI", "Markdown", "内容引擎", "多语言翻译", "静态站点生成", "内容创作"],
+        "tags": [
+          "AI",
+          "Markdown",
+          "内容引擎",
+          "多语言翻译",
+          "静态站点生成",
+          "内容创作"
+        ],
         "inferred_lang": "zh-Hans",
         "tokens_used": {
           "prompt": 1400,
           "completion": 364,
           "total": 1764
         }
-      }
+      },
+      "nativeMarkdownHash": "5af709bcbd9d5f2c57555e2872dc1484f66c68acc212e0ea390deb8c587d7259"
     },
     {
       "hash": "579c3a203225b8b7aead541f42381de0619d8bc1d451d0d9c3267dbc74205503",
@@ -87,14 +95,59 @@
         ],
         "summary": "本文档是一个 KaTeX 公式显示效果的测试页面，展示了多种数学公式的渲染示例。文档中包含了行内公式如 E=mc²，块级公式如积分和导数公式，以及复杂的求和公式、分段函数、矩阵和表格公式。每个公式都配有简要说明，旨在验证 KaTeX 在不同场景下的正确显示能力。文档以“请确保以上公式均能正确显示”结尾，强调了其测试目的。",
         "slug": "katex-formula-display-test",
-        "tags": ["KaTeX", "数学公式", "公式测试", "LaTeX", "数学渲染", "文档测试"],
+        "tags": [
+          "KaTeX",
+          "数学公式",
+          "公式测试",
+          "LaTeX",
+          "数学渲染",
+          "文档测试"
+        ],
         "inferred_lang": "zh-Hans",
         "tokens_used": {
           "prompt": 803,
           "completion": 354,
           "total": 1157
         }
-      }
+      },
+      "nativeMarkdownHash": "27bfad2b83cfad8843bb0c6faf42cf33590de4b2b29d4e02e0973d9dab2a0f23"
+    },
+    {
+      "hash": "9989e36378bac82bdfb03afaaf1ae11be4c010dd06771c222a76e1019a1c7c34",
+      "path": "docs/test-links.md",
+      "links": [
+        "test-katex.md",
+        "test-mermaid.md"
+      ],
+      "metadata": {
+        "title": "测试站内链接",
+        "description": "这是一个测试文档，用于验证站内链接的正确性。",
+        "short_summary": "这是一个测试文档，用于验证站内链接的正确性。文档包含指向KaTeX测试文档和Mermaid图表示例的链接。",
+        "audience": "需要测试站内链接的用户或开发者",
+        "key_points": [
+          "文档用于测试站内链接",
+          "包含KaTeX测试文档链接",
+          "包含Mermaid图表示例链接",
+          "验证链接正确性",
+          "测试文档功能"
+        ],
+        "summary": "本文档是一个测试文档，主要用于验证站内链接的正确性。文档中提供了两个链接，分别指向KaTeX测试文档和Mermaid图表示例，旨在帮助用户测试链接功能。",
+        "slug": "test-internal-links",
+        "tags": [
+          "测试",
+          "链接",
+          "文档",
+          "验证",
+          "站内链接"
+        ],
+        "inferred_lang": "zh-Hans",
+        "tokens_used": {
+          "prompt": 570,
+          "completion": 223,
+          "total": 793
+        }
+      },
+      "nativeMarkdownHash": "7a946cbbfbaad1952d594ca3ac904c0f7f009dbbb4cde415b53b391c14ae282e"
     },
     {
       "hash": "8938d6aac9c056c06137a041b8e82379bfb619bb6d435b9ecec515337dd0cd69",
@@ -119,7 +172,16 @@
         ],
         "summary": "本文档是一个测试文件，专门用于验证CZON平台中Mermaid图表的渲染功能。文档展示了流程图、序列图、甘特图、类图、状态图和饼图等多种图表类型的示例，并包含一个错误语法测试以验证错误处理机制。通过这些示例，文档旨在确保CZON平台能够正确解析和显示Mermaid图表，从而支持用户创建和分享复杂的可视化内容。文档还简要说明了测试的目的和包含的图表类型，帮助读者理解其核心价值。",
         "slug": "mermaid-chart-test-document",
-        "tags": ["Mermaid", "图表测试", "CZON", "流程图", "序列图", "甘特图", "类图", "状态图"],
+        "tags": [
+          "Mermaid",
+          "图表测试",
+          "CZON",
+          "流程图",
+          "序列图",
+          "甘特图",
+          "类图",
+          "状态图"
+        ],
         "inferred_date": "2024-01-01",
         "inferred_lang": "zh-Hans",
         "tokens_used": {
@@ -127,7 +189,8 @@
           "completion": 456,
           "total": 1608
         }
-      }
+      },
+      "nativeMarkdownHash": "f094148f381b9f703a6464ac2f42e4eae3f78660ea1829b56fbde09c7c85d4db"
     },
     {
       "hash": "0a45691830406b3e23e4b7a96e8cf09fba179e96e3c0e97af8dfd502ba22e057",
@@ -167,7 +230,8 @@
           "completion": 443,
           "total": 1111
         }
-      }
+      },
+      "nativeMarkdownHash": "8f9418713e4d075d310bec5dae0ee81a38aa0b57238d783a24941e1ee209632e"
     }
   ]
 }

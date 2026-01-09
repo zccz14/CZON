@@ -6,6 +6,10 @@ export interface FileMetaData {
   path: string;
   links: string[];
   metadata?: AIMetadata;
+  /**
+   * 记录翻译所用的(增强后)母语文件的哈希值
+   */
+  nativeMarkdownHash?: string;
 }
 
 /**
@@ -39,4 +43,30 @@ export interface AIMetadata {
     completion: number;
     total: number;
   }; // tokens 使用情况
+}
+
+/**
+ * SSG 渲染上下文
+ */
+export interface IRenderContext {
+  path: string;
+  /**
+   * 全站数据
+   */
+  site: MetaDataStore;
+  /**
+   * 全站文档列表
+   */
+  contents: Array<{
+    lang: string;
+    hash: string;
+    /**
+     * 渲染后的 HTML 内容
+     */
+    body: string;
+    /**
+     * YAML Frontmatter 数据
+     */
+    frontmatter: any;
+  }>;
 }

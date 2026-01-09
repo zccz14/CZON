@@ -12,3 +12,6 @@ package-lock.json
 # Ignore Prettier config itself
 .prettierrc.json
 .prettierignore
+
+# Ignore CZON build artifacts
+.czon
