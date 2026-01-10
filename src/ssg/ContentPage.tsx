@@ -15,6 +15,7 @@ export const ContentPage: React.FC<{
   const summary = frontmatter.summary;
   const date = frontmatter.date || '--';
   const tags = frontmatter.tags || [];
+  const category = props.file.category;
 
   return (
     <html lang={props.lang}>
@@ -22,6 +23,7 @@ export const ContentPage: React.FC<{
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{title}</title>
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
         <style
           dangerouslySetInnerHTML={{
             __html: `
@@ -230,7 +232,7 @@ export const ContentPage: React.FC<{
         margin: 1rem 0;
       }
 
-      .content-body a {
+      a {
         color: #007bff;
         text-decoration: none;
       }
@@ -390,7 +392,8 @@ export const ContentPage: React.FC<{
 
         <main className="content">
           <header className="content-header">
-            <h2>{title}</h2>
+            <h2 className="text-2xl font-bold mb-2">{title}</h2>
+            <p className="font-semibold">{props.file.category}</p>
             <blockquote>{summary}</blockquote>
             <div>📅 {date}</div>
             <div className="tags">
@@ -398,12 +401,25 @@ export const ContentPage: React.FC<{
             </div>
           </header>
 
-          <hr />
-
-          <article
-            className="content-body"
-            dangerouslySetInnerHTML={{ __html: props.content.body }}
-          />
+          <div className="content-body">
+            <article dangerouslySetInnerHTML={{ __html: props.content.body }} />
+            {/* 阅读同类文章 */}
+            <h2>See Also</h2>
+            <ul>
+              {props.ctx.site.files
+                .filter(f => f.category === category && f.hash !== props.file.hash)
+                .map(f => {
+                  const theContent = props.ctx.contents.find(
+                    c => c.lang === props.lang && c.hash === f.hash
+                  );
+                  return (
+                    <li key={f.hash}>
+                      <a href={`${f.metadata?.slug}.html`}>{theContent?.frontmatter.title}</a>
+                    </li>
+                  );
+                })}
+            </ul>
+          </div>
 
           <footer className="footer">
             <p>

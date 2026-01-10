@@ -7,6 +7,10 @@ export interface FileMetaData {
   links: string[];
   metadata?: AIMetadata;
   /**
+   * AI 提取的类别标签
+   */
+  category?: string;
+  /**
    * 记录翻译所用的(增强后)母语文件的哈希值
    */
   nativeMarkdownHash?: string;

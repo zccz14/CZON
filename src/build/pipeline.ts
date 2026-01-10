@@ -9,6 +9,7 @@ import { scanSourceFiles } from '../process/scanSourceFiles';
 import { spiderStaticSiteGenerator } from '../process/template';
 import { BuildOptions } from '../types';
 import { writeFile } from '../utils/writeFile';
+import { processExtractCategory } from '../process/category';
 
 /**
  * 验证构建配置
@@ -45,6 +46,9 @@ async function buildPipeline(options: BuildOptions): Promise<void> {
 
   // 运行 AI 元数据提取
   await extractMetadataByAI();
+
+  // 提取分类信息
+  await processExtractCategory();
 
   // 存储母语文件，并进行内容增强预处理
   await storeNativeFiles();

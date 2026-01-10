@@ -33,7 +33,7 @@
   },
   "files": [
     {
-      "hash": "69ee572da190638b7f4ce646da54f4aa0b764f0b4beef374d506e129fb969d0f",
+      "hash": "d871f4b4c1b7c36441edf7aab8f84d6cef9640b1f451aafe5565787d914f4404",
       "path": "README.md",
       "links": [
         "https://czon.zccz14.com/",
@@ -42,20 +42,22 @@
       ],
       "metadata": {
         "title": "CZON - AI-Native Markdown 内容引擎介绍",
-        "description": "CZON 是一个 AI 驱动的 Markdown 内容引擎，专注于简化内容创作流程，提供自动多语言翻译、摘要提取和智能导航功能。",
-        "short_summary": "CZON 是一个 AI 驱动的 Markdown 内容引擎，专注于简化内容创作。它提供自动多语言翻译、摘要提取和智能导航，帮助用户专注于写作，减少配置和翻译的麻烦。",
-        "audience": "内容创作者、网站开发者、需要简化内容管理和多语言支持的用户",
+        "description": "CZON 是一个 AI 驱动的 Markdown 内容引擎，专注于简化内容创作，提供自动翻译、摘要、分类等功能，让用户专注于写作。",
+        "short_summary": "CZON 是一个 AI 驱动的 Markdown 内容引擎，通过自动处理标题、摘要、分类和多语言翻译，简化内容创作流程。它让用户专注于写作，隐藏复杂配置，并支持静态站点生成，提升内容质量和可访问性。",
+        "audience": "网站内容创作者、Markdown 用户、寻求简化内容创作和发布流程的开发者",
         "key_points": [
-          "CZON 是 AI-Native Markdown 内容引擎",
-          "自动多语言翻译，支持母语写作",
-          "自动摘要提取和智能分类导航",
-          "内置静态站点生成功能",
-          "简化配置，专注于内容创作",
-          "支持 OpenAI API 集成",
-          "适用于内容创作者和开发者",
-          "强调回归内容本质和母语写作"
+          "CZON 是 AI-Native Markdown 内容引擎，专注于智能内容创作",
+          "自动处理标题生成、摘要提取、标签分类和导航整理",
+          "隐藏复杂配置，简化项目结构，让用户专注于写作",
+          "支持用母语写作，利用 AI 进行自动多语言翻译",
+          "内置静态站点生成功能，但非专业 SSG，专注于内容质量",
+          "快速开始需要 Node.js、OpenAI API Key 和 Git",
+          "通过环境变量配置和 npx 命令构建多语言站点",
+          "旨在回归内容本质，最小化打扰，提升创作效率",
+          "适用于网站内容创作者，简化发布流程",
+          "强调 AI 驱动，提升内容可访问性和管理"
         ],
-        "summary": "CZON 是一个 AI-Native Markdown 内容引擎，旨在帮助内容创作者专注于写作，减少配置和翻译的负担。它通过 AI 自动生成标题、摘要、分类和导航，支持多语言翻译，并内置静态站点生成功能。CZON 强调回归内容本质和母语写作，简化了内容创作和发布的流程，让用户能够更高效地管理和发布内容。",
+        "summary": "CZON 是一个 AI-Native Markdown 内容引擎，旨在帮助内容创作者在 AI 时代更智能地创作和管理内容。它强调回归内容本质，最小化打扰，让用户专注于写作，而将标题生成、摘要提取、标签分类、导航整理等任务交给 LLM 自动处理。CZON 隐藏了复杂的配置，简化了项目结构，支持用母语写作并利用 AI 进行多语言翻译，内置静态站点生成功能，但专注于提升内容质量和可访问性而非复杂定制。文档还提供了快速开始的步骤，包括环境变量配置和构建命令。",
         "slug": "czon-ai-native-markdown-content-engine",
         "tags": [
           "AI",
@@ -63,16 +65,18 @@
           "内容引擎",
           "多语言翻译",
           "静态站点生成",
-          "内容创作"
+          "内容创作",
+          "LLM"
         ],
         "inferred_lang": "zh-Hans",
         "tokens_used": {
-          "prompt": 1400,
-          "completion": 364,
-          "total": 1764
+          "prompt": 1425,
+          "completion": 499,
+          "total": 1924
         }
       },
-      "nativeMarkdownHash": "5af709bcbd9d5f2c57555e2872dc1484f66c68acc212e0ea390deb8c587d7259"
+      "category": "AI Content Engine",
+      "nativeMarkdownHash": "00ecd406e5ef84cbf000959938371647a30c17cdcf9e8ab6bc30031224c294f1"
     },
     {
       "hash": "579c3a203225b8b7aead541f42381de0619d8bc1d451d0d9c3267dbc74205503",
@@ -110,7 +114,8 @@
           "total": 1157
         }
       },
-      "nativeMarkdownHash": "27bfad2b83cfad8843bb0c6faf42cf33590de4b2b29d4e02e0973d9dab2a0f23"
+      "nativeMarkdownHash": "27bfad2b83cfad8843bb0c6faf42cf33590de4b2b29d4e02e0973d9dab2a0f23",
+      "category": "Documentation Testing"
     },
     {
       "hash": "9989e36378bac82bdfb03afaaf1ae11be4c010dd06771c222a76e1019a1c7c34",
@@ -147,7 +152,8 @@
           "total": 793
         }
       },
-      "nativeMarkdownHash": "7a946cbbfbaad1952d594ca3ac904c0f7f009dbbb4cde415b53b391c14ae282e"
+      "nativeMarkdownHash": "7a946cbbfbaad1952d594ca3ac904c0f7f009dbbb4cde415b53b391c14ae282e",
+      "category": "Documentation Testing"
     },
     {
       "hash": "8938d6aac9c056c06137a041b8e82379bfb619bb6d435b9ecec515337dd0cd69",
@@ -190,7 +196,8 @@
           "total": 1608
         }
       },
-      "nativeMarkdownHash": "f094148f381b9f703a6464ac2f42e4eae3f78660ea1829b56fbde09c7c85d4db"
+      "nativeMarkdownHash": "f094148f381b9f703a6464ac2f42e4eae3f78660ea1829b56fbde09c7c85d4db",
+      "category": "Documentation Testing"
     },
     {
       "hash": "0a45691830406b3e23e4b7a96e8cf09fba179e96e3c0e97af8dfd502ba22e057",
@@ -231,7 +238,8 @@
           "total": 1111
         }
       },
-      "nativeMarkdownHash": "8f9418713e4d075d310bec5dae0ee81a38aa0b57238d783a24941e1ee209632e"
+      "nativeMarkdownHash": "8f9418713e4d075d310bec5dae0ee81a38aa0b57238d783a24941e1ee209632e",
+      "category": "Technical Features"
     }
   ]
 }
