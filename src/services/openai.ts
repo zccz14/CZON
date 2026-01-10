@@ -1,3 +1,5 @@
+import { MetaData } from '../metadata';
+
 /**
  * OpenAI 消息接口
  */
@@ -78,6 +80,10 @@ export const completeMessages = async (
     }
 
     const data: OpenAIResponse = await response.json();
+
+    if (MetaData.options.verbose) {
+      console.info('🤖 AI Token Usages', data.usage);
+    }
 
     // 验证响应
     if (!data.choices?.[0]?.message?.content?.trim()) {
