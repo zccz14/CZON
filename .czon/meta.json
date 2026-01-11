@@ -118,7 +118,7 @@
       "category": "Documentation Testing"
     },
     {
-      "hash": "9989e36378bac82bdfb03afaaf1ae11be4c010dd06771c222a76e1019a1c7c34",
+      "hash": "311a2865c8366b40236040925041711a2214598b5434e90248987b69766abc36",
       "path": "docs/test-links.md",
       "links": [
         "test-katex.md",
@@ -126,34 +126,37 @@
       ],
       "metadata": {
         "title": "测试站内链接",
-        "description": "这是一个测试文档，用于验证站内链接的正确性。",
-        "short_summary": "这是一个测试文档，用于验证站内链接的正确性。文档包含指向KaTeX测试文档和Mermaid图表示例的链接。",
-        "audience": "需要测试站内链接的用户或开发者",
+        "description": "这是一个测试文档，用于验证站内链接和脚注的正确性。",
+        "short_summary": "这是一个测试文档，用于验证站内链接和脚注的正确性。文档包含指向KaTeX和Mermaid示例的链接，以及一个脚注测试。",
+        "audience": "网站管理员、文档测试人员、开发人员",
         "key_points": [
           "文档用于测试站内链接",
-          "包含KaTeX测试文档链接",
-          "包含Mermaid图表示例链接",
+          "包含两个测试链接：KaTeX和Mermaid",
+          "测试脚注功能",
           "验证链接正确性",
-          "测试文档功能"
+          "检查脚注显示",
+          "文档简洁明了",
+          "适用于功能验证"
         ],
-        "summary": "本文档是一个测试文档，主要用于验证站内链接的正确性。文档中提供了两个链接，分别指向KaTeX测试文档和Mermaid图表示例，旨在帮助用户测试链接功能。",
+        "summary": "本文档是一个测试文档，主要用于验证站内链接和脚注的正确性。文档中提供了两个测试链接，分别指向KaTeX测试文档和Mermaid图表示例，并包含一个脚注测试，用于检查脚注内容在页面底部的正确显示。通过这个文档，可以确保站内链接和脚注功能正常工作。",
         "slug": "test-internal-links",
         "tags": [
           "测试",
-          "链接",
-          "文档",
-          "验证",
-          "站内链接"
+          "站内链接",
+          "脚注",
+          "文档验证",
+          "KaTeX",
+          "Mermaid"
         ],
         "inferred_lang": "zh-Hans",
         "tokens_used": {
-          "prompt": 570,
-          "completion": 223,
-          "total": 793
+          "prompt": 603,
+          "completion": 282,
+          "total": 885
         }
       },
-      "nativeMarkdownHash": "7a946cbbfbaad1952d594ca3ac904c0f7f009dbbb4cde415b53b391c14ae282e",
-      "category": "Documentation Testing"
+      "category": "Documentation Testing",
+      "nativeMarkdownHash": "433172b27eb4486e24511af7486743205ad36e0bd584bec4063f622fc2753f64"
     },
     {
       "hash": "8938d6aac9c056c06137a041b8e82379bfb619bb6d435b9ecec515337dd0cd69",

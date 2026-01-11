@@ -1,7 +1,7 @@
 import hljs from 'highlight.js';
 import { marked } from 'marked';
 import markedKatex from 'marked-katex-extension';
-
+import markedFootnote from 'marked-footnote';
 // 辅助函数：转义 HTML 特殊字符
 function escapeHtml(unsafe: string): string {
   return unsafe
@@ -12,6 +12,7 @@ function escapeHtml(unsafe: string): string {
     .replace(/'/g, '&#039;');
 }
 marked.use(markedKatex({ throwOnError: false, nonStandard: true } as any));
+marked.use(markedFootnote());
 
 /**
  * 将 Markdown 内容转换为 HTML
