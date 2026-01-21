@@ -24,7 +24,7 @@ export const RootPage: React.FC<{ ctx: IRenderContext }> = props => {
         <title>CZON Multilingual Site Navigator</title>
         <meta name="description" content="Select your preferred language to explore our content." />
         {props.ctx.site.options.langs!.map(lang => (
-          <link rel="alternate" hrefLang={lang} href={`${lang}/index.html`} />
+          <link key={lang} rel="alternate" hrefLang={lang} href={`${lang}/index.html`} />
         ))}
         <link
           rel="alternate"

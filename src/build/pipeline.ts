@@ -8,6 +8,7 @@ import { extractMetadataByAI } from '../process/extractMetadataByAI';
 import { processTranslations } from '../process/processTranslations';
 import { scanSourceFiles } from '../process/scanSourceFiles';
 import { spiderStaticSiteGenerator } from '../process/template';
+import { installAgentsToGlobal } from '../services/opencode';
 import { BuildOptions } from '../types';
 import { writeFile } from '../utils/writeFile';
 import { generateRobotsTxt } from './robots';
@@ -34,6 +35,8 @@ async function validateConfig(options: BuildOptions): Promise<void> {
  * 构建管道（函数组合）
  */
 async function buildPipeline(options: BuildOptions): Promise<void> {
+  // 安装 OpenCode 代理到全局目录
+  await installAgentsToGlobal();
   // 验证配置
   await validateConfig(options);
 

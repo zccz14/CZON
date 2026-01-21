@@ -2,7 +2,6 @@
 
 import { Cli, Command, Option } from 'clipanion';
 import { config } from 'dotenv';
-import * as path from 'path';
 import { buildSite } from './build/pipeline';
 import { CZON_VERSION } from './version';
 

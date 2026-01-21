@@ -1,10 +1,38 @@
 import { access, readFile } from 'fs/promises';
-import path from 'path';
-import { translateMarkdown } from '../ai/translateMarkdown';
+import path, { dirname } from 'path';
+import { LANGUAGE_NAMES } from '../languages';
 import { MetaData } from '../metadata';
 import { CZON_SRC_DIR } from '../paths';
+import { runOpenCode, RunOpenCodeOptions } from '../services/opencode';
 import { sha256 } from '../utils/sha256';
 import { writeFile } from '../utils/writeFile';
+
+async function translateWithOpenCode(
+  sourcePath: string,
+  targetPath: string,
+  targetLang: string,
+  options?: RunOpenCodeOptions
+): Promise<string> {
+  const langName = LANGUAGE_NAMES[targetLang];
+
+  const prompt = `将 ${sourcePath} 翻译成 ${langName} (${targetLang}) 并保存到 ${targetPath}。`;
+
+  await runOpenCode(prompt, {
+    ...options,
+    cwd: dirname(sourcePath),
+    agent: 'czon-markdown-translator',
+  });
+
+  const exists = await access(targetPath).then(
+    () => true,
+    () => false
+  );
+  if (!exists) {
+    throw new Error(`OpenCode translation failed: ${targetPath} was not created`);
+  }
+
+  return readFile(targetPath, 'utf-8');
+}
 
 /**
  * 处理翻译
@@ -58,13 +86,11 @@ export async function processTranslations(): Promise<void> {
               return;
             }
 
-            const translatedResponse = await translateMarkdown(sourcePath, content, lang);
-            const translatedContent = translatedResponse.choices?.[0].message.content?.trim() || '';
+            const translatedContent = await translateWithOpenCode(sourcePath, targetPath, lang);
 
             const translationMeta = ((file.translations ??= {})[lang] ??= {});
 
-            translationMeta.content_length = translatedContent.length; // 记录翻译后内容长度
-            translationMeta.token_used = translatedResponse.usage; // 记录 token 使用情况
+            translationMeta.content_length = translatedContent.length;
 
             await writeFile(targetPath, translatedContent);
 

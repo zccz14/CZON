@@ -24,7 +24,7 @@ export const findMarkdownEntries = async (dirPath: string): Promise<string[]> =>
     const files = stdout
       .split('\0') // 按空字符分割文件名
       .filter(line => line.trim() !== '') // 移除空行
-      .filter(file => !file.startsWith('.czon')) // 过滤掉.czon目录下的文件
+      .filter(file => !file.startsWith('.')) // 过滤掉隐藏目录下的文件
       .filter(file => file.endsWith('.md')); // 只保留.md文件
 
     return files;

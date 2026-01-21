@@ -35,7 +35,7 @@ export const IndexPage: React.FC<{
     <html>
       <head>
         <meta charSet="UTF-8" />
-        <title>Index of {props.lang}</title>
+        <title>{`Index of ${props.lang.toString()}`}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content={`Index page for language ${props.lang}`} />
         <style>{style}</style>
