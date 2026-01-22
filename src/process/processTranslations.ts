@@ -1,5 +1,6 @@
 import { access, readFile } from 'fs/promises';
 import path, { dirname } from 'path';
+import { translateMarkdown } from '../ai/translateMarkdown';
 import { LANGUAGE_NAMES } from '../languages';
 import { MetaData } from '../metadata';
 import { CZON_SRC_DIR } from '../paths';
@@ -86,11 +87,13 @@ export async function processTranslations(): Promise<void> {
               return;
             }
 
-            const translatedContent = await translateWithOpenCode(sourcePath, targetPath, lang);
+            const translatedResponse = await translateMarkdown(sourcePath, content, lang);
+            const translatedContent = translatedResponse.choices?.[0].message.content?.trim() || '';
 
             const translationMeta = ((file.translations ??= {})[lang] ??= {});
 
-            translationMeta.content_length = translatedContent.length;
+            translationMeta.content_length = translatedContent.length; // 记录翻译后内容长度
+            translationMeta.token_used = translatedResponse.usage; // 记录 token 使用情况
 
             await writeFile(targetPath, translatedContent);
 
