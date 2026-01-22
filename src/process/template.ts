@@ -1,14 +1,15 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
-import { MetaData } from '../metadata';
-import { CZON_DIST_DIR, CZON_DIST_RAW_CONTENT_DIR, CZON_SRC_DIR } from '../paths';
 import {
+  clearSitemapCollection,
   collectCategoryPage,
   collectIndexPage,
   collectUrl,
-  clearSitemapCollection,
 } from '../build/sitemap';
+import { MetaData } from '../metadata';
+import { CZON_DIST_DIR, CZON_DIST_RAW_CONTENT_DIR, CZON_SRC_DIR } from '../paths';
 import { renderToHTML } from '../ssg';
+import { EXTERNAL_RESOURCES } from '../ssg/resourceMap';
 import { IRenderContext } from '../types';
 import { convertMarkdownToHtml } from '../utils/convertMarkdownToHtml';
 import { parseFrontmatter } from '../utils/frontmatter';
@@ -132,5 +133,21 @@ export const spiderStaticSiteGenerator = async () => {
         queue.push(resolvedPath);
       }
     }
+  }
+};
+
+export const downloadCDNResources = async () => {
+  for (const resource of EXTERNAL_RESOURCES) {
+    const targetFilePath = path.join(CZON_DIST_DIR, 'assets', resource.name);
+
+    console.info(`⬇️ Downloading resource: ${resource.url} -> ${targetFilePath}`);
+    const response = await fetch(resource.url);
+    if (!response.ok) {
+      console.error(`❌ Failed to download resource: ${resource.url}, status: ${response.status}`);
+      throw new Error(`Failed to download resource: ${resource.url}`);
+    }
+    const buffer = await response.arrayBuffer();
+    await writeFile(targetFilePath, Buffer.from(buffer));
+    console.info(`✅ Resource downloaded: ${targetFilePath}`);
   }
 };

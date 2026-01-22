@@ -1,3 +1,4 @@
+import { relative } from 'node:path';
 import React from 'react';
 import { IRenderContext } from '../types';
 import { toSortedBy } from '../utils/sortBy';
@@ -100,7 +101,7 @@ export const IndexPage: React.FC<{
           }
           footer={null}
         />
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4" defer></script>
+        <script src={relative(props.ctx.path, '/assets/tailwindcss.js')} defer></script>
       </body>
     </html>
   );
