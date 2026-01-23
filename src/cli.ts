@@ -3,8 +3,9 @@
 import { Cli, Command, Option } from 'clipanion';
 import { config } from 'dotenv';
 import { buildSite } from './build/pipeline';
-import { CZON_VERSION } from './version';
 import { findMarkdownEntries } from './findEntries';
+import { processSummary } from './process/summary';
+import { CZON_VERSION } from './version';
 
 // 加载 .env 文件中的环境变量
 config();
@@ -39,6 +40,57 @@ class LsFilesCommand extends Command {
       return 0;
     } catch (error) {
       this.context.stderr.write(`❌ Failed to list files: ${error}\n`);
+      return 1;
+    }
+  }
+}
+
+// Summary 命令
+class SummaryCommand extends Command {
+  static paths = [['summary']];
+
+  model = Option.String('--model', 'opencode/big-pickle', {
+    description: 'OpenCode model to use for summarization',
+  });
+
+  verbose = Option.Boolean('-v,--verbose');
+
+  static usage = Command.Usage({
+    description: 'Generate comprehensive multi-style summaries of all markdown files',
+    details: `
+      This command generates 10 different styles of AI-powered summaries for all markdown files
+      in the current repository. The summaries are saved to the SUMMARY directory.
+
+      Generated summary styles include:
+      - Objective analysis
+      - Critical perspective  
+      - Positive encouragement
+      - Popular science explanation
+      - Artistic interpretation
+      - Philosophical analysis
+      - Psychological analysis (MBTI)
+      - Historical timeline
+      - Community discussion
+      - Structured debate
+
+      Examples:
+        $ czon summary
+        $ czon summary --model opencode/gpt-4o
+        $ czon summary --verbose
+    `,
+  });
+
+  async execute() {
+    try {
+      if (this.verbose) {
+        process.env.VERBOSE = 'true';
+      }
+
+      await processSummary(this.model);
+
+      return 0;
+    } catch (error) {
+      this.context.stderr.write(`❌ Summary generation failed: ${error}\n`);
       return 1;
     }
   }
@@ -96,6 +148,7 @@ const cli = new Cli({
 // 注册命令
 cli.register(BuildCommand);
 cli.register(LsFilesCommand);
+cli.register(SummaryCommand);
 
 // 运行 CLI
 cli.runExit(process.argv.slice(2), {

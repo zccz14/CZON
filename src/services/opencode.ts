@@ -1,7 +1,6 @@
 import { spawn } from 'child_process';
-import { access, readdir, readFile } from 'fs/promises';
-import { dirname, join } from 'path';
-import { LANGUAGE_NAMES } from '../languages';
+import { readdir, readFile } from 'fs/promises';
+import { join } from 'path';
 import { MetaData } from '../metadata';
 import { GLOBAL_OPENCODE_AGENT_DIR, LOCAL_OPENCODE_AGENT_DIR } from '../paths';
 import { writeFile } from '../utils/writeFile';
@@ -62,8 +61,14 @@ export const runOpenCode = (prompt: string, options?: RunOpenCodeOptions): Promi
         'json',
       ],
       {
-        stdio: ['ignore', 'pipe', 'pipe'],
+        stdio: ['ignore', 'pipe', 'inherit'],
         cwd,
+        env: Object.assign(
+          {
+            OPENCODE_PERMISSION: JSON.stringify({ bash: 'allow', read: 'allow', write: 'allow' }),
+          },
+          process.env
+        ),
       }
     );
 
@@ -75,10 +80,6 @@ export const runOpenCode = (prompt: string, options?: RunOpenCodeOptions): Promi
       if (verbose) {
         console.info('OpenCode stdout chunk:', chunk);
       }
-    });
-
-    proc.stderr.on('data', data => {
-      console.error('OpenCode stderr:', data.toString());
     });
 
     proc.on('error', err => {
