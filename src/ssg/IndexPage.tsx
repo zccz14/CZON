@@ -1,4 +1,3 @@
-import { relative } from 'node:path';
 import React from 'react';
 import { IRenderContext } from '../types';
 import { toSortedBy } from '../utils/sortBy';
@@ -7,6 +6,7 @@ import { CZONFooter } from './components/CZONFooter';
 import { CZONHeader } from './components/CZONHeader';
 import { LanguageSwitcher } from './components/LanguageSwitcher';
 import { PageLayout } from './layouts/PageLayout';
+import { getResourceUrlFrom } from './resourceMap';
 import { style } from './style';
 
 export const IndexPage: React.FC<{
@@ -101,7 +101,7 @@ export const IndexPage: React.FC<{
           }
           footer={null}
         />
-        <script src={relative(props.ctx.path, '/assets/tailwindcss.js')} defer></script>
+        <script src={getResourceUrlFrom(props.ctx.path, 'tailwindcss.js')} defer></script>
       </body>
     </html>
   );

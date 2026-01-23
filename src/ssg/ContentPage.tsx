@@ -1,4 +1,4 @@
-import { dirname, relative, resolve } from 'node:path';
+import { dirname, resolve } from 'node:path';
 import React from 'react';
 import { IRenderContext } from '../types';
 import { ContentMeta } from './components/ContentMeta';
@@ -7,6 +7,7 @@ import { CZONHeader } from './components/CZONHeader';
 import { LanguageSwitcher } from './components/LanguageSwitcher';
 import { Navigator } from './components/Navigator';
 import { PageLayout } from './layouts/PageLayout';
+import { getResourceUrlFrom } from './resourceMap';
 import { style } from './style';
 
 export const ContentPage: React.FC<{
@@ -39,7 +40,7 @@ export const ContentPage: React.FC<{
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{title}</title>
         <meta name="description" content={`tags: ${tags.join(', ')}`} />
-        <script src={relative(props.ctx.path, '/assets/tailwindcss.js')} defer></script>
+        <script src={getResourceUrlFrom(props.ctx.path, 'tailwindcss.js')} defer></script>
         <style>{style}</style>
         <script
           dangerouslySetInnerHTML={{
