@@ -71,12 +71,19 @@ export const IndexPage: React.FC<{
                     const title = category || 'All';
                     const link = category ? `categories_${category}.html` : 'index.html';
                     const isActive = category === props.category;
+                    const articlesCount = category
+                      ? props.ctx.site.files.filter(f => f.category === category).length
+                      : props.ctx.site.files.length;
                     return (
                       <span key={title}>
                         {isActive ? (
-                          <span className="font-bold">{title}</span>
+                          <span className="font-bold">
+                            {title} ({articlesCount})
+                          </span>
                         ) : (
-                          <a href={link}>{title}</a>
+                          <a href={link}>
+                            {title} ({articlesCount})
+                          </a>
                         )}
                       </span>
                     );
