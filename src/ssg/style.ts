@@ -171,6 +171,14 @@ html:not(.dark) body {
         margin: 1rem 0;
       }
 
+      .content-body ul {
+        list-style: disc outside;
+      }
+
+      .content-body ol {
+        list-style: decimal outside;
+      }
+
       .content-body ul,
       .content-body ol {
         margin: 1rem 0 1rem 2rem;
