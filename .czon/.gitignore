@@ -1,2 +1,4 @@
 dist
 tmp
+src/**/*.*
+!src/**/*.md

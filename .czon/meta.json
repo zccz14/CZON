@@ -39,6 +39,11 @@
       "links": []
     },
     {
+      "hash": "2803999217cb237eac4af7f2b30202fa3f5080bb4a12b61a8273abb0e4e2f052",
+      "path": "package.json",
+      "links": []
+    },
+    {
       "hash": "6f337d3279546277c763f601f08c9c8b3fcb658a7fc5762ccb5c4b3168031e30",
       "path": "README.md",
       "links": [
@@ -50,159 +55,80 @@
       "metadata": {
         "title": "CZON - AI-Native Markdown 内容引擎",
         "description": "CZON 是一个 AI 驱动的 Markdown 内容引擎，专注于简化内容创作流程，提供自动翻译、摘要、分类等功能，让用户专注于写作。",
-        "short_summary": "CZON 是一个 AI 驱动的 Markdown 内容引擎，专注于简化内容创作。它提供自动翻译、摘要和分类功能，让用户零配置写作，专注于内容本身。适合内容创作者快速构建多语言站点。",
-        "audience": "网站内容创作者，特别是希望简化写作流程、使用 AI 辅助并生成多语言版本的用户。",
+        "short_summary": "CZON 是一个 AI 驱动的 Markdown 内容引擎，专注于简化内容创作。它提供自动多语言翻译、摘要提取和标签分类等功能，让用户专注于写作，无需复杂配置。适合网站内容创作者使用母语写作并生成多语言内容。",
+        "audience": "网站内容创作者，特别是希望用母语写作并自动生成多语言版本、讨厌复杂配置的用户。",
         "key_points": [
           "CZON 是一个 AI 原生的 Markdown 内容引擎，专注于内容创作",
-          "强调零配置写作，减少干扰，让用户专注于写作本身",
-          "提供自动多语言翻译、摘要提取、标签分类和智能导航功能",
-          "利用 AI 自动生成标题、摘要、分类等，简化内容管理",
-          "内置静态站点生成（SSG），可将 Markdown 文件夹构建为 HTML 站点",
-          "适合内容创作者，特别是希望用母语写作并生成多语言版本的用户",
-          "通过环境变量配置 OpenAI API 密钥，使用简单命令快速开始",
-          "不是专业的 SSG，而是专注于 AI 驱动的内容质量提升",
-          "支持多语言参数（如 --lang zh-Hans --lang en-US）生成不同版本",
-          "文档以中文编写，核心价值是简化创作流程并集成 AI 能力"
+          "提供零配置写作，减少用户打扰，隐藏配置到 .czon 目录",
+          "深度集成 AI，自动生成标题、摘要、分类和导航",
+          "支持用母语写作，AI 自动进行多语言翻译",
+          "内置静态站点生成功能，可将 Markdown 文件夹构建为 HTML 站点",
+          "适合网站内容创作者，简化内容创作和发布流程",
+          "强调回归内容本质，让写作回归宁静",
+          "使用前提包括 Node.js、OpenAI API Key 和 Git",
+          "通过环境变量配置 API 密钥和模型参数",
+          "支持多语言版本生成，如 zh-Hans 和 en-US"
         ],
-        "summary": "CZON 是一个 AI 原生的 Markdown 内容引擎，旨在帮助内容创作者简化写作流程。它强调零配置写作，减少干扰，让用户专注于内容本身。核心功能包括自动多语言翻译、摘要提取、标签分类和智能导航，利用 AI 技术自动处理标题生成、内容整理等任务。CZON 内置静态站点生成能力，但主要专注于内容创作管理，而非复杂的主题定制。它适合希望用母语写作并自动生成多语言版本的用户，通过环境变量配置和简单命令即可快速开始使用。",
+        "summary": "CZON 是一个 AI 原生的 Markdown 内容引擎，旨在帮助内容创作者简化写作流程。它强调零配置写作，通过深度集成 AI 技术，自动处理标题生成、摘要提取、标签分类、多语言翻译和站点导航等任务，减少用户干扰。CZON 内置静态站点生成功能，但主要专注于内容创作和管理，而非复杂的主题定制。它适合希望用母语写作并自动生成多语言版本的用户，尤其适合讨厌复杂配置的网站内容创作者。",
         "slug": "czon-ai-native-markdown-content-engine",
         "tags": [
           "CZON",
           "AI-Native",
           "Markdown",
           "内容引擎",
-          "静态站点生成",
           "多语言翻译",
+          "静态站点生成",
           "零配置",
           "内容创作"
         ],
         "inferred_lang": "zh-Hans",
         "tokens_used": {
           "prompt": 1564,
-          "completion": 521,
-          "total": 2085
+          "completion": 496,
+          "total": 2060
         }
       },
-      "category": "User Guide",
-      "nativeMarkdownHash": "227766ef37b843a06b2febb2a1bdfd62fb43f8298251125a2fc31b363ef3040a"
+      "category": "AI-Content-Engine",
+      "nativeMarkdownHash": "f8bf81153ba8aa99fbf1e9f8d1bcbbbda76281a603f3120d98041872c682284f"
     },
     {
       "hash": "d32a399845728b1d2147e460f6aae7c1aad8a8dadb3fea0fd4c401bd180416d1",
       "path": "agents/czon-markdown-translator.md",
       "links": [],
       "metadata": {
-        "title": "Markdown 翻译代理使用指南",
-        "description": "介绍如何使用 Markdown 翻译代理在保留格式的同时翻译文档，适用于技术文档本地化。",
-        "short_summary": "本文档指导如何使用 Markdown 翻译代理，在翻译 Markdown 文件时保留格式结构。它适用于技术文档本地化、博客文章翻译等场景，确保代码块、链接和标题等元素不被破坏。代理通过解析文件、翻译文本内容并维护语法完整性，帮助用户高效完成多语言文档转换。",
-        "audience": "需要翻译 Markdown 文件的技术文档作者、本地化团队、博客写手和开发者。",
+        "title": "Markdown Translator Agent Documentation",
+        "description": "Specialized agent for translating markdown files while preserving formatting structure, ideal for technical documentation localization.",
+        "short_summary": "The czon-markdown-translator agent is designed to translate markdown files while preserving all formatting elements like headers, code blocks, and links. It handles technical documentation localization by maintaining structural integrity and ensuring high-quality translations. The agent follows a detailed workflow with error handling to produce natural, idiomatic translations in the target language.",
+        "audience": "Developers, technical writers, and localization specialists needing to translate markdown files while preserving formatting.",
         "key_points": [
-          "使用 Markdown 翻译代理在翻译时保留格式结构",
-          "适用于翻译 README.md 文件、技术文档和博客文章",
-          "核心职责包括读取解析文件、翻译内容并保留 Markdown 语法",
-          "处理特殊内容如不翻译代码块、保留链接 URL",
-          "翻译质量标准强调术语一致和自然语言",
-          "工作流程从确认文件到输出翻译结果",
-          "错误处理包括文件读取失败和语言不明确",
-          "输出格式要求报告翻译成功和保留部分",
-          "目标是生成看起来像原生目标语言的文档",
-          "支持多种场景如文档本地化和多文件翻译"
+          "Preserves markdown formatting during translation",
+          "Handles special content like code blocks and links",
+          "Maintains structural integrity of documents",
+          "Ensures high-quality, idiomatic translations",
+          "Follows a structured workflow with error handling",
+          "Targets technical documentation localization",
+          "Supports multiple languages and file types",
+          "Manages output with UTF-8 encoding"
         ],
-        "summary": "本文档详细介绍了 Markdown 翻译代理的核心功能和使用场景，该代理专门用于翻译 Markdown 文件，同时保持其格式结构完整。文档通过多个示例说明了适用情况，如翻译 README.md 文件、本地化技术文档或翻译博客文章。核心职责包括读取和解析文件、翻译内容时保留所有 Markdown 语法（如标题、链接、代码块）、处理特殊内容（如不翻译代码块内的文本）、管理输出文件。文档还强调了翻译质量标准，如保持术语一致、保留原始语气、确保翻译自然。工作流程包括确认源文件和目标语言、解析文件、制定翻译策略、逐节翻译、验证语法完整性、输出结果。错误处理涉及文件读取失败、语言不明确、编码问题等情况的应对。输出格式要求确认翻译成功、报告字符数、注明保留部分。目标是生成看起来像用目标语言编写的 Markdown 文件，所有格式完整且功能正常。",
-        "slug": "markdown-translator-agent-guide",
+        "summary": "This document details the czon-markdown-translator agent, a specialized tool designed to translate markdown files while meticulously preserving their structural integrity. It outlines core responsibilities including reading and parsing files, translating content while maintaining markdown syntax, handling special content like code blocks and links, and managing output. The agent ensures translation quality by preserving terminology consistency, original tone, and proper formatting. It follows a structured workflow from file confirmation to output verification, includes error handling for common issues, and aims to produce translated files that appear originally written in the target language with all formatting intact.",
+        "slug": "markdown-translator-agent-documentation",
         "tags": [
-          "Markdown 翻译",
-          "技术文档本地化",
-          "格式保留",
-          "翻译代理",
-          "多语言支持",
-          "文档转换"
+          "markdown translation",
+          "documentation localization",
+          "formatting preservation",
+          "technical translation",
+          "agent documentation",
+          "multilingual content"
         ],
         "inferred_lang": "en-US",
         "tokens_used": {
-          "prompt": 1457,
-          "completion": 546,
-          "total": 2003
+          "prompt": 1444,
+          "completion": 404,
+          "total": 1848
         }
       },
-      "category": "User Guide",
-      "translations": {
-        "zh-Hans": {
-          "content_length": 1631
-        },
-        "pt-BR": {
-          "content_length": 3939
-        },
-        "es-ES": {
-          "content_length": 5316
-        },
-        "no-NO": {
-          "content_length": 4645
-        },
-        "id-ID": {
-          "content_length": 4745
-        },
-        "nl-NL": {
-          "content_length": 5027
-        },
-        "sv-SE": {
-          "content_length": 4595
-        },
-        "ar-SA": {
-          "content_length": 4100
-        },
-        "pt-PT": {
-          "content_length": 5168
-        },
-        "de-DE": {
-          "content_length": 5258
-        },
-        "fr-FR": {
-          "content_length": 5583
-        },
-        "ko-KR": {
-          "content_length": 2234
-        },
-        "ja-JP": {
-          "content_length": 2399
-        },
-        "zh-Hant": {
-          "content_length": 1637
-        },
-        "ru-RU": {
-          "content_length": 4911
-        },
-        "tr-TR": {
-          "content_length": 4613
-        },
-        "it-IT": {
-          "content_length": 5415
-        },
-        "da-DK": {
-          "content_length": 4647
-        },
-        "fi-FI": {
-          "content_length": 4912
-        },
-        "vi-VN": {
-          "content_length": 4657
-        },
-        "uk-UA": {
-          "content_length": 4956
-        },
-        "pl-PL": {
-          "content_length": 5120
-        },
-        "th-TH": {
-          "content_length": 3077
-        },
-        "hi-IN": {
-          "content_length": 4686
-        },
-        "es-MX": {
-          "content_length": 5346
-        }
-      },
-      "nativeMarkdownHash": "68c82a467168e22d8048ae2f69a24448c9e82d2c66d3a9ae519ceb90d236e8af"
+      "category": "Translation-Agent",
+      "nativeMarkdownHash": "d64f0d11311711f0830a42ba3d41f16c15409598667a87302e2141291e266b3d"
     },
     {
       "hash": "069babfab1044d915eabca9cec9a1d138d3bd1177191907d6a64f2383df9a2e2",
@@ -215,456 +141,121 @@
         "../logo.png"
       ],
       "metadata": {
-        "title": "Embla 轮播图效果测试文档",
-        "description": "本文档介绍 Embla 轮播图效果的测试方法，包括连续图片展示和文本打断的处理。",
-        "short_summary": "本文档测试 Embla 轮播图效果，展示连续图片如何形成轮播图，并说明文本插入会打断连续性。用户可通过点击或拖动切换视图。",
-        "audience": "前端开发者、网页设计师、测试人员，以及对 Embla 轮播图感兴趣的技术人员。",
+        "title": "Embla轮播图效果测试文档",
+        "description": "本文档介绍Embla轮播图效果的测试方法，包括连续图片展示、用户交互方式以及文本内容对轮播图连续性的影响。",
+        "short_summary": "本文档测试Embla轮播图效果，展示如何通过点击或拖动切换连续图片。文档指出插入文本会打断连续性，形成新轮播图组，并提供了示例图片说明。",
+        "audience": "前端开发者、Web设计师、测试人员，以及对轮播图效果感兴趣的技术人员。",
         "key_points": [
-          "Embla 轮播图效果测试",
-          "连续图片展示为轮播图",
-          "用户可通过点击箭头切换视图",
-          "用户可通过拖动图片切换视图",
-          "文本内容会打断轮播图连续性",
-          "形成新的一组轮播图",
-          "用于前端开发测试",
-          "涉及用户交互设计"
+          "Embla轮播图用于测试多张连续图片的展示效果",
+          "用户可以通过点击箭头或拖动图片来切换视图",
+          "文档包含示例图片（图片1-5）以演示轮播图",
+          "插入文本内容会打断轮播图的连续性",
+          "文本中断后形成新的轮播图组",
+          "文档强调内容结构对轮播图布局的影响",
+          "适用于前端开发者和Web设计人员",
+          "核心是测试轮播图的交互和视觉效果"
         ],
-        "summary": "本文档是一个用于测试 Embla 轮播图效果的说明文档。它描述了如何通过连续展示多张图片形成轮播图，用户可以通过点击箭头或拖动图片来切换视图。文档还指出，如果在图片之间插入文本内容，会打断轮播图的连续性，形成新的一组轮播图。这有助于理解 Embla 轮播图的基本功能和布局规则。",
+        "summary": "本文档是一个用于测试Embla轮播图效果的说明文档。文档首先介绍了Embla轮播图的基本功能，包括通过点击箭头或拖动图片来切换多张连续图片的视图。接着，文档指出如果在轮播图中插入文本内容，会打断轮播图的连续性，从而形成新的轮播图组。文档通过示例图片（图片1-5）展示了这一效果，强调了文本内容对轮播图布局的影响。核心论点是Embla轮播图支持灵活的图片展示和用户交互，但需注意文本内容可能中断连续性。结论是开发者在使用Embla轮播图时应考虑内容结构，以确保预期的视觉效果。",
         "slug": "embla-carousel-effect-test",
         "tags": [
           "Embla",
           "轮播图",
-          "测试",
-          "前端开发",
+          "效果测试",
           "图片展示",
-          "用户交互"
+          "用户交互",
+          "前端开发",
+          "Web组件"
         ],
         "inferred_lang": "zh-Hans",
         "tokens_used": {
-          "prompt": 612,
-          "completion": 334,
-          "total": 946
+          "prompt": 598,
+          "completion": 440,
+          "total": 1038
         }
       },
-      "category": "Technical Testing",
-      "translations": {
-        "en-US": {
-          "content_length": 1409,
-          "token_used": {
-            "prompt_tokens": 496,
-            "completion_tokens": 426,
-            "total_tokens": 922,
-            "prompt_tokens_details": {
-              "cached_tokens": 64
-            },
-            "prompt_cache_hit_tokens": 64,
-            "prompt_cache_miss_tokens": 432
-          }
-        },
-        "zh-Hant": {
-          "content_length": 788,
-          "token_used": {
-            "prompt_tokens": 499,
-            "completion_tokens": 445,
-            "total_tokens": 944,
-            "prompt_tokens_details": {
-              "cached_tokens": 64
-            },
-            "prompt_cache_hit_tokens": 64,
-            "prompt_cache_miss_tokens": 435
-          }
-        },
-        "es-MX": {
-          "content_length": 1519,
-          "token_used": {
-            "prompt_tokens": 502,
-            "completion_tokens": 501,
-            "total_tokens": 1003,
-            "prompt_tokens_details": {
-              "cached_tokens": 64
-            },
-            "prompt_cache_hit_tokens": 64,
-            "prompt_cache_miss_tokens": 438
-          }
-        },
-        "es-ES": {
-          "content_length": 1529,
-          "token_used": {
-            "prompt_tokens": 497,
-            "completion_tokens": 503,
-            "total_tokens": 1000,
-            "prompt_tokens_details": {
-              "cached_tokens": 64
-            },
-            "prompt_cache_hit_tokens": 64,
-            "prompt_cache_miss_tokens": 433
-          }
-        },
-        "fr-FR": {
-          "content_length": 1573,
-          "token_used": {
-            "prompt_tokens": 497,
-            "completion_tokens": 505,
-            "total_tokens": 1002,
-            "prompt_tokens_details": {
-              "cached_tokens": 64
-            },
-            "prompt_cache_hit_tokens": 64,
-            "prompt_cache_miss_tokens": 433
-          }
-        },
-        "sv-SE": {
-          "content_length": 1323,
-          "token_used": {
-            "prompt_tokens": 497,
-            "completion_tokens": 515,
-            "total_tokens": 1012,
-            "prompt_tokens_details": {
-              "cached_tokens": 64
-            },
-            "prompt_cache_hit_tokens": 64,
-            "prompt_cache_miss_tokens": 433
-          }
-        },
-        "id-ID": {
-          "content_length": 1451,
-          "token_used": {
-            "prompt_tokens": 497,
-            "completion_tokens": 495,
-            "total_tokens": 992,
-            "prompt_tokens_details": {
-              "cached_tokens": 64
-            },
-            "prompt_cache_hit_tokens": 64,
-            "prompt_cache_miss_tokens": 433
-          }
-        },
-        "it-IT": {
-          "content_length": 1529,
-          "token_used": {
-            "prompt_tokens": 498,
-            "completion_tokens": 520,
-            "total_tokens": 1018,
-            "prompt_tokens_details": {
-              "cached_tokens": 64
-            },
-            "prompt_cache_hit_tokens": 64,
-            "prompt_cache_miss_tokens": 434
-          }
-        },
-        "pl-PL": {
-          "content_length": 1380,
-          "token_used": {
-            "prompt_tokens": 497,
-            "completion_tokens": 521,
-            "total_tokens": 1018,
-            "prompt_tokens_details": {
-              "cached_tokens": 64
-            },
-            "prompt_cache_hit_tokens": 64,
-            "prompt_cache_miss_tokens": 433
-          }
-        },
-        "ru-RU": {
-          "content_length": 1550,
-          "token_used": {
-            "prompt_tokens": 498,
-            "completion_tokens": 537,
-            "total_tokens": 1035,
-            "prompt_tokens_details": {
-              "cached_tokens": 64
-            },
-            "prompt_cache_hit_tokens": 64,
-            "prompt_cache_miss_tokens": 434
-          }
-        },
-        "no-NO": {
-          "content_length": 1404,
-          "token_used": {
-            "prompt_tokens": 498,
-            "completion_tokens": 528,
-            "total_tokens": 1026,
-            "prompt_tokens_details": {
-              "cached_tokens": 64
-            },
-            "prompt_cache_hit_tokens": 64,
-            "prompt_cache_miss_tokens": 434
-          }
-        },
-        "pt-PT": {
-          "content_length": 1551,
-          "token_used": {
-            "prompt_tokens": 499,
-            "completion_tokens": 530,
-            "total_tokens": 1029,
-            "prompt_tokens_details": {
-              "cached_tokens": 64
-            },
-            "prompt_cache_hit_tokens": 64,
-            "prompt_cache_miss_tokens": 435
-          }
-        },
-        "pt-BR": {
-          "content_length": 1509,
-          "token_used": {
-            "prompt_tokens": 504,
-            "completion_tokens": 530,
-            "total_tokens": 1034,
-            "prompt_tokens_details": {
-              "cached_tokens": 64
-            },
-            "prompt_cache_hit_tokens": 64,
-            "prompt_cache_miss_tokens": 440
-          }
-        },
-        "ja-JP": {
-          "content_length": 925,
-          "token_used": {
-            "prompt_tokens": 731,
-            "completion_tokens": 537,
-            "total_tokens": 1268,
-            "prompt_tokens_details": {
-              "cached_tokens": 320
-            },
-            "prompt_cache_hit_tokens": 320,
-            "prompt_cache_miss_tokens": 411
-          }
-        },
-        "de-DE": {
-          "content_length": 1526,
-          "token_used": {
-            "prompt_tokens": 497,
-            "completion_tokens": 539,
-            "total_tokens": 1036,
-            "prompt_tokens_details": {
-              "cached_tokens": 64
-            },
-            "prompt_cache_hit_tokens": 64,
-            "prompt_cache_miss_tokens": 433
-          }
-        },
-        "da-DK": {
-          "content_length": 1415,
-          "token_used": {
-            "prompt_tokens": 498,
-            "completion_tokens": 543,
-            "total_tokens": 1041,
-            "prompt_tokens_details": {
-              "cached_tokens": 64
-            },
-            "prompt_cache_hit_tokens": 64,
-            "prompt_cache_miss_tokens": 434
-          }
-        },
-        "ar-SA": {
-          "content_length": 1300,
-          "token_used": {
-            "prompt_tokens": 496,
-            "completion_tokens": 555,
-            "total_tokens": 1051,
-            "prompt_tokens_details": {
-              "cached_tokens": 64
-            },
-            "prompt_cache_hit_tokens": 64,
-            "prompt_cache_miss_tokens": 432
-          }
-        },
-        "nl-NL": {
-          "content_length": 1570,
-          "token_used": {
-            "prompt_tokens": 497,
-            "completion_tokens": 545,
-            "total_tokens": 1042,
-            "prompt_tokens_details": {
-              "cached_tokens": 64
-            },
-            "prompt_cache_hit_tokens": 64,
-            "prompt_cache_miss_tokens": 433
-          }
-        },
-        "th-TH": {
-          "content_length": 1278,
-          "token_used": {
-            "prompt_tokens": 498,
-            "completion_tokens": 552,
-            "total_tokens": 1050,
-            "prompt_tokens_details": {
-              "cached_tokens": 64
-            },
-            "prompt_cache_hit_tokens": 64,
-            "prompt_cache_miss_tokens": 434
-          }
-        },
-        "ko-KR": {
-          "content_length": 942,
-          "token_used": {
-            "prompt_tokens": 498,
-            "completion_tokens": 565,
-            "total_tokens": 1063,
-            "prompt_tokens_details": {
-              "cached_tokens": 64
-            },
-            "prompt_cache_hit_tokens": 64,
-            "prompt_cache_miss_tokens": 434
-          }
-        },
-        "fi-FI": {
-          "content_length": 1375,
-          "token_used": {
-            "prompt_tokens": 497,
-            "completion_tokens": 570,
-            "total_tokens": 1067,
-            "prompt_tokens_details": {
-              "cached_tokens": 64
-            },
-            "prompt_cache_hit_tokens": 64,
-            "prompt_cache_miss_tokens": 433
-          }
-        },
-        "vi-VN": {
-          "content_length": 1476,
-          "token_used": {
-            "prompt_tokens": 501,
-            "completion_tokens": 643,
-            "total_tokens": 1144,
-            "prompt_tokens_details": {
-              "cached_tokens": 64
-            },
-            "prompt_cache_hit_tokens": 64,
-            "prompt_cache_miss_tokens": 437
-          }
-        },
-        "uk-UA": {
-          "content_length": 1477,
-          "token_used": {
-            "prompt_tokens": 500,
-            "completion_tokens": 645,
-            "total_tokens": 1145,
-            "prompt_tokens_details": {
-              "cached_tokens": 64
-            },
-            "prompt_cache_hit_tokens": 64,
-            "prompt_cache_miss_tokens": 436
-          }
-        },
-        "tr-TR": {
-          "content_length": 1561,
-          "token_used": {
-            "prompt_tokens": 500,
-            "completion_tokens": 665,
-            "total_tokens": 1165,
-            "prompt_tokens_details": {
-              "cached_tokens": 64
-            },
-            "prompt_cache_hit_tokens": 64,
-            "prompt_cache_miss_tokens": 436
-          }
-        },
-        "hi-IN": {
-          "content_length": 1414,
-          "token_used": {
-            "prompt_tokens": 498,
-            "completion_tokens": 783,
-            "total_tokens": 1281,
-            "prompt_tokens_details": {
-              "cached_tokens": 64
-            },
-            "prompt_cache_hit_tokens": 64,
-            "prompt_cache_miss_tokens": 434
-          }
-        }
-      },
-      "nativeMarkdownHash": "6d797bcfa6838a49c382fd015f9d4665dcd97eee03d16a13711d5f1b8c2cc7db"
+      "category": "Carousel-Testing",
+      "nativeMarkdownHash": "435cb813dd8a3b460e92be495827979975057c96b18e837b0deb7964a377b4b6"
     },
     {
       "hash": "579c3a203225b8b7aead541f42381de0619d8bc1d451d0d9c3267dbc74205503",
       "path": "docs/test-katex.md",
       "links": [],
       "metadata": {
-        "title": "KaTeX 公式显示效果测试",
-        "description": "本文档测试了多种 KaTeX 数学公式的显示效果，包括行内公式、块级公式、复杂公式、矩阵和表格等。",
-        "short_summary": "本文档测试了 KaTeX 数学公式的显示效果，包括行内公式、块级公式、复杂公式、矩阵和表格等。它展示了多种数学表达式的渲染示例，旨在确保公式能正确显示。",
-        "audience": "需要测试或使用 KaTeX 公式显示的技术人员、文档作者和数学内容创作者。",
+        "title": "KaTeX公式显示效果测试文档",
+        "description": "本文档测试多种KaTeX数学公式的显示效果，包括行内公式、块级公式、复杂公式、矩阵和表格等。",
+        "short_summary": "本文档测试KaTeX数学公式的显示效果，涵盖从基础到复杂的多种公式类型。包括行内公式、块级公式、矩阵、表格等，确保公式能正确渲染。",
+        "audience": "需要测试或使用KaTeX渲染数学公式的开发者、教育工作者和技术文档作者。",
         "key_points": [
-          "测试 KaTeX 公式显示效果",
-          "包含行内公式示例",
-          "包含块级公式示例",
-          "展示复杂数学公式",
-          "包括矩阵和表格公式",
-          "验证公式正确渲染",
-          "用于文档测试目的",
-          "强调公式显示准确性"
+          "测试行内公式如E=mc²",
+          "测试块级公式如积分和导数",
+          "展示复杂公式如无穷级数求和",
+          "包含cases、矩阵和表格公式",
+          "测试带有文本说明的公式",
+          "展示广义凯利公式",
+          "确保所有公式正确显示",
+          "适用于技术文档验证"
         ],
-        "summary": "本文档是一个 KaTeX 公式显示效果的测试页面，展示了多种数学公式的渲染示例。文档中包含了行内公式如 E=mc²，块级公式如积分和导数公式，以及复杂的求和公式、分段函数、矩阵和表格公式。每个公式都配有简要说明，旨在验证 KaTeX 在不同场景下的正确显示能力。文档以“请确保以上公式均能正确显示”结尾，强调了其测试目的。",
+        "summary": "本文档是一个KaTeX数学公式显示效果的测试文档，展示了多种数学公式的渲染效果。文档包含行内公式如E=mc²，块级公式如积分和导数公式，复杂公式如无穷级数求和，以及带有cases、矩阵和表格的特殊公式。文档还测试了包含文本说明的公式和广义凯利公式。所有公式均旨在验证KaTeX的正确显示能力，适用于需要数学公式展示的技术文档或教育材料。",
         "slug": "katex-formula-display-test",
         "tags": [
           "KaTeX",
           "数学公式",
           "公式测试",
           "LaTeX",
-          "数学渲染",
-          "文档测试"
+          "文档测试",
+          "技术文档"
         ],
         "inferred_lang": "zh-Hans",
         "tokens_used": {
-          "prompt": 803,
-          "completion": 354,
-          "total": 1157
+          "prompt": 789,
+          "completion": 362,
+          "total": 1151
         }
       },
-      "nativeMarkdownHash": "27bfad2b83cfad8843bb0c6faf42cf33590de4b2b29d4e02e0973d9dab2a0f23",
-      "category": "Technical Testing",
-      "translations": {
-        "ja-JP": {
-          "content_length": 1092
-        }
-      }
+      "category": "Math-Formula-Testing",
+      "nativeMarkdownHash": "46fa1865b87ad0b3f1a3f7153327c8d4f1dc580ee6d70b023dcc1545cf4d2a31"
     },
     {
-      "hash": "311a2865c8366b40236040925041711a2214598b5434e90248987b69766abc36",
+      "hash": "a2e7b7a1e8d5f2f977c72ea0281c815423fab64b9bdb6c84fe1fd5174a8b901a",
       "path": "docs/test-links.md",
       "links": [
         "test-katex.md",
-        "test-mermaid.md"
+        "test-mermaid.md",
+        "../package.json"
       ],
       "metadata": {
-        "title": "测试站内链接",
-        "description": "这是一个测试文档，用于验证站内链接和脚注的正确性。",
-        "short_summary": "这是一个测试文档，用于验证站内链接和脚注的正确性。文档包含指向KaTeX和Mermaid示例的链接，以及一个脚注测试。",
-        "audience": "网站管理员、文档测试人员、开发人员",
+        "title": "测试站内链接文档",
+        "description": "这是一个用于验证站内链接正确性的测试文档，包含链接测试和脚注测试。",
+        "short_summary": "这是一个测试文档，用于验证站内链接的正确性。文档包含指向KaTeX和Mermaid示例的链接测试，以及脚注测试，确保这些元素在页面中能正确显示。",
+        "audience": "网站管理员、文档维护人员、技术测试人员",
         "key_points": [
-          "文档用于测试站内链接",
-          "包含两个测试链接：KaTeX和Mermaid",
-          "测试脚注功能",
-          "验证链接正确性",
-          "检查脚注显示",
-          "文档简洁明了",
-          "适用于功能验证"
+          "文档用于测试站内链接正确性",
+          "包含两个测试链接：KaTeX测试文档和Mermaid图表示例",
+          "进行脚注测试，验证脚注内容显示",
+          "链接测试帮助验证页面导航功能",
+          "脚注测试确保辅助信息正确展示",
+          "文档结构简单，专注于功能验证",
+          "适用于技术文档或网站维护场景"
         ],
-        "summary": "本文档是一个测试文档，主要用于验证站内链接和脚注的正确性。文档中提供了两个测试链接，分别指向KaTeX测试文档和Mermaid图表示例，并包含一个脚注测试，用于检查脚注内容在页面底部的正确显示。通过这个文档，可以确保站内链接和脚注功能正常工作。",
-        "slug": "test-internal-links",
+        "summary": "本文档是一个测试文档，主要用于验证站内链接的正确性。文档提供了两个测试链接，分别指向KaTeX测试文档和Mermaid图表示例，同时还包含脚注测试，展示了脚注内容在页面底部的正确显示方式。文档的核心目的是帮助用户测试和验证站内链接功能，确保链接和脚注在页面中能正常工作。",
+        "slug": "test-internal-links-document",
         "tags": [
           "测试",
           "站内链接",
-          "脚注",
           "文档验证",
           "KaTeX",
-          "Mermaid"
+          "Mermaid",
+          "脚注"
         ],
         "inferred_lang": "zh-Hans",
         "tokens_used": {
-          "prompt": 603,
-          "completion": 282,
-          "total": 885
+          "prompt": 589,
+          "completion": 329,
+          "total": 918
         }
       },
-      "category": "Technical Testing",
-      "nativeMarkdownHash": "433172b27eb4486e24511af7486743205ad36e0bd584bec4063f622fc2753f64",
-      "translations": {
-        "ja-JP": {
-          "content_length": 602
-        }
-      }
+      "category": "Link-Testing",
+      "nativeMarkdownHash": "df29bfd08f26f8345671bf6def3b90de65953e67a2a7971dee159ad1bd56d529"
     },
     {
       "hash": "8938d6aac9c056c06137a041b8e82379bfb619bb6d435b9ecec515337dd0cd69",
@@ -672,22 +263,22 @@
       "links": [],
       "metadata": {
         "title": "Mermaid图表测试文档",
-        "description": "本文档包含多种Mermaid图表示例，用于测试CZON平台的图表渲染功能。",
-        "short_summary": "本文档提供了多种Mermaid图表示例，用于测试CZON平台的图表渲染功能。它涵盖了流程图、序列图、甘特图等常见图表类型，并包含错误语法测试。文档旨在验证CZON平台对Mermaid图表的支持，确保用户能正常创建和查看可视化内容。",
-        "audience": "CZON平台用户、开发者或对Mermaid图表感兴趣的技术人员",
+        "description": "本文档用于测试CZON平台中Mermaid图表的渲染功能，包含多种图表类型示例。",
+        "short_summary": "本文档是一个Mermaid图表测试文件，用于验证CZON平台中图表的渲染功能。它包含流程图、序列图、甘特图等多种图表类型的示例，以及一个错误语法测试，全面测试了Mermaid集成的正确性和错误处理能力。",
+        "audience": "CZON平台开发者、测试人员以及对Mermaid图表集成感兴趣的技术人员",
         "key_points": [
-          "文档用于测试CZON平台的Mermaid图表渲染功能",
-          "包含流程图示例，展示开始、操作、结束等流程",
-          "包含序列图示例，展示用户、系统、数据库之间的交互",
-          "包含甘特图示例，展示项目时间表和任务安排",
-          "包含类图示例，展示动物、狗、猫的继承关系",
-          "包含状态图示例，展示空闲、处理、成功、错误等状态转换",
-          "包含饼图示例，展示浏览器使用率分布",
-          "包含错误语法测试，验证错误处理机制",
-          "文档使用中文编写，语言简洁明了",
-          "目标读者是CZON平台用户或开发者"
+          "文档用于测试CZON平台中Mermaid图表的渲染功能",
+          "包含流程图、序列图、甘特图、类图、状态图和饼图等多种图表类型示例",
+          "每个图表类型都有具体的代码示例和描述",
+          "文档中包括一个错误语法测试，用于验证错误处理",
+          "甘特图示例中隐含了项目时间表，日期从2024-01-01开始",
+          "类图示例展示了Animal、Dog和Cat的继承关系",
+          "状态图示例描述了从Idle到Processing再到Success或Error的状态转换",
+          "饼图示例展示了浏览器使用率的分布数据",
+          "文档语言为简体中文，内容结构清晰",
+          "核心目的是验证Mermaid集成在CZON平台中的正常工作"
         ],
-        "summary": "本文档是一个测试文件，专门用于验证CZON平台中Mermaid图表的渲染功能。文档展示了流程图、序列图、甘特图、类图、状态图和饼图等多种图表类型的示例，并包含一个错误语法测试以验证错误处理机制。通过这些示例，文档旨在确保CZON平台能够正确解析和显示Mermaid图表，从而支持用户创建和分享复杂的可视化内容。文档还简要说明了测试的目的和包含的图表类型，帮助读者理解其核心价值。",
+        "summary": "本文档是一个测试文件，旨在验证CZON平台对Mermaid图表的渲染支持。文档中提供了流程图、序列图、甘特图、类图、状态图和饼图等多种Mermaid图表类型的示例，展示了从基本结构到复杂应用的图表定义。此外，文档还包含一个错误语法测试，用于验证系统对错误图表的处理能力。通过这些示例，文档全面测试了CZON平台中Mermaid集成的功能性和健壮性，确保图表能够正确渲染并处理异常情况。",
         "slug": "mermaid-chart-test-document",
         "tags": [
           "Mermaid",
@@ -702,18 +293,13 @@
         "inferred_date": "2024-01-01",
         "inferred_lang": "zh-Hans",
         "tokens_used": {
-          "prompt": 1152,
-          "completion": 456,
-          "total": 1608
+          "prompt": 1138,
+          "completion": 472,
+          "total": 1610
         }
       },
-      "nativeMarkdownHash": "f094148f381b9f703a6464ac2f42e4eae3f78660ea1829b56fbde09c7c85d4db",
-      "category": "Technical Testing",
-      "translations": {
-        "ja-JP": {
-          "content_length": 2242
-        }
-      }
+      "category": "Chart-Testing",
+      "nativeMarkdownHash": "4174dc77404950175cef3a8226e0fc22247550e1ab9087afa1095f77e1574ec5"
     },
     {
       "hash": "0a45691830406b3e23e4b7a96e8cf09fba179e96e3c0e97af8dfd502ba22e057",
@@ -721,46 +307,40 @@
       "links": [],
       "metadata": {
         "title": "CZON文档日期声明技巧",
-        "description": "介绍CZON文档系统支持在正文中直接声明日期，相比传统Markdown的YAML Frontmatter更灵活智能，提升用户体验。",
-        "short_summary": "CZON文档系统支持在正文中直接声明日期，AI自动提取处理，比传统Markdown的YAML Frontmatter更灵活。这种方式避免了字段记忆问题，并支持生成时间线视图，适合日记和博客等内容。",
-        "audience": "使用CZON文档系统的用户、博客作者、日记记录者、内容创作者，以及对文档日期管理有需求的人群。",
+        "description": "介绍CZON文档中在正文直接声明日期的灵活方法，提升用户体验并支持时间线视图生成。",
+        "short_summary": "CZON支持在文档正文中直接声明日期，AI自动识别处理，比传统Frontmatter方式更灵活。这种方法避免了字段遗忘问题，特别适合日记博客等需要时间线的内容。",
+        "audience": "使用CZON文档系统的用户、博客作者、日记记录者、内容创作者",
         "key_points": [
-          "CZON支持在正文中直接声明日期，格式自由",
-          "相比传统Markdown的YAML Frontmatter，避免了字段记忆问题",
-          "AI自动提取并推断正文中的日期信息",
-          "日期信息作为文档创建日期处理",
-          "方式更灵活智能，提升用户体验",
-          "具有日期的文档可生成时间线视图",
-          "适合日记、博客等需要时间线的内容类型",
-          "解决了传统方法中日期无法正确识别的风险"
+          "CZON允许在正文中自由格式声明日期",
+          "自动识别处理日期作为文档创建日期",
+          "相比YAML Frontmatter更灵活智能",
+          "避免忘记填写日期字段的问题",
+          "AI自动提取推断日期信息",
+          "支持生成时间线视图",
+          "适合日记博客等内容类型",
+          "提升用户体验"
         ],
-        "summary": "本文介绍了CZON文档系统的一项使用技巧：在正文中直接声明日期。相比传统Markdown文档需要通过YAML Frontmatter声明日期（容易因忘记填写字段导致识别失败），CZON支持在正文中使用自由格式的日期声明（如“今天是2026年1月8日”），AI会自动提取并推断日期信息作为文档创建日期。这种方式更加灵活和智能，避免了Frontmatter字段记忆问题，提升了用户体验。此外，具有日期的文档可以生成时间线视图，适合日记、博客等需要时间线管理的内容类型。",
+        "summary": "本文介绍了CZON文档系统中一种创新的日期声明方式，允许用户在正文中直接以自由格式声明日期（如“今天是2026年1月8日”），系统会自动识别并处理为文档创建日期。相比传统Markdown依赖YAML Frontmatter的固定字段方式，这种方法更加灵活智能，避免了忘记填写字段的问题。AI会自动提取和推断日期信息，适用于日记、博客等内容类型，并能生成时间线视图方便浏览管理。",
         "slug": "czon-document-date-declaration-tips",
         "tags": [
           "CZON",
           "文档处理",
           "日期声明",
           "Markdown",
-          "AI提取",
           "时间线",
           "用户体验",
-          "博客工具"
+          "AI提取"
         ],
         "inferred_date": "2026-01-08",
         "inferred_lang": "zh-Hans",
         "tokens_used": {
-          "prompt": 668,
-          "completion": 443,
-          "total": 1111
+          "prompt": 654,
+          "completion": 365,
+          "total": 1019
         }
       },
-      "nativeMarkdownHash": "8f9418713e4d075d310bec5dae0ee81a38aa0b57238d783a24941e1ee209632e",
-      "category": "Documentation Tips",
-      "translations": {
-        "ja-JP": {
-          "content_length": 904
-        }
-      }
+      "category": "Documentation-Tips",
+      "nativeMarkdownHash": "3d9e6b100c286fcd98d3a9ea805b76efc2255774377333775c48e29e4626e41a"
     }
   ]
 }

@@ -88,6 +88,15 @@ export const runOpenCode = (prompt: string, options?: RunOpenCodeOptions): Promi
       if (!session.data?.id)
         throw new Error('Failed to create OpenCode session', { cause: session.error });
 
+      options?.signal?.addEventListener('abort', () => {
+        console.info(`🛑 Aborting OpenCode session ${session.data.id}...`);
+        client.session.abort({
+          path: {
+            id: session.data.id,
+          },
+        });
+      });
+
       const directoryBase64 = Buffer.from(session.data.directory).toString('base64');
       const url = `${baseUrl}/${directoryBase64}/session/${session.data.id}`;
       console.info('OpenCode Session Created', url);

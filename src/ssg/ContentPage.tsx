@@ -24,7 +24,7 @@ export const ContentPage: React.FC<{
   const category = props.file.category;
 
   const relatedContents = props.ctx.site.files.filter(
-    f => f.category === category && f.hash !== props.file.hash
+    f => f.category === category && f.path !== props.file.path
   );
 
   // 查找指向当前文章的其他文章
@@ -80,10 +80,10 @@ export const ContentPage: React.FC<{
                     <ul>
                       {relatedContents.map(f => {
                         const theContent = props.ctx.contents.find(
-                          c => c.lang === props.lang && c.hash === f.hash
+                          c => c.lang === props.lang && c.file === f
                         );
                         return (
-                          <li key={f.hash}>
+                          <li key={f.path}>
                             <a href={`${f.metadata?.slug}.html`}>{theContent?.frontmatter.title}</a>
                           </li>
                         );
@@ -98,10 +98,10 @@ export const ContentPage: React.FC<{
                     <ul>
                       {referencedFiles.map(f => {
                         const theContent = props.ctx.contents.find(
-                          c => c.lang === props.lang && c.hash === f.hash
+                          c => c.lang === props.lang && c.file === f
                         );
                         return (
-                          <li key={f.hash}>
+                          <li key={f.path}>
                             <a href={`${f.metadata?.slug}.html`}>{theContent?.frontmatter.title}</a>
                           </li>
                         );

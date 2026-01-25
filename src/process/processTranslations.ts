@@ -89,12 +89,8 @@ export async function processTranslations(): Promise<void> {
           }
           if (verbose) console.log(`🌐 Translating to ${lang}...`);
           // 存储翻译文件到 .czon/src/{lang}
-          const sourcePath = path.join(
-            CZON_SRC_DIR,
-            file.metadata.inferred_lang,
-            file.hash + '.md'
-          ); // 使用已经加强的母语文件路径
-          const targetPath = path.join(CZON_SRC_DIR, lang, file.hash + '.md');
+          const sourcePath = path.join(CZON_SRC_DIR, file.metadata.inferred_lang, file.path); // 使用已经加强的母语文件路径
+          const targetPath = path.join(CZON_SRC_DIR, lang, file.path);
 
           try {
             const content = await readFile(sourcePath, 'utf-8');
@@ -117,8 +113,8 @@ export async function processTranslations(): Promise<void> {
               return;
             }
 
-            // await translateWithLLMCall(sourcePath, targetPath, lang);
-            await translateWithOpenCode(sourcePath, targetPath, lang);
+            await translateWithLLMCall(sourcePath, targetPath, lang);
+            // await translateWithOpenCode(sourcePath, targetPath, lang);
 
             // const translationMeta = ((file.translations ??= {})[lang] ??= {});
 

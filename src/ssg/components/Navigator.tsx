@@ -31,15 +31,15 @@ export const Navigator: React.FC<{
             </li>
             {filesInCategory.map(file => {
               const link = file.metadata!.slug + '.html';
-              const isActive = props.file.hash === file.hash;
+              const isActive = props.file === file;
               const theContent = props.ctx.contents.find(
-                c => c.lang === props.lang && c.hash === file.hash
+                c => c.lang === props.lang && c.file === file
               );
               const theTitle =
                 theContent?.frontmatter?.title || file.metadata!.title || '(no title)';
 
               return (
-                <li className="nav-item" key={file.hash}>
+                <li className="nav-item" key={file.path}>
                   <a href={link} className={`nav-link ${isActive ? 'active' : ''}`}>
                     {theTitle} {file.metadata?.inferred_date && `(${file.metadata.inferred_date})`}
                   </a>

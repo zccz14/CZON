@@ -7,7 +7,7 @@ import {
   collectUrl,
 } from '../build/sitemap';
 import { MetaData } from '../metadata';
-import { CZON_DIST_DIR, CZON_DIST_RAW_CONTENT_DIR, CZON_SRC_DIR } from '../paths';
+import { CZON_DIST_DIR, CZON_SRC_DIR } from '../paths';
 import { renderToHTML } from '../ssg';
 import { EXTERNAL_RESOURCES } from '../ssg/resourceMap';
 import { IRenderContext } from '../types';
@@ -31,17 +31,17 @@ export const spiderStaticSiteGenerator = async () => {
   const isVisited = new Set<string>();
   const contents: IRenderContext['contents'] = [];
 
-  // 预加载所有 Markdown 内容
+  // 预加载所有 Markdown 内容，因为 React 内部异步渲染比较麻烦
   for (const file of MetaData.files) {
     if (!file.path.endsWith('.md')) continue;
     for (const lang of MetaData.options.langs || []) {
-      const markdown = await fs.readFile(path.join(CZON_SRC_DIR, lang, file.hash + '.md'), 'utf-8');
+      const markdown = await fs.readFile(path.join(CZON_SRC_DIR, lang, file.path), 'utf-8');
       const { frontmatter, body } = parseFrontmatter(markdown);
-      const markdownHtml = convertMarkdownToHtml(body);
+      const markdownHtml = convertMarkdownToHtml(file.path, lang, body);
 
       contents.push({
         lang,
-        hash: file.hash,
+        file,
         body: markdownHtml,
         frontmatter,
       });
@@ -60,45 +60,6 @@ export const spiderStaticSiteGenerator = async () => {
         site: MetaData,
         contents,
       });
-
-    // 内部链接: czon://hash 格式的链接替换为 /{lang}/{slug}.html
-    html = html.replace(/href="([^"]+)"/g, (match, link) => {
-      console.info(`🕷️ Processing link: ${link} in path: ${currentPath}`);
-
-      if (link.startsWith('czon://')) {
-        const hash = link.replace('czon://', '');
-        console.info(`   🔗 Replacing internal link for hash: ${hash}`);
-        const file = MetaData.files.find(f => f.hash === hash);
-        if (!file || !file.metadata) {
-          console.warn(`⚠️ Link target not found for hash ${hash} in path ${currentPath}`);
-          return match;
-        }
-        const slug = file.metadata.slug;
-        const targetPath = path.resolve('/', path.dirname(currentPath), `${slug}.html`);
-        const href = path.relative(path.dirname(currentPath), targetPath);
-        return `href="${href}"`;
-      }
-      return match;
-    });
-    // 替换 src 中的 czon://hash 链接
-    html = html.replace(/src="([^"]+)"/g, (match, link) => {
-      console.info(`🕷️ Processing src link: ${link} in path: ${currentPath}`);
-
-      if (link.startsWith('czon://')) {
-        const hash = link.replace('czon://', '');
-        console.info(`   🔗 Replacing internal src link for hash: ${hash}`);
-        const file = MetaData.files.find(f => f.hash === hash);
-        if (!file) {
-          console.warn(`⚠️ Src link target not found for hash ${hash} in path ${currentPath}`);
-          return match;
-        }
-        const ext = path.extname(file.path);
-        const targetPath = path.join(CZON_DIST_RAW_CONTENT_DIR, file.hash + ext);
-        const href = path.relative(path.join(CZON_DIST_DIR, path.dirname(currentPath)), targetPath);
-        return `src="${href}"`;
-      }
-      return match;
-    });
 
     console.info(`🕷️ Crawled ${currentPath}`);
 
@@ -125,7 +86,10 @@ export const spiderStaticSiteGenerator = async () => {
     for (const match of html.matchAll(linkRegex)) {
       const link = match[1];
       if (URL.canParse(link)) continue; // 跳过绝对 URL
+      if (link.startsWith('#')) continue; // 跳过页面内锚点链接
       const resolvedPath = path.resolve('/', path.dirname(currentPath), link);
+      if (resolvedPath.startsWith('/__raw__/')) continue; // 跳过原始内容目录
+
       console.info(
         `   ➕ Found link: ${link} -> ${resolvedPath} (${isVisited.has(resolvedPath) ? 'visited' : 'new'})`
       );

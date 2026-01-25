@@ -92,9 +92,8 @@ export const IndexPage: React.FC<{
               </div>
               <div>
                 {contents.map(file => {
-                  const metadata = file.metadata!;
                   return (
-                    <div className="mb-6" key={file.hash}>
+                    <div className="mb-6" key={file.path}>
                       <ContentMeta ctx={props.ctx} file={file} lang={props.lang} />
                     </div>
                   );
