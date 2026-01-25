@@ -2,8 +2,15 @@
  * 单个文件的元数据缓存项
  */
 export interface FileMetaData {
-  hash: string;
+  /**
+   * 文件相对于项目目录的路径
+   *
+   * 例如 `docs/guide.md`
+   *
+   * 作为唯一标识符使用
+   */
   path: string;
+  hash: string;
   links: string[];
   metadata?: AIMetadata;
   /**
@@ -69,7 +76,7 @@ export interface IRenderContext {
    */
   contents: Array<{
     lang: string;
-    hash: string;
+    file: FileMetaData;
     /**
      * 渲染后的 HTML 内容
      */

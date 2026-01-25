@@ -9,7 +9,7 @@ export const ContentMeta: React.FC<{
   showSummary?: boolean;
   lang: string;
 }> = props => {
-  const content = props.ctx.contents.find(c => c.hash === props.file.hash && c.lang === props.lang);
+  const content = props.ctx.contents.find(c => c.file === props.file && c.lang === props.lang);
   const frontmatter = content?.frontmatter || {};
   const title = frontmatter.title;
   const summary = frontmatter.summary;

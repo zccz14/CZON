@@ -30,7 +30,7 @@ export async function scanSourceFiles(): Promise<void> {
     queue.push(filePath);
   }
 
-  const hashes = new Set<string>();
+  const paths = new Set<string>();
 
   while (queue.length > 0) {
     const relativePath = queue.shift()!;
@@ -58,12 +58,14 @@ export async function scanSourceFiles(): Promise<void> {
 
     const contentBuffer = await readFile(fullPath);
     const hash = sha256(contentBuffer);
-    hashes.add(hash);
+    paths.add(relativePath);
 
-    let meta = MetaData.files.find(f => f.hash === hash);
+    let meta = MetaData.files.find(f => f.path === relativePath);
     if (!meta) {
       meta = { hash, path: relativePath, links: [] };
       MetaData.files.push(meta);
+    } else {
+      meta.hash = hash;
     }
 
     // 处理 Markdown 文件
@@ -87,7 +89,7 @@ export async function scanSourceFiles(): Promise<void> {
   }
 
   // 移除不再存在的文件元数据
-  MetaData.files = MetaData.files.filter(f => hashes.has(f.hash));
+  MetaData.files = MetaData.files.filter(f => paths.has(f.path));
   // 按路径降序排序 (通常外层目录优先)
   MetaData.files.sort(
     (a, b) =>

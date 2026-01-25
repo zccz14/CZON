@@ -1,0 +1,322 @@
+{
+  "version": "1.0.0",
+  "options": {
+    "verbose": true,
+    "langs": [
+      "zh-Hans",
+      "en-US"
+    ],
+    "baseUrl": "https://czon.zccz14.com/"
+  },
+  "files": [
+    {
+      "hash": "3bf2cd6040060d95c43633a99e74f42293b853944580523018311c8d95d9c441",
+      "path": "logo.png",
+      "links": []
+    },
+    {
+      "hash": "558db2c184deab446b28ef1979a008563e14339f377d8e956aa655ff284025f7",
+      "path": "package.json",
+      "links": []
+    },
+    {
+      "hash": "6f337d3279546277c763f601f08c9c8b3fcb658a7fc5762ccb5c4b3168031e30",
+      "path": "README.md",
+      "links": [
+        "logo.png",
+        "https://czon.zccz14.com/",
+        "https://nodejs.org/",
+        "https://platform.openai.com/account/api-keys"
+      ],
+      "metadata": {
+        "title": "CZON - AI-Native Markdown 内容引擎",
+        "description": "CZON 是一个 AI 驱动的 Markdown 内容引擎，专注于简化内容创作流程，提供自动翻译、摘要、分类等功能，让用户专注于写作。",
+        "short_summary": "CZON 是一个 AI 驱动的 Markdown 内容引擎，专注于简化内容创作。它提供自动多语言翻译、摘要提取和标签分类等功能，让用户专注于写作，无需复杂配置。适合网站内容创作者使用母语写作并生成多语言内容。",
+        "audience": "网站内容创作者，特别是希望用母语写作并自动生成多语言版本、讨厌复杂配置的用户。",
+        "key_points": [
+          "CZON 是一个 AI 原生的 Markdown 内容引擎，专注于内容创作",
+          "提供零配置写作，减少用户打扰，隐藏配置到 .czon 目录",
+          "深度集成 AI，自动生成标题、摘要、分类和导航",
+          "支持用母语写作，AI 自动进行多语言翻译",
+          "内置静态站点生成功能，可将 Markdown 文件夹构建为 HTML 站点",
+          "适合网站内容创作者，简化内容创作和发布流程",
+          "强调回归内容本质，让写作回归宁静",
+          "使用前提包括 Node.js、OpenAI API Key 和 Git",
+          "通过环境变量配置 API 密钥和模型参数",
+          "支持多语言版本生成，如 zh-Hans 和 en-US"
+        ],
+        "summary": "CZON 是一个 AI 原生的 Markdown 内容引擎，旨在帮助内容创作者简化写作流程。它强调零配置写作，通过深度集成 AI 技术，自动处理标题生成、摘要提取、标签分类、多语言翻译和站点导航等任务，减少用户干扰。CZON 内置静态站点生成功能，但主要专注于内容创作和管理，而非复杂的主题定制。它适合希望用母语写作并自动生成多语言版本的用户，尤其适合讨厌复杂配置的网站内容创作者。",
+        "slug": "czon-ai-native-markdown-content-engine",
+        "tags": [
+          "CZON",
+          "AI-Native",
+          "Markdown",
+          "内容引擎",
+          "多语言翻译",
+          "静态站点生成",
+          "零配置",
+          "内容创作"
+        ],
+        "inferred_lang": "zh-Hans",
+        "tokens_used": {
+          "prompt": 1564,
+          "completion": 496,
+          "total": 2060
+        }
+      },
+      "category": "AI-Content-Engine",
+      "nativeMarkdownHash": "f8bf81153ba8aa99fbf1e9f8d1bcbbbda76281a603f3120d98041872c682284f"
+    },
+    {
+      "hash": "d32a399845728b1d2147e460f6aae7c1aad8a8dadb3fea0fd4c401bd180416d1",
+      "path": "agents/czon-markdown-translator.md",
+      "links": [],
+      "metadata": {
+        "title": "Markdown Translator Agent Documentation",
+        "description": "Specialized agent for translating markdown files while preserving formatting structure, ideal for technical documentation localization.",
+        "short_summary": "The czon-markdown-translator agent is designed to translate markdown files while preserving all formatting elements like headers, code blocks, and links. It handles technical documentation localization by maintaining structural integrity and ensuring high-quality translations. The agent follows a detailed workflow with error handling to produce natural, idiomatic translations in the target language.",
+        "audience": "Developers, technical writers, and localization specialists needing to translate markdown files while preserving formatting.",
+        "key_points": [
+          "Preserves markdown formatting during translation",
+          "Handles special content like code blocks and links",
+          "Maintains structural integrity of documents",
+          "Ensures high-quality, idiomatic translations",
+          "Follows a structured workflow with error handling",
+          "Targets technical documentation localization",
+          "Supports multiple languages and file types",
+          "Manages output with UTF-8 encoding"
+        ],
+        "summary": "This document details the czon-markdown-translator agent, a specialized tool designed to translate markdown files while meticulously preserving their structural integrity. It outlines core responsibilities including reading and parsing files, translating content while maintaining markdown syntax, handling special content like code blocks and links, and managing output. The agent ensures translation quality by preserving terminology consistency, original tone, and proper formatting. It follows a structured workflow from file confirmation to output verification, includes error handling for common issues, and aims to produce translated files that appear originally written in the target language with all formatting intact.",
+        "slug": "markdown-translator-agent-documentation",
+        "tags": [
+          "markdown translation",
+          "documentation localization",
+          "formatting preservation",
+          "technical translation",
+          "agent documentation",
+          "multilingual content"
+        ],
+        "inferred_lang": "en-US",
+        "tokens_used": {
+          "prompt": 1444,
+          "completion": 404,
+          "total": 1848
+        }
+      },
+      "category": "Translation-Agent",
+      "nativeMarkdownHash": "d64f0d11311711f0830a42ba3d41f16c15409598667a87302e2141291e266b3d"
+    },
+    {
+      "hash": "069babfab1044d915eabca9cec9a1d138d3bd1177191907d6a64f2383df9a2e2",
+      "path": "docs/test-embla.md",
+      "links": [
+        "../logo.png",
+        "../logo.png",
+        "../logo.png",
+        "../logo.png",
+        "../logo.png"
+      ],
+      "metadata": {
+        "title": "Embla轮播图效果测试文档",
+        "description": "本文档介绍Embla轮播图效果的测试方法，包括连续图片展示、用户交互方式以及文本内容对轮播图连续性的影响。",
+        "short_summary": "本文档测试Embla轮播图效果，展示如何通过点击或拖动切换连续图片。文档指出插入文本会打断连续性，形成新轮播图组，并提供了示例图片说明。",
+        "audience": "前端开发者、Web设计师、测试人员，以及对轮播图效果感兴趣的技术人员。",
+        "key_points": [
+          "Embla轮播图用于测试多张连续图片的展示效果",
+          "用户可以通过点击箭头或拖动图片来切换视图",
+          "文档包含示例图片（图片1-5）以演示轮播图",
+          "插入文本内容会打断轮播图的连续性",
+          "文本中断后形成新的轮播图组",
+          "文档强调内容结构对轮播图布局的影响",
+          "适用于前端开发者和Web设计人员",
+          "核心是测试轮播图的交互和视觉效果"
+        ],
+        "summary": "本文档是一个用于测试Embla轮播图效果的说明文档。文档首先介绍了Embla轮播图的基本功能，包括通过点击箭头或拖动图片来切换多张连续图片的视图。接着，文档指出如果在轮播图中插入文本内容，会打断轮播图的连续性，从而形成新的轮播图组。文档通过示例图片（图片1-5）展示了这一效果，强调了文本内容对轮播图布局的影响。核心论点是Embla轮播图支持灵活的图片展示和用户交互，但需注意文本内容可能中断连续性。结论是开发者在使用Embla轮播图时应考虑内容结构，以确保预期的视觉效果。",
+        "slug": "embla-carousel-effect-test",
+        "tags": [
+          "Embla",
+          "轮播图",
+          "效果测试",
+          "图片展示",
+          "用户交互",
+          "前端开发",
+          "Web组件"
+        ],
+        "inferred_lang": "zh-Hans",
+        "tokens_used": {
+          "prompt": 598,
+          "completion": 440,
+          "total": 1038
+        }
+      },
+      "category": "Carousel-Testing",
+      "nativeMarkdownHash": "435cb813dd8a3b460e92be495827979975057c96b18e837b0deb7964a377b4b6"
+    },
+    {
+      "hash": "579c3a203225b8b7aead541f42381de0619d8bc1d451d0d9c3267dbc74205503",
+      "path": "docs/test-katex.md",
+      "links": [],
+      "metadata": {
+        "title": "KaTeX公式显示效果测试文档",
+        "description": "本文档测试多种KaTeX数学公式的显示效果，包括行内公式、块级公式、复杂公式、矩阵和表格等。",
+        "short_summary": "本文档测试KaTeX数学公式的显示效果，涵盖从基础到复杂的多种公式类型。包括行内公式、块级公式、矩阵、表格等，确保公式能正确渲染。",
+        "audience": "需要测试或使用KaTeX渲染数学公式的开发者、教育工作者和技术文档作者。",
+        "key_points": [
+          "测试行内公式如E=mc²",
+          "测试块级公式如积分和导数",
+          "展示复杂公式如无穷级数求和",
+          "包含cases、矩阵和表格公式",
+          "测试带有文本说明的公式",
+          "展示广义凯利公式",
+          "确保所有公式正确显示",
+          "适用于技术文档验证"
+        ],
+        "summary": "本文档是一个KaTeX数学公式显示效果的测试文档，展示了多种数学公式的渲染效果。文档包含行内公式如E=mc²，块级公式如积分和导数公式，复杂公式如无穷级数求和，以及带有cases、矩阵和表格的特殊公式。文档还测试了包含文本说明的公式和广义凯利公式。所有公式均旨在验证KaTeX的正确显示能力，适用于需要数学公式展示的技术文档或教育材料。",
+        "slug": "katex-formula-display-test",
+        "tags": [
+          "KaTeX",
+          "数学公式",
+          "公式测试",
+          "LaTeX",
+          "文档测试",
+          "技术文档"
+        ],
+        "inferred_lang": "zh-Hans",
+        "tokens_used": {
+          "prompt": 789,
+          "completion": 362,
+          "total": 1151
+        }
+      },
+      "category": "Math-Formula-Testing",
+      "nativeMarkdownHash": "46fa1865b87ad0b3f1a3f7153327c8d4f1dc580ee6d70b023dcc1545cf4d2a31"
+    },
+    {
+      "hash": "a2e7b7a1e8d5f2f977c72ea0281c815423fab64b9bdb6c84fe1fd5174a8b901a",
+      "path": "docs/test-links.md",
+      "links": [
+        "test-katex.md",
+        "test-mermaid.md",
+        "../package.json"
+      ],
+      "metadata": {
+        "title": "测试站内链接文档",
+        "description": "这是一个用于验证站内链接正确性的测试文档，包含链接测试和脚注测试。",
+        "short_summary": "这是一个测试文档，用于验证站内链接的正确性。文档包含指向KaTeX和Mermaid示例的链接测试，以及脚注测试，确保这些元素在页面中能正确显示。",
+        "audience": "网站管理员、文档维护人员、技术测试人员",
+        "key_points": [
+          "文档用于测试站内链接正确性",
+          "包含两个测试链接：KaTeX测试文档和Mermaid图表示例",
+          "进行脚注测试，验证脚注内容显示",
+          "链接测试帮助验证页面导航功能",
+          "脚注测试确保辅助信息正确展示",
+          "文档结构简单，专注于功能验证",
+          "适用于技术文档或网站维护场景"
+        ],
+        "summary": "本文档是一个测试文档，主要用于验证站内链接的正确性。文档提供了两个测试链接，分别指向KaTeX测试文档和Mermaid图表示例，同时还包含脚注测试，展示了脚注内容在页面底部的正确显示方式。文档的核心目的是帮助用户测试和验证站内链接功能，确保链接和脚注在页面中能正常工作。",
+        "slug": "test-internal-links-document",
+        "tags": [
+          "测试",
+          "站内链接",
+          "文档验证",
+          "KaTeX",
+          "Mermaid",
+          "脚注"
+        ],
+        "inferred_lang": "zh-Hans",
+        "tokens_used": {
+          "prompt": 589,
+          "completion": 329,
+          "total": 918
+        }
+      },
+      "category": "Link-Testing",
+      "nativeMarkdownHash": "df29bfd08f26f8345671bf6def3b90de65953e67a2a7971dee159ad1bd56d529"
+    },
+    {
+      "hash": "8938d6aac9c056c06137a041b8e82379bfb619bb6d435b9ecec515337dd0cd69",
+      "path": "docs/test-mermaid.md",
+      "links": [],
+      "metadata": {
+        "title": "Mermaid图表测试文档",
+        "description": "本文档用于测试CZON平台中Mermaid图表的渲染功能，包含多种图表类型示例。",
+        "short_summary": "本文档是一个Mermaid图表测试文件，用于验证CZON平台中图表的渲染功能。它包含流程图、序列图、甘特图等多种图表类型的示例，以及一个错误语法测试，全面测试了Mermaid集成的正确性和错误处理能力。",
+        "audience": "CZON平台开发者、测试人员以及对Mermaid图表集成感兴趣的技术人员",
+        "key_points": [
+          "文档用于测试CZON平台中Mermaid图表的渲染功能",
+          "包含流程图、序列图、甘特图、类图、状态图和饼图等多种图表类型示例",
+          "每个图表类型都有具体的代码示例和描述",
+          "文档中包括一个错误语法测试，用于验证错误处理",
+          "甘特图示例中隐含了项目时间表，日期从2024-01-01开始",
+          "类图示例展示了Animal、Dog和Cat的继承关系",
+          "状态图示例描述了从Idle到Processing再到Success或Error的状态转换",
+          "饼图示例展示了浏览器使用率的分布数据",
+          "文档语言为简体中文，内容结构清晰",
+          "核心目的是验证Mermaid集成在CZON平台中的正常工作"
+        ],
+        "summary": "本文档是一个测试文件，旨在验证CZON平台对Mermaid图表的渲染支持。文档中提供了流程图、序列图、甘特图、类图、状态图和饼图等多种Mermaid图表类型的示例，展示了从基本结构到复杂应用的图表定义。此外，文档还包含一个错误语法测试，用于验证系统对错误图表的处理能力。通过这些示例，文档全面测试了CZON平台中Mermaid集成的功能性和健壮性，确保图表能够正确渲染并处理异常情况。",
+        "slug": "mermaid-chart-test-document",
+        "tags": [
+          "Mermaid",
+          "图表测试",
+          "CZON",
+          "流程图",
+          "序列图",
+          "甘特图",
+          "类图",
+          "状态图"
+        ],
+        "inferred_date": "2024-01-01",
+        "inferred_lang": "zh-Hans",
+        "tokens_used": {
+          "prompt": 1138,
+          "completion": 472,
+          "total": 1610
+        }
+      },
+      "category": "Chart-Testing",
+      "nativeMarkdownHash": "4174dc77404950175cef3a8226e0fc22247550e1ab9087afa1095f77e1574ec5"
+    },
+    {
+      "hash": "0a45691830406b3e23e4b7a96e8cf09fba179e96e3c0e97af8dfd502ba22e057",
+      "path": "docs/tricks.md",
+      "links": [],
+      "metadata": {
+        "title": "CZON文档日期声明技巧",
+        "description": "介绍CZON文档中在正文直接声明日期的灵活方法，提升用户体验并支持时间线视图生成。",
+        "short_summary": "CZON支持在文档正文中直接声明日期，AI自动识别处理，比传统Frontmatter方式更灵活。这种方法避免了字段遗忘问题，特别适合日记博客等需要时间线的内容。",
+        "audience": "使用CZON文档系统的用户、博客作者、日记记录者、内容创作者",
+        "key_points": [
+          "CZON允许在正文中自由格式声明日期",
+          "自动识别处理日期作为文档创建日期",
+          "相比YAML Frontmatter更灵活智能",
+          "避免忘记填写日期字段的问题",
+          "AI自动提取推断日期信息",
+          "支持生成时间线视图",
+          "适合日记博客等内容类型",
+          "提升用户体验"
+        ],
+        "summary": "本文介绍了CZON文档系统中一种创新的日期声明方式，允许用户在正文中直接以自由格式声明日期（如“今天是2026年1月8日”），系统会自动识别并处理为文档创建日期。相比传统Markdown依赖YAML Frontmatter的固定字段方式，这种方法更加灵活智能，避免了忘记填写字段的问题。AI会自动提取和推断日期信息，适用于日记、博客等内容类型，并能生成时间线视图方便浏览管理。",
+        "slug": "czon-document-date-declaration-tips",
+        "tags": [
+          "CZON",
+          "文档处理",
+          "日期声明",
+          "Markdown",
+          "时间线",
+          "用户体验",
+          "AI提取"
+        ],
+        "inferred_date": "2026-01-08",
+        "inferred_lang": "zh-Hans",
+        "tokens_used": {
+          "prompt": 654,
+          "completion": 365,
+          "total": 1019
+        }
+      },
+      "category": "Documentation-Tips",
+      "nativeMarkdownHash": "3d9e6b100c286fcd98d3a9ea805b76efc2255774377333775c48e29e4626e41a"
+    }
+  ]
+}

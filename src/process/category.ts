@@ -5,7 +5,6 @@ import { FileMetaData } from '../types';
 const formatFileForCategoryExtraction = (file: FileMetaData): string => {
   return [
     //
-    `Hash: ${file.hash}`,
     `Path: ${file.path}`,
     `Metadata: ${JSON.stringify(file.metadata)}`,
   ].join('\n');
@@ -19,16 +18,12 @@ export const processExtractCategory = async (): Promise<void> => {
     console.info('ℹ️ All files already have categories, skipping category extraction.');
     return;
   }
-  // 这意味着，只要有一个新文件，就需要重新生成所有类别标签
-  // 这倒也合理，因为类别标签是整体相关的
-
-  // 如果是内容改动导致的呢？
   const markdownFiles = MetaData.files.filter(f => f.path.endsWith('.md') && f.metadata);
 
   if (verbose) {
     console.info(`📂 Extracting categories for ${markdownFiles.length} markdown files...`);
     for (const file of markdownFiles) {
-      console.info(`   - File: ${file.path} (hash: ${file.hash})`);
+      console.info(`   - File: ${file.path}`);
     }
   }
 
@@ -50,7 +45,7 @@ export const processExtractCategory = async (): Promise<void> => {
           '请优先考虑尚未被分类的文件。',
           '请以 JSON 格式返回类别标签列表。',
           '示例输出格式：',
-          '{ "mappings": { "hash1": "tag1", "hash2": "tag2" } }',
+          '{ "mappings": { "path1": "tag1", "path2": "tag2" } }',
         ].join('\n'),
       },
       {
@@ -76,9 +71,9 @@ export const processExtractCategory = async (): Promise<void> => {
   } = JSON.parse(json);
 
   for (const file of MetaData.files) {
-    const hash = file.hash;
-    if (parsed.mappings[hash]) {
-      file.category = parsed.mappings[hash];
+    const path = file.path;
+    if (parsed.mappings[path]) {
+      file.category = parsed.mappings[path];
     }
   }
 

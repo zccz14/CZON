@@ -1,7 +1,10 @@
 import hljs from 'highlight.js';
-import { marked } from 'marked';
+import { marked, Tokens } from 'marked';
 import markedKatex from 'marked-katex-extension';
 import markedFootnote from 'marked-footnote';
+import { MetaData } from '../metadata';
+import { dirname, join, relative, resolve } from 'path';
+import { CZON_DIST_RAW_CONTENT_DIR } from '../paths';
 // 辅助函数：转义 HTML 特殊字符
 function escapeHtml(unsafe: string): string {
   return unsafe
@@ -19,10 +22,72 @@ marked.use(markedFootnote());
  * @param mdContent Markdown 内容字符串
  * @returns 转换后的 HTML 字符串
  */
-export const convertMarkdownToHtml = (mdContent: string): string => {
+export const convertMarkdownToHtml = (path: string, lang: string, mdContent: string): string => {
+  const sourceFileMeta = MetaData.files.find(f => f.path === path);
   // 创建自定义渲染器
   const renderer = new marked.Renderer();
   const originalCodeRenderer = renderer.code;
+
+  const originalLinkRenderer = renderer.link;
+  renderer.link = function (link: Tokens.Link): string {
+    console.info(`🔗 #### Processing link in Markdown: ${link.href} in file: ${path}`);
+    if (URL.canParse(link.href)) {
+      // 保持原有链接渲染行为
+      return originalLinkRenderer.call(this, link);
+    }
+
+    if (!sourceFileMeta?.metadata?.slug) {
+      console.warn(`⚠️ Source file metadata slug not found for path ${path}`);
+      return originalLinkRenderer.call(this, link);
+    }
+
+    const sourceFileHtmlPath = resolve('/', lang, `${sourceFileMeta.metadata.slug}.html`);
+
+    const resolvedPath = join(dirname(path), link.href);
+    const file = MetaData.files.find(f => f.path === resolvedPath);
+    if (!file) {
+      console.warn(`⚠️ Link target not found for path ${resolvedPath} in file ${path}`);
+      return originalLinkRenderer.call(this, link);
+    }
+    if (link.href.endsWith('.md')) {
+      if (!file.metadata?.slug) {
+        console.warn(`⚠️ Missing slug metadata for file ${file.path}`);
+        return originalLinkRenderer.call(this, link);
+      }
+      const slug = file.metadata.slug;
+      const targetPath = resolve('/', lang, `${slug}.html`);
+      // 将 .md 链接转换为对应的 HTML 文件链接
+      const href = relative(dirname(sourceFileHtmlPath), targetPath);
+      const modifiedLink: Tokens.Link = {
+        ...link,
+        href,
+      };
+      return originalLinkRenderer.call(this, modifiedLink);
+    } else {
+      console.info(` 🔗 #### Processing resource link in Markdown: ${link.href} in file: ${path}`);
+      // 其他资源链接到 __raw__ 目录
+      const resourcePath = resolve('/', dirname(path), link.href);
+
+      const href = relative(dirname(sourceFileHtmlPath), join('/', '__raw__', resourcePath));
+      console.info(`     ➡️ Converted resource link to: ${href}`);
+      const modifiedLink: Tokens.Link = {
+        ...link,
+        href: href,
+      };
+      return originalLinkRenderer.call(this, modifiedLink);
+    }
+  };
+
+  const originalImageRenderer = renderer.image;
+  renderer.image = function (image: Tokens.Image): string {
+    console.info(`🖼️ #### Processing image in Markdown: ${image.href} in file: ${path}`);
+    if (URL.canParse(image.href)) {
+      // 保持原有图片渲染行为
+      return originalImageRenderer.call(this, image);
+    }
+    const imagePath = join(dirname(path), image.href);
+    return `<img src="${join('..', '__raw__', imagePath)}" alt="${image.text}" />`;
+  };
 
   // 重写代码块渲染器以支持 Mermaid - 使用 any 类型绕过类型检查
   (renderer as any).code = function (code: any, language?: string, isEscaped?: boolean) {

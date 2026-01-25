@@ -1,7 +1,13 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { loadMetaData, MetaData, saveMetaData } from '../metadata';
-import { CZON_DIR, CZON_DIST_DIR, CZON_DIST_RAW_CONTENT_DIR, INPUT_DIR } from '../paths';
+import {
+  CZON_DIR,
+  CZON_DIST_DIR,
+  CZON_DIST_RAW_CONTENT_DIR,
+  CZON_SRC_DIR,
+  INPUT_DIR,
+} from '../paths';
 import { processExtractCategory } from '../process/category';
 import { storeNativeFiles } from '../process/enhanceMarkdownSource';
 import { extractMetadataByAI } from '../process/extractMetadataByAI';
@@ -44,24 +50,40 @@ async function buildPipeline(options: BuildOptions): Promise<void> {
   await fs.rm(CZON_DIST_DIR, { recursive: true, force: true });
 
   // 确保 .czon/.gitignore 文件
-  await writeFile(path.join(CZON_DIR, '.gitignore'), 'dist\ntmp\n');
+  await writeFile(
+    path.join(CZON_DIR, '.gitignore'),
+    [
+      'dist',
+      'tmp',
+      // 忽略所有非 md 文件: 先忽略所有文件，再排除 Markdown 文件不忽略
+      'src/**/*.*',
+      '!src/**/*.md',
+    ].join('\n')
+  );
 
   // 扫描源文件
   await scanSourceFiles();
 
-  // 写入 .raw 目录用于存储原始文件 (非翻译文件)
+  // 链接资源文件 (非翻译文件)
   for (const file of MetaData.files) {
-    try {
-      if (!file.hash) throw new Error(`Missing hash`);
-      const ext = path.extname(file.path);
-      const targetPath = path.join(CZON_DIST_RAW_CONTENT_DIR, file.hash + ext);
+    if (file.path.endsWith('.md')) continue; // 仅处理非 Markdown 文件
+    for (const lang of MetaData.options.langs || []) {
+      // 创建硬链接以节省磁盘空间
+      const targetPath = path.join(CZON_SRC_DIR, lang, file.path);
       const sourcePath = path.join(INPUT_DIR, file.path);
-      console.info(`💾 Writing raw content for file ${file.path} to ${targetPath} ...`);
-      const content = await fs.readFile(sourcePath);
-      await writeFile(targetPath, content);
-    } catch (error) {
-      console.warn(`⚠️ Failed to write raw content for file ${file.path}:`, error);
+      console.info(`🔗 Linking file ${file.path} to ${targetPath} ...`);
+
+      // 确保 link 成功
+      await fs.mkdir(path.dirname(targetPath), { recursive: true });
+      await fs.rm(targetPath, { force: true });
+      await fs.link(sourcePath, targetPath);
     }
+    // 拷贝一份到 __raw__ 目录以供 dist 使用
+    const rawTargetPath = path.join(CZON_DIST_RAW_CONTENT_DIR, file.path);
+    const rawSourcePath = path.join(INPUT_DIR, file.path);
+    console.info(`📄 Copying raw file ${file.path} to ${rawTargetPath} ...`);
+    await fs.mkdir(path.dirname(rawTargetPath), { recursive: true });
+    await fs.copyFile(rawSourcePath, rawTargetPath);
   }
 
   // 运行 AI 元数据提取

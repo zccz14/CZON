@@ -26,7 +26,7 @@ export const App = (props: IRenderContext) => {
     // 渲染文章页面
     for (const file of props.site.files) {
       if (props.path === `/${lang}/${file.metadata?.slug}.html`) {
-        const theContent = props.contents.find(c => c.lang === lang && c.hash === file.hash);
+        const theContent = props.contents.find(c => c.lang === lang && c.file === file);
         if (!theContent) return <RedirectPage from={props.path} to={`/index.html`} />;
         return <ContentPage ctx={props} file={file} lang={lang} content={theContent!} />;
       }
