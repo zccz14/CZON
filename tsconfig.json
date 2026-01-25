@@ -2,8 +2,9 @@
   "compilerOptions": {
     "jsx": "react",
     "target": "ES2020",
-    "module": "commonjs",
-    "lib": ["ES2020"],
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2020", "ESNext"],
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,

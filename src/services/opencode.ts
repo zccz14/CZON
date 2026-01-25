@@ -1,9 +1,17 @@
-import { spawn } from 'child_process';
 import { readdir, readFile } from 'fs/promises';
 import { join } from 'path';
 import { MetaData } from '../metadata';
 import { GLOBAL_OPENCODE_AGENT_DIR, LOCAL_OPENCODE_AGENT_DIR } from '../paths';
 import { writeFile } from '../utils/writeFile';
+
+function parseModelString(model: string): { providerID: string; modelID: string } {
+  const parts = model.split('/');
+  if (parts.length === 2) {
+    return { providerID: parts[0], modelID: parts[1] };
+  }
+  // Default provider if no slash
+  return { providerID: 'opencode', modelID: model };
+}
 
 export interface RunOpenCodeOptions {
   model?: string;
@@ -13,92 +21,123 @@ export interface RunOpenCodeOptions {
 }
 
 /**
- * Run OpenCode CLI to generate AI response for a given prompt.
+ * Run OpenCode to generate AI response for a given prompt.
  *
- * This function spawns the OpenCode CLI process and captures its output.
- * It serves as a fallback when OpenAI API is not available.
+ * This function uses the OpenCode SDK to connect to a running OpenCode server.
+ * Assumes an OpenCode server is already running externally.
  *
  * @param prompt - The prompt to send to OpenCode
  * @param options - Optional configuration
- * @returns Promise resolving to the raw AI response string
+ * @returns Promise that resolves when the operation completes
  *
  * @important
- * The returned string has **no guaranteed format**. It may be plain text, JSON,
- * Markdown, or any other format depending on the model and context.
- * Do NOT parse or assume a specific structure. Treat it as raw content to be
- * processed by downstream AI components (e.g., pass to another LLM call,
- * write to a temp file for a Supervisor Agent, etc.).
- *
- * @example
- * const response = await runOpenCode('Explain closures in JavaScript');
- * // response format is unpredictable - pass it to another AI for processing
- * const analyzed = await completeMessages([
- *   { role: 'user', content: `Analyze this AI output:\n${response}` }
- * ]);
+ * The AI response is handled internally by OpenCode. This function does not
+ * return the response content. Any output files or results are managed by
+ * the OpenCode agent or session directly.
  */
-export const runOpenCode = (prompt: string, options?: RunOpenCodeOptions): Promise<string> => {
+export const runOpenCode = (prompt: string, options?: RunOpenCodeOptions): Promise<void> => {
   const model = options?.model ?? 'opencode/gpt-5-nano';
   const signal = options?.signal;
   const cwd = options?.cwd;
+  const agent = options?.agent;
   const verbose = MetaData.options.verbose;
   if (verbose) {
-    console.info(`🛠️  Running OpenCode with model: ${model}, prompt: ${prompt}`);
+    console.info(
+      `🛠️  Running OpenCode with model: ${model}, agent: ${agent || 'none'}, prompt: ${prompt}`
+    );
   }
 
-  return new Promise<string>((resolve, reject) => {
-    console.info(`🚀 Running OpenCode with model ${model}`);
+  return new Promise<void>(async (resolve, reject) => {
+    const agentInfo = agent ? ` with agent ${agent}` : '';
+    console.info(`🚀 Running OpenCode with model ${model}${agentInfo}`);
 
-    const proc = spawn(
-      'npx',
-      [
-        'opencode-ai',
-        'run',
-        prompt,
-        '--model',
-        model,
-        ...(options?.agent ? ['--agent', options.agent] : []),
-        '--format',
-        'json',
-      ],
-      {
-        stdio: ['ignore', 'pipe', 'inherit'],
-        cwd,
-        env: Object.assign(
-          {
-            OPENCODE_PERMISSION: JSON.stringify({ bash: 'allow', read: 'allow', write: 'allow' }),
-          },
-          process.env
-        ),
+    let cancelled = false;
+
+    const cleanup = () => {
+      if (signal) {
+        signal.removeEventListener('abort', onAbort);
       }
-    );
+    };
 
-    let output = '';
-
-    proc.stdout.on('data', data => {
-      const chunk = data.toString();
-      output += chunk;
-      if (verbose) {
-        console.info('OpenCode stdout chunk:', chunk);
-      }
-    });
-
-    proc.on('error', err => {
-      reject(new Error(`Failed to start OpenCode process: ${err.message}`));
-    });
-
-    proc.on('close', code => {
-      if (code === 0) {
-        resolve(output.trim());
-      } else {
-        reject(new Error(`OpenCode process exited with code ${code}`));
-      }
-    });
+    const onAbort = () => {
+      cancelled = true;
+      cleanup();
+      reject(new Error('OpenCode execution was aborted'));
+    };
 
     if (signal) {
-      signal.addEventListener('abort', () => {
-        proc.kill('SIGTERM');
-        reject(new Error('OpenCode execution was aborted'));
+      signal.addEventListener('abort', onAbort);
+      if (signal.aborted) {
+        onAbort();
+        return;
+      }
+    }
+
+    try {
+      const { createOpencodeClient } = await import('@opencode-ai/sdk');
+      const baseUrl = 'http://localhost:4096';
+      const client = createOpencodeClient({
+        baseUrl: baseUrl,
+        directory: cwd,
       });
+
+      const modelObj = parseModelString(model);
+
+      const session = await client.session.create();
+
+      if (!session.data?.id)
+        throw new Error('Failed to create OpenCode session', { cause: session.error });
+
+      const directoryBase64 = Buffer.from(session.data.directory).toString('base64');
+      const url = `${baseUrl}/${directoryBase64}/session/${session.data.id}`;
+      console.info('OpenCode Session Created', url);
+
+      const response = await client.session.prompt({
+        path: {
+          id: session.data.id,
+        },
+        body: {
+          model: modelObj,
+          agent,
+          parts: [
+            {
+              type: 'text',
+              text: prompt,
+            },
+          ],
+        },
+        query: {
+          directory: cwd,
+        },
+        signal,
+      });
+
+      if (cancelled) {
+        throw new Error('Cancelled');
+      }
+
+      if (response.error) {
+        throw new Error(`OpenCode API error: ${JSON.stringify(response.error)}`);
+      }
+
+      // await client.session.delete({
+      //   path: {
+      //     id: session.data.id,
+      //   },
+      // });
+
+      cleanup();
+      resolve();
+    } catch (err) {
+      if (cancelled) {
+        return;
+      }
+      cleanup();
+      reject(
+        new Error(
+          `OpenCode SDK error: ${err instanceof Error ? err.message : String(err)}. Make sure an OpenCode server is running.`
+        )
+      );
     }
   });
 };

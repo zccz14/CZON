@@ -51,6 +51,7 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "@opencode-ai/sdk": "^1.1.34",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "chokidar": "^5.0.0",
