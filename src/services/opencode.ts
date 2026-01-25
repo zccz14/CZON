@@ -38,7 +38,7 @@ export interface RunOpenCodeOptions {
 export const runOpenCode = (prompt: string, options?: RunOpenCodeOptions): Promise<void> => {
   const model = options?.model ?? 'opencode/gpt-5-nano';
   const signal = options?.signal;
-  const cwd = options?.cwd;
+  const cwd = options?.cwd || process.cwd();
   const agent = options?.agent;
   const verbose = MetaData.options.verbose;
   if (verbose) {

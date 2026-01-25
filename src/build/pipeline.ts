@@ -44,7 +44,7 @@ async function buildPipeline(options: BuildOptions): Promise<void> {
   await fs.rm(CZON_DIST_DIR, { recursive: true, force: true });
 
   // 确保 .czon/.gitignore 文件
-  await writeFile(path.join(CZON_DIR, '.gitignore'), 'dist\n');
+  await writeFile(path.join(CZON_DIR, '.gitignore'), 'dist\ntmp\n');
 
   // 扫描源文件
   await scanSourceFiles();
