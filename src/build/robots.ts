@@ -1,4 +1,5 @@
 import * as path from 'path';
+import { MetaData } from '../metadata';
 import { CZON_DIST_DIR } from '../paths';
 import { writeFile } from '../utils/writeFile';
 
@@ -71,7 +72,7 @@ Disallow:
 
 Content-Signal: ai-train=yes, search=yes, ai-input=yes
 
-Sitemap: /sitemap.xml
+${MetaData.options.baseUrl ? `Sitemap: ${path.join(MetaData.options.baseUrl, 'sitemap.xml')}` : ''}
 `;
 
   const robotsPath = path.join(CZON_DIST_DIR, 'robots.txt');
