@@ -40,7 +40,7 @@ export const ContentPage: React.FC<{
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{title}</title>
         <meta name="description" content={`tags: ${tags.join(', ')}`} />
-        <script src={getResourceUrlFrom(props.ctx.path, 'tailwindcss.js')} defer></script>
+        <script src={getResourceUrlFrom(props.ctx.path, 'tailwindcss.js')}></script>
         <style>{style}</style>
         <script
           dangerouslySetInnerHTML={{

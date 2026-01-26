@@ -39,6 +39,7 @@ export const IndexPage: React.FC<{
         <title>{`Index of ${props.lang.toString()}`}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content={`Index page for language ${props.lang}`} />
+        <script src={getResourceUrlFrom(props.ctx.path, 'tailwindcss.js')}></script>
         <style>{style}</style>
         <script
           dangerouslySetInnerHTML={{
@@ -107,7 +108,6 @@ export const IndexPage: React.FC<{
           }
           footer={null}
         />
-        <script src={getResourceUrlFrom(props.ctx.path, 'tailwindcss.js')} defer></script>
       </body>
     </html>
   );
