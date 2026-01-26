@@ -1,5 +1,7 @@
 import { exec } from 'child_process';
+import { resolve } from 'path';
 import { promisify } from 'util';
+import { isExists } from './utils/isExists';
 
 const execAsync = promisify(exec);
 
@@ -12,11 +14,16 @@ const execAsync = promisify(exec);
  * @returns Promise<string[]> 返回Markdown文件的相对路径数组
  */
 export const findMarkdownEntries = async (dirPath: string): Promise<string[]> => {
+  // 获取git仓库的根目录
+  const gitRoot = (
+    await execAsync('git rev-parse --show-toplevel', { cwd: dirPath })
+  ).stdout.trim();
+
   // 使用git命令获取所有文件（包括已跟踪和未跟踪的文件）
   // 在指定的目录下执行git命令
   // 使用 -z 选项以空字符分隔文件名，方便处理文件名中包含特殊字符 (UTF-8) 的情况
   const { stdout } = await execAsync('git ls-files --others --cached --exclude-standard -z', {
-    cwd: dirPath,
+    cwd: gitRoot,
   });
 
   // 按行分割并过滤
@@ -26,5 +33,14 @@ export const findMarkdownEntries = async (dirPath: string): Promise<string[]> =>
     .filter(file => !file.startsWith('.')) // 过滤掉隐藏目录下的文件
     .filter(file => file.endsWith('.md')); // 只保留.md文件
 
-  return files;
+  // 排除文件系统中不存在的文件
+  const existingFiles = [];
+
+  for (const file of files) {
+    if (await isExists(resolve(gitRoot, file))) {
+      existingFiles.push(file);
+    }
+  }
+
+  return existingFiles;
 };
