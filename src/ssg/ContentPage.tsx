@@ -1,6 +1,6 @@
 import { dirname, resolve } from 'node:path';
 import React from 'react';
-import { IRenderContext } from '../types';
+import { IArticleContent, IRenderContext } from '../types';
 import { ContentMeta } from './components/ContentMeta';
 import { CZONFooter } from './components/CZONFooter';
 import { CZONHeader } from './components/CZONHeader';
@@ -14,7 +14,7 @@ export const ContentPage: React.FC<{
   ctx: IRenderContext;
   file: IRenderContext['site']['files'][0];
   lang: string;
-  content: IRenderContext['contents'][0];
+  content: IArticleContent;
 }> = props => {
   const frontmatter = props.content.frontmatter || {};
   const title = frontmatter.title;
@@ -34,7 +34,7 @@ export const ContentPage: React.FC<{
   );
 
   return (
-    <html lang={props.lang} style={{ background: 'black', overflow: 'hidden' }}>
+    <html lang={props.lang}>
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -70,6 +70,19 @@ export const ContentPage: React.FC<{
           main={
             <main className="content">
               <ContentMeta ctx={props.ctx} file={props.file} lang={props.lang} />
+              <div className="border-b mb-4 pb-2">
+                <h2 className="text-2xl font-semibold mb-2">Table of Contents</h2>
+                {props.content.headings.map(heading => (
+                  <a
+                    key={heading.id}
+                    href={`#${heading.id}`}
+                    // 按照 heading.depth 设置缩进
+                    className={`block ps-${heading.depth * 4} mb-2`}
+                  >
+                    {heading.text}
+                  </a>
+                ))}
+              </div>
 
               <div className="content-body">
                 <article dangerouslySetInnerHTML={{ __html: props.content.body }} />

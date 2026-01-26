@@ -62,6 +62,29 @@ export interface AIMetadata {
   }; // tokens 使用情况
 }
 
+export interface IArticleContent {
+  lang: string;
+  file: FileMetaData;
+  /**
+   * 渲染后的 HTML 内容
+   */
+  body: string;
+  /**
+   * YAML Frontmatter 数据
+   */
+  frontmatter: any;
+
+  /**
+   * 提取的标题
+   * 用于生成 Table of Contents
+   */
+  headings: Array<{
+    id: string;
+    text: string;
+    depth: number;
+  }>;
+}
+
 /**
  * SSG 渲染上下文
  */
@@ -74,16 +97,5 @@ export interface IRenderContext {
   /**
    * 全站文档列表
    */
-  contents: Array<{
-    lang: string;
-    file: FileMetaData;
-    /**
-     * 渲染后的 HTML 内容
-     */
-    body: string;
-    /**
-     * YAML Frontmatter 数据
-     */
-    frontmatter: any;
-  }>;
+  contents: Array<IArticleContent>;
 }

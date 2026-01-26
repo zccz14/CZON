@@ -1,10 +1,10 @@
 import hljs from 'highlight.js';
 import { marked, Tokens } from 'marked';
-import markedKatex from 'marked-katex-extension';
 import markedFootnote from 'marked-footnote';
-import { MetaData } from '../metadata';
+import markedKatex from 'marked-katex-extension';
 import { dirname, join, relative, resolve } from 'path';
-import { CZON_DIST_RAW_CONTENT_DIR } from '../paths';
+import { MetaData } from '../metadata';
+import { IArticleContent } from '../types';
 // 辅助函数：转义 HTML 特殊字符
 function escapeHtml(unsafe: string): string {
   return unsafe
@@ -22,7 +22,13 @@ marked.use(markedFootnote());
  * @param mdContent Markdown 内容字符串
  * @returns 转换后的 HTML 字符串
  */
-export const convertMarkdownToHtml = (path: string, lang: string, mdContent: string): string => {
+export const convertMarkdownToHtml = (
+  article: IArticleContent,
+  path: string,
+  lang: string,
+  mdContent: string
+): void => {
+  const { headings } = article;
   const sourceFileMeta = MetaData.files.find(f => f.path === path);
   // 创建自定义渲染器
   const renderer = new marked.Renderer();
@@ -89,6 +95,28 @@ export const convertMarkdownToHtml = (path: string, lang: string, mdContent: str
     return `<img src="${join('..', '__raw__', imagePath)}" alt="${image.text}" />`;
   };
 
+  renderer.heading = function (heading: Tokens.Heading): string {
+    // 添加 id 属性以支持锚点链接
+
+    const id = (function () {
+      // 生成唯一的 ID，避免重复
+      for (let i = 0; ; i++) {
+        const potentialId = i === 0 ? heading.text : `${heading.text}-${i}`;
+        if (!headings.find(h => h.id === potentialId)) {
+          return potentialId;
+        }
+      }
+    })();
+
+    headings.push({
+      id,
+      text: heading.text,
+      depth: heading.depth,
+    });
+    // TODO: 处理重复的标题文本以避免重复的 id
+    return `<h${heading.depth} id="${id}">${heading.text}</h${heading.depth}>`;
+  };
+
   // 重写代码块渲染器以支持 Mermaid - 使用 any 类型绕过类型检查
   (renderer as any).code = function (code: any, language?: string, isEscaped?: boolean) {
     // 在 marked 17+ 中，code 参数是一个对象，包含 text 和 lang 属性
@@ -143,17 +171,10 @@ export const convertMarkdownToHtml = (path: string, lang: string, mdContent: str
       async: false, // 强制同步模式
     } as any);
 
-    // 如果结果是 Promise，等待它（虽然我们设置了 async: false）
-    if (result && typeof result.then === 'function') {
-      // 这不应该发生，但如果发生了，返回一个占位符
-      console.warn('marked.parse returned a Promise despite async: false');
-      return '<!-- Markdown conversion in progress -->';
-    }
-
-    return result as unknown as string;
+    article.body = result as unknown as string;
   } catch (error) {
     console.error('Error converting Markdown to HTML:', error);
     const errorMessage = error instanceof Error ? error.message : String(error);
-    return `<div class="error">Error converting Markdown: ${errorMessage}</div>`;
+    article.body = `<div class="error">Error converting Markdown: ${errorMessage}</div>`;
   }
 };

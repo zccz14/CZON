@@ -10,7 +10,7 @@ import { MetaData } from '../metadata';
 import { CZON_DIST_DIR, CZON_SRC_DIR } from '../paths';
 import { renderToHTML } from '../ssg';
 import { EXTERNAL_RESOURCES } from '../ssg/resourceMap';
-import { IRenderContext } from '../types';
+import { IArticleContent, IRenderContext } from '../types';
 import { convertMarkdownToHtml } from '../utils/convertMarkdownToHtml';
 import { parseFrontmatter } from '../utils/frontmatter';
 import { writeFile } from '../utils/writeFile';
@@ -37,14 +37,18 @@ export const spiderStaticSiteGenerator = async () => {
     for (const lang of MetaData.options.langs || []) {
       const markdown = await fs.readFile(path.join(CZON_SRC_DIR, lang, file.path), 'utf-8');
       const { frontmatter, body } = parseFrontmatter(markdown);
-      const markdownHtml = convertMarkdownToHtml(file.path, lang, body);
 
-      contents.push({
+      const article: IArticleContent = {
         lang,
         file,
-        body: markdownHtml,
+        body: '',
         frontmatter,
-      });
+        headings: [],
+      };
+
+      convertMarkdownToHtml(article, file.path, lang, body);
+
+      contents.push(article);
     }
   }
 
