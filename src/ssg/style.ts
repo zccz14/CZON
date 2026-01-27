@@ -67,7 +67,6 @@ html:not(.dark) body {
 
        .sidebar-right {
          background: var(--sidebar-bg);
-         border-left: 1px solid var(--border-color);
          padding: 2rem 1rem;
        }
 
@@ -125,14 +124,6 @@ html:not(.dark) body {
         background: var(--code-bg);
         color: var(--text-primary);
       }
-
-       .content {
-         flex: 1;
-         padding: 3rem 2rem;
-         max-width: 1200px;
-         width: 100%;
-         box-sizing: border-box;
-       }
 
       .content-header {
         margin-bottom: 2rem;

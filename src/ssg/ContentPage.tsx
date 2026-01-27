@@ -82,7 +82,7 @@ export const ContentPage: React.FC<{
             </aside>
           }
           main={
-            <main className="content">
+            <main className="content max-w-4xl mx-auto my-8 px-4">
               <ContentMeta ctx={props.ctx} file={props.file} lang={props.lang} />
               <div className="border-b mb-4 pb-2 xl:hidden">
                 <h2 className="text-2xl font-semibold mb-2">Table of Contents</h2>
