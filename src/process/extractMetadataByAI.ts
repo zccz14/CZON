@@ -8,7 +8,7 @@ import { MetaData } from '../metadata';
 export async function extractMetadataByAI(): Promise<void> {
   const { files } = MetaData;
 
-  if (MetaData.options.verbose) console.log(`🤖 Running AI metadata extraction...`);
+  console.log(`🤖 Running AI metadata extraction...`);
   console.log(`🤖 Processing ${files.length} files with AI...`);
 
   const results = await Promise.allSettled(

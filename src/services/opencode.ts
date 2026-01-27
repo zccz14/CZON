@@ -40,12 +40,9 @@ export const runOpenCode = (prompt: string, options?: RunOpenCodeOptions): Promi
   const signal = options?.signal;
   const cwd = options?.cwd || process.cwd();
   const agent = options?.agent;
-  const verbose = MetaData.options.verbose;
-  if (verbose) {
-    console.info(
-      `🛠️  Running OpenCode with model: ${model}, agent: ${agent || 'none'}, prompt: ${prompt}`
-    );
-  }
+  console.info(
+    `🛠️  Running OpenCode with model: ${model}, agent: ${agent || 'none'}, prompt: ${prompt}`
+  );
 
   return new Promise<void>(async (resolve, reject) => {
     const agentInfo = agent ? ` with agent ${agent}` : '';
@@ -152,23 +149,18 @@ export const runOpenCode = (prompt: string, options?: RunOpenCodeOptions): Promi
 };
 
 export const installAgentsToGlobal = async (): Promise<void> => {
-  const { verbose } = MetaData.options;
   const installedAgents = await readdir(LOCAL_OPENCODE_AGENT_DIR)
     .then(files => files.filter(f => f.startsWith('czon-')))
     .catch(() => []);
 
   // 3. Copy local agents from .opencode/agent to global directory
   for (const agentFile of installedAgents) {
-    if (verbose) {
-      console.log(`📁 Installing OpenCode agent: ${agentFile} to global directory...`);
-    }
+    console.log(`📁 Installing OpenCode agent: ${agentFile} to global directory...`);
     await writeFile(
       join(GLOBAL_OPENCODE_AGENT_DIR, agentFile),
       await readFile(join(LOCAL_OPENCODE_AGENT_DIR, agentFile))
     );
   }
 
-  if (verbose) {
-    console.log(`✅ Installed ${installedAgents.length} OpenCode agents to global directory.`);
-  }
+  console.log(`✅ Installed ${installedAgents.length} OpenCode agents to global directory.`);
 };

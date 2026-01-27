@@ -10,13 +10,10 @@ import { writeFile } from '../utils/writeFile';
  * 存储母语文件到 .czon/src
  */
 export async function storeNativeFiles(): Promise<void> {
-  const {
-    options: { verbose },
-    files,
-  } = MetaData;
+  const { files } = MetaData;
   for (const file of MetaData.files) {
     if (!file.path.endsWith('.md')) {
-      if (verbose) console.info(`ℹ️ Skipping ${file.path}, not a Markdown file`);
+      console.info(`ℹ️ Skipping ${file.path}, not a Markdown file`);
       continue;
     }
     try {
@@ -41,7 +38,7 @@ export async function storeNativeFiles(): Promise<void> {
     }
   }
 
-  if (verbose && files.length > 0) {
+  if (files.length > 0) {
     console.log(`💾 Stored ${files.length} native language files to .czon/src`);
   }
 }

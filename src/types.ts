@@ -39,7 +39,6 @@ export interface MetaDataStore {
 }
 
 export interface BuildOptions {
-  verbose?: boolean;
   langs?: string[];
   baseUrl?: string;
 }

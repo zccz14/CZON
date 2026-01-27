@@ -112,11 +112,9 @@ export const completeMessages = async (
     }
 
     // 打印请求信息 (for debug)
-    // if (MetaData.options.verbose) {
     //   for (const msg of messages) {
     //     console.info(`💬 [${msg.role}] ${msg.content}`);
     //   }
-    // }
 
     const response = await fetch(`${baseUrl}/chat/completions`, {
       method: 'POST',
@@ -218,9 +216,7 @@ export const completeMessages = async (
       },
     };
 
-    if (MetaData.options.verbose) {
-      console.info('🤖 AI Token Usages', finalResponse.usage);
-    }
+    console.info('🤖 AI Token Usages', finalResponse.usage);
 
     // 验证响应
     if (!finalResponse.choices?.[0]?.message?.content?.trim()) {

@@ -1,7 +1,6 @@
 {
   "version": "1.0.0",
   "options": {
-    "verbose": true,
     "langs": [
       "zh-Hans",
       "en-US",
@@ -39,7 +38,7 @@
       "links": []
     },
     {
-      "hash": "b405c40454d939b5bc122ae93a16515f7df0242899e478a2b3a18510abb1db37",
+      "hash": "cd5797ac86cbed3a2a70211916d6be88a69a30c5f3233af8bc83716ea4891d09",
       "path": "package.json",
       "links": []
     },

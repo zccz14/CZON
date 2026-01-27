@@ -11,7 +11,6 @@ const formatFileForCategoryExtraction = (file: FileMetaData): string => {
 };
 
 export const processExtractCategory = async (): Promise<void> => {
-  const verbose = MetaData.options.verbose;
   // 如果所有文件都已经有 category，则跳过本阶段
   const allHaveCategory = MetaData.files.filter(f => f.metadata).every(file => file.category);
   if (allHaveCategory) {
@@ -20,11 +19,9 @@ export const processExtractCategory = async (): Promise<void> => {
   }
   const markdownFiles = MetaData.files.filter(f => f.path.endsWith('.md') && f.metadata);
 
-  if (verbose) {
-    console.info(`📂 Extracting categories for ${markdownFiles.length} markdown files...`);
-    for (const file of markdownFiles) {
-      console.info(`   - File: ${file.path}`);
-    }
+  console.info(`📂 Extracting categories for ${markdownFiles.length} markdown files...`);
+  for (const file of markdownFiles) {
+    console.info(`   - File: ${file.path}`);
   }
 
   // 提取类别标签列表

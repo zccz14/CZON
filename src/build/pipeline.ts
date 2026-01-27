@@ -23,28 +23,27 @@ import { generateSitemap } from './sitemap';
 /**
  * 验证构建配置
  */
-async function validateConfig(options: BuildOptions): Promise<void> {
-  const { verbose = false } = options;
+async function applyConfig(options: BuildOptions): Promise<void> {
+  MetaData.options ??= {};
 
-  if (verbose) {
-    console.log(`🚀 Starting CZON build...`);
-    if (options.langs && options.langs.length > 0) {
-      console.log(`🌐 Target languages: ${options.langs.join(', ')}`);
-    }
-    console.log(`🔍 Verbose mode enabled`);
+  if (options.langs !== undefined) {
+    console.log(`🌐 Target languages: ${options.langs.join(', ')}`);
+    MetaData.options.langs = options.langs;
   }
 
-  MetaData.options = options;
+  if (options.baseUrl !== undefined) {
+    MetaData.options.baseUrl = options.baseUrl;
+  }
 }
 
 /**
  * 构建管道（函数组合）
  */
 async function buildPipeline(options: BuildOptions): Promise<void> {
+  // 验证配置
+  await applyConfig(options);
   // 安装 OpenCode 代理到全局目录
   await installAgentsToGlobal();
-  // 验证配置
-  await validateConfig(options);
 
   // 清理输出目录
   await fs.rm(CZON_DIST_DIR, { recursive: true, force: true });

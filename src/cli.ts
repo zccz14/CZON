@@ -2,9 +2,12 @@
 
 import { Cli, Command, Option } from 'clipanion';
 import { config } from 'dotenv';
+import * as fs from 'fs/promises';
+import * as path from 'path';
 import { buildSite } from './build/pipeline';
 import { findMarkdownEntries } from './findEntries';
 import { processSummary } from './process/summary';
+import { writeFile } from './utils/writeFile';
 import { CZON_VERSION } from './version';
 
 // 加载 .env 文件中的环境变量
@@ -53,8 +56,6 @@ class SummaryCommand extends Command {
     description: 'OpenCode model to use for summarization',
   });
 
-  verbose = Option.Boolean('-v,--verbose');
-
   static usage = Command.Usage({
     description: 'Generate comprehensive multi-style summaries of all markdown files',
     details: `
@@ -76,16 +77,11 @@ class SummaryCommand extends Command {
       Examples:
         $ czon summary
         $ czon summary --model opencode/gpt-4o
-        $ czon summary --verbose
     `,
   });
 
   async execute() {
     try {
-      if (this.verbose) {
-        process.env.VERBOSE = 'true';
-      }
-
       await processSummary(this.model);
 
       return 0;
@@ -96,11 +92,61 @@ class SummaryCommand extends Command {
   }
 }
 
+// ConfigGithub 命令
+class ConfigGithubCommand extends Command {
+  static paths = [['config', 'github']];
+
+  target = Option.String('--target', {
+    description: 'Target directory to copy the GitHub Actions workflow file to',
+  });
+
+  static usage = Command.Usage({
+    description: 'Copy GitHub Pages deployment workflow template to .github/workflows/pages.yml',
+    details: `
+      This command copies the GitHub Pages deployment workflow template (templates/pages.yml)
+      to the target directory's .github/workflows/pages.yml location.
+
+      If --target is not specified, the current working directory is used.
+
+      Examples:
+        $ czon config github
+        $ czon config github --target ./my-project
+    `,
+  });
+
+  async execute() {
+    try {
+      const targetDir = this.target || process.cwd();
+      const templatePath = 'templates/pages.yml';
+      const targetPath = path.join(targetDir, '.github', 'workflows', 'pages.yml');
+
+      // 检查模板文件是否存在
+      try {
+        await fs.access(templatePath);
+      } catch {
+        this.context.stderr.write(`❌ Template file not found: ${templatePath}\n`);
+        return 1;
+      }
+
+      // 读取模板文件
+      const content = await fs.readFile(templatePath, 'utf-8');
+
+      // 确保目标目录存在并写入文件
+      await writeFile(targetPath, content);
+
+      this.context.stdout.write(`✅ GitHub Actions workflow copied to ${targetPath}\n`);
+      return 0;
+    } catch (error) {
+      this.context.stderr.write(`❌ Failed to copy workflow template: ${error}\n`);
+      return 1;
+    }
+  }
+}
+
 // Build 命令
 class BuildCommand extends Command {
   static paths = [['build']];
 
-  verbose = Option.Boolean('-v,--verbose');
   lang = Option.Array('--lang', {
     description: 'Target languages for translation (e.g., en-US, ja-JP)',
   });
@@ -125,7 +171,6 @@ class BuildCommand extends Command {
   async execute() {
     try {
       await buildSite({
-        verbose: this.verbose,
         langs: this.lang,
         baseUrl: this.baseUrl,
       });
@@ -149,6 +194,7 @@ const cli = new Cli({
 cli.register(BuildCommand);
 cli.register(LsFilesCommand);
 cli.register(SummaryCommand);
+cli.register(ConfigGithubCommand);
 
 // 运行 CLI
 cli.runExit(process.argv.slice(2), {
