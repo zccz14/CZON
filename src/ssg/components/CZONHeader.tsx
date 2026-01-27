@@ -11,7 +11,7 @@ export const CZONHeader: React.FC<{
   return (
     <header className="czon-header py-4 border-b flex justify-between items-center px-6">
       <h1 className="text-2xl font-bold">
-        <a href="index.html">CZON</a>
+        <a href="index.html">{props.ctx.site.options.siteTitle ?? 'CZON'}</a>
       </h1>
       <div className="flex items-center gap-4">
         <DarkModeSwitch />

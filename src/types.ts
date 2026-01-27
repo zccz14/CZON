@@ -41,6 +41,7 @@ export interface MetaDataStore {
 export interface BuildOptions {
   langs?: string[];
   baseUrl?: string;
+  siteTitle?: string;
 }
 
 export interface AIMetadata {

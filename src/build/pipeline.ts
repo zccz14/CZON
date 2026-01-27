@@ -34,6 +34,11 @@ async function applyConfig(options: BuildOptions): Promise<void> {
   if (options.baseUrl !== undefined) {
     MetaData.options.baseUrl = options.baseUrl;
   }
+
+  if (options.siteTitle !== undefined) {
+    console.log(`🏷️ Site title: ${options.siteTitle}`);
+    MetaData.options.siteTitle = options.siteTitle;
+  }
 }
 
 /**
