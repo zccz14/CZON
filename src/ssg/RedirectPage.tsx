@@ -1,8 +1,10 @@
 import { dirname, relative } from 'node:path';
 import React from 'react';
+import { getFaviconUrlFrom } from './resourceMap';
 
 export const RedirectPage: React.FC<{ from: string; to: string }> = props => {
   const toURL = relative(dirname(props.from), props.to);
+  const faviconUrl = getFaviconUrlFrom(props.from);
   return (
     <html lang="en">
       <head>
@@ -11,6 +13,7 @@ export const RedirectPage: React.FC<{ from: string; to: string }> = props => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta httpEquiv="refresh" content={`0; url=${toURL}`} />
         <title>Redirecting...</title>
+        <link rel="icon" href={faviconUrl} type="image/x-icon" />
         <script
           dangerouslySetInnerHTML={{
             __html: `

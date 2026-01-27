@@ -7,7 +7,7 @@ import { CZONHeader } from './components/CZONHeader';
 import { LanguageSwitcher } from './components/LanguageSwitcher';
 import { Navigator } from './components/Navigator';
 import { PageLayout } from './layouts/PageLayout';
-import { getResourceUrlFrom } from './resourceMap';
+import { getFaviconUrlFrom, getResourceUrlFrom } from './resourceMap';
 import { style } from './style';
 
 export const ContentPage: React.FC<{
@@ -33,12 +33,15 @@ export const ContentPage: React.FC<{
     f.links.some(link => resolve('/', dirname(f.path), link) === thisPath)
   );
 
+  const faviconUrl = getFaviconUrlFrom(props.ctx.path);
+
   return (
     <html lang={props.lang}>
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{title}</title>
+        <link rel="icon" href={faviconUrl} type="image/x-icon" />
         <meta name="description" content={`tags: ${tags.join(', ')}`} />
         <script src={getResourceUrlFrom(props.ctx.path, 'tailwindcss.js')}></script>
         <style>{style}</style>

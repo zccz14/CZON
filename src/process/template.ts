@@ -7,19 +7,40 @@ import {
   collectUrl,
 } from '../build/sitemap';
 import { MetaData } from '../metadata';
-import { CZON_DIST_DIR, CZON_SRC_DIR } from '../paths';
+import { CZON_DIR, CZON_DIST_DIR, CZON_SRC_DIR } from '../paths';
 import { renderToHTML } from '../ssg';
 import { EXTERNAL_RESOURCES } from '../ssg/resourceMap';
 import { IArticleContent, IRenderContext } from '../types';
 import { convertMarkdownToHtml } from '../utils/convertMarkdownToHtml';
 import { parseFrontmatter } from '../utils/frontmatter';
+import { isExists } from '../utils/isExists';
 import { writeFile } from '../utils/writeFile';
+
+const copyFavicon = async () => {
+  const faviconSource = path.join(CZON_DIR, 'icons', 'favicon.ico');
+  const faviconTarget = path.join(CZON_DIST_DIR, 'favicon.ico');
+  // 如果存在 .czon/icons/favicon.ico，则复制到输出目录
+  if (await isExists(faviconSource)) {
+    await fs.mkdir(path.dirname(faviconTarget), { recursive: true });
+    await fs.copyFile(faviconSource, faviconTarget);
+    console.info(`📄 Copied favicon from ${faviconSource} to: ${faviconTarget}`);
+    return;
+  }
+  // 否则，使用 CZON 源码目录下的默认图标
+  const defaultFaviconSource = path.join(__dirname, '../../templates/favicon.ico');
+  await fs.mkdir(path.dirname(faviconTarget), { recursive: true });
+  await fs.copyFile(defaultFaviconSource, faviconTarget);
+  console.info(`📄 Copied default favicon to: ${faviconTarget}`);
+};
 
 /**
  * 使用简单的爬虫抓取生成的站点页面
  */
 export const spiderStaticSiteGenerator = async () => {
   clearSitemapCollection();
+
+  // 复制 favicon 图标
+  await copyFavicon();
 
   const queue = ['/index.html', '/404.html'];
 
@@ -93,6 +114,7 @@ export const spiderStaticSiteGenerator = async () => {
       if (link.startsWith('#')) continue; // 跳过页面内锚点链接
       const resolvedPath = path.resolve('/', path.dirname(currentPath), link);
       if (resolvedPath.startsWith('/__raw__/')) continue; // 跳过原始内容目录
+      if (resolvedPath === '/favicon.ico') continue; // 跳过 favicon.ico
 
       console.info(
         `   ➕ Found link: ${link} -> ${resolvedPath} (${isVisited.has(resolvedPath) ? 'visited' : 'new'})`

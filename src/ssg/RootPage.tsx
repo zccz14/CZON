@@ -1,6 +1,7 @@
 import React from 'react';
 import { LANGUAGE_NAMES } from '../languages';
 import { IRenderContext } from '../types';
+import { getFaviconUrlFrom } from './resourceMap';
 
 // /index.html 的根页面
 // 需要实现多语言选择，自动重定向到用户浏览器语言对应的首页
@@ -16,12 +17,15 @@ export const RootPage: React.FC<{ ctx: IRenderContext }> = props => {
     }
   }
 
+  const faviconUrl = getFaviconUrlFrom(props.ctx.path);
+
   return (
     <html lang="en">
       <head>
         <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>CZON Multilingual Site Navigator</title>
+        <link rel="icon" href={faviconUrl} type="image/x-icon" />
         <meta name="description" content="Select your preferred language to explore our content." />
         {props.ctx.site.options.langs!.map(lang => (
           <link key={lang} rel="alternate" hrefLang={lang} href={`${lang}/index.html`} />

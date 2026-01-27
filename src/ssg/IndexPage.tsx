@@ -6,7 +6,7 @@ import { CZONFooter } from './components/CZONFooter';
 import { CZONHeader } from './components/CZONHeader';
 import { LanguageSwitcher } from './components/LanguageSwitcher';
 import { PageLayout } from './layouts/PageLayout';
-import { getResourceUrlFrom } from './resourceMap';
+import { getFaviconUrlFrom, getResourceUrlFrom } from './resourceMap';
 import { style } from './style';
 
 export const IndexPage: React.FC<{
@@ -32,11 +32,14 @@ export const IndexPage: React.FC<{
     )
   );
 
+  const faviconUrl = getFaviconUrlFrom(props.ctx.path);
+
   return (
     <html>
       <head>
         <meta charSet="UTF-8" />
         <title>{`Index of ${props.lang.toString()}`}</title>
+        <link rel="icon" href={faviconUrl} type="image/x-icon" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content={`Index page for language ${props.lang}`} />
         <script src={getResourceUrlFrom(props.ctx.path, 'tailwindcss.js')}></script>
