@@ -96,27 +96,20 @@ class SummaryCommand extends Command {
 class ConfigGithubCommand extends Command {
   static paths = [['config', 'github']];
 
-  target = Option.String('--target', {
-    description: 'Target directory to copy the GitHub Actions workflow file to',
-  });
-
   static usage = Command.Usage({
     description: 'Copy GitHub Pages deployment workflow template to .github/workflows/pages.yml',
     details: `
       This command copies the GitHub Pages deployment workflow template (templates/pages.yml)
-      to the target directory's .github/workflows/pages.yml location.
-
-      If --target is not specified, the current working directory is used.
+      to the current directory's .github/workflows/pages.yml location.
 
       Examples:
         $ czon config github
-        $ czon config github --target ./my-project
     `,
   });
 
   async execute() {
     try {
-      const targetDir = this.target || process.cwd();
+      const targetDir = process.cwd();
       const templatePath = 'templates/pages.yml';
       const targetPath = path.join(targetDir, '.github', 'workflows', 'pages.yml');
 
