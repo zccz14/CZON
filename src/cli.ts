@@ -110,7 +110,7 @@ class ConfigGithubCommand extends Command {
   async execute() {
     try {
       const targetDir = process.cwd();
-      const templatePath = 'templates/pages.yml';
+      const templatePath = path.join(__dirname, '..', 'templates', 'pages.yml');
       const targetPath = path.join(targetDir, '.github', 'workflows', 'pages.yml');
 
       // 检查模板文件是否存在
