@@ -114,7 +114,7 @@ export const convertMarkdownToHtml = (
       depth: heading.depth,
     });
     // TODO: 处理重复的标题文本以避免重复的 id
-    return `<h${heading.depth} id="${id}">${heading.text}</h${heading.depth}>`;
+    return `<h${heading.depth} id="${id}" class="anchor-heading">${heading.text}</h${heading.depth}>`;
   };
 
   // 重写代码块渲染器以支持 Mermaid - 使用 any 类型绕过类型检查

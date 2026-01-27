@@ -106,7 +106,6 @@ export const IndexPage: React.FC<{
               </footer>
             </div>
           }
-          footer={null}
         />
       </body>
     </html>

@@ -52,16 +52,24 @@ html:not(.dark) body {
   color: var(--text-primary);
   background: var(--bg-secondary);
 }
+.czon-header {
+  background: var(--bg-secondary);
+}
+.anchor-heading {
+  scroll-margin-top: 72px;
+}
 
-      .sidebar {
-        width: 280px;
-        background: var(--sidebar-bg);
-        border-right: 1px solid var(--border-color);
-        padding: 2rem 1rem;
-        overflow-y: auto;
+       .sidebar {
+         background: var(--sidebar-bg);
+         border-right: 1px solid var(--border-color);
+         padding: 2rem 1rem;
+       }
 
-        flex-shrink: 0;
-      }
+       .sidebar-right {
+         background: var(--sidebar-bg);
+         border-left: 1px solid var(--border-color);
+         padding: 2rem 1rem;
+       }
 
       .sidebar-header {
         margin-bottom: 2rem;
@@ -118,12 +126,13 @@ html:not(.dark) body {
         color: var(--text-primary);
       }
 
-      .content {
-        flex: 1;
-        margin-inline-start: 80px;
-        padding: 3rem 4rem;
-        max-width: 900px;
-      }
+       .content {
+         flex: 1;
+         padding: 3rem 2rem;
+         max-width: 1200px;
+         width: 100%;
+         box-sizing: border-box;
+       }
 
       .content-header {
         margin-bottom: 2rem;
@@ -163,6 +172,24 @@ html:not(.dark) body {
       .content-body h3 {
         font-size: 1.5rem;
         margin: 1.5rem 0 0.75rem;
+        color: var(--text-primary);
+      }
+
+      .content-body h4 {
+        font-size: 1.25rem;
+        margin: 1.25rem 0 0.625rem;
+        color: var(--text-primary);
+      }
+      
+      .content-body h5 {
+        font-size: 1.125rem;
+        margin: 1.125rem 0 0.5625rem;
+        color: var(--text-primary);
+      }
+
+      .content-body h6 {
+        font-size: 1rem;
+        margin: 1rem 0 0.5rem;
         color: var(--text-primary);
       }
 
@@ -281,21 +308,22 @@ html:not(.dark) body {
         font-size: 0.875rem;
       }
 
-      @media (max-width: 768px) {
+       @media (max-width: 768px) {
 
-        .sidebar {
-          width: 100%;
-          height: auto;
-          position: static;
-          border-right: none;
-          border-bottom: 1px solid var(--border-color);
-        }
+         .sidebar {
+           width: 100%;
+           height: auto;
+           position: static;
+           border-right: none;
+           border-bottom: 1px solid var(--border-color);
+         }
 
-        .content {
-          margin-left: 0;
-          padding: 2rem;
-        }
-      }
+         .content {
+           margin-left: 0;
+           padding: 1.5rem;
+           max-width: 100%;
+         }
+       }
       
       /* Mermaid diagram styles */
       .mermaid-diagram {

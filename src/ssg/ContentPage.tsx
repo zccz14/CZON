@@ -67,10 +67,24 @@ export const ContentPage: React.FC<{
               <Navigator ctx={props.ctx} file={props.file} lang={props.lang} />
             </nav>
           }
+          rightSidebar={
+            <aside>
+              <h2 className="text-2xl font-semibold mb-2">Table of Contents</h2>
+              {props.content.headings.map(heading => (
+                <a
+                  key={heading.id}
+                  href={`#${heading.id}`}
+                  className={`block ps-${heading.depth * 4} mb-2`}
+                >
+                  {heading.text}
+                </a>
+              ))}
+            </aside>
+          }
           main={
             <main className="content">
               <ContentMeta ctx={props.ctx} file={props.file} lang={props.lang} />
-              <div className="border-b mb-4 pb-2">
+              <div className="border-b mb-4 pb-2 xl:hidden">
                 <h2 className="text-2xl font-semibold mb-2">Table of Contents</h2>
                 {props.content.headings.map(heading => (
                   <a
@@ -129,7 +143,6 @@ export const ContentPage: React.FC<{
               </footer>
             </main>
           }
-          footer={null}
         />
 
         <script
