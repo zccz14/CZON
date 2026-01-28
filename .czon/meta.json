@@ -38,18 +38,21 @@
       "links": []
     },
     {
-      "hash": "cd5797ac86cbed3a2a70211916d6be88a69a30c5f3233af8bc83716ea4891d09",
+      "hash": "42be9eef5e782603af352b16a0fbdca32dce783aa94865808ec4312da8459f29",
       "path": "package.json",
       "links": []
     },
     {
-      "hash": "6f337d3279546277c763f601f08c9c8b3fcb658a7fc5762ccb5c4b3168031e30",
+      "hash": "0b2ce1d6ff47006bf7d5f7e52389c0e44340ee36e459eefb8997dfd1fe17e760",
       "path": "README.md",
       "links": [
         "logo.png",
-        "https://czon.zccz14.com/",
         "https://nodejs.org/",
-        "https://platform.openai.com/account/api-keys"
+        "https://platform.openai.com/account/api-keys",
+        "https://en.wikipedia.org/wiki/IETF_language_tag#List_of_common_primary_language_subtags",
+        "https://github.com/zccz14/CZON",
+        "https://github.com/zccz14/CZON/issues",
+        "https://discord.gg/h3QrCmz24n"
       ],
       "metadata": {
         "title": "CZON - AI-Native Markdown 内容引擎",
@@ -88,7 +91,7 @@
         }
       },
       "category": "AI-Content-Engine",
-      "nativeMarkdownHash": "f8bf81153ba8aa99fbf1e9f8d1bcbbbda76281a603f3120d98041872c682284f"
+      "nativeMarkdownHash": "b888e3f987f2c43f168accbc344f8b6ade566bdc09ff009bb771140cea3191fe"
     },
     {
       "hash": "d32a399845728b1d2147e460f6aae7c1aad8a8dadb3fea0fd4c401bd180416d1",
