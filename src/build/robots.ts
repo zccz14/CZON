@@ -70,8 +70,6 @@ Disallow:
 User-agent: KHTML, like Gecko
 Disallow:
 
-Content-Signal: ai-train=yes, search=yes, ai-input=yes
-
 ${MetaData.options.baseUrl ? `Sitemap: ${path.join(MetaData.options.baseUrl, 'sitemap.xml')}` : ''}
 `;
 
