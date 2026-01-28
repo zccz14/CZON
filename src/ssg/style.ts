@@ -61,12 +61,8 @@ html:not(.dark) body {
 
        .sidebar {
          background: var(--sidebar-bg);
-         border-right: 1px solid var(--border-color);
-         padding: 2rem 1rem;
-       }
-
-       .sidebar-right {
-         background: var(--sidebar-bg);
+         border-color: var(--border-color);
+         border-bottom: 1px solid var(--border-color);
          padding: 2rem 1rem;
        }
 

@@ -12,9 +12,9 @@ const style = `
 
 .language-switch-trigger {
   transition: all 0.2s ease;
-  background: var(--ls-bg-primary);
-  border-color: var(--ls-border-color);
-  color: var(--ls-text-primary);
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
 }
 
 .language-switch-trigger:hover {
@@ -34,6 +34,8 @@ const style = `
   inset-inline-end: 0;
   margin-inline-start: 0;
   margin-inline-end: 0;
+  background: var(--bg-secondary);
+  border-color: var(--border-color);
 
   opacity: 0;
   visibility: hidden;
@@ -54,8 +56,7 @@ const style = `
 
 .language-switch-option {
   transition: all 0.15s ease;
-  background: var(--ls-bg-primary);
-  color: var(--ls-text-secondary);
+  color: var(--text-secondary);
 }
 
 .language-switch-option:hover {
@@ -65,53 +66,14 @@ const style = `
 }
 
 .language-switch-option.active {
-  background: var(--ls-bg-active);
-  color: var(--ls-text-active);
+  color: var(--color-primary);
 }
 
 .language-switch-option:focus {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
-
-.language-switch-info {
-  border-color: var(--ls-border-color);
-}
-
-.language-switch-count {
-  color: var(--ls-text-muted);
-}
-
-html.dark .language-switch-trigger {
-  background: var(--bg-secondary);
-  border-color: var(--border-color);
-  color: var(--text-primary);
-}
-
-html.dark .language-switch-trigger:hover {
-  background: var(--border-color);
-}
-
-html.dark .language-switch-dropdown {
-  background: var(--bg-secondary);
-  border-color: var(--border-color);
-}
-
-html.dark .language-switch-option:hover {
-  background: var(--border-color);
-}
-
-html.dark .language-switch-option.active {
-  background: var(--border-color);
-  color: var(--text-primary);
-}
 `;
-
-const triggerClasses =
-  'language-switch-trigger px-4 py-2 border rounded-md flex items-center gap-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors';
-
-const dropdownClasses =
-  'language-switch-dropdown absolute top-full mt-1 w-96 md:w-2xl lg:w-3xl max-h-96 overflow-y-auto border rounded-md shadow-lg z-50';
 
 const optionActiveClasses = 'language-switch-option active font-semibold';
 const optionInactiveClasses = 'language-switch-option';
@@ -138,7 +100,9 @@ export const LanguageSwitch: React.FC<{
       <input id="language-switch-toggle" type="checkbox" className="hidden" aria-hidden="true" />
       <label
         htmlFor="language-switch-toggle"
-        className={triggerClasses}
+        className={
+          'language-switch-trigger px-4 py-2 border rounded-md flex items-center gap-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors'
+        }
         aria-label={`Language switcher. Current language: ${currentLangName}`}
         aria-haspopup="true"
         aria-expanded="false"
@@ -158,7 +122,9 @@ export const LanguageSwitch: React.FC<{
 
       <div
         id="language-dropdown"
-        className={dropdownClasses}
+        className={
+          'language-switch-dropdown absolute top-full mt-1 w-96 md:w-2xl lg:w-3xl max-h-96 overflow-y-auto border rounded-md shadow-lg z-50'
+        }
         role="menu"
         aria-label="Available languages"
       >

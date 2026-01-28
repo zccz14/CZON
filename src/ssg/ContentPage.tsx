@@ -66,18 +66,18 @@ export const ContentPage: React.FC<{
         <PageLayout
           header={<CZONHeader ctx={props.ctx} lang={props.lang} file={props.file} />}
           navigator={
-            <nav className="sidebar hidden md:block">
+            <nav className="sidebar border-r">
               <Navigator ctx={props.ctx} file={props.file} lang={props.lang} />
             </nav>
           }
           rightSidebar={
-            <aside>
+            <aside className="sidebar border-l">
               <h2 className="text-2xl font-semibold mb-2">Table of Contents</h2>
               {props.content.headings.map(heading => (
                 <a
                   key={heading.id}
                   href={`#${heading.id}`}
-                  className={`block ps-${heading.depth * 4} mb-2`}
+                  className={`block ms-${(heading.depth - 1) * 4} mb-2 border-b`}
                 >
                   {heading.text}
                 </a>
