@@ -1,4 +1,5 @@
-import { MetaData } from '../metadata';
+// 使用 make-fetch-happen 以支持代理选项 (支持环境变量 HTTP_PROXY, HTTPS_PROXY, PROXY, NO_PROXY)
+import fetch from 'make-fetch-happen';
 
 /**
  * OpenAI 消息接口
@@ -131,20 +132,13 @@ export const completeMessages = async (
     }
 
     // 处理流式响应
-    const reader = response.body?.getReader();
-    if (!reader) {
-      throw new Error('No response body reader available');
-    }
 
     const decoder = new TextDecoder();
     let buffer = '';
 
     let content = '';
 
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-
+    const handleData = (value: Uint8Array) => {
       buffer += decoder.decode(value, { stream: true });
       const lines = buffer.split('\n');
       buffer = lines.pop() || ''; // 保留未完成的行
@@ -185,7 +179,15 @@ export const completeMessages = async (
           }
         }
       }
-    }
+    };
+
+    //
+
+    await new Promise<void>((resolve, reject) => {
+      response.body.on('data', handleData);
+      response.body.on('end', () => resolve());
+      response.body.on('error', err => reject(err));
+    });
 
     // 确保所有剩余数据被解码
     if (buffer) {

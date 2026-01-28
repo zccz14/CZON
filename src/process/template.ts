@@ -1,4 +1,5 @@
 import * as fs from 'fs/promises';
+import fetch from 'make-fetch-happen';
 import * as path from 'path';
 import {
   clearSitemapCollection,
