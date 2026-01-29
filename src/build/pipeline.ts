@@ -30,15 +30,6 @@ async function applyConfig(options: BuildOptions): Promise<void> {
     console.log(`🌐 Target languages: ${options.langs.join(', ')}`);
     MetaData.options.langs = options.langs;
   }
-
-  if (options.baseUrl !== undefined) {
-    MetaData.options.baseUrl = options.baseUrl;
-  }
-
-  if (options.siteTitle !== undefined) {
-    console.log(`🏷️ Site title: ${options.siteTitle}`);
-    MetaData.options.siteTitle = options.siteTitle;
-  }
 }
 
 /**
@@ -110,10 +101,10 @@ async function buildPipeline(options: BuildOptions): Promise<void> {
   await generateRobotsTxt();
 
   // 生成 sitemap.xml
-  if (MetaData.options.baseUrl) {
-    await generateSitemap(MetaData.options.baseUrl);
+  if (MetaData.options.site?.baseUrl) {
+    await generateSitemap(MetaData.options.site.baseUrl);
   } else {
-    console.log('ℹ️ Skipping sitemap generation (--baseUrl not provided)');
+    console.log('ℹ️ Skipping sitemap generation (site.baseUrl not configured)');
   }
 }
 

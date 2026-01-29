@@ -40,9 +40,17 @@ export interface MetaDataStore {
 
 export interface BuildOptions {
   langs?: string[];
-  baseUrl?: string;
-  siteTitle?: string;
   site?: {
+    /**
+     * Base URL for sitemap generation
+     * @example "https://example.com"
+     */
+    baseUrl?: string;
+    /**
+     * Site title to display in header
+     * @default "CZON"
+     */
+    title?: string;
     /**
      * Google Analytics Measurement ID
      * @example "G-XXXXXXXXXX"
