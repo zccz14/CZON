@@ -1,6 +1,6 @@
 ---
 "title": "Hướng dẫn Cấu hình Trang CZON"
-"summary": "Tài liệu này giải thích chi tiết phương pháp và các tùy chọn cấu hình trang CZON. Cấu hình nằm trong trường `options.site` của tệp `.czon/meta.json`, bao gồm `site.baseUrl` (dùng để tạo `sitemap.xml` và `robots.txt`), `site.title` (tiêu đề trang, giá trị mặc định là 'CZON'), `site.gaID` (Google Analytics Measurement ID) và `site.clarityID` (Microsoft Clarity Project ID). Tất cả các mục cấu hình đều là tùy chọn, sau khi sửa đổi cần chạy lại `czon build` để có hiệu lực. Nếu không cấu hình `baseUrl`, việc tạo `sitemap.xml` sẽ bị bỏ qua. Các công cụ phân tích chỉ được tải khi đã cấu hình ID tương ứng và không ảnh hưởng đến hiệu suất trang. Tài liệu cung cấp vị trí cấu hình, các mục cấu hình có sẵn, ví dụ đầy đủ và các lưu ý, giúp người dùng dễ dàng thiết lập trang."
+"summary": "Tài liệu này giải thích chi tiết phương pháp và các tùy chọn cấu hình trang CZON. Cấu hình nằm trong trường `options.site` của tệp `.czon/meta.json`, bao gồm `site.baseUrl` (dùng để tạo `sitemap.xml` và `robots.txt`), `site.title` (tiêu đề trang, giá trị mặc định là 'CZON'), `site.gaID` (Google Analytics Measurement ID) và `site.clarityID` (Microsoft Clarity Project ID). Tất cả các mục cấu hình đều là tùy chọn, sau khi sửa đổi cần chạy lại lệnh `czon build` để có hiệu lực. Nếu không cấu hình `baseUrl`, việc tạo `sitemap.xml` sẽ bị bỏ qua. Các công cụ phân tích chỉ được tải khi ID tương ứng được cấu hình, không ảnh hưởng đến hiệu suất trang. Tài liệu cung cấp vị trí cấu hình, các mục cấu hình có sẵn, ví dụ đầy đủ và các lưu ý, giúp người dùng dễ dàng thiết lập trang."
 "tags":
   - "CZON"
   - "Cấu hình trang"
@@ -28,7 +28,11 @@ Các mục cấu hình nằm trong trường `options.site` của tệp `.czon/m
       "baseUrl": "https://example.com",
       "title": "My Docs",
       "gaID": "G-XXXXXXXXXX",
-      "clarityID": "your-clarity-id"
+      "clarityID": "your-clarity-id",
+      "navLinks": [
+        { "title": "Trang chủ", "href": "index.html" },
+        { "title": "Giới thiệu", "href": "about.html" }
+      ]
     }
   },
   "files": []
@@ -70,7 +74,7 @@ Tiêu đề trang, hiển thị ở phần đầu trang.
 {
   "options": {
     "site": {
-      "title": "Trang Tài liệu của Tôi"
+      "title": "Trang tài liệu của tôi"
     }
   }
 }
@@ -113,6 +117,32 @@ Microsoft Clarity Project ID, dùng để tích hợp phân tích hành vi ngư�
 
 Cách lấy: Truy cập [Microsoft Clarity](https://clarity.microsoft.com/) để tạo một dự án, lấy Project ID trong cài đặt dự án.
 
+### `site.navLinks`
+
+Cấu hình liên kết điều hướng nhanh, hiển thị các liên kết điều hướng ở phần đầu trang.
+
+- **Kiểu**: `Array<{ title: string, href: string }>`
+- **Giá trị mặc định**: `undefined` (không hiển thị điều hướng)
+
+```json
+{
+  "options": {
+    "site": {
+      "navLinks": [
+        { "title": "Trang chủ", "href": "index.html" },
+        { "title": "Tài liệu", "href": "docs.html" },
+        { "title": "Giới thiệu", "href": "about.html" }
+      ]
+    }
+  }
+}
+```
+
+**Hành vi đáp ứng**:
+
+- **Thiết bị di động**: Hiển thị biểu tượng menu hamburger, nhấp để mở rộng tất cả liên kết điều hướng
+- **Máy tính để bàn**: Hiển thị trực tiếp các liên kết điều hướng trong Header, nhưng không vượt quá 40% chiều rộng màn hình; phần vượt quá sẽ được hiển thị thông qua menu thả xuống "Thêm"
+
 ## Ví dụ Đầy đủ
 
 ```json
@@ -124,7 +154,12 @@ Cách lấy: Truy cập [Microsoft Clarity](https://clarity.microsoft.com/) đ�
       "baseUrl": "https://example.com",
       "title": "Blog Kỹ thuật",
       "gaID": "G-ABC123DEF4",
-      "clarityID": "abc123xyz"
+      "clarityID": "abc123xyz",
+      "navLinks": [
+        { "title": "Trang chủ", "href": "index.html" },
+        { "title": "Tài liệu", "href": "docs.html" },
+        { "title": "Blog", "href": "blog.html" }
+      ]
     }
   },
   "files": []
@@ -133,7 +168,7 @@ Cách lấy: Truy cập [Microsoft Clarity](https://clarity.microsoft.com/) đ�
 
 ## Lưu ý
 
-- Sau khi sửa đổi cấu hình, cần chạy lại `czon build` để có hiệu lực
-- Tất cả các mục cấu hình `site` đều là tùy chọn, bạn chỉ cần cấu hình những phần cần thiết
-- Các công cụ phân tích (GA, Clarity) chỉ được tải khi đã cấu hình ID tương ứng và không ảnh hưởng đến hiệu suất trang
+- Sau khi sửa đổi cấu hình, cần chạy lại lệnh `czon build` để có hiệu lực
+- Tất cả các mục cấu hình `site` đều là tùy chọn, bạn có thể chỉ cấu hình những phần cần thiết
+- Các công cụ phân tích (GA, Clarity) chỉ được tải khi ID tương ứng được cấu hình, không ảnh hưởng đến hiệu suất trang
 - Khi không cấu hình `baseUrl`, việc tạo `sitemap.xml` sẽ bị bỏ qua

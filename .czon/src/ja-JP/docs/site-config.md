@@ -1,6 +1,6 @@
 ---
 "title": "CZON サイト設定ガイド"
-"summary": "このドキュメントでは、CZON サイトの設定方法とオプションについて詳しく説明します。設定は .czon/meta.json ファイルの options.site フィールドに配置され、site.baseUrl（sitemap.xml と robots.txt の生成用）、site.title（サイトタイトル、デフォルト値は 'CZON'）、site.gaID（Google Analytics Measurement ID）、site.clarityID（Microsoft Clarity Project ID）が含まれます。すべての設定項目はオプションであり、変更後は czon build を再実行する必要があります。baseUrl が設定されていない場合は sitemap.xml の生成がスキップされ、分析ツールは対応する ID が設定された場合にのみ読み込まれ、ページパフォーマンスには影響しません。ドキュメントでは、設定場所、利用可能な設定項目、完全な例、および注意事項を提供し、ユーザーが簡単にサイトを設定できるよう支援します。"
+"summary": "このドキュメントでは、CZON サイト設定の方法とオプションについて詳しく説明します。設定は .czon/meta.json ファイルの options.site フィールドに配置され、site.baseUrl（sitemap.xml と robots.txt の生成用）、site.title（サイトタイトル、デフォルト値は 'CZON'）、site.gaID（Google Analytics Measurement ID）、site.clarityID（Microsoft Clarity Project ID）が含まれます。すべての設定項目はオプションであり、変更後は czon build を再実行する必要があります。baseUrl が設定されていない場合は sitemap.xml の生成がスキップされ、分析ツールは対応する ID が設定された場合にのみ読み込まれ、ページパフォーマンスには影響しません。ドキュメントでは、設定場所、利用可能な設定項目、完全な例、および注意事項を提供し、ユーザーが簡単にサイトを設定できるよう支援します。"
 "tags":
   - "CZON"
   - "サイト設定"
@@ -28,7 +28,11 @@ CZON は、`.czon/meta.json` ファイルを通じてサイトオプションを
       "baseUrl": "https://example.com",
       "title": "My Docs",
       "gaID": "G-XXXXXXXXXX",
-      "clarityID": "your-clarity-id"
+      "clarityID": "your-clarity-id",
+      "navLinks": [
+        { "title": "ホーム", "href": "index.html" },
+        { "title": "概要", "href": "about.html" }
+      ]
     }
   },
   "files": []
@@ -42,7 +46,7 @@ CZON は、`.czon/meta.json` ファイルを通じてサイトオプションを
 サイトのベース URL です。sitemap.xml と robots.txt の生成に使用されます。
 
 - **タイプ**: `string`
-- **フォーマット**: 完全な URL（例: `https://example.com`）
+- **フォーマット**: 完全な URL（例：`https://example.com`）
 
 ```json
 {
@@ -70,7 +74,7 @@ CZON は、`.czon/meta.json` ファイルを通じてサイトオプションを
 {
   "options": {
     "site": {
-      "title": "私のドキュメントサイト"
+      "title": "マイドキュメントサイト"
     }
   }
 }
@@ -113,6 +117,32 @@ Microsoft Clarity Project ID です。Clarity ユーザー行動分析の統合�
 
 取得方法：[Microsoft Clarity](https://clarity.microsoft.com/) にアクセスし、プロジェクトを作成後、プロジェクト設定で Project ID を取得してください。
 
+### `site.navLinks`
+
+クイックナビゲーションリンクの設定です。ページヘッダーにナビゲーションリンクを表示します。
+
+- **タイプ**: `Array<{ title: string, href: string }>`
+- **デフォルト値**: `undefined`（ナビゲーションを表示しない）
+
+```json
+{
+  "options": {
+    "site": {
+      "navLinks": [
+        { "title": "ホーム", "href": "index.html" },
+        { "title": "ドキュメント", "href": "docs.html" },
+        { "title": "概要", "href": "about.html" }
+      ]
+    }
+  }
+}
+```
+
+**レスポンシブ動作**：
+
+- **モバイル端末**: ハンバーガーメニューアイコンを表示し、クリックするとすべてのナビゲーションリンクが展開されます。
+- **デスクトップ端末**: ヘッダー内に直接ナビゲーションリンクを表示しますが、画面幅の 40% を超えないようにします。超える部分は「More」ドロップダウンメニューで表示されます。
+
 ## 完全な例
 
 ```json
@@ -124,7 +154,12 @@ Microsoft Clarity Project ID です。Clarity ユーザー行動分析の統合�
       "baseUrl": "https://example.com",
       "title": "技術ブログ",
       "gaID": "G-ABC123DEF4",
-      "clarityID": "abc123xyz"
+      "clarityID": "abc123xyz",
+      "navLinks": [
+        { "title": "ホーム", "href": "index.html" },
+        { "title": "ドキュメント", "href": "docs.html" },
+        { "title": "ブログ", "href": "blog.html" }
+      ]
     }
   },
   "files": []

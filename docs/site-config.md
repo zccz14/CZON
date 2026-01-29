@@ -15,7 +15,11 @@ CZON 支持通过 `.czon/meta.json` 文件配置站点选项。这些配置是�
       "baseUrl": "https://example.com",
       "title": "My Docs",
       "gaID": "G-XXXXXXXXXX",
-      "clarityID": "your-clarity-id"
+      "clarityID": "your-clarity-id",
+      "navLinks": [
+        { "title": "首页", "href": "index.html" },
+        { "title": "关于", "href": "about.html" }
+      ]
     }
   },
   "files": []
@@ -100,6 +104,32 @@ Microsoft Clarity Project ID，用于集成 Clarity 用户行为分析。
 
 获取方式：前往 [Microsoft Clarity](https://clarity.microsoft.com/) 创建项目，在项目设置中获取 Project ID。
 
+### `site.navLinks`
+
+快速导航链接配置，在页面头部显示导航链接。
+
+- **类型**: `Array<{ title: string, href: string }>`
+- **默认值**: `undefined`（不显示导航）
+
+```json
+{
+  "options": {
+    "site": {
+      "navLinks": [
+        { "title": "首页", "href": "index.html" },
+        { "title": "文档", "href": "docs.html" },
+        { "title": "关于", "href": "about.html" }
+      ]
+    }
+  }
+}
+```
+
+**响应式行为**：
+
+- **移动端**：显示汉堡菜单图标，点击展开全部导航链接
+- **桌面端**：在 Header 中直接显示导航链接，但不超过屏幕宽度的 40%；超出部分通过「More」下拉菜单显示
+
 ## 完整示例
 
 ```json
@@ -111,7 +141,12 @@ Microsoft Clarity Project ID，用于集成 Clarity 用户行为分析。
       "baseUrl": "https://example.com",
       "title": "技术博客",
       "gaID": "G-ABC123DEF4",
-      "clarityID": "abc123xyz"
+      "clarityID": "abc123xyz",
+      "navLinks": [
+        { "title": "首页", "href": "index.html" },
+        { "title": "文档", "href": "docs.html" },
+        { "title": "博客", "href": "blog.html" }
+      ]
     }
   },
   "files": []

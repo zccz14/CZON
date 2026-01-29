@@ -1,6 +1,6 @@
 ---
 "title": "Panduan Konfigurasi Situs CZON"
-"summary": "Dokumen ini menjelaskan secara rinci metode dan opsi konfigurasi situs CZON. Konfigurasi terletak di bidang `options.site` pada file `.czon/meta.json`, termasuk `site.baseUrl` (untuk menghasilkan `sitemap.xml` dan `robots.txt`), `site.title` (judul situs, nilai default adalah 'CZON'), `site.gaID` (Google Analytics Measurement ID), dan `site.clarityID` (Microsoft Clarity Project ID). Semua item konfigurasi bersifat opsional, dan perubahan memerlukan eksekusi ulang `czon build` untuk berlaku. Pembuatan `sitemap.xml` akan dilewati jika `baseUrl` tidak dikonfigurasi. Alat analitik hanya akan dimuat setelah ID yang sesuai dikonfigurasi, tanpa memengaruhi kinerja halaman. Dokumen ini menyediakan lokasi konfigurasi, item konfigurasi yang tersedia, contoh lengkap, dan hal-hal yang perlu diperhatikan untuk membantu pengguna mengatur situs dengan mudah."
+"summary": "Dokumen ini menjelaskan secara rinci metode dan opsi konfigurasi situs CZON. Konfigurasi terletak di bidang `options.site` pada file `.czon/meta.json`, termasuk `site.baseUrl` (untuk menghasilkan `sitemap.xml` dan `robots.txt`), `site.title` (judul situs, nilai default 'CZON'), `site.gaID` (Google Analytics Measurement ID), dan `site.clarityID` (Microsoft Clarity Project ID). Semua item konfigurasi bersifat opsional, dan perubahan memerlukan eksekusi ulang `czon build` untuk berlaku. Jika `baseUrl` tidak dikonfigurasi, pembuatan `sitemap.xml` akan dilewati. Alat analitik hanya akan dimuat setelah ID yang sesuai dikonfigurasi, tanpa memengaruhi kinerja halaman. Dokumen ini menyediakan lokasi konfigurasi, item konfigurasi yang tersedia, contoh lengkap, dan hal-hal yang perlu diperhatikan untuk membantu pengguna mengatur situs dengan mudah."
 "tags":
   - "CZON"
   - "Konfigurasi Situs"
@@ -28,7 +28,11 @@ Item konfigurasi terletak di bidang `options.site` pada file `.czon/meta.json`:
       "baseUrl": "https://example.com",
       "title": "My Docs",
       "gaID": "G-XXXXXXXXXX",
-      "clarityID": "your-clarity-id"
+      "clarityID": "your-clarity-id",
+      "navLinks": [
+        { "title": "Beranda", "href": "index.html" },
+        { "title": "Tentang", "href": "about.html" }
+      ]
     }
   },
   "files": []
@@ -61,7 +65,7 @@ Setelah dikonfigurasi, akan dihasilkan secara otomatis:
 
 ### `site.title`
 
-Judul situs, ditampilkan di bagian kepala halaman.
+Judul situs, ditampilkan di bagian header halaman.
 
 - **Tipe**: `string`
 - **Nilai Default**: `"CZON"`
@@ -113,6 +117,32 @@ Microsoft Clarity Project ID, digunakan untuk mengintegrasikan analisis perilaku
 
 Cara mendapatkan: Kunjungi [Microsoft Clarity](https://clarity.microsoft.com/) untuk membuat proyek, lalu dapatkan Project ID di pengaturan proyek.
 
+### `site.navLinks`
+
+Konfigurasi tautan navigasi cepat, menampilkan tautan navigasi di bagian header halaman.
+
+- **Tipe**: `Array<{ title: string, href: string }>`
+- **Nilai Default**: `undefined` (tidak menampilkan navigasi)
+
+```json
+{
+  "options": {
+    "site": {
+      "navLinks": [
+        { "title": "Beranda", "href": "index.html" },
+        { "title": "Dokumentasi", "href": "docs.html" },
+        { "title": "Tentang", "href": "about.html" }
+      ]
+    }
+  }
+}
+```
+
+**Perilaku Responsif**:
+
+- **Perangkat Seluler**: Menampilkan ikon menu hamburger, ketuk untuk memperluas semua tautan navigasi
+- **Desktop**: Menampilkan tautan navigasi langsung di Header, tetapi tidak melebihi 40% lebar layar; bagian yang melebihi akan ditampilkan melalui menu tarik-turun "More"
+
 ## Contoh Lengkap
 
 ```json
@@ -124,7 +154,12 @@ Cara mendapatkan: Kunjungi [Microsoft Clarity](https://clarity.microsoft.com/) u
       "baseUrl": "https://example.com",
       "title": "Blog Teknis",
       "gaID": "G-ABC123DEF4",
-      "clarityID": "abc123xyz"
+      "clarityID": "abc123xyz",
+      "navLinks": [
+        { "title": "Beranda", "href": "index.html" },
+        { "title": "Dokumentasi", "href": "docs.html" },
+        { "title": "Blog", "href": "blog.html" }
+      ]
     }
   },
   "files": []

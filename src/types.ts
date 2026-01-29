@@ -38,6 +38,20 @@ export interface MetaDataStore {
   files: FileMetaData[];
 }
 
+/**
+ * 导航链接配置项
+ */
+export interface NavLink {
+  /**
+   * 导航链接显示的标题
+   */
+  title: string;
+  /**
+   * 导航链接的目标地址
+   */
+  href: string;
+}
+
 export interface BuildOptions {
   langs?: string[];
   site?: {
@@ -60,6 +74,12 @@ export interface BuildOptions {
      * Microsoft Clarity Project ID
      */
     clarityID?: string;
+    /**
+     * 快速导航链接配置
+     * 在 Header 中显示导航链接
+     * @example [{ title: "首页", href: "/" }, { title: "关于", href: "/about" }]
+     */
+    navLinks?: NavLink[];
   };
 }
 

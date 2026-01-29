@@ -32,7 +32,17 @@
     "site": {
       "baseUrl": "https://czon.zccz14.com/",
       "gaID": "G-561PB199FD",
-      "clarityID": "v96n7w9buw"
+      "clarityID": "v96n7w9buw",
+      "navLinks": [
+        {
+          "title": "首页",
+          "href": "index.html"
+        },
+        {
+          "title": "博客",
+          "href": "https://readme.zccz14.com/"
+        }
+      ]
     }
   },
   "files": [
@@ -42,7 +52,7 @@
       "links": []
     },
     {
-      "hash": "45dda3b494c0b87d4053ea2668622b76838370ecf32481e8274d03b93e6e6f22",
+      "hash": "30fe4bab11fb363e42a08ca3f7e4fc42f48a6a3ab26c9ba7c55b88623dbdf27f",
       "path": "package.json",
       "links": []
     },
@@ -94,7 +104,7 @@
           "total": 2060
         }
       },
-      "category": "AI-Content-Engine",
+      "category": "Quick Start",
       "nativeMarkdownHash": "b888e3f987f2c43f168accbc344f8b6ade566bdc09ff009bb771140cea3191fe"
     },
     {
@@ -137,7 +147,7 @@
       "nativeMarkdownHash": "d64f0d11311711f0830a42ba3d41f16c15409598667a87302e2141291e266b3d"
     },
     {
-      "hash": "c94fb815835ad3aeee63115216d0902d658296aa89b51f23ac71eb1c71672b01",
+      "hash": "be44474ca1135b82e524b4fb93dd31543701b68e9bc86a66776331e1f00b865b",
       "path": "docs/site-config.md",
       "links": [
         "https://analytics.google.com/",
@@ -178,8 +188,8 @@
           "total": 1737
         }
       },
-      "category": "Documentation-Tips",
-      "nativeMarkdownHash": "23fd2608cbe7ab86330c467e26ef559625942799b9c77bc6f89cbc313c3a034a"
+      "category": "Quick Start",
+      "nativeMarkdownHash": "bfb2bd4db7c4d086d3fe0f644a0e65f5c64ed89eb931e2ac3602fcb33b8ff8fd"
     },
     {
       "hash": "069babfab1044d915eabca9cec9a1d138d3bd1177191907d6a64f2383df9a2e2",
@@ -224,7 +234,7 @@
           "total": 1038
         }
       },
-      "category": "Carousel-Testing",
+      "category": "Content Writing",
       "nativeMarkdownHash": "435cb813dd8a3b460e92be495827979975057c96b18e837b0deb7964a377b4b6"
     },
     {
@@ -263,7 +273,7 @@
           "total": 1151
         }
       },
-      "category": "Math-Formula-Testing",
+      "category": "Content Writing",
       "nativeMarkdownHash": "46fa1865b87ad0b3f1a3f7153327c8d4f1dc580ee6d70b023dcc1545cf4d2a31"
     },
     {
@@ -305,7 +315,7 @@
           "total": 918
         }
       },
-      "category": "Link-Testing",
+      "category": "Content Writing",
       "nativeMarkdownHash": "df29bfd08f26f8345671bf6def3b90de65953e67a2a7971dee159ad1bd56d529"
     },
     {
@@ -349,7 +359,7 @@
           "total": 1610
         }
       },
-      "category": "Chart-Testing",
+      "category": "Content Writing",
       "nativeMarkdownHash": "4174dc77404950175cef3a8226e0fc22247550e1ab9087afa1095f77e1574ec5"
     },
     {
@@ -390,7 +400,7 @@
           "total": 1019
         }
       },
-      "category": "Documentation-Tips",
+      "category": "Content Writing",
       "nativeMarkdownHash": "3d9e6b100c286fcd98d3a9ea805b76efc2255774377333775c48e29e4626e41a"
     }
   ]

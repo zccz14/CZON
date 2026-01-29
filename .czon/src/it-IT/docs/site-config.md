@@ -1,6 +1,6 @@
 ---
 "title": "Guida alla Configurazione del Sito CZON"
-"summary": "Questo documento descrive in dettaglio i metodi e le opzioni per configurare il sito CZON. La configurazione si trova nel campo `options.site` del file `.czon/meta.json` e include `site.baseUrl` (utilizzato per generare `sitemap.xml` e `robots.txt`), `site.title` (titolo del sito, valore predefinito 'CZON'), `site.gaID` (Google Analytics Measurement ID) e `site.clarityID` (Microsoft Clarity Project ID). Tutte le opzioni di configurazione sono facoltative; dopo le modifiche, è necessario eseguire nuovamente `czon build` per renderle effettive. Se `baseUrl` non è configurato, la generazione di `sitemap.xml` verrà saltata. Gli strumenti di analisi verranno caricati solo dopo aver configurato il rispettivo ID, senza influire sulle prestazioni della pagina. Il documento fornisce la posizione della configurazione, le opzioni disponibili, un esempio completo e le note importanti per aiutare gli utenti a configurare facilmente il proprio sito."
+"summary": "Questo documento descrive in dettaglio i metodi e le opzioni per configurare il sito CZON. La configurazione si trova nel campo `options.site` del file `.czon/meta.json` e include `site.baseUrl` (utilizzato per generare `sitemap.xml` e `robots.txt`), `site.title` (titolo del sito, valore predefinito 'CZON'), `site.gaID` (Google Analytics Measurement ID) e `site.clarityID` (Microsoft Clarity Project ID). Tutte le opzioni sono facoltative; dopo le modifiche è necessario eseguire nuovamente `czon build` per renderle effettive. Se `baseUrl` non è configurato, la generazione di `sitemap.xml` viene saltata. Gli strumenti di analisi vengono caricati solo dopo aver configurato il rispettivo ID, senza influire sulle prestazioni della pagina. Il documento fornisce la posizione della configurazione, le opzioni disponibili, un esempio completo e note importanti per aiutare gli utenti a configurare facilmente il proprio sito."
 "tags":
   - "CZON"
   - "Configurazione Sito"
@@ -28,7 +28,11 @@ Le opzioni di configurazione si trovano nel campo `options.site` del file `.czon
       "baseUrl": "https://example.com",
       "title": "My Docs",
       "gaID": "G-XXXXXXXXXX",
-      "clarityID": "your-clarity-id"
+      "clarityID": "your-clarity-id",
+      "navLinks": [
+        { "title": "Home", "href": "index.html" },
+        { "title": "About", "href": "about.html" }
+      ]
     }
   },
   "files": []
@@ -64,7 +68,7 @@ Dopo la configurazione, verranno generati automaticamente:
 Titolo del sito, visualizzato nell'intestazione della pagina.
 
 - **Tipo**: `string`
-- **Valore Predefinito**: `"CZON"`
+- **Valore predefinito**: `"CZON"`
 
 ```json
 {
@@ -93,7 +97,7 @@ Google Analytics Measurement ID, utilizzato per integrare le statistiche di Goog
 }
 ```
 
-Come ottenerlo: Vai su [Google Analytics](https://analytics.google.com/) per creare una proprietà, quindi ottieni il Measurement ID nella sezione "Flussi di dati".
+Come ottenerlo: Vai su [Google Analytics](https://analytics.google.com/), crea una proprietà e ottieni il Measurement ID nella sezione "Flussi di dati".
 
 ### `site.clarityID`
 
@@ -111,7 +115,33 @@ Microsoft Clarity Project ID, utilizzato per integrare l'analisi del comportamen
 }
 ```
 
-Come ottenerlo: Vai su [Microsoft Clarity](https://clarity.microsoft.com/) per creare un progetto, quindi ottieni il Project ID nelle impostazioni del progetto.
+Come ottenerlo: Vai su [Microsoft Clarity](https://clarity.microsoft.com/), crea un progetto e ottieni il Project ID nelle impostazioni del progetto.
+
+### `site.navLinks`
+
+Configurazione dei collegamenti di navigazione rapida, visualizzati nell'intestazione della pagina.
+
+- **Tipo**: `Array<{ title: string, href: string }>`
+- **Valore predefinito**: `undefined` (nessuna navigazione visualizzata)
+
+```json
+{
+  "options": {
+    "site": {
+      "navLinks": [
+        { "title": "Home", "href": "index.html" },
+        { "title": "Documentazione", "href": "docs.html" },
+        { "title": "About", "href": "about.html" }
+      ]
+    }
+  }
+}
+```
+
+**Comportamento responsivo**:
+
+- **Dispositivi mobili**: Mostra un'icona a hamburger, clicca per espandere tutti i collegamenti di navigazione.
+- **Desktop**: Mostra i collegamenti di navigazione direttamente nell'Header, ma non oltre il 40% della larghezza dello schermo; gli elementi in eccesso vengono visualizzati tramite un menu a discesa "Altro".
 
 ## Esempio Completo
 
@@ -124,7 +154,12 @@ Come ottenerlo: Vai su [Microsoft Clarity](https://clarity.microsoft.com/) per c
       "baseUrl": "https://example.com",
       "title": "Blog Tecnico",
       "gaID": "G-ABC123DEF4",
-      "clarityID": "abc123xyz"
+      "clarityID": "abc123xyz",
+      "navLinks": [
+        { "title": "Home", "href": "index.html" },
+        { "title": "Documentazione", "href": "docs.html" },
+        { "title": "Blog", "href": "blog.html" }
+      ]
     }
   },
   "files": []
@@ -135,5 +170,5 @@ Come ottenerlo: Vai su [Microsoft Clarity](https://clarity.microsoft.com/) per c
 
 - Dopo aver modificato la configurazione, è necessario eseguire nuovamente `czon build` per renderla effettiva.
 - Tutte le opzioni di configurazione `site` sono facoltative; puoi configurare solo le parti necessarie.
-- Gli strumenti di analisi (GA, Clarity) verranno caricati solo dopo aver configurato il rispettivo ID, senza influire sulle prestazioni della pagina.
-- Se `baseUrl` non è configurato, la generazione di `sitemap.xml` verrà saltata.
+- Gli strumenti di analisi (GA, Clarity) vengono caricati solo dopo aver configurato il rispettivo ID, senza influire sulle prestazioni della pagina.
+- Se `baseUrl` non è configurato, la generazione di `sitemap.xml` viene saltata.

@@ -1,6 +1,6 @@
 ---
 "title": "CZON Site Configuration Guide"
-"summary": "This document details the methods and options for configuring a CZON site. Configuration is located in the options.site field of the .czon/meta.json file, including site.baseUrl (used to generate sitemap.xml and robots.txt), site.title (site title, default value is 'CZON'), site.gaID (Google Analytics Measurement ID), and site.clarityID (Microsoft Clarity Project ID). All configuration items are optional; changes require re-running `czon build` to take effect. If baseUrl is not configured, sitemap.xml generation will be skipped. Analytics tools will only load after their corresponding IDs are configured, without affecting page performance. The document provides configuration location, available options, a complete example, and important notes to help users easily set up their site."
+"summary": "This document details the methods and options for configuring a CZON site. Configuration is located in the `options.site` field of the `.czon/meta.json` file, including `site.baseUrl` (used to generate sitemap.xml and robots.txt), `site.title` (site title, default value is 'CZON'), `site.gaID` (Google Analytics Measurement ID), and `site.clarityID` (Microsoft Clarity Project ID). All configuration items are optional; changes require re-running `czon build` to take effect. If `baseUrl` is not configured, sitemap.xml generation will be skipped. Analytics tools only load when their corresponding IDs are configured, without affecting page performance. The document provides configuration location, available options, a complete example, and important notes to help users easily set up their site."
 "tags":
   - "CZON"
   - "Site Configuration"
@@ -13,7 +13,7 @@
 
 # Site Configuration
 
-CZON supports configuring site options via the `.czon/meta.json` file. These configurations are optional and will not block initial use.
+CZON supports configuring site options via the `.czon/meta.json` file. These configurations are optional and will not block initial usage.
 
 ## Configuration Location
 
@@ -28,7 +28,11 @@ Configuration items are located in the `options.site` field of the `.czon/meta.j
       "baseUrl": "https://example.com",
       "title": "My Docs",
       "gaID": "G-XXXXXXXXXX",
-      "clarityID": "your-clarity-id"
+      "clarityID": "your-clarity-id",
+      "navLinks": [
+        { "title": "Home", "href": "index.html" },
+        { "title": "About", "href": "about.html" }
+      ]
     }
   },
   "files": []
@@ -63,7 +67,7 @@ Once configured, the following will be automatically generated:
 The site title, displayed in the page header.
 
 - **Type**: `string`
-- **Default Value**: `"CZON"`
+- **Default**: `"CZON"`
 
 ```json
 {
@@ -112,6 +116,31 @@ Microsoft Clarity Project ID, used to integrate Clarity user behavior analytics.
 
 How to obtain: Go to [Microsoft Clarity](https://clarity.microsoft.com/), create a project, and find the Project ID in the project settings.
 
+### `site.navLinks`
+
+Quick navigation link configuration, displaying navigation links in the page header.
+
+- **Type**: `Array<{ title: string, href: string }>`
+- **Default**: `undefined` (no navigation displayed)
+
+```json
+{
+  "options": {
+    "site": {
+      "navLinks": [
+        { "title": "Home", "href": "index.html" },
+        { "title": "Docs", "href": "docs.html" },
+        { "title": "About", "href": "about.html" }
+      ]
+    }
+  }
+}
+```
+
+**Responsive Behavior**:
+- **Mobile**: Displays a hamburger menu icon; clicking expands all navigation links.
+- **Desktop**: Navigation links are displayed directly in the Header, but limited to 40% of the screen width; any overflow is displayed via a "More" dropdown menu.
+
 ## Complete Example
 
 ```json
@@ -123,7 +152,12 @@ How to obtain: Go to [Microsoft Clarity](https://clarity.microsoft.com/), create
       "baseUrl": "https://example.com",
       "title": "Tech Blog",
       "gaID": "G-ABC123DEF4",
-      "clarityID": "abc123xyz"
+      "clarityID": "abc123xyz",
+      "navLinks": [
+        { "title": "Home", "href": "index.html" },
+        { "title": "Docs", "href": "docs.html" },
+        { "title": "Blog", "href": "blog.html" }
+      ]
     }
   },
   "files": []
@@ -132,7 +166,7 @@ How to obtain: Go to [Microsoft Clarity](https://clarity.microsoft.com/), create
 
 ## Important Notes
 
-- After modifying the configuration, you must re-run `czon build` for the changes to take effect.
+- After modifying the configuration, you must re-run `czon build` for changes to take effect.
 - All `site` configuration items are optional; you can configure only the parts you need.
-- Analytics tools (GA, Clarity) will only load after their corresponding IDs are configured, without affecting page performance.
+- Analytics tools (GA, Clarity) only load when their corresponding IDs are configured, without affecting page performance.
 - If `baseUrl` is not configured, sitemap.xml generation will be skipped.

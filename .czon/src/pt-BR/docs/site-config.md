@@ -1,9 +1,9 @@
 ---
 "title": "Guia de Configuração do Site CZON"
-"summary": "Este documento detalha os métodos e opções para configurar um site CZON. A configuração está localizada no campo `options.site` do arquivo `.czon/meta.json` e inclui `site.baseUrl` (usado para gerar `sitemap.xml` e `robots.txt`), `site.title` (título do site, valor padrão 'CZON'), `site.gaID` (ID de Medição do Google Analytics) e `site.clarityID` (ID do Projeto Microsoft Clarity). Todos os itens de configuração são opcionais; após modificações, é necessário executar `czon build` novamente para que entrem em vigor. Se `baseUrl` não for configurado, a geração do `sitemap.xml` será ignorada. As ferramentas de análise só serão carregadas após a configuração dos respectivos IDs, sem afetar o desempenho da página. O documento fornece a localização da configuração, itens disponíveis, exemplo completo e considerações importantes para ajudar os usuários a configurar o site facilmente."
+"summary": "Este documento detalha os métodos e opções para configurar um site CZON. A configuração está localizada no campo `options.site` do arquivo `.czon/meta.json` e inclui `site.baseUrl` (usado para gerar `sitemap.xml` e `robots.txt`), `site.title` (título do site, padrão 'CZON'), `site.gaID` (Google Analytics Measurement ID) e `site.clarityID` (Microsoft Clarity Project ID). Todos os itens são opcionais; após modificações, é necessário executar `czon build` novamente para que tenham efeito. Se `baseUrl` não for configurado, a geração do `sitemap.xml` será ignorada. As ferramentas de análise só serão carregadas se seus respectivos IDs estiverem configurados, sem impactar o desempenho da página. O documento fornece a localização da configuração, itens disponíveis, exemplo completo e considerações, ajudando os usuários a configurar o site facilmente."
 "tags":
   - "CZON"
-  - "Configuração do Site"
+  - "Configuração de Site"
   - "meta.json"
   - "Google Analytics"
   - "Microsoft Clarity"
@@ -15,7 +15,7 @@
 
 O CZON suporta a configuração de opções do site através do arquivo `.czon/meta.json`. Essas configurações são opcionais e não bloqueiam o uso inicial.
 
-## Local da Configuração
+## Localização da Configuração
 
 Os itens de configuração estão localizados no campo `options.site` do arquivo `.czon/meta.json`:
 
@@ -28,7 +28,11 @@ Os itens de configuração estão localizados no campo `options.site` do arquivo
       "baseUrl": "https://example.com",
       "title": "My Docs",
       "gaID": "G-XXXXXXXXXX",
-      "clarityID": "your-clarity-id"
+      "clarityID": "your-clarity-id",
+      "navLinks": [
+        { "title": "Início", "href": "index.html" },
+        { "title": "Sobre", "href": "about.html" }
+      ]
     }
   },
   "files": []
@@ -78,7 +82,7 @@ Título do site, exibido no cabeçalho da página.
 
 ### `site.gaID`
 
-ID de Medição do Google Analytics, usado para integrar as estatísticas do Google Analytics.
+Google Analytics Measurement ID, usado para integrar estatísticas do Google Analytics.
 
 - **Tipo**: `string`
 - **Formato**: `G-XXXXXXXXXX`
@@ -93,11 +97,11 @@ ID de Medição do Google Analytics, usado para integrar as estatísticas do Goo
 }
 ```
 
-Como obter: Acesse o [Google Analytics](https://analytics.google.com/), crie uma propriedade e obtenha o Measurement ID na seção "Fluxos de dados".
+Como obter: Acesse o [Google Analytics](https://analytics.google.com/), crie uma propriedade e obtenha o Measurement ID em "Fluxos de dados".
 
 ### `site.clarityID`
 
-ID do Projeto Microsoft Clarity, usado para integrar a análise de comportamento do usuário do Clarity.
+Microsoft Clarity Project ID, usado para integrar a análise de comportamento do usuário do Clarity.
 
 - **Tipo**: `string`
 
@@ -113,6 +117,32 @@ ID do Projeto Microsoft Clarity, usado para integrar a análise de comportamento
 
 Como obter: Acesse o [Microsoft Clarity](https://clarity.microsoft.com/), crie um projeto e obtenha o Project ID nas configurações do projeto.
 
+### `site.navLinks`
+
+Configuração de links de navegação rápida, exibidos no cabeçalho da página.
+
+- **Tipo**: `Array<{ title: string, href: string }>`
+- **Valor Padrão**: `undefined` (não exibe navegação)
+
+```json
+{
+  "options": {
+    "site": {
+      "navLinks": [
+        { "title": "Início", "href": "index.html" },
+        { "title": "Documentação", "href": "docs.html" },
+        { "title": "Sobre", "href": "about.html" }
+      ]
+    }
+  }
+}
+```
+
+**Comportamento Responsivo**:
+
+- **Dispositivos Móveis**: Exibe um ícone de menu hambúrguer; ao clicar, expande todos os links de navegação.
+- **Desktop**: Exibe os links de navegação diretamente no Cabeçalho, mas não ultrapassa 40% da largura da tela; links excedentes são exibidos em um menu suspenso "Mais".
+
 ## Exemplo Completo
 
 ```json
@@ -124,16 +154,21 @@ Como obter: Acesse o [Microsoft Clarity](https://clarity.microsoft.com/), crie u
       "baseUrl": "https://example.com",
       "title": "Blog Técnico",
       "gaID": "G-ABC123DEF4",
-      "clarityID": "abc123xyz"
+      "clarityID": "abc123xyz",
+      "navLinks": [
+        { "title": "Início", "href": "index.html" },
+        { "title": "Documentação", "href": "docs.html" },
+        { "title": "Blog", "href": "blog.html" }
+      ]
     }
   },
   "files": []
 }
 ```
 
-## Considerações Importantes
+## Considerações
 
-- Após modificar a configuração, é necessário executar `czon build` novamente para que as alterações entrem em vigor.
-- Todos os itens de configuração em `site` são opcionais; você pode configurar apenas as partes necessárias.
-- As ferramentas de análise (GA, Clarity) só serão carregadas após a configuração dos respectivos IDs, sem afetar o desempenho da página.
+- Após modificar a configuração, é necessário executar `czon build` novamente para que as alterações tenham efeito.
+- Todos os itens de configuração `site` são opcionais; você pode configurar apenas as partes necessárias.
+- As ferramentas de análise (GA, Clarity) só serão carregadas se seus respectivos IDs estiverem configurados, sem afetar o desempenho da página.
 - Se `baseUrl` não for configurado, a geração do `sitemap.xml` será ignorada.

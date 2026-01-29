@@ -1,6 +1,6 @@
 ---
 "title": "CZON Webstedskonfigurationsguide"
-"summary": "Dette dokument beskriver i detaljer metoder og muligheder for konfiguration af CZON-webstedet. Konfigurationen findes i feltet options.site i filen .czon/meta.json og omfatter site.baseUrl (bruges til at generere sitemap.xml og robots.txt), site.title (webstedets titel, standardværdi er 'CZON'), site.gaID (Google Analytics Measurement ID) og site.clarityID (Microsoft Clarity Project ID). Alle konfigurationsindstillinger er valgfrie, og ændringer kræver en genkørsel af `czon build` for at træde i kraft. Hvis baseUrl ikke er konfigureret, springes generering af sitemap.xml over. Analyseværktøjer indlæses kun, når deres tilsvarende ID'er er konfigureret, hvilket ikke påvirker sidens ydeevne. Dokumentet giver information om konfigurationsplacering, tilgængelige indstillinger, et komplet eksempel og vigtige bemærkninger for at hjælpe brugeren med nemt at opsætte webstedet."
+"summary": "Dette dokument beskriver i detaljer metoder og muligheder for konfiguration af CZON-webstedet. Konfigurationen findes i feltet options.site i filen .czon/meta.json og omfatter site.baseUrl (bruges til at generere sitemap.xml og robots.txt), site.title (webstedets titel, standardværdi er 'CZON'), site.gaID (Google Analytics Measurement ID) og site.clarityID (Microsoft Clarity Project ID). Alle konfigurationsindstillinger er valgfrie, og ændringer kræver en genkørsel af `czon build` for at træde i kraft. Hvis baseUrl ikke er konfigureret, springes generering af sitemap.xml over. Analyseværktøjer indlæses kun, når deres tilsvarende ID'er er konfigureret, hvilket ikke påvirker sidens ydeevne. Dokumentet giver information om konfigurationsplacering, tilgængelige indstillinger, komplette eksempler og vigtige bemærkninger for at hjælpe brugeren med nemt at opsætte webstedet."
 "tags":
   - "CZON"
   - "Webstedskonfiguration"
@@ -28,7 +28,11 @@ Konfigurationsindstillingerne findes i feltet `options.site` i filen `.czon/meta
       "baseUrl": "https://example.com",
       "title": "My Docs",
       "gaID": "G-XXXXXXXXXX",
-      "clarityID": "your-clarity-id"
+      "clarityID": "your-clarity-id",
+      "navLinks": [
+        { "title": "Forside", "href": "index.html" },
+        { "title": "Om", "href": "about.html" }
+      ]
     }
   },
   "files": []
@@ -70,7 +74,7 @@ Webstedets titel, vises i sidehovedet.
 {
   "options": {
     "site": {
-      "title": "Min dokumentationsside"
+      "title": "Mit dokumentationswebsted"
     }
   }
 }
@@ -105,13 +109,39 @@ Microsoft Clarity Project ID, bruges til at integrere Clarity-brugeradfærdsanal
 {
   "options": {
     "site": {
-      "clarityID": "dit-projekt-id"
+      "clarityID": "your-project-id"
     }
   }
 }
 ```
 
 Sådan får du det: Gå til [Microsoft Clarity](https://clarity.microsoft.com/), opret et projekt, og find Project ID i projektindstillingerne.
+
+### `site.navLinks`
+
+Konfiguration af hurtige navigationslinks, vises som navigationslinks i sidehovedet.
+
+- **Type**: `Array<{ title: string, href: string }>`
+- **Standardværdi**: `undefined` (viser ikke navigation)
+
+```json
+{
+  "options": {
+    "site": {
+      "navLinks": [
+        { "title": "Forside", "href": "index.html" },
+        { "title": "Dokumentation", "href": "docs.html" },
+        { "title": "Om", "href": "about.html" }
+      ]
+    }
+  }
+}
+```
+
+**Responsiv adfærd**:
+
+- **Mobil**: Viser hamburger-menuikon, klik for at udvide alle navigationslinks
+- **Desktop**: Viser navigationslinks direkte i Header, men ikke mere end 40% af skærmbredden; overskydende links vises via en "Mere"-drop-down-menu
 
 ## Komplet eksempel
 
@@ -124,7 +154,12 @@ Sådan får du det: Gå til [Microsoft Clarity](https://clarity.microsoft.com/),
       "baseUrl": "https://example.com",
       "title": "Teknisk Blog",
       "gaID": "G-ABC123DEF4",
-      "clarityID": "abc123xyz"
+      "clarityID": "abc123xyz",
+      "navLinks": [
+        { "title": "Forside", "href": "index.html" },
+        { "title": "Dokumentation", "href": "docs.html" },
+        { "title": "Blog", "href": "blog.html" }
+      ]
     }
   },
   "files": []
@@ -133,7 +168,7 @@ Sådan får du det: Gå til [Microsoft Clarity](https://clarity.microsoft.com/),
 
 ## Vigtige bemærkninger
 
-- Ændringer i konfigurationen kræver en genkørsel af `czon build` for at træde i kraft.
-- Alle `site`-konfigurationsindstillinger er valgfrie; du kan kun konfigurere de dele, du har brug for.
-- Analyseværktøjer (GA, Clarity) indlæses kun, når deres tilsvarende ID'er er konfigureret, hvilket ikke påvirker sidens ydeevne.
-- Hvis `baseUrl` ikke er konfigureret, springes generering af sitemap.xml over.
+- Ændringer i konfigurationen kræver en genkørsel af `czon build` for at træde i kraft
+- Alle `site`-konfigurationsindstillinger er valgfrie, du kan kun konfigurere de dele, du har brug for
+- Analyseværktøjer (GA, Clarity) indlæses kun, når deres tilsvarende ID'er er konfigureret, hvilket ikke påvirker sidens ydeevne
+- Hvis `baseUrl` ikke er konfigureret, springes generering af sitemap.xml over

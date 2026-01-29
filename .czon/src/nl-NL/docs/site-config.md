@@ -1,6 +1,6 @@
 ---
 "title": "CZON Siteconfiguratiehandleiding"
-"summary": "Dit document beschrijft de methoden en opties voor het configureren van een CZON-site. De configuratie bevindt zich in het veld `options.site` van het bestand `.czon/meta.json` en omvat `site.baseUrl` (gebruikt voor het genereren van sitemap.xml en robots.txt), `site.title` (sitetitel, standaardwaarde 'CZON'), `site.gaID` (Google Analytics Measurement ID) en `site.clarityID` (Microsoft Clarity Project ID). Alle configuratie-items zijn optioneel; wijzigingen worden pas actief na het opnieuw uitvoeren van `czon build`. Zonder `baseUrl` wordt de generatie van sitemap.xml overgeslagen. Analysehulpmiddelen worden alleen geladen als de bijbehorende ID is geconfigureerd, wat de pagina-prestaties niet beïnvloedt. Het document biedt de configuratielocatie, beschikbare opties, een volledig voorbeeld en belangrijke aandachtspunten om gebruikers te helpen hun site eenvoudig in te stellen."
+"summary": "Dit document beschrijft de methoden en opties voor het configureren van een CZON-site. De configuratie bevindt zich in het veld `options.site` van het bestand `.czon/meta.json` en omvat `site.baseUrl` (gebruikt voor het genereren van `sitemap.xml` en `robots.txt`), `site.title` (sitetitel, standaardwaarde 'CZON'), `site.gaID` (Google Analytics Measurement ID) en `site.clarityID` (Microsoft Clarity Project ID). Alle configuratie-items zijn optioneel; na wijzigingen moet `czon build` opnieuw worden uitgevoerd. Zonder `baseUrl` wordt de generatie van `sitemap.xml` overgeslagen. Analysehulpmiddelen worden alleen geladen als de bijbehorende ID is geconfigureerd, wat de pagina-prestaties niet beïnvloedt. Het document biedt configuratielocatie, beschikbare opties, een volledig voorbeeld en aandachtspunten om gebruikers te helpen hun site eenvoudig in te stellen."
 "tags":
   - "CZON"
   - "Siteconfiguratie"
@@ -28,7 +28,11 @@ De configuratie-items bevinden zich in het veld `options.site` van het bestand `
       "baseUrl": "https://example.com",
       "title": "My Docs",
       "gaID": "G-XXXXXXXXXX",
-      "clarityID": "your-clarity-id"
+      "clarityID": "your-clarity-id",
+      "navLinks": [
+        { "title": "Home", "href": "index.html" },
+        { "title": "Over", "href": "about.html" }
+      ]
     }
   },
   "files": []
@@ -39,7 +43,7 @@ De configuratie-items bevinden zich in het veld `options.site` van het bestand `
 
 ### `site.baseUrl`
 
-De basis-URL van de site, gebruikt voor het genereren van sitemap.xml en robots.txt.
+De basis-URL van de site, gebruikt voor het genereren van `sitemap.xml` en `robots.txt`.
 
 - **Type**: `string`
 - **Formaat**: Volledige URL, zoals `https://example.com`
@@ -93,7 +97,7 @@ Google Analytics Measurement ID, gebruikt voor de integratie van Google Analytic
 }
 ```
 
-Hoe te verkrijgen: Ga naar [Google Analytics](https://analytics.google.com/), maak een eigenschap aan en verkrijg de Measurement ID onder 'Gegevensstromen'.
+Verkrijg deze door: Ga naar [Google Analytics](https://analytics.google.com/), maak een eigenschap aan en haal de Measurement ID op onder 'Gegevensstromen'.
 
 ### `site.clarityID`
 
@@ -111,7 +115,33 @@ Microsoft Clarity Project ID, gebruikt voor de integratie van Clarity-gebruikers
 }
 ```
 
-Hoe te verkrijgen: Ga naar [Microsoft Clarity](https://clarity.microsoft.com/), maak een project aan en verkrijg de Project ID in de projectinstellingen.
+Verkrijg deze door: Ga naar [Microsoft Clarity](https://clarity.microsoft.com/), maak een project aan en haal de Project ID op in de projectinstellingen.
+
+### `site.navLinks`
+
+Configuratie voor snelle navigatielinks, toont navigatielinks in de paginakop.
+
+- **Type**: `Array<{ title: string, href: string }>`
+- **Standaardwaarde**: `undefined` (geen navigatie weergeven)
+
+```json
+{
+  "options": {
+    "site": {
+      "navLinks": [
+        { "title": "Home", "href": "index.html" },
+        { "title": "Documentatie", "href": "docs.html" },
+        { "title": "Over", "href": "about.html" }
+      ]
+    }
+  }
+}
+```
+
+**Responsief gedrag**:
+
+- **Mobiel**: Toont een hamburgermenu-icoon, klik om alle navigatielinks uit te vouwen
+- **Desktop**: Toont navigatielinks direct in de Header, maar niet meer dan 40% van de schermbreedte; items die niet passen worden weergegeven via een 'Meer'-uitklapmenu
 
 ## Volledig voorbeeld
 
@@ -124,16 +154,21 @@ Hoe te verkrijgen: Ga naar [Microsoft Clarity](https://clarity.microsoft.com/), 
       "baseUrl": "https://example.com",
       "title": "Technische Blog",
       "gaID": "G-ABC123DEF4",
-      "clarityID": "abc123xyz"
+      "clarityID": "abc123xyz",
+      "navLinks": [
+        { "title": "Home", "href": "index.html" },
+        { "title": "Documentatie", "href": "docs.html" },
+        { "title": "Blog", "href": "blog.html" }
+      ]
     }
   },
   "files": []
 }
 ```
 
-## Belangrijke aandachtspunten
+## Aandachtspunten
 
-- Na het wijzigen van de configuratie moet `czon build` opnieuw worden uitgevoerd om de wijzigingen door te voeren.
-- Alle `site` configuratie-items zijn optioneel; je kunt alleen de benodigde onderdelen configureren.
-- Analysehulpmiddelen (GA, Clarity) worden alleen geladen als de bijbehorende ID is geconfigureerd, wat de pagina-prestaties niet beïnvloedt.
-- Zonder configuratie van `baseUrl` wordt de generatie van sitemap.xml overgeslagen.
+- Na het wijzigen van de configuratie moet `czon build` opnieuw worden uitgevoerd om effect te hebben
+- Alle `site` configuratie-items zijn optioneel; je kunt alleen de benodigde delen configureren
+- Analysehulpmiddelen (GA, Clarity) worden alleen geladen als de bijbehorende ID is geconfigureerd, wat de pagina-prestaties niet beïnvloedt
+- Zonder configuratie van `baseUrl` wordt de generatie van `sitemap.xml` overgeslagen

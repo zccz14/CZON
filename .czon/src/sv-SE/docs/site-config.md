@@ -1,6 +1,6 @@
 ---
 "title": "CZON-webbplatskonfigurationsguide"
-"summary": "Detta dokument beskriver i detalj metoder och alternativ för CZON-webbplatskonfiguration. Konfigurationen finns i fältet options.site i filen .czon/meta.json och inkluderar site.baseUrl (används för att generera sitemap.xml och robots.txt), site.title (webbplatsens titel, standardvärdet är 'CZON'), site.gaID (Google Analytics Measurement ID) och site.clarityID (Microsoft Clarity Project ID). Alla konfigurationsalternativ är valfria, och ändringar kräver att czon build körs om för att träda i kraft. Om baseUrl inte är konfigurerad hoppas generering av sitemap.xml över. Analysverktygen laddas endast när motsvarande ID är konfigurerat, vilket inte påverkar sidans prestanda. Dokumentet tillhandahåller konfigurationsplats, tillgängliga konfigurationsalternativ, kompletta exempel och viktiga punkter för att hjälpa användare att enkelt konfigurera sin webbplats."
+"summary": "Detta dokument beskriver i detalj metoder och alternativ för CZON-webbplatskonfiguration. Konfigurationen finns i fältet options.site i filen .czon/meta.json och inkluderar site.baseUrl (används för att generera sitemap.xml och robots.txt), site.title (webbplatsens titel, standardvärdet är 'CZON'), site.gaID (Google Analytics Measurement ID) och site.clarityID (Microsoft Clarity Project ID). Alla konfigurationsalternativ är valfria, och efter ändringar måste czon build köras om för att de ska gälla. Om baseUrl inte är konfigurerad hoppas generering av sitemap.xml över. Analysverktygen laddas endast när motsvarande ID är konfigurerat, vilket inte påverkar sidans prestanda. Dokumentet tillhandahåller konfigurationsplats, tillgängliga konfigurationsalternativ, kompletta exempel och viktiga punkter för att hjälpa användare att enkelt konfigurera sin webbplats."
 "tags":
   - "CZON"
   - "Webbplatskonfiguration"
@@ -28,7 +28,11 @@ Konfigurationsalternativen finns i fältet `options.site` i filen `.czon/meta.js
       "baseUrl": "https://example.com",
       "title": "My Docs",
       "gaID": "G-XXXXXXXXXX",
-      "clarityID": "your-clarity-id"
+      "clarityID": "your-clarity-id",
+      "navLinks": [
+        { "title": "Hem", "href": "index.html" },
+        { "title": "Om", "href": "about.html" }
+      ]
     }
   },
   "files": []
@@ -56,7 +60,7 @@ Webbplatsens bas-URL, används för att generera sitemap.xml och robots.txt.
 
 Efter konfiguration genereras automatiskt:
 
-- `sitemap.xml` - Webbplatskarta som innehåller alla sidor
+- `sitemap.xml` - En webbplatskarta som innehåller alla sidor
 - Sitemap-deklaration i `robots.txt`
 
 ### `site.title`
@@ -113,6 +117,32 @@ Microsoft Clarity Project ID, används för att integrera Clarity-användarbetee
 
 Så här får du det: Gå till [Microsoft Clarity](https://clarity.microsoft.com/), skapa ett projekt och hämta Project ID i projektinställningarna.
 
+### `site.navLinks`
+
+Konfiguration av snabbnavigeringslänkar, visar navigeringslänkar i sidhuvudet.
+
+- **Typ**: `Array<{ title: string, href: string }>`
+- **Standardvärde**: `undefined` (visar ingen navigering)
+
+```json
+{
+  "options": {
+    "site": {
+      "navLinks": [
+        { "title": "Hem", "href": "index.html" },
+        { "title": "Dokumentation", "href": "docs.html" },
+        { "title": "Om", "href": "about.html" }
+      ]
+    }
+  }
+}
+```
+
+**Responsivt beteende**:
+
+- **Mobil**: Visar hamburgermeny-ikon, klicka för att expandera alla navigeringslänkar
+- **Desktop**: Visar navigeringslänkar direkt i sidhuvudet, men inte mer än 40% av skärmens bredd; överskjutande länkar visas via en "Mer"-rullgardinsmeny
+
 ## Komplett exempel
 
 ```json
@@ -124,7 +154,12 @@ Så här får du det: Gå till [Microsoft Clarity](https://clarity.microsoft.com
       "baseUrl": "https://example.com",
       "title": "Teknisk blogg",
       "gaID": "G-ABC123DEF4",
-      "clarityID": "abc123xyz"
+      "clarityID": "abc123xyz",
+      "navLinks": [
+        { "title": "Hem", "href": "index.html" },
+        { "title": "Dokumentation", "href": "docs.html" },
+        { "title": "Blogg", "href": "blog.html" }
+      ]
     }
   },
   "files": []
@@ -133,7 +168,7 @@ Så här får du det: Gå till [Microsoft Clarity](https://clarity.microsoft.com
 
 ## Viktiga punkter
 
-- Efter ändring av konfiguration måste `czon build` köras om för att ändringarna ska träda i kraft
+- Efter ändringar i konfigurationen måste `czon build` köras om för att de ska gälla
 - Alla `site`-konfigurationsalternativ är valfria, du kan bara konfigurera de delar du behöver
 - Analysverktyg (GA, Clarity) laddas endast när motsvarande ID är konfigurerat, vilket inte påverkar sidans prestanda
 - När `baseUrl` inte är konfigurerad hoppas generering av sitemap.xml över
