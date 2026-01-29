@@ -1,6 +1,7 @@
 import React from 'react';
 import { IRenderContext } from '../types';
 import { toSortedBy } from '../utils/sortBy';
+import { Analytics } from './components/Analytics';
 import { ContentMeta } from './components/ContentMeta';
 import { CZONFooter } from './components/CZONFooter';
 import { CZONHeader } from './components/CZONHeader';
@@ -42,6 +43,7 @@ export const IndexPage: React.FC<{
         <link rel="icon" href={faviconUrl} type="image/x-icon" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content={`Index page for language ${props.lang}`} />
+        <Analytics ctx={props.ctx} />
         <script src={getResourceUrlFrom(props.ctx.path, 'tailwindcss.js')}></script>
         <style>{style}</style>
         <script

@@ -29,7 +29,11 @@
       "tr-TR",
       "uk-UA"
     ],
-    "baseUrl": "https://czon.zccz14.com/"
+    "baseUrl": "https://czon.zccz14.com/",
+    "site": {
+      "gaID": "G-561PB199FD",
+      "clarityID": "v96n7w9buw"
+    }
   },
   "files": [
     {
@@ -38,7 +42,7 @@
       "links": []
     },
     {
-      "hash": "42be9eef5e782603af352b16a0fbdca32dce783aa94865808ec4312da8459f29",
+      "hash": "9660f9db8ec8802829ce42e96cd89b2da2c25174c2f5fa6e1ba977ae0f90c7cc",
       "path": "package.json",
       "links": []
     },

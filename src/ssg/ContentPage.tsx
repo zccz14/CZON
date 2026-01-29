@@ -1,6 +1,7 @@
 import { dirname, resolve } from 'node:path';
 import React from 'react';
 import { IArticleContent, IRenderContext } from '../types';
+import { Analytics } from './components/Analytics';
 import { ContentMeta } from './components/ContentMeta';
 import { CZONFooter } from './components/CZONFooter';
 import { CZONHeader } from './components/CZONHeader';
@@ -43,6 +44,7 @@ export const ContentPage: React.FC<{
         <title>{title}</title>
         <link rel="icon" href={faviconUrl} type="image/x-icon" />
         <meta name="description" content={`tags: ${tags.join(', ')}`} />
+        <Analytics ctx={props.ctx} />
         <script src={getResourceUrlFrom(props.ctx.path, 'tailwindcss.js')}></script>
         <style>{style}</style>
         <script

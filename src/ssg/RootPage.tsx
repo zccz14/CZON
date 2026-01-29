@@ -1,6 +1,7 @@
 import React from 'react';
 import { LANGUAGE_NAMES } from '../languages';
 import { IRenderContext } from '../types';
+import { Analytics } from './components/Analytics';
 import { getFaviconUrlFrom } from './resourceMap';
 
 // /index.html 的根页面
@@ -27,6 +28,7 @@ export const RootPage: React.FC<{ ctx: IRenderContext }> = props => {
         <title>CZON Multilingual Site Navigator</title>
         <link rel="icon" href={faviconUrl} type="image/x-icon" />
         <meta name="description" content="Select your preferred language to explore our content." />
+        <Analytics ctx={props.ctx} />
         {props.ctx.site.options.langs!.map(lang => (
           <link key={lang} rel="alternate" hrefLang={lang} href={`${lang}/index.html`} />
         ))}

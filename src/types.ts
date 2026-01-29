@@ -42,6 +42,17 @@ export interface BuildOptions {
   langs?: string[];
   baseUrl?: string;
   siteTitle?: string;
+  site?: {
+    /**
+     * Google Analytics Measurement ID
+     * @example "G-XXXXXXXXXX"
+     */
+    gaID?: string;
+    /**
+     * Microsoft Clarity Project ID
+     */
+    clarityID?: string;
+  };
 }
 
 export interface AIMetadata {
