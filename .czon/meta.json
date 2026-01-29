@@ -137,6 +137,51 @@
       "nativeMarkdownHash": "d64f0d11311711f0830a42ba3d41f16c15409598667a87302e2141291e266b3d"
     },
     {
+      "hash": "c94fb815835ad3aeee63115216d0902d658296aa89b51f23ac71eb1c71672b01",
+      "path": "docs/site-config.md",
+      "links": [
+        "https://analytics.google.com/",
+        "https://clarity.microsoft.com/"
+      ],
+      "metadata": {
+        "title": "CZON 站点配置指南",
+        "description": "介绍 CZON 如何通过 .czon/meta.json 文件配置站点选项，包括基础 URL、标题和集成分析工具。",
+        "short_summary": "本文档介绍 CZON 站点配置，通过 .czon/meta.json 文件设置选项如基础 URL、标题和集成 Google Analytics 与 Microsoft Clarity。所有配置可选，修改后需重新构建生效。",
+        "audience": "使用 CZON 构建文档站点的开发者或内容管理者，需要配置站点选项和集成分析工具的用户。",
+        "key_points": [
+          "CZON 支持通过 .czon/meta.json 文件配置站点选项",
+          "配置位于 options.site 字段中，包括 baseUrl、title、gaID 和 clarityID",
+          "site.baseUrl 用于生成 sitemap.xml 和 robots.txt，需完整 URL 格式",
+          "site.title 显示在页面头部，默认值为 'CZON'",
+          "site.gaID 是 Google Analytics Measurement ID，格式为 G-XXXXXXXXXX",
+          "site.clarityID 是 Microsoft Clarity Project ID，用于用户行为分析",
+          "所有配置项都是可选的，修改后需重新运行 czon build 生效",
+          "未配置 baseUrl 时将跳过 sitemap.xml 生成",
+          "分析工具只有在配置了对应 ID 后才会加载，不影响性能",
+          "文档提供了完整示例和配置获取方式"
+        ],
+        "summary": "本文档详细说明了 CZON 站点配置的方法和选项。配置位于 .czon/meta.json 文件的 options.site 字段中，包括 site.baseUrl（用于生成 sitemap.xml 和 robots.txt）、site.title（站点标题，默认值为 'CZON'）、site.gaID（Google Analytics Measurement ID）和 site.clarityID（Microsoft Clarity Project ID）。所有配置项都是可选的，修改后需要重新运行 czon build 才能生效。未配置 baseUrl 时将跳过 sitemap.xml 生成，分析工具只有在配置了对应 ID 后才会加载，不影响页面性能。文档提供了配置位置、可用配置项、完整示例和注意事项，帮助用户轻松设置站点。",
+        "slug": "czon-site-configuration-guide",
+        "tags": [
+          "CZON",
+          "站点配置",
+          "meta.json",
+          "Google Analytics",
+          "Microsoft Clarity",
+          "sitemap",
+          "robots.txt"
+        ],
+        "inferred_lang": "zh-Hans",
+        "tokens_used": {
+          "prompt": 1195,
+          "completion": 542,
+          "total": 1737
+        }
+      },
+      "category": "Documentation-Tips",
+      "nativeMarkdownHash": "23fd2608cbe7ab86330c467e26ef559625942799b9c77bc6f89cbc313c3a034a"
+    },
+    {
       "hash": "069babfab1044d915eabca9cec9a1d138d3bd1177191907d6a64f2383df9a2e2",
       "path": "docs/test-embla.md",
       "links": [
