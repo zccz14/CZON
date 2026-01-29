@@ -70,7 +70,7 @@ Disallow:
 User-agent: KHTML, like Gecko
 Disallow:
 
-${MetaData.options.site?.baseUrl ? `Sitemap: ${path.join(MetaData.options.site.baseUrl, 'sitemap.xml')}` : ''}
+${MetaData.options.site?.baseUrl ? `Sitemap: ${new URL('sitemap.xml', MetaData.options.site.baseUrl).href}` : ''}
 `;
 
   const robotsPath = path.join(CZON_DIST_DIR, 'robots.txt');

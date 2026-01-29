@@ -3,6 +3,18 @@ import * as fs from 'fs/promises';
 import { CZON_DIST_DIR } from '../paths';
 import { writeFile } from '../utils/writeFile';
 
+/**
+ * Escape special XML characters to prevent parsing errors
+ */
+const escapeXml = (str: string): string => {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+};
+
 interface SitemapUrlEntry {
   slug: string;
   langs: Array<{
@@ -69,11 +81,12 @@ export const generateSitemap = async (baseUrl: string): Promise<void> => {
 
     for (const langEntry of entry.langs) {
       const fullUrl = `${baseUrlClean}${langEntry.path}`;
-      const fullUrlEncoded = encodeURI(fullUrl);
+      // encodeURI handles URL encoding, escapeXml handles XML special characters
+      const fullUrlEscaped = escapeXml(encodeURI(fullUrl));
       if (langEntry.lang === entry.langs[0].lang) {
-        sitemap += `    <loc>${fullUrlEncoded}</loc>\n`;
+        sitemap += `    <loc>${fullUrlEscaped}</loc>\n`;
       }
-      sitemap += `    <xhtml:link rel="alternate" hreflang="${langEntry.lang}" href="${fullUrlEncoded}"/>\n`;
+      sitemap += `    <xhtml:link rel="alternate" hreflang="${langEntry.lang}" href="${fullUrlEscaped}"/>\n`;
     }
 
     sitemap += `  </url>\n`;

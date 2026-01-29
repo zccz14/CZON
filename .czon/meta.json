@@ -29,8 +29,8 @@
       "tr-TR",
       "uk-UA"
     ],
-    "baseUrl": "https://czon.zccz14.com/",
     "site": {
+      "baseUrl": "https://czon.zccz14.com/",
       "gaID": "G-561PB199FD",
       "clarityID": "v96n7w9buw"
     }
@@ -42,7 +42,7 @@
       "links": []
     },
     {
-      "hash": "9660f9db8ec8802829ce42e96cd89b2da2c25174c2f5fa6e1ba977ae0f90c7cc",
+      "hash": "45dda3b494c0b87d4053ea2668622b76838370ecf32481e8274d03b93e6e6f22",
       "path": "package.json",
       "links": []
     },
