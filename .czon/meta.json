@@ -52,7 +52,7 @@
       "links": []
     },
     {
-      "hash": "30fe4bab11fb363e42a08ca3f7e4fc42f48a6a3ab26c9ba7c55b88623dbdf27f",
+      "hash": "1d22e8c0480e0fbd571310bfd1cad21ffc23c7aee2fdaaabdfd7fa6c283c8769",
       "path": "package.json",
       "links": []
     },
@@ -145,6 +145,49 @@
       },
       "category": "Translation-Agent",
       "nativeMarkdownHash": "d64f0d11311711f0830a42ba3d41f16c15409598667a87302e2141291e266b3d"
+    },
+    {
+      "hash": "f972fb38d84f6890d1133dcd05d8c96d93dfd371f2d255f900efe0fdc2fa8cb7",
+      "path": "docs/custom-style.md",
+      "links": [],
+      "metadata": {
+        "title": "CZON自定义样式指南",
+        "description": "介绍如何在CZON项目中通过style.css文件自定义站点样式，包括使用方法、工作原理和CSS变量覆盖。",
+        "short_summary": "本文指导用户如何在CZON项目中通过创建.czony/style.css文件来自定义站点样式。文档详细说明了使用方法、工作原理，并提供了可用的CSS变量和多个实用示例。最后强调了注意事项，如重新构建和CSS变量覆盖的重要性。",
+        "audience": "使用CZON构建网站的前端开发者或网站管理员，希望自定义站点样式以匹配品牌或个人偏好。",
+        "key_points": [
+          "CZON支持通过.czony/style.css文件自定义站点样式",
+          "自定义样式可以覆盖默认样式或添加个性化外观",
+          "构建时CZON会检测并复制style.css到输出目录",
+          "在每个HTML页面中添加样式链接，自定义样式在内置样式之后加载",
+          "提供了可用的CSS变量列表，包括亮色和暗色模式",
+          "展示了多个自定义示例，如品牌色、内容宽度、代码块样式",
+          "修改样式后需要重新运行czon build才能生效",
+          "建议使用CSS变量覆盖以兼容亮色和暗色模式",
+          "CZON使用Tailwind CSS，覆盖时可能需要!important",
+          "自定义样式文件名必须是style.css，放置在.czony目录下"
+        ],
+        "summary": "本文详细介绍了CZON项目中自定义样式的方法，通过在项目的.czony目录下创建style.css文件并编写CSS代码，可以覆盖默认样式或添加个性化外观。文档解释了CZON在构建时会检测并复制该文件到输出目录，并在每个HTML页面中添加样式链接，确保自定义样式在内置样式之后加载以实现覆盖效果。文中提供了可用的CSS变量列表，包括背景色、文字色、链接色等，并展示了多个实际示例，如自定义品牌色、调整内容区域宽度、自定义代码块样式和隐藏特定元素。最后强调了注意事项，如文件名必须为style.css、修改后需重新构建、建议使用CSS变量覆盖以及CZON使用Tailwind CSS时可能需要使用!important。",
+        "slug": "czon-custom-style-guide",
+        "tags": [
+          "CZON",
+          "自定义样式",
+          "CSS",
+          "前端开发",
+          "网站构建",
+          "样式覆盖",
+          "CSS变量",
+          "Tailwind CSS"
+        ],
+        "inferred_lang": "zh-Hans",
+        "tokens_used": {
+          "prompt": 1315,
+          "completion": 506,
+          "total": 1821
+        }
+      },
+      "category": "Customization",
+      "nativeMarkdownHash": "3fef9268f5c6b24cc0c7a6769cdb32d3810c06bc04de637a29c5587a6efc346b"
     },
     {
       "hash": "be44474ca1135b82e524b4fb93dd31543701b68e9bc86a66776331e1f00b865b",

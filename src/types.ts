@@ -137,4 +137,8 @@ export interface IRenderContext {
    * 全站文档列表
    */
   contents: Array<IArticleContent>;
+  /**
+   * 是否存在自定义样式 (.czon/style.css)
+   */
+  hasCustomStyle?: boolean;
 }

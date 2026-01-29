@@ -7,6 +7,8 @@ export const CZON_DIST_DIR = join(CZON_DIR, 'dist');
 export const CZON_DIST_RAW_CONTENT_DIR = join(CZON_DIST_DIR, '__raw__');
 export const CZON_SRC_DIR = join(CZON_DIR, 'src');
 export const CZON_META_PATH = join(CZON_DIR, 'meta.json');
+export const CZON_CUSTOM_STYLE_PATH = join(CZON_DIR, 'style.css');
+export const CZON_DIST_CUSTOM_STYLE_PATH = join(CZON_DIST_DIR, 'style.css');
 /**
  * ~/.config/opencode/agents/
  */

@@ -25,3 +25,11 @@ export const getResourceUrlFrom = (path: string, name: string): string => {
 export const getFaviconUrlFrom = (path: string): string => {
   return relative(dirname(path), '/favicon.ico');
 };
+
+/**
+ * 获取自定义样式的相对引用 URL
+ * @param path - 当前文件路径 (e.g. `/en-US/index.html`)
+ */
+export const getCustomStyleUrlFrom = (path: string): string => {
+  return relative(dirname(path), '/style.css');
+};

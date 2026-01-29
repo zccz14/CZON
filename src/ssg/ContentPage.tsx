@@ -8,7 +8,7 @@ import { CZONHeader } from './components/CZONHeader';
 import { LanguageSwitcher } from './components/LanguageSwitcher';
 import { Navigator } from './components/Navigator';
 import { PageLayout } from './layouts/PageLayout';
-import { getFaviconUrlFrom, getResourceUrlFrom } from './resourceMap';
+import { getFaviconUrlFrom, getCustomStyleUrlFrom, getResourceUrlFrom } from './resourceMap';
 import { style } from './style';
 
 export const ContentPage: React.FC<{
@@ -35,6 +35,7 @@ export const ContentPage: React.FC<{
   );
 
   const faviconUrl = getFaviconUrlFrom(props.ctx.path);
+  const customStyleUrl = props.ctx.hasCustomStyle ? getCustomStyleUrlFrom(props.ctx.path) : null;
 
   return (
     <html lang={props.lang}>
@@ -47,6 +48,7 @@ export const ContentPage: React.FC<{
         <Analytics ctx={props.ctx} />
         <script src={getResourceUrlFrom(props.ctx.path, 'tailwindcss.js')}></script>
         <style>{style}</style>
+        {customStyleUrl && <link rel="stylesheet" href={customStyleUrl} />}
         <script
           dangerouslySetInnerHTML={{
             __html: `

@@ -8,7 +8,13 @@ import {
   collectUrl,
 } from '../build/sitemap';
 import { MetaData } from '../metadata';
-import { CZON_DIR, CZON_DIST_DIR, CZON_SRC_DIR } from '../paths';
+import {
+  CZON_CUSTOM_STYLE_PATH,
+  CZON_DIR,
+  CZON_DIST_CUSTOM_STYLE_PATH,
+  CZON_DIST_DIR,
+  CZON_SRC_DIR,
+} from '../paths';
 import { renderToHTML } from '../ssg';
 import { EXTERNAL_RESOURCES } from '../ssg/resourceMap';
 import { IArticleContent, IRenderContext } from '../types';
@@ -35,13 +41,26 @@ const copyFavicon = async () => {
 };
 
 /**
+ * 检测并复制自定义样式文件
+ * @returns 是否存在自定义样式
+ */
+const copyCustomStyle = async (): Promise<boolean> => {
+  if (await isExists(CZON_CUSTOM_STYLE_PATH)) {
+    await fs.mkdir(path.dirname(CZON_DIST_CUSTOM_STYLE_PATH), { recursive: true });
+    await fs.copyFile(CZON_CUSTOM_STYLE_PATH, CZON_DIST_CUSTOM_STYLE_PATH);
+    console.info(
+      `🎨 Copied custom style from ${CZON_CUSTOM_STYLE_PATH} to: ${CZON_DIST_CUSTOM_STYLE_PATH}`
+    );
+    return true;
+  }
+  return false;
+};
+
+/**
  * 使用简单的爬虫抓取生成的站点页面
  */
 export const spiderStaticSiteGenerator = async () => {
   clearSitemapCollection();
-
-  // 复制 favicon 图标
-  await copyFavicon();
 
   const queue = ['/index.html', '/404.html'];
 
@@ -52,6 +71,14 @@ export const spiderStaticSiteGenerator = async () => {
 
   const isVisited = new Set<string>();
   const contents: IRenderContext['contents'] = [];
+
+  // 检测并复制自定义样式
+  const hasCustomStyle = await copyCustomStyle();
+  isVisited.add('/style.css'); // 标记自定义样式为已访问
+
+  // 复制 favicon 图标
+  await copyFavicon();
+  isVisited.add('/favicon.ico'); // 标记 favicon 为已访问
 
   // 预加载所有 Markdown 内容，因为 React 内部异步渲染比较麻烦
   for (const file of MetaData.files) {
@@ -85,6 +112,7 @@ export const spiderStaticSiteGenerator = async () => {
         path: currentPath,
         site: MetaData,
         contents,
+        hasCustomStyle,
       });
 
     console.info(`🕷️ Crawled ${currentPath}`);
@@ -115,11 +143,10 @@ export const spiderStaticSiteGenerator = async () => {
       if (link.startsWith('#')) continue; // 跳过页面内锚点链接
       const resolvedPath = path.resolve('/', path.dirname(currentPath), link);
       if (resolvedPath.startsWith('/__raw__/')) continue; // 跳过原始内容目录
-      if (resolvedPath === '/favicon.ico') continue; // 跳过 favicon.ico
 
-      console.info(
-        `   ➕ Found link: ${link} -> ${resolvedPath} (${isVisited.has(resolvedPath) ? 'visited' : 'new'})`
-      );
+      // console.info(
+      //   `   ➕ Found link: ${link} -> ${resolvedPath} (${isVisited.has(resolvedPath) ? 'visited' : 'new'})`
+      // );
       if (!isVisited.has(resolvedPath)) {
         queue.push(resolvedPath);
       }
