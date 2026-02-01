@@ -15,6 +15,7 @@ export const style = `
   --shadow-color: rgba(0, 0, 0, 0.1);
   --primary-color: #007bff;
   --text-on-primary: #ffffff;
+  --text-strong: #ff5722;
 }
 
 html.dark {
@@ -31,6 +32,7 @@ html.dark {
   --shadow-color: rgba(0, 0, 0, 0.5);
   --primary-color: #3b82f6;
   --text-on-primary: #ffffff;
+  --text-strong: #ff8a65;
 }
 
 html, body {
@@ -199,6 +201,10 @@ html:not(.dark) body {
 
       .content-body li {
         margin: 0.5rem 0;
+      }
+
+      .content-body strong {
+        color: var(--text-strong);
       }
 
       .content-body blockquote {
