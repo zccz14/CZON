@@ -1,6 +1,6 @@
 ---
 "title": "CZON Siteconfiguratiehandleiding"
-"summary": "Dit document beschrijft de methoden en opties voor het configureren van een CZON-site. De configuratie bevindt zich in het veld `options.site` van het bestand `.czon/meta.json` en omvat `site.baseUrl` (gebruikt voor het genereren van `sitemap.xml` en `robots.txt`), `site.title` (sitetitel, standaardwaarde 'CZON'), `site.gaID` (Google Analytics Measurement ID) en `site.clarityID` (Microsoft Clarity Project ID). Alle configuratie-items zijn optioneel; na wijzigingen moet `czon build` opnieuw worden uitgevoerd. Zonder `baseUrl` wordt de generatie van `sitemap.xml` overgeslagen. Analysehulpmiddelen worden alleen geladen als de bijbehorende ID is geconfigureerd, wat de pagina-prestaties niet beïnvloedt. Het document biedt configuratielocatie, beschikbare opties, een volledig voorbeeld en aandachtspunten om gebruikers te helpen hun site eenvoudig in te stellen."
+"summary": "Dit document beschrijft de methoden en opties voor het configureren van een CZON-site. De configuratie bevindt zich in het veld `options.site` van het bestand `.czon/meta.json` en omvat `site.baseUrl` (gebruikt voor het genereren van `sitemap.xml` en `robots.txt`), `site.title` (sitetitel, standaardwaarde 'CZON'), `site.gaID` (Google Analytics Measurement ID) en `site.clarityID` (Microsoft Clarity Project ID). Alle configuratie-items zijn optioneel; wijzigingen worden pas actief na het opnieuw uitvoeren van `czon build`. Zonder `baseUrl` wordt de generatie van `sitemap.xml` overgeslagen. Analysehulpmiddelen worden alleen geladen als de bijbehorende ID is geconfigureerd, wat de pagina-prestaties niet beïnvloedt. Het document biedt informatie over de configuratielocatie, beschikbare opties, een volledig voorbeeld en belangrijke aandachtspunten om gebruikers te helpen hun site eenvoudig in te stellen."
 "tags":
   - "CZON"
   - "Siteconfiguratie"
@@ -27,6 +27,7 @@ De configuratie-items bevinden zich in het veld `options.site` van het bestand `
     "site": {
       "baseUrl": "https://example.com",
       "title": "My Docs",
+      "home": "guide.html",
       "gaID": "G-XXXXXXXXXX",
       "clarityID": "your-clarity-id",
       "navLinks": [
@@ -58,7 +59,7 @@ De basis-URL van de site, gebruikt voor het genereren van `sitemap.xml` en `robo
 }
 ```
 
-Na configuratie worden automatisch gegenereerd:
+Na configuratie wordt automatisch gegenereerd:
 
 - `sitemap.xml` - Een sitemap met alle pagina's
 - De Sitemap-verklaring in `robots.txt`
@@ -97,7 +98,7 @@ Google Analytics Measurement ID, gebruikt voor de integratie van Google Analytic
 }
 ```
 
-Verkrijg deze door: Ga naar [Google Analytics](https://analytics.google.com/), maak een eigenschap aan en haal de Measurement ID op onder 'Gegevensstromen'.
+**Hoe te verkrijgen**: Ga naar [Google Analytics](https://analytics.google.com/), maak een eigenschap aan en verkrijg de Measurement ID onder 'Gegevensstromen'.
 
 ### `site.clarityID`
 
@@ -115,7 +116,34 @@ Microsoft Clarity Project ID, gebruikt voor de integratie van Clarity-gebruikers
 }
 ```
 
-Verkrijg deze door: Ga naar [Microsoft Clarity](https://clarity.microsoft.com/), maak een project aan en haal de Project ID op in de projectinstellingen.
+**Hoe te verkrijgen**: Ga naar [Microsoft Clarity](https://clarity.microsoft.com/), maak een project aan en verkrijg de Project ID in de projectinstellingen.
+
+### `site.home`
+
+Configuratie van het startpad, gebruikt om het doel voor de startpagina-omleiding aan te passen.
+
+- **Type**: `string`
+- **Standaardwaarde**: `"index.html"`
+
+```json
+{
+  "options": {
+    "site": {
+      "home": "guide.html"
+    }
+  }
+}
+```
+
+**Gedragsbeschrijving**:
+
+- **Bij bezoek aan de hoofdstartpagina**: Wanneer een gebruiker `/index.html` bezoekt, wordt automatisch doorgestuurd naar `/{gedetecteerde taal}/{home}` op basis van de browsertaal.
+- **Bij klikken op de Header-titel**: Doorgestuurd naar het `home`-pad in de huidige taalmap.
+
+**Gebruiksscenario's**:
+
+- Wanneer u wilt dat gebruikers bij hun eerste bezoek direct naar een specifieke pagina gaan (zoals een startgids, productintroductie, etc.).
+- Wanneer de startpagina van de site geen artikellijst is, maar een specifieke documentatiepagina.
 
 ### `site.navLinks`
 
@@ -140,8 +168,8 @@ Configuratie voor snelle navigatielinks, toont navigatielinks in de paginakop.
 
 **Responsief gedrag**:
 
-- **Mobiel**: Toont een hamburgermenu-icoon, klik om alle navigatielinks uit te vouwen
-- **Desktop**: Toont navigatielinks direct in de Header, maar niet meer dan 40% van de schermbreedte; items die niet passen worden weergegeven via een 'Meer'-uitklapmenu
+- **Mobiel**: Toont een hamburgermenu-icoon, klikken om alle navigatielinks uit te vouwen.
+- **Desktop**: Toont navigatielinks direct in de Header, maar niet meer dan 40% van de schermbreedte; items die niet passen worden weergegeven via een 'Meer'-uitklapmenu.
 
 ## Volledig voorbeeld
 
@@ -153,6 +181,7 @@ Configuratie voor snelle navigatielinks, toont navigatielinks in de paginakop.
     "site": {
       "baseUrl": "https://example.com",
       "title": "Technische Blog",
+      "home": "getting-started.html",
       "gaID": "G-ABC123DEF4",
       "clarityID": "abc123xyz",
       "navLinks": [
@@ -166,9 +195,9 @@ Configuratie voor snelle navigatielinks, toont navigatielinks in de paginakop.
 }
 ```
 
-## Aandachtspunten
+## Belangrijke aandachtspunten
 
-- Na het wijzigen van de configuratie moet `czon build` opnieuw worden uitgevoerd om effect te hebben
-- Alle `site` configuratie-items zijn optioneel; je kunt alleen de benodigde delen configureren
-- Analysehulpmiddelen (GA, Clarity) worden alleen geladen als de bijbehorende ID is geconfigureerd, wat de pagina-prestaties niet beïnvloedt
-- Zonder configuratie van `baseUrl` wordt de generatie van `sitemap.xml` overgeslagen
+- Na het wijzigen van de configuratie moet `czon build` opnieuw worden uitgevoerd om de wijzigingen door te voeren.
+- Alle `site`-configuratie-items zijn optioneel; u kunt alleen de benodigde onderdelen configureren.
+- Analysehulpmiddelen (GA, Clarity) worden alleen geladen als de bijbehorende ID is geconfigureerd, wat de pagina-prestaties niet beïnvloedt.
+- Zonder configuratie van `baseUrl` wordt de generatie van `sitemap.xml` overgeslagen.

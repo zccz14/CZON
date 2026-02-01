@@ -1,9 +1,9 @@
 ---
 "title": "CZON Site Yapılandırma Kılavuzu"
-"summary": "Bu belge, CZON site yapılandırma yöntemlerini ve seçeneklerini ayrıntılı olarak açıklar. Yapılandırma, .czon/meta.json dosyasının options.site alanında bulunur ve site.baseUrl (sitemap.xml ve robots.txt oluşturmak için), site.title (site başlığı, varsayılan değer 'CZON'), site.gaID (Google Analytics Measurement ID) ve site.clarityID (Microsoft Clarity Project ID) içerir. Tüm yapılandırma öğeleri isteğe bağlıdır, değişikliklerin etkili olması için czon build komutunun yeniden çalıştırılması gerekir. baseUrl yapılandırılmadığında sitemap.xml oluşturma atlanır; analiz araçları yalnızca ilgili ID yapılandırıldığında yüklenir ve sayfa performansını etkilemez. Belge, yapılandırma konumu, kullanılabilir yapılandırma öğeleri, tam örnek ve dikkat edilmesi gereken noktaları sağlayarak kullanıcıların siteyi kolayca ayarlamasına yardımcı olur."
+"summary": "Bu belge, CZON site yapılandırmasının yöntemlerini ve seçeneklerini ayrıntılı olarak açıklar. Yapılandırma, .czon/meta.json dosyasının options.site alanında bulunur ve site.baseUrl (sitemap.xml ve robots.txt oluşturmak için), site.title (site başlığı, varsayılan değer 'CZON'), site.gaID (Google Analytics Measurement ID) ve site.clarityID (Microsoft Clarity Project ID) içerir. Tüm yapılandırma öğeleri isteğe bağlıdır; değişikliklerin etkili olması için czon build komutunun yeniden çalıştırılması gerekir. baseUrl yapılandırılmadığında sitemap.xml oluşturma atlanır; analiz araçları yalnızca ilgili ID yapılandırıldığında yüklenir ve sayfa performansını etkilemez. Belge, yapılandırma konumu, kullanılabilir yapılandırma öğeleri, tam örnek ve dikkat edilmesi gereken noktaları sağlayarak kullanıcıların siteyi kolayca ayarlamasına yardımcı olur."
 "tags":
   - "CZON"
-  - "Site Yapılandırma"
+  - "Site Yapılandırması"
   - "meta.json"
   - "Google Analytics"
   - "Microsoft Clarity"
@@ -27,6 +27,7 @@ Yapılandırma öğeleri, `.czon/meta.json` dosyasının `options.site` alanınd
     "site": {
       "baseUrl": "https://example.com",
       "title": "My Docs",
+      "home": "guide.html",
       "gaID": "G-XXXXXXXXXX",
       "clarityID": "your-clarity-id",
       "navLinks": [
@@ -97,7 +98,7 @@ Google Analytics Measurement ID, Google Analytics istatistiklerini entegre etmek
 }
 ```
 
-Nasıl Alınır: [Google Analytics](https://analytics.google.com/) adresine gidin, bir özellik oluşturun ve "Veri Akışları" bölümünden Measurement ID'yi alın.
+Nasıl Alınır: [Google Analytics](https://analytics.google.com/)'e gidin, bir özellik oluşturun ve "Veri Akışları"nda Measurement ID'yi alın.
 
 ### `site.clarityID`
 
@@ -115,7 +116,34 @@ Microsoft Clarity Project ID, Clarity kullanıcı davranış analizini entegre e
 }
 ```
 
-Nasıl Alınır: [Microsoft Clarity](https://clarity.microsoft.com/) adresine gidin, bir proje oluşturun ve proje ayarlarından Project ID'yi alın.
+Nasıl Alınır: [Microsoft Clarity](https://clarity.microsoft.com/)'e gidin, bir proje oluşturun ve proje ayarlarından Project ID'yi alın.
+
+### `site.home`
+
+Ana sayfa yolu yapılandırması, özel ana sayfa yönlendirme hedefi için kullanılır.
+
+- **Tür**: `string`
+- **Varsayılan Değer**: `"index.html"`
+
+```json
+{
+  "options": {
+    "site": {
+      "home": "guide.html"
+    }
+  }
+}
+```
+
+**Davranış Açıklaması**:
+
+- **Kök ana sayfaya erişildiğinde**: Kullanıcı `/index.html` adresine eriştiğinde, tarayıcı diline göre otomatik olarak `/{algılanan dil}/{home}` adresine yönlendirilir
+- **Başlık üzerine tıklandığında**: Mevcut dil dizinindeki `home` yoluna yönlendirilir
+
+**Kullanım Senaryoları**:
+
+- Kullanıcıların ilk ziyaretlerinde doğrudan belirli bir sayfaya (örn. başlangıç kılavuzu, ürün tanıtımı) girmesini istemek
+- Site ana sayfasının makale listesi değil, belirli bir belge sayfası olması
 
 ### `site.navLinks`
 
@@ -141,7 +169,7 @@ Hızlı gezinme bağlantıları yapılandırması, sayfa başlığında gezinme 
 **Duyarlı Davranış**:
 
 - **Mobil**: Hamburger menü simgesi görüntülenir, tıklandığında tüm gezinme bağlantıları genişletilir
-- **Masaüstü**: Başlıkta doğrudan gezinme bağlantıları görüntülenir, ancak ekran genişliğinin %40'ını aşmaz; aşan kısım "Daha Fazla" açılır menüsü aracılığıyla görüntülenir
+- **Masaüstü**: Başlıkta doğrudan gezinme bağlantıları görüntülenir, ancak ekran genişliğinin %40'ını aşmaz; aşan kısım "Daha Fazla" açılır menüsünde gösterilir
 
 ## Tam Örnek
 
@@ -153,6 +181,7 @@ Hızlı gezinme bağlantıları yapılandırması, sayfa başlığında gezinme 
     "site": {
       "baseUrl": "https://example.com",
       "title": "Teknik Blog",
+      "home": "getting-started.html",
       "gaID": "G-ABC123DEF4",
       "clarityID": "abc123xyz",
       "navLinks": [
@@ -169,6 +198,6 @@ Hızlı gezinme bağlantıları yapılandırması, sayfa başlığında gezinme 
 ## Dikkat Edilmesi Gerekenler
 
 - Yapılandırmayı değiştirdikten sonra etkili olması için `czon build` komutunu yeniden çalıştırmanız gerekir
-- Tüm `site` yapılandırma öğeleri isteğe bağlıdır, yalnızca ihtiyaç duyulan kısımlar yapılandırılabilir
+- Tüm `site` yapılandırma öğeleri isteğe bağlıdır, yalnızca ihtiyaç duyulan kısımları yapılandırabilirsiniz
 - Analiz araçları (GA, Clarity) yalnızca ilgili ID yapılandırıldığında yüklenir, sayfa performansını etkilemez
 - `baseUrl` yapılandırılmadığında, sitemap.xml oluşturma atlanır

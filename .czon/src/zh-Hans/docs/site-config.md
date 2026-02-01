@@ -32,6 +32,7 @@ CZON 支持通过 `.czon/meta.json` 文件配置站点选项。这些配置是�
     "site": {
       "baseUrl": "https://example.com",
       "title": "My Docs",
+      "home": "guide.html",
       "gaID": "G-XXXXXXXXXX",
       "clarityID": "your-clarity-id",
       "navLinks": [
@@ -122,6 +123,33 @@ Microsoft Clarity Project ID，用于集成 Clarity 用户行为分析。
 
 获取方式：前往 [Microsoft Clarity](https://clarity.microsoft.com/) 创建项目，在项目设置中获取 Project ID。
 
+### `site.home`
+
+首页路径配置，用于自定义首页跳转目标。
+
+- **类型**: `string`
+- **默认值**: `"index.html"`
+
+```json
+{
+  "options": {
+    "site": {
+      "home": "guide.html"
+    }
+  }
+}
+```
+
+**行为说明**：
+
+- **访问根首页时**：用户访问 `/index.html` 时，会根据浏览器语言自动跳转到 `/{检测到的语言}/{home}`
+- **点击 Header 标题时**：跳转到当前语言目录下的 `home` 路径
+
+**使用场景**：
+
+- 希望用户首次访问时直接进入某个特定页面（如入门指南、产品介绍等）
+- 站点首页不是文章列表，而是某个具体的文档页面
+
 ### `site.navLinks`
 
 快速导航链接配置，在页面头部显示导航链接。
@@ -158,6 +186,7 @@ Microsoft Clarity Project ID，用于集成 Clarity 用户行为分析。
     "site": {
       "baseUrl": "https://example.com",
       "title": "技术博客",
+      "home": "getting-started.html",
       "gaID": "G-ABC123DEF4",
       "clarityID": "abc123xyz",
       "navLinks": [

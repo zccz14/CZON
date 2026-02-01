@@ -1,9 +1,9 @@
 ---
 "title": "Guia de Configuração do Site CZON"
-"summary": "Este documento detalha os métodos e opções para configurar um site CZON. A configuração está localizada no campo `options.site` do arquivo `.czon/meta.json` e inclui `site.baseUrl` (usado para gerar `sitemap.xml` e `robots.txt`), `site.title` (título do site, padrão 'CZON'), `site.gaID` (Google Analytics Measurement ID) e `site.clarityID` (Microsoft Clarity Project ID). Todos os itens são opcionais; após modificações, é necessário executar `czon build` novamente para que tenham efeito. Se `baseUrl` não for configurado, a geração do `sitemap.xml` será ignorada. As ferramentas de análise só serão carregadas se seus respectivos IDs estiverem configurados, sem impactar o desempenho da página. O documento fornece a localização da configuração, itens disponíveis, exemplo completo e considerações, ajudando os usuários a configurar o site facilmente."
+"summary": "Este documento detalha os métodos e opções para configurar um site CZON. A configuração está localizada no campo `options.site` do arquivo `.czon/meta.json` e inclui `site.baseUrl` (usado para gerar `sitemap.xml` e `robots.txt`), `site.title` (título do site, padrão 'CZON'), `site.gaID` (ID de Medição do Google Analytics) e `site.clarityID` (ID do Projeto Microsoft Clarity). Todas as configurações são opcionais; após modificações, é necessário executar `czon build` novamente para que tenham efeito. Se `baseUrl` não for configurado, a geração do `sitemap.xml` será ignorada. As ferramentas de análise só serão carregadas se seus respectivos IDs estiverem configurados, sem afetar o desempenho da página. O documento fornece a localização da configuração, itens disponíveis, exemplo completo e considerações, ajudando os usuários a configurar o site com facilidade."
 "tags":
   - "CZON"
-  - "Configuração de Site"
+  - "Configuração do Site"
   - "meta.json"
   - "Google Analytics"
   - "Microsoft Clarity"
@@ -15,7 +15,7 @@
 
 O CZON suporta a configuração de opções do site através do arquivo `.czon/meta.json`. Essas configurações são opcionais e não bloqueiam o uso inicial.
 
-## Localização da Configuração
+## Local da Configuração
 
 Os itens de configuração estão localizados no campo `options.site` do arquivo `.czon/meta.json`:
 
@@ -27,6 +27,7 @@ Os itens de configuração estão localizados no campo `options.site` do arquivo
     "site": {
       "baseUrl": "https://example.com",
       "title": "My Docs",
+      "home": "guide.html",
       "gaID": "G-XXXXXXXXXX",
       "clarityID": "your-clarity-id",
       "navLinks": [
@@ -82,7 +83,7 @@ Título do site, exibido no cabeçalho da página.
 
 ### `site.gaID`
 
-Google Analytics Measurement ID, usado para integrar estatísticas do Google Analytics.
+ID de Medição do Google Analytics, usado para integrar as estatísticas do Google Analytics.
 
 - **Tipo**: `string`
 - **Formato**: `G-XXXXXXXXXX`
@@ -97,11 +98,11 @@ Google Analytics Measurement ID, usado para integrar estatísticas do Google Ana
 }
 ```
 
-Como obter: Acesse o [Google Analytics](https://analytics.google.com/), crie uma propriedade e obtenha o Measurement ID em "Fluxos de dados".
+**Como obter**: Acesse o [Google Analytics](https://analytics.google.com/), crie uma propriedade e obtenha o Measurement ID na seção "Fluxos de dados".
 
 ### `site.clarityID`
 
-Microsoft Clarity Project ID, usado para integrar a análise de comportamento do usuário do Clarity.
+ID do Projeto Microsoft Clarity, usado para integrar a análise de comportamento do usuário do Clarity.
 
 - **Tipo**: `string`
 
@@ -115,11 +116,38 @@ Microsoft Clarity Project ID, usado para integrar a análise de comportamento do
 }
 ```
 
-Como obter: Acesse o [Microsoft Clarity](https://clarity.microsoft.com/), crie um projeto e obtenha o Project ID nas configurações do projeto.
+**Como obter**: Acesse o [Microsoft Clarity](https://clarity.microsoft.com/), crie um projeto e obtenha o Project ID nas configurações do projeto.
+
+### `site.home`
+
+Configuração do caminho da página inicial, usada para personalizar o destino do redirecionamento da página inicial.
+
+- **Tipo**: `string`
+- **Valor Padrão**: `"index.html"`
+
+```json
+{
+  "options": {
+    "site": {
+      "home": "guide.html"
+    }
+  }
+}
+```
+
+**Comportamento**:
+
+- **Ao acessar a página inicial raiz**: Quando um usuário acessa `/index.html`, será redirecionado automaticamente para `/{idioma detectado}/{home}` com base no idioma do navegador.
+- **Ao clicar no título do Cabeçalho**: Redireciona para o caminho `home` no diretório do idioma atual.
+
+**Cenários de Uso**:
+
+- Deseja que os usuários acessem diretamente uma página específica na primeira visita (por exemplo, guia de introdução, apresentação do produto, etc.).
+- A página inicial do site não é uma lista de artigos, mas sim uma página de documentação específica.
 
 ### `site.navLinks`
 
-Configuração de links de navegação rápida, exibidos no cabeçalho da página.
+Configuração de links de navegação rápida, exibindo links de navegação no cabeçalho da página.
 
 - **Tipo**: `Array<{ title: string, href: string }>`
 - **Valor Padrão**: `undefined` (não exibe navegação)
@@ -140,8 +168,8 @@ Configuração de links de navegação rápida, exibidos no cabeçalho da págin
 
 **Comportamento Responsivo**:
 
-- **Dispositivos Móveis**: Exibe um ícone de menu hambúrguer; ao clicar, expande todos os links de navegação.
-- **Desktop**: Exibe os links de navegação diretamente no Cabeçalho, mas não ultrapassa 40% da largura da tela; links excedentes são exibidos em um menu suspenso "Mais".
+- **Dispositivos móveis**: Exibe um ícone de menu hambúrguer; ao clicar, expande todos os links de navegação.
+- **Desktop**: Exibe os links de navegação diretamente no Cabeçalho, mas não ultrapassa 40% da largura da tela; itens excedentes são exibidos através de um menu suspenso "Mais".
 
 ## Exemplo Completo
 
@@ -153,6 +181,7 @@ Configuração de links de navegação rápida, exibidos no cabeçalho da págin
     "site": {
       "baseUrl": "https://example.com",
       "title": "Blog Técnico",
+      "home": "getting-started.html",
       "gaID": "G-ABC123DEF4",
       "clarityID": "abc123xyz",
       "navLinks": [

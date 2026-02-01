@@ -31,6 +31,7 @@
     ],
     "site": {
       "baseUrl": "https://czon.zccz14.com/",
+      "home": "czon-ai-native-markdown-content-engine.html",
       "gaID": "G-561PB199FD",
       "clarityID": "v96n7w9buw",
       "navLinks": [
@@ -52,7 +53,7 @@
       "links": []
     },
     {
-      "hash": "9d72baae225c8e632722e1c212aa8bd3e98708da74befcab090f7b894db7d315",
+      "hash": "fabfd7eed9440d3a1f051fb953eceb8269534d509d03c13c1925244c68ea3a0c",
       "path": "package.json",
       "links": []
     },
@@ -190,7 +191,7 @@
       "nativeMarkdownHash": "3fef9268f5c6b24cc0c7a6769cdb32d3810c06bc04de637a29c5587a6efc346b"
     },
     {
-      "hash": "be44474ca1135b82e524b4fb93dd31543701b68e9bc86a66776331e1f00b865b",
+      "hash": "6e66baaeb6e49186d3f6cbed5ac40f63475f2daebf272858108975817c3c978e",
       "path": "docs/site-config.md",
       "links": [
         "https://analytics.google.com/",
@@ -232,7 +233,7 @@
         }
       },
       "category": "Quick Start",
-      "nativeMarkdownHash": "bfb2bd4db7c4d086d3fe0f644a0e65f5c64ed89eb931e2ac3602fcb33b8ff8fd"
+      "nativeMarkdownHash": "0f5ea28768615b28c9ca12df71736270da8b1562b3ecd13dc42580db5836fb28"
     },
     {
       "hash": "069babfab1044d915eabca9cec9a1d138d3bd1177191907d6a64f2383df9a2e2",

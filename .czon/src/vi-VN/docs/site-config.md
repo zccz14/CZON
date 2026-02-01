@@ -1,6 +1,6 @@
 ---
 "title": "Hướng dẫn Cấu hình Trang CZON"
-"summary": "Tài liệu này giải thích chi tiết phương pháp và các tùy chọn cấu hình trang CZON. Cấu hình nằm trong trường `options.site` của tệp `.czon/meta.json`, bao gồm `site.baseUrl` (dùng để tạo `sitemap.xml` và `robots.txt`), `site.title` (tiêu đề trang, giá trị mặc định là 'CZON'), `site.gaID` (Google Analytics Measurement ID) và `site.clarityID` (Microsoft Clarity Project ID). Tất cả các mục cấu hình đều là tùy chọn, sau khi sửa đổi cần chạy lại lệnh `czon build` để có hiệu lực. Nếu không cấu hình `baseUrl`, việc tạo `sitemap.xml` sẽ bị bỏ qua. Các công cụ phân tích chỉ được tải khi ID tương ứng được cấu hình, không ảnh hưởng đến hiệu suất trang. Tài liệu cung cấp vị trí cấu hình, các mục cấu hình có sẵn, ví dụ đầy đủ và các lưu ý, giúp người dùng dễ dàng thiết lập trang."
+"summary": "Tài liệu này giải thích chi tiết phương pháp và các tùy chọn cấu hình trang CZON. Cấu hình nằm trong trường `options.site` của tệp `.czon/meta.json`, bao gồm `site.baseUrl` (dùng để tạo `sitemap.xml` và `robots.txt`), `site.title` (tiêu đề trang, giá trị mặc định là 'CZON'), `site.gaID` (Google Analytics Measurement ID) và `site.clarityID` (Microsoft Clarity Project ID). Tất cả các mục cấu hình đều là tùy chọn, sau khi sửa đổi cần chạy lại `czon build` để có hiệu lực. Nếu không cấu hình `baseUrl`, việc tạo `sitemap.xml` sẽ bị bỏ qua. Các công cụ phân tích chỉ được tải khi ID tương ứng được cấu hình, không ảnh hưởng đến hiệu suất trang. Tài liệu cung cấp vị trí cấu hình, các mục cấu hình có sẵn, ví dụ đầy đủ và các lưu ý, giúp người dùng dễ dàng thiết lập trang."
 "tags":
   - "CZON"
   - "Cấu hình trang"
@@ -27,6 +27,7 @@ Các mục cấu hình nằm trong trường `options.site` của tệp `.czon/m
     "site": {
       "baseUrl": "https://example.com",
       "title": "My Docs",
+      "home": "guide.html",
       "gaID": "G-XXXXXXXXXX",
       "clarityID": "your-clarity-id",
       "navLinks": [
@@ -39,7 +40,7 @@ Các mục cấu hình nằm trong trường `options.site` của tệp `.czon/m
 }
 ```
 
-## Các Mục Cấu hình Có sẵn
+## Các Mục Cấu hình Có Sẵn
 
 ### `site.baseUrl`
 
@@ -117,9 +118,36 @@ Microsoft Clarity Project ID, dùng để tích hợp phân tích hành vi ngư�
 
 Cách lấy: Truy cập [Microsoft Clarity](https://clarity.microsoft.com/) để tạo một dự án, lấy Project ID trong cài đặt dự án.
 
+### `site.home`
+
+Cấu hình đường dẫn trang chủ, dùng để tùy chỉnh mục tiêu chuyển hướng trang chủ.
+
+- **Kiểu**: `string`
+- **Giá trị mặc định**: `"index.html"`
+
+```json
+{
+  "options": {
+    "site": {
+      "home": "guide.html"
+    }
+  }
+}
+```
+
+**Giải thích hành vi**:
+
+- **Khi truy cập trang chủ gốc**: Khi người dùng truy cập `/index.html`, sẽ tự động chuyển hướng đến `/{ngôn ngữ được phát hiện}/{home}` dựa trên ngôn ngữ trình duyệt.
+- **Khi nhấp vào tiêu đề Header**: Chuyển hướng đến đường dẫn `home` trong thư mục ngôn ngữ hiện tại.
+
+**Tình huống sử dụng**:
+
+- Muốn người dùng truy cập lần đầu tiên trực tiếp vào một trang cụ thể (ví dụ: hướng dẫn bắt đầu, giới thiệu sản phẩm, v.v.)
+- Trang chủ của trang web không phải là danh sách bài viết, mà là một trang tài liệu cụ thể.
+
 ### `site.navLinks`
 
-Cấu hình liên kết điều hướng nhanh, hiển thị các liên kết điều hướng ở phần đầu trang.
+Cấu hình liên kết điều hướng nhanh, hiển thị liên kết điều hướng ở phần đầu trang.
 
 - **Kiểu**: `Array<{ title: string, href: string }>`
 - **Giá trị mặc định**: `undefined` (không hiển thị điều hướng)
@@ -140,8 +168,8 @@ Cấu hình liên kết điều hướng nhanh, hiển thị các liên kết đ
 
 **Hành vi đáp ứng**:
 
-- **Thiết bị di động**: Hiển thị biểu tượng menu hamburger, nhấp để mở rộng tất cả liên kết điều hướng
-- **Máy tính để bàn**: Hiển thị trực tiếp các liên kết điều hướng trong Header, nhưng không vượt quá 40% chiều rộng màn hình; phần vượt quá sẽ được hiển thị thông qua menu thả xuống "Thêm"
+- **Thiết bị di động**: Hiển thị biểu tượng menu hamburger, nhấp để mở rộng tất cả liên kết điều hướng.
+- **Máy tính để bàn**: Hiển thị trực tiếp liên kết điều hướng trong Header, nhưng không vượt quá 40% chiều rộng màn hình; phần vượt quá sẽ được hiển thị thông qua menu thả xuống "More".
 
 ## Ví dụ Đầy đủ
 
@@ -153,6 +181,7 @@ Cấu hình liên kết điều hướng nhanh, hiển thị các liên kết đ
     "site": {
       "baseUrl": "https://example.com",
       "title": "Blog Kỹ thuật",
+      "home": "getting-started.html",
       "gaID": "G-ABC123DEF4",
       "clarityID": "abc123xyz",
       "navLinks": [
@@ -168,7 +197,7 @@ Cấu hình liên kết điều hướng nhanh, hiển thị các liên kết đ
 
 ## Lưu ý
 
-- Sau khi sửa đổi cấu hình, cần chạy lại lệnh `czon build` để có hiệu lực
-- Tất cả các mục cấu hình `site` đều là tùy chọn, bạn có thể chỉ cấu hình những phần cần thiết
-- Các công cụ phân tích (GA, Clarity) chỉ được tải khi ID tương ứng được cấu hình, không ảnh hưởng đến hiệu suất trang
-- Khi không cấu hình `baseUrl`, việc tạo `sitemap.xml` sẽ bị bỏ qua
+- Sau khi sửa đổi cấu hình, cần chạy lại `czon build` để có hiệu lực.
+- Tất cả các mục cấu hình `site` đều là tùy chọn, bạn có thể chỉ cấu hình các phần cần thiết.
+- Các công cụ phân tích (GA, Clarity) chỉ được tải khi ID tương ứng được cấu hình, không ảnh hưởng đến hiệu suất trang.
+- Khi không cấu hình `baseUrl`, việc tạo `sitemap.xml` sẽ bị bỏ qua.

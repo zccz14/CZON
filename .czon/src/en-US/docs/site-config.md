@@ -1,6 +1,6 @@
 ---
 "title": "CZON Site Configuration Guide"
-"summary": "This document details the methods and options for configuring a CZON site. Configuration is located in the `options.site` field of the `.czon/meta.json` file, including `site.baseUrl` (used to generate sitemap.xml and robots.txt), `site.title` (site title, default value is 'CZON'), `site.gaID` (Google Analytics Measurement ID), and `site.clarityID` (Microsoft Clarity Project ID). All configuration items are optional; changes require re-running `czon build` to take effect. If `baseUrl` is not configured, sitemap.xml generation will be skipped. Analytics tools only load when their corresponding IDs are configured, without affecting page performance. The document provides configuration location, available options, a complete example, and important notes to help users easily set up their site."
+"summary": "This document details the methods and options for configuring a CZON site. Configuration is located in the `options.site` field of the `.czon/meta.json` file and includes `site.baseUrl` (used for generating sitemap.xml and robots.txt), `site.title` (site title, default 'CZON'), `site.gaID` (Google Analytics Measurement ID), and `site.clarityID` (Microsoft Clarity Project ID). All configuration items are optional; changes require re-running `czon build` to take effect. If `baseUrl` is not configured, sitemap.xml generation is skipped. Analytics tools only load when their corresponding IDs are configured, without affecting page performance. The document provides configuration location, available options, a complete example, and notes to help users easily set up their site."
 "tags":
   - "CZON"
   - "Site Configuration"
@@ -13,7 +13,7 @@
 
 # Site Configuration
 
-CZON supports configuring site options via the `.czon/meta.json` file. These configurations are optional and will not block initial usage.
+CZON supports configuring site options via the `.czon/meta.json` file. These configurations are optional and will not block initial use.
 
 ## Configuration Location
 
@@ -27,6 +27,7 @@ Configuration items are located in the `options.site` field of the `.czon/meta.j
     "site": {
       "baseUrl": "https://example.com",
       "title": "My Docs",
+      "home": "guide.html",
       "gaID": "G-XXXXXXXXXX",
       "clarityID": "your-clarity-id",
       "navLinks": [
@@ -43,7 +44,7 @@ Configuration items are located in the `options.site` field of the `.czon/meta.j
 
 ### `site.baseUrl`
 
-The base URL of the site, used to generate sitemap.xml and robots.txt.
+The base URL of the site, used for generating sitemap.xml and robots.txt.
 
 - **Type**: `string`
 - **Format**: Full URL, e.g., `https://example.com`
@@ -81,7 +82,7 @@ The site title, displayed in the page header.
 
 ### `site.gaID`
 
-Google Analytics Measurement ID, used to integrate Google Analytics tracking.
+Google Analytics Measurement ID, used for integrating Google Analytics.
 
 - **Type**: `string`
 - **Format**: `G-XXXXXXXXXX`
@@ -96,11 +97,11 @@ Google Analytics Measurement ID, used to integrate Google Analytics tracking.
 }
 ```
 
-How to obtain: Go to [Google Analytics](https://analytics.google.com/), create a property, and find the Measurement ID under "Data Streams".
+How to obtain: Go to [Google Analytics](https://analytics.google.com/), create a property, and get the Measurement ID from the "Data Streams" section.
 
 ### `site.clarityID`
 
-Microsoft Clarity Project ID, used to integrate Clarity user behavior analytics.
+Microsoft Clarity Project ID, used for integrating Clarity user behavior analytics.
 
 - **Type**: `string`
 
@@ -114,14 +115,41 @@ Microsoft Clarity Project ID, used to integrate Clarity user behavior analytics.
 }
 ```
 
-How to obtain: Go to [Microsoft Clarity](https://clarity.microsoft.com/), create a project, and find the Project ID in the project settings.
+How to obtain: Go to [Microsoft Clarity](https://clarity.microsoft.com/), create a project, and get the Project ID from the project settings.
+
+### `site.home`
+
+Homepage path configuration, used to customize the redirect target for the homepage.
+
+- **Type**: `string`
+- **Default**: `"index.html"`
+
+```json
+{
+  "options": {
+    "site": {
+      "home": "guide.html"
+    }
+  }
+}
+```
+
+**Behavior Description**:
+
+- **When accessing the root homepage**: When a user visits `/index.html`, they will be automatically redirected to `/{detected-language}/{home}` based on browser language.
+- **When clicking the Header title**: Redirects to the `home` path within the current language directory.
+
+**Use Cases**:
+
+- Want users to land directly on a specific page (e.g., getting started guide, product introduction) on their first visit.
+- The site homepage is not an article list but a specific documentation page.
 
 ### `site.navLinks`
 
 Quick navigation link configuration, displaying navigation links in the page header.
 
 - **Type**: `Array<{ title: string, href: string }>`
-- **Default**: `undefined` (no navigation displayed)
+- **Default**: `undefined` (navigation not displayed)
 
 ```json
 {
@@ -138,8 +166,9 @@ Quick navigation link configuration, displaying navigation links in the page hea
 ```
 
 **Responsive Behavior**:
+
 - **Mobile**: Displays a hamburger menu icon; clicking expands all navigation links.
-- **Desktop**: Navigation links are displayed directly in the Header, but limited to 40% of the screen width; any overflow is displayed via a "More" dropdown menu.
+- **Desktop**: Navigation links are displayed directly in the Header but limited to 40% of the screen width; excess links are shown in a "More" dropdown menu.
 
 ## Complete Example
 
@@ -151,6 +180,7 @@ Quick navigation link configuration, displaying navigation links in the page hea
     "site": {
       "baseUrl": "https://example.com",
       "title": "Tech Blog",
+      "home": "getting-started.html",
       "gaID": "G-ABC123DEF4",
       "clarityID": "abc123xyz",
       "navLinks": [
@@ -164,7 +194,7 @@ Quick navigation link configuration, displaying navigation links in the page hea
 }
 ```
 
-## Important Notes
+## Notes
 
 - After modifying the configuration, you must re-run `czon build` for changes to take effect.
 - All `site` configuration items are optional; you can configure only the parts you need.

@@ -80,6 +80,14 @@ export interface BuildOptions {
      * @example [{ title: "首页", href: "/" }, { title: "关于", href: "/about" }]
      */
     navLinks?: NavLink[];
+    /**
+     * 首页路径（相对于语言目录）
+     * 访问根首页时会跳转到 /{lang}/{home}
+     * 点击 Header 中的 title 也会跳转到 /{当前语言}/{home}
+     * @default "index.html"
+     * @example "guide.html"
+     */
+    home?: string;
   };
 }
 

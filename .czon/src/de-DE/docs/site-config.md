@@ -1,6 +1,6 @@
 ---
-"title": "CZON Website-Konfigurationsleitfaden"
-"summary": "Dieses Dokument erläutert detailliert die Methoden und Optionen zur Konfiguration einer CZON-Website. Die Konfiguration befindet sich im Feld `options.site` der Datei `.czon/meta.json` und umfasst `site.baseUrl` (zur Generierung von `sitemap.xml` und `robots.txt`), `site.title` (Website-Titel, Standardwert ist 'CZON'), `site.gaID` (Google Analytics Measurement ID) und `site.clarityID` (Microsoft Clarity Project ID). Alle Konfigurationselemente sind optional. Nach Änderungen muss `czon build` erneut ausgeführt werden, damit sie wirksam werden. Ohne konfigurierte `baseUrl` wird die Generierung von `sitemap.xml` übersprungen. Analyse-Tools werden nur geladen, wenn die entsprechende ID konfiguriert ist, was die Seitenleistung nicht beeinträchtigt. Das Dokument bietet Informationen zum Konfigurationsort, verfügbaren Optionen, vollständigen Beispielen und Hinweisen, um Benutzern die einfache Einrichtung ihrer Website zu ermöglichen."
+"title": "CZON Website-Konfigurationsanleitung"
+"summary": "Dieses Dokument erläutert detailliert die Methoden und Optionen zur Konfiguration einer CZON-Website. Die Konfiguration befindet sich im Feld `options.site` der Datei `.czon/meta.json` und umfasst `site.baseUrl` (zur Generierung von `sitemap.xml` und `robots.txt`), `site.title` (Website-Titel, Standardwert 'CZON'), `site.gaID` (Google Analytics Measurement ID) und `site.clarityID` (Microsoft Clarity Project ID). Alle Konfigurationselemente sind optional. Nach Änderungen muss `czon build` erneut ausgeführt werden, damit sie wirksam werden. Ohne konfigurierte `baseUrl` wird die Generierung von `sitemap.xml` übersprungen. Analyse-Tools werden nur geladen, wenn die entsprechende ID konfiguriert ist, was die Seitenleistung nicht beeinträchtigt. Das Dokument bietet Konfigurationsort, verfügbare Optionen, vollständige Beispiele und Hinweise, um Benutzern die Einrichtung ihrer Website zu erleichtern."
 "tags":
   - "CZON"
   - "Website-Konfiguration"
@@ -27,6 +27,7 @@ Die Konfigurationselemente befinden sich im Feld `options.site` der Datei `.czon
     "site": {
       "baseUrl": "https://example.com",
       "title": "My Docs",
+      "home": "guide.html",
       "gaID": "G-XXXXXXXXXX",
       "clarityID": "your-clarity-id",
       "navLinks": [
@@ -117,12 +118,39 @@ Die Microsoft Clarity Project ID zur Integration der Clarity-Nutzerverhaltensana
 
 So erhalten Sie sie: Gehen Sie zu [Microsoft Clarity](https://clarity.microsoft.com/), erstellen Sie ein Projekt und holen Sie sich die Project ID in den Projekteinstellungen.
 
+### `site.home`
+
+Konfiguration des Pfads zur Startseite, um das Sprungziel für die Startseite anzupassen.
+
+- **Typ**: `string`
+- **Standardwert**: `"index.html"`
+
+```json
+{
+  "options": {
+    "site": {
+      "home": "guide.html"
+    }
+  }
+}
+```
+
+**Verhaltensbeschreibung**:
+
+- **Beim Zugriff auf die Hauptstartseite**: Wenn ein Benutzer `/index.html` aufruft, wird er basierend auf der Browsersprache automatisch zu `/{erkannte Sprache}/{home}` weitergeleitet.
+- **Beim Klicken auf den Header-Titel**: Springt zum `home`-Pfad im aktuellen Sprachverzeichnis.
+
+**Anwendungsfälle**:
+
+- Sie möchten, dass Benutzer beim ersten Besuch direkt auf eine bestimmte Seite gelangen (z.B. Erste Schritte, Produktvorstellung).
+- Die Startseite der Website ist keine Artikelliste, sondern eine bestimmte Dokumentationsseite.
+
 ### `site.navLinks`
 
-Konfiguration für Schnellnavigationslinks, die im Seitenkopf als Navigationslinks angezeigt werden.
+Konfiguration für Schnellnavigationslinks, die im Seitenkopf angezeigt werden.
 
 - **Typ**: `Array<{ title: string, href: string }>`
-- **Standardwert**: `undefined` (keine Navigation wird angezeigt)
+- **Standardwert**: `undefined` (Navigation wird nicht angezeigt)
 
 ```json
 {
@@ -153,6 +181,7 @@ Konfiguration für Schnellnavigationslinks, die im Seitenkopf als Navigationslin
     "site": {
       "baseUrl": "https://example.com",
       "title": "Technik-Blog",
+      "home": "getting-started.html",
       "gaID": "G-ABC123DEF4",
       "clarityID": "abc123xyz",
       "navLinks": [

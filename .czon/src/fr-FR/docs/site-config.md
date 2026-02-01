@@ -1,9 +1,9 @@
 ---
 "title": "Guide de configuration du site CZON"
-"summary": "Ce document détaille les méthodes et options de configuration du site CZON. La configuration se trouve dans le champ `options.site` du fichier `.czon/meta.json` et inclut `site.baseUrl` (pour générer `sitemap.xml` et `robots.txt`), `site.title` (titre du site, valeur par défaut 'CZON'), `site.gaID` (ID de mesure Google Analytics) et `site.clarityID` (ID de projet Microsoft Clarity). Tous les paramètres sont optionnels ; après modification, il faut relancer `czon build` pour qu'ils prennent effet. Sans `baseUrl` configuré, la génération de `sitemap.xml` est ignorée. Les outils d'analyse ne sont chargés que si leur ID correspondant est configuré, sans impact sur les performances de la page. Le document fournit l'emplacement de configuration, les paramètres disponibles, un exemple complet et des points d'attention pour aider les utilisateurs à configurer facilement leur site."
+"summary": "Ce document détaille les méthodes et options de configuration du site CZON. La configuration se trouve dans le champ `options.site` du fichier `.czon/meta.json` et inclut `site.baseUrl` (pour générer sitemap.xml et robots.txt), `site.title` (titre du site, valeur par défaut 'CZON'), `site.gaID` (ID de mesure Google Analytics) et `site.clarityID` (ID de projet Microsoft Clarity). Tous les paramètres sont optionnels. Après modification, il faut relancer `czon build` pour qu'ils prennent effet. Sans `baseUrl` configuré, la génération de sitemap.xml est ignorée. Les outils d'analyse ne sont chargés que si leur ID correspondant est configuré, sans impact sur les performances de la page. Le document fournit l'emplacement de configuration, les paramètres disponibles, un exemple complet et des points d'attention pour aider les utilisateurs à configurer facilement leur site."
 "tags":
   - "CZON"
-  - "Configuration de site"
+  - "Configuration du site"
   - "meta.json"
   - "Google Analytics"
   - "Microsoft Clarity"
@@ -27,6 +27,7 @@ Les paramètres de configuration se trouvent dans le champ `options.site` du fic
     "site": {
       "baseUrl": "https://example.com",
       "title": "My Docs",
+      "home": "guide.html",
       "gaID": "G-XXXXXXXXXX",
       "clarityID": "your-clarity-id",
       "navLinks": [
@@ -43,7 +44,7 @@ Les paramètres de configuration se trouvent dans le champ `options.site` du fic
 
 ### `site.baseUrl`
 
-URL de base du site, utilisée pour générer `sitemap.xml` et `robots.txt`.
+URL de base du site, utilisée pour générer sitemap.xml et robots.txt.
 
 - **Type** : `string`
 - **Format** : URL complète, par exemple `https://example.com`
@@ -65,7 +66,7 @@ Une fois configuré, les fichiers suivants sont générés automatiquement :
 
 ### `site.title`
 
-Titre du site, affiché dans l'en-tête de la page.
+Titre du site, affiché dans l'en-tête de page.
 
 - **Type** : `string`
 - **Valeur par défaut** : `"CZON"`
@@ -97,7 +98,7 @@ ID de mesure Google Analytics, utilisé pour intégrer les statistiques Google A
 }
 ```
 
-Comment l'obtenir : Rendez-vous sur [Google Analytics](https://analytics.google.com/), créez une propriété et récupérez l'ID de mesure dans « Flux de données ».
+Comment l'obtenir : allez sur [Google Analytics](https://analytics.google.com/), créez une propriété et récupérez le Measurement ID dans « Flux de données ».
 
 ### `site.clarityID`
 
@@ -115,11 +116,38 @@ ID de projet Microsoft Clarity, utilisé pour intégrer l'analyse du comportemen
 }
 ```
 
-Comment l'obtenir : Rendez-vous sur [Microsoft Clarity](https://clarity.microsoft.com/), créez un projet et récupérez l'ID de projet dans les paramètres du projet.
+Comment l'obtenir : allez sur [Microsoft Clarity](https://clarity.microsoft.com/), créez un projet et récupérez le Project ID dans les paramètres du projet.
+
+### `site.home`
+
+Configuration du chemin de la page d'accueil, utilisée pour personnaliser la cible de redirection de l'accueil.
+
+- **Type** : `string`
+- **Valeur par défaut** : `"index.html"`
+
+```json
+{
+  "options": {
+    "site": {
+      "home": "guide.html"
+    }
+  }
+}
+```
+
+**Comportement** :
+
+- **Lors de l'accès à la page d'accueil racine** : Quand un utilisateur visite `/index.html`, il est automatiquement redirigé vers `/{langue détectée}/{home}` en fonction de la langue du navigateur.
+- **Lors d'un clic sur le titre de l'en-tête** : Redirection vers le chemin `home` dans le répertoire de la langue actuelle.
+
+**Cas d'utilisation** :
+
+- Souhaiter que les utilisateurs accèdent directement à une page spécifique lors de leur première visite (par exemple, un guide de démarrage, une présentation du produit, etc.)
+- La page d'accueil du site n'est pas une liste d'articles, mais une page de documentation spécifique.
 
 ### `site.navLinks`
 
-Configuration des liens de navigation rapide, affichés dans l'en-tête de la page.
+Configuration des liens de navigation rapide, affichant des liens de navigation dans l'en-tête de page.
 
 - **Type** : `Array<{ title: string, href: string }>`
 - **Valeur par défaut** : `undefined` (aucune navigation affichée)
@@ -140,8 +168,8 @@ Configuration des liens de navigation rapide, affichés dans l'en-tête de la pa
 
 **Comportement réactif** :
 
-- **Mobile** : Affiche une icône de menu hamburger ; cliquer dessus déploie tous les liens de navigation.
-- **Bureau** : Affiche directement les liens de navigation dans l'en-tête, mais pas au-delà de 40 % de la largeur de l'écran ; les liens excédentaires sont affichés via un menu déroulant « Plus ».
+- **Mobile** : Affiche une icône de menu hamburger. Un clic déploie tous les liens de navigation.
+- **Bureau** : Affiche directement les liens de navigation dans l'en-tête, mais ne dépasse pas 40% de la largeur de l'écran ; les liens excédentaires sont affichés via un menu déroulant « Plus ».
 
 ## Exemple complet
 
@@ -153,6 +181,7 @@ Configuration des liens de navigation rapide, affichés dans l'en-tête de la pa
     "site": {
       "baseUrl": "https://example.com",
       "title": "Blog technique",
+      "home": "getting-started.html",
       "gaID": "G-ABC123DEF4",
       "clarityID": "abc123xyz",
       "navLinks": [
@@ -169,6 +198,6 @@ Configuration des liens de navigation rapide, affichés dans l'en-tête de la pa
 ## Points d'attention
 
 - Après modification de la configuration, il est nécessaire de relancer `czon build` pour que les changements prennent effet.
-- Tous les paramètres `site` sont optionnels ; vous ne pouvez configurer que les parties nécessaires.
+- Tous les paramètres `site` sont optionnels ; vous pouvez ne configurer que les parties nécessaires.
 - Les outils d'analyse (GA, Clarity) ne sont chargés que si leur ID correspondant est configuré, sans impact sur les performances de la page.
-- Si `baseUrl` n'est pas configuré, la génération de `sitemap.xml` est ignorée.
+- Si `baseUrl` n'est pas configuré, la génération de sitemap.xml est ignorée.

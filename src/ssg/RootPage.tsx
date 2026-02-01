@@ -71,18 +71,19 @@ export const RootPage: React.FC<{ ctx: IRenderContext }> = props => {
           // 自动重定向到用户浏览器语言对应的首页
           (function() {
             const mapUserLangToSupported = ${JSON.stringify(mapUserLangToSupported)};
+            const home = '${props.ctx.site.options.site?.home ?? 'index.html'}';
             for (const lang of navigator.languages) {
               if (mapUserLangToSupported[lang]) {
-                window.location.href = mapUserLangToSupported[lang] + '/index.html';
+                window.location.href = mapUserLangToSupported[lang] + '/' + home;
                 return;
               }
               const shortLang = lang.split('-')[0];
               if (mapUserLangToSupported[shortLang]) {
-                window.location.href = mapUserLangToSupported[shortLang] + '/index.html';
+                window.location.href = mapUserLangToSupported[shortLang] + '/' + home;
                 return;
               }
             }
-            window.location.href = '${props.ctx.site.options.langs![0]}/index.html'; // 默认语言
+            window.location.href = '${props.ctx.site.options.langs![0]}/' + home; // 默认语言
           })();
           
           `}

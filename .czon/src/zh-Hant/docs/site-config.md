@@ -13,7 +13,7 @@
 
 # 站點配置
 
-CZON 支援透過 `.czon/meta.json` 檔案配置站點選項。這些配置是可選的，不會阻擋初次使用。
+CZON 支援透過 `.czon/meta.json` 檔案配置站點選項。這些配置是可選的，不會阻塞初次使用。
 
 ## 配置位置
 
@@ -27,6 +27,7 @@ CZON 支援透過 `.czon/meta.json` 檔案配置站點選項。這些配置是�
     "site": {
       "baseUrl": "https://example.com",
       "title": "My Docs",
+      "home": "guide.html",
       "gaID": "G-XXXXXXXXXX",
       "clarityID": "your-clarity-id",
       "navLinks": [
@@ -65,7 +66,7 @@ CZON 支援透過 `.czon/meta.json` 檔案配置站點選項。這些配置是�
 
 ### `site.title`
 
-站點標題，顯示在頁面頂部。
+站點標題，顯示在頁面標頭。
 
 - **類型**: `string`
 - **預設值**: `"CZON"`
@@ -117,12 +118,39 @@ Microsoft Clarity Project ID，用於整合 Clarity 使用者行為分析。
 
 取得方式：前往 [Microsoft Clarity](https://clarity.microsoft.com/) 建立專案，在專案設定中取得 Project ID。
 
+### `site.home`
+
+首頁路徑配置，用於自訂首頁跳轉目標。
+
+- **類型**: `string`
+- **預設值**: `"index.html"`
+
+```json
+{
+  "options": {
+    "site": {
+      "home": "guide.html"
+    }
+  }
+}
+```
+
+**行為說明**：
+
+- **存取根首頁時**：使用者存取 `/index.html` 時，會根據瀏覽器語言自動跳轉到 `/{偵測到的語言}/{home}`
+- **點選 Header 標題時**：跳轉到目前語言目錄下的 `home` 路徑
+
+**使用場景**：
+
+- 希望使用者首次存取時直接進入某個特定頁面（如入門指南、產品介紹等）
+- 站點首頁不是文章列表，而是某個具體的文件頁面
+
 ### `site.navLinks`
 
-快速導航連結配置，在頁面頂部顯示導航連結。
+快速導覽連結配置，在頁面標頭顯示導覽連結。
 
 - **類型**: `Array<{ title: string, href: string }>`
-- **預設值**: `undefined`（不顯示導航）
+- **預設值**: `undefined`（不顯示導覽）
 
 ```json
 {
@@ -140,8 +168,8 @@ Microsoft Clarity Project ID，用於整合 Clarity 使用者行為分析。
 
 **響應式行為**：
 
-- **行動裝置**：顯示漢堡選單圖示，點擊展開全部導航連結
-- **桌面裝置**：在 Header 中直接顯示導航連結，但不超過螢幕寬度的 40%；超出部分透過「更多」下拉選單顯示
+- **行動端**：顯示漢堡選單圖示，點選展開全部導覽連結
+- **桌面端**：在 Header 中直接顯示導覽連結，但不超過螢幕寬度的 40%；超出部分透過「更多」下拉選單顯示
 
 ## 完整範例
 
@@ -153,6 +181,7 @@ Microsoft Clarity Project ID，用於整合 Clarity 使用者行為分析。
     "site": {
       "baseUrl": "https://example.com",
       "title": "技術部落格",
+      "home": "getting-started.html",
       "gaID": "G-ABC123DEF4",
       "clarityID": "abc123xyz",
       "navLinks": [

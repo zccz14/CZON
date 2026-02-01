@@ -11,6 +11,7 @@ export const CZONHeader: React.FC<{
 }> = props => {
   const navLinks = props.ctx.site.options.site?.navLinks;
   const hasNavLinks = navLinks && navLinks.length > 0;
+  const home = props.ctx.site.options.site?.home ?? 'index.html';
 
   return (
     <header className="czon-header py-4 border-b flex justify-between items-center px-6">
@@ -19,7 +20,7 @@ export const CZONHeader: React.FC<{
         {/* Mobile hamburger menu - left of title */}
         {hasNavLinks && <NavLinksMobile navLinks={navLinks} />}
         <h1 className="text-2xl font-bold">
-          <a href="index.html">{props.ctx.site.options.site?.title ?? 'CZON'}</a>
+          <a href={home}>{props.ctx.site.options.site?.title ?? 'CZON'}</a>
         </h1>
         {/* Desktop nav - right of title */}
         {hasNavLinks && <NavLinksDesktop navLinks={navLinks} />}
