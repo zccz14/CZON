@@ -7,11 +7,10 @@
   "bin": "dist/cli.js",
   "scripts": {
     "build": "npx rimraf dist && tsc",
-    "dev": "ts-node src/cli.ts",
-    "build:doc": "npm run build && node dist/cli.js build",
-    "test": "npm run build && node --test dist/**/*.test.js",
+    "dev": "tsx src/cli.ts",
+    "build:doc": "tsx src/cli.ts build",
+    "test": "tsx --test src/**/*.test.ts",
     "test:types": "tsc --noEmit",
-    "test:build": "npm run build && test -f dist/index.js && test -f dist/cli.js",
     "test:cli": "node -e \"const pkg = require('./package.json'); console.log('Package:', pkg.name, 'v' + pkg.version)\"",
     "format": "prettier --write \"**/*.{ts,js,json,md}\"",
     "format:check": "prettier --check \"**/*.{ts,js,json,md}\"",
@@ -47,7 +46,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "prettier": "^3.7.4",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.19.4",
     "typescript": "^5.9.3"
   },
   "dependencies": {
