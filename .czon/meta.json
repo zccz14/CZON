@@ -187,6 +187,49 @@
       "nativeMarkdownHash": "3fef9268f5c6b24cc0c7a6769cdb32d3810c06bc04de637a29c5587a6efc346b"
     },
     {
+      "path": "docs/deploy-github-pages-by-gh.md",
+      "links": [
+        "https://cli.github.com/"
+      ],
+      "metadata": {
+        "title": "部署 CZON 静态站点到 GitHub Pages 指南",
+        "description": "本指南介绍如何使用 GitHub CLI 将 CZON 生成的多语言静态站点部署到 GitHub Pages，包括安装、登录、配置和启用 Pages 等步骤。",
+        "short_summary": "本文提供了一份使用 GitHub CLI 部署 CZON 静态站点到 GitHub Pages 的完整指南。通过运行 npx czon@latest config github 命令，用户可以自动化完成权限检查、仓库配置、Pages 启用和 Workflow 文件设置等步骤，最终获取部署后的网站 URL。",
+        "audience": "使用 CZON 生成静态站点并希望部署到 GitHub Pages 的开发者，特别是需要多语言支持和自动化部署的用户。",
+        "key_points": [
+          "安装并登录 GitHub CLI，确保有 repo 权限",
+          "运行 npx czon@latest config github 命令自动化部署",
+          "检查并配置 Git 仓库和远程仓库",
+          "启用 GitHub Pages 并设置为 workflow 类型",
+          "创建或更新 Pages Workflow 文件",
+          "提交 Workflow 文件并推送到远程仓库",
+          "获取部署后的 GitHub Pages URL",
+          "支持多语言静态站点部署",
+          "简化部署流程，减少手动操作"
+        ],
+        "summary": "本文详细介绍了如何通过 GitHub CLI 将 CZON 生成的多语言静态站点部署到 GitHub Pages。首先需要安装并登录 GitHub CLI，确保有 repo 权限。然后运行 npx czon@latest config github 命令，该命令会引导用户完成一系列步骤，包括检查权限、初始化 Git 仓库、配置远程仓库、启用 GitHub Pages 并设置为 workflow 类型、创建或更新 Workflow 文件、提交并推送更改，最后获取 Pages URL。整个过程自动化，简化了部署流程。",
+        "slug": "deploy-czon-static-site-to-github-pages-guide",
+        "tags": [
+          "GitHub Pages",
+          "CZON",
+          "静态站点",
+          "部署指南",
+          "GitHub CLI",
+          "多语言",
+          "自动化部署"
+        ],
+        "inferred_lang": "zh-Hans",
+        "tokens_used": {
+          "prompt": 900,
+          "completion": 458,
+          "total": 1358
+        }
+      },
+      "hash": "21f7a34860afd457852b293763f76854a8216607e05681f40452a1e79b37345c",
+      "category": "Deployment",
+      "nativeMarkdownHash": "6df72b306c1cdbe296393083cec1ee93a36dd55844be9825f65d3e638783fac5"
+    },
+    {
       "hash": "6e66baaeb6e49186d3f6cbed5ac40f63475f2daebf272858108975817c3c978e",
       "path": "docs/site-config.md",
       "links": [
