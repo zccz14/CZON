@@ -57,15 +57,12 @@ export async function scanSourceFiles(): Promise<void> {
     }
 
     const contentBuffer = await readFile(fullPath);
-    const hash = sha256(contentBuffer);
     paths.add(relativePath);
 
     let meta = MetaData.files.find(f => f.path === relativePath);
     if (!meta) {
-      meta = { hash, path: relativePath, links: [] };
+      meta = { path: relativePath, links: [] };
       MetaData.files.push(meta);
-    } else {
-      meta.hash = hash;
     }
 
     // 处理 Markdown 文件
@@ -73,7 +70,7 @@ export async function scanSourceFiles(): Promise<void> {
       const content = contentBuffer.toString('utf-8');
 
       const links = extractLinksFromMarkdown(content);
-      console.info(`  - Found file: ${relativePath} (hash: ${hash})`);
+      console.info(`  - Found file: ${relativePath}`);
       console.info(`    Links: ${links.join(', ') || 'None'}`);
       meta.links = links;
 

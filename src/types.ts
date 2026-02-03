@@ -10,7 +10,11 @@ export interface FileMetaData {
    * 作为唯一标识符使用
    */
   path: string;
-  hash: string;
+  /**
+   * 记录提取 metadata 时的源文件哈希值
+   * 用于判断文件内容是否变化，决定是否需要重新提取 metadata
+   */
+  hash?: string;
   links: string[];
   metadata?: AIMetadata;
   /**
