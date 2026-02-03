@@ -40,9 +40,7 @@ export const runOpenCode = (prompt: string, options?: RunOpenCodeOptions): Promi
   const signal = options?.signal;
   const cwd = options?.cwd || process.cwd();
   const agent = options?.agent;
-  console.info(
-    `🛠️  Running OpenCode with model: ${model}, agent: ${agent || 'none'}, prompt: ${prompt}`
-  );
+  console.info(`🛠️  Running OpenCode with model: ${model}, agent: ${agent || 'none'}`);
 
   return new Promise<void>(async (resolve, reject) => {
     const agentInfo = agent ? ` with agent ${agent}` : '';

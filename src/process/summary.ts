@@ -1,100 +1,168 @@
+import { readFile } from 'fs/promises';
+import { existsSync } from 'fs';
+import { join } from 'path';
 import { runOpenCode } from '../services/opencode';
 
+// Prompt 模板目录路径（在项目根目录的 prompts/ 文件夹中）
+const PROMPTS_DIR = join(__dirname, '../../prompts');
+
+// 风格配置
+const SUMMARY_STYLES = [
+  { skill: 'summary-objective', output: '1-objective.md', name: '客观中立' },
+  { skill: 'summary-critical', output: '2-critical.md', name: '客观批判' },
+  { skill: 'summary-positive', output: '3-positive.md', name: '赞扬鼓励' },
+  { skill: 'summary-popular', output: '4-popular.md', name: '科普介绍' },
+  { skill: 'summary-artistic', output: '5-artistic.md', name: '文艺感性' },
+  { skill: 'summary-philosophical', output: '6-philosophical.md', name: '哲学思辨' },
+  { skill: 'summary-psychological', output: '7-psychological.md', name: '心理分析' },
+  { skill: 'summary-historical', output: '8-history.md', name: '历史时间跨度' },
+] as const;
+
+/**
+ * 读取 Prompt 模板文件内容
+ */
+const loadPromptTemplate = async (templateName: string): Promise<string> => {
+  const templatePath = join(PROMPTS_DIR, `${templateName}.md`);
+  return readFile(templatePath, 'utf-8');
+};
+
+/**
+ * 验证文件是否存在
+ */
+const verifyFileExists = (filePath: string): boolean => {
+  return existsSync(filePath);
+};
+
+/**
+ * 生成单个风格的报告
+ */
+const generateStyleReport = async (
+  model: string,
+  baseContent: string,
+  styleConfig: (typeof SUMMARY_STYLES)[number],
+  cwd: string
+): Promise<{ success: boolean; error?: string }> => {
+  try {
+    const styleContent = await loadPromptTemplate(styleConfig.skill);
+
+    const prompt = `
+${baseContent}
+
+---
+
+${styleContent}
+
+---
+
+# 执行任务
+
+请严格按照上述指南，生成「${styleConfig.name}」风格的分析报告。
+
+输出文件：SUMMARY/${styleConfig.output}
+
+注意：
+1. 必须生成完整的报告文件
+2. 文件必须保存到 SUMMARY/${styleConfig.output}
+3. 确保所有链接使用 ../ 开头的相对路径
+`.trim();
+
+    await runOpenCode(prompt, { model, cwd });
+
+    // 验证文件是否生成
+    const outputPath = join(cwd, 'SUMMARY', styleConfig.output);
+    if (!verifyFileExists(outputPath)) {
+      return {
+        success: false,
+        error: `文件未生成: ${outputPath}`,
+      };
+    }
+
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : String(error),
+    };
+  }
+};
+
+/**
+ * 主函数：生成所有风格的摘要报告
+ */
 export const processSummary = async (model: string): Promise<void> => {
-  const prompt = [
-    `
-先清空 SUMMARY 目录，因为这是历史分析，已经过时。
+  const cwd = process.cwd();
 
-通过命令列出目标 Markdown 文件：
-npx czon@latest ls-files
+  // 加载基础规则
+  console.info('📖 加载基础规则...');
+  const baseContent = await loadPromptTemplate('summary-base');
 
-然后，阅读所有 markdown 文件。对内容进行多方面的总结。
+  // Phase 0: 清空 SUMMARY 目录
+  console.info('🗑️  清空 SUMMARY 目录...');
+  await runOpenCode('rm -rf SUMMARY && mkdir -p SUMMARY', { model, cwd });
 
-请从以下几个风格进行总结分析，生成对应的 markdown 文件：
+  // Phase 1: 串行生成 8 种风格报告
+  console.info(`\n📊 开始生成 ${SUMMARY_STYLES.length} 种风格的分析报告...\n`);
 
-1. 客观中立风格 (1-objective.md)
+  const results: Array<{
+    name: string;
+    output: string;
+    success: boolean;
+    error?: string;
+  }> = [];
 
-   以客观中立的角度介绍内容，避免主观评价和情感色彩。 强调事实和数据，确保信息的准确性和可靠性。
+  for (let i = 0; i < SUMMARY_STYLES.length; i++) {
+    const style = SUMMARY_STYLES[i];
+    console.info(`[${i + 1}/${SUMMARY_STYLES.length}] 正在生成「${style.name}」风格报告...`);
 
-   目的是为了让读者全面了解内容的基本信息和核心观点，帮助他们形成自己的看法和判断。
+    const result = await generateStyleReport(model, baseContent, style, cwd);
+    results.push({
+      name: style.name,
+      output: style.output,
+      ...result,
+    });
 
-   注意，不要加入情感表达，不要进行推测，保持中立和客观。
+    if (result.success) {
+      console.info(`✅ 「${style.name}」风格报告生成成功\n`);
+    } else {
+      console.error(`❌ 「${style.name}」风格报告生成失败: ${result.error}\n`);
+    }
+  }
 
-   基于事实，保持简洁，使用简历和履历格式。
+  // Phase 2: 硬性验证
+  console.info('\n🔍 验证生成结果...\n');
 
-2. 客观批判风格 (2-critical.md)
+  const successCount = results.filter(r => r.success).length;
+  const failedResults = results.filter(r => !r.success);
 
-   基于事实，对内容进行客观的批判性分析，指出其优点和缺点。
+  console.info(`📈 生成统计: ${successCount}/${SUMMARY_STYLES.length} 成功\n`);
 
-   目的是为了帮助读者更全面地理解内容，识别其优缺点，从而做出更明智的判断和决策。同时促进内容的改进和提升。
+  if (failedResults.length > 0) {
+    console.info('❌ 失败的报告:');
+    for (const failed of failedResults) {
+      console.info(`   - ${failed.name} (${failed.output}): ${failed.error}`);
+    }
+    console.info('');
+  }
 
-   注意，批判并不意味着否定或贬低，而是以建设性的态度提出意见和建议，促进内容的改进和提升。
+  // 验证所有必需文件
+  console.info('📁 验证文件存在性:');
+  let allFilesExist = true;
+  for (const style of SUMMARY_STYLES) {
+    const filePath = join(cwd, 'SUMMARY', style.output);
+    const exists = verifyFileExists(filePath);
+    const status = exists ? '✅' : '❌';
+    console.info(`   ${status} SUMMARY/${style.output}`);
+    if (!exists) {
+      allFilesExist = false;
+    }
+  }
 
-3. 赞扬鼓励风格 (3-positive.md)
+  console.info('');
 
-   以积极正面的角度介绍内容，强调其优点和亮点，鼓励读者去尝试和体验。
-
-   目的是为了激发读者的兴趣和热情，增强他们对内容的认可和好感。同时鼓励内容创作者继续努力，提升内容质量。
-
-   注意，不是盲目吹捧，不要谄媚表达，要有事实依据
-
-4. 科普介绍风格 (4-popular.md)
-
-   以通俗易懂的语言，向普通人介绍内容，降低理解难度。
-
-   目的是为了让读者在轻松愉快的氛围中理解内容，增加阅读的趣味性和吸引力。
-
-   基于事实，使用简单的语言和例子，避免专业术语和复杂概念。
-
-5. 文艺感性风格 (5-artistic.md)
-
-   通过细腻的描写和情感表达，营造出一种身临其境的感觉，让读者能够感受到内容中的情感和氛围。
-
-   使用生动的语言和形象的比喻，帮助读者在脑海中构建出内容的画面，增强内容的感染力。
-
-   通过讲述故事和情节的发展，引导读者进入内容的情境中，激发他们的共鸣和情感反应。
-
-6. 哲学思辨风格 (6-philosophical.md)
-
-   以哲学的视角，对内容进行深度思考和分析，探讨其背后的意义和价值。
-
-   目的是为了引发读者的思考和反思，帮助他们从更深层次理解内容，提升他们的认知水平和思维能力。
-
-   基于逻辑推理和哲学理论，提出有深度的问题和观点，促进读者的思辨能力。
-
-7. 心理分析风格 (7-psychological.md)
-
-   进行深度的心理分析，探讨内容背后的心理动机和行为模式。
-
-   基于内容，进行 MBTI 分析，分析内容创作者的性格倾向和行为特征，必须给出每个倾向维度的证据。
-
-   基于内容，进行施瓦茨价值观分析，探讨内容所反映的核心价值观和信念体系，给出价值观的排序和具体例子。
-
-   基于内容，进行精神分析 (包括心理防御机制、潜意识动机等)，必须为每个评价标签给出置信度，给出具体例子，解释其作用和影响。
-
-   基于内容，分析与作者相关的真实人物关系，探讨内容中不同人物之间的互动和关系动态，揭示其背后的心理机制。
-
-8. 历史时间跨度风格 (8-history.md)
-
-   梳理时间线，以历史发展的视角看待内容的变化。
-
-   基于时间顺序，分析内容在不同时间点上的演变和发展，揭示其背后的历史脉络和趋势。
-
-   目的是为了帮助读者理解内容的历史背景和发展过程，提供更全面的视角。
-
-   基于现有内容，合理推测未来的发展方向和趋势，提供前瞻性的见解。
-
-请遵循如下规则：
-1. 切记，以事实内容为依据，不得出现脱离事实的情况。
-2. 内容生成到 SUMMARY 目录中，生成不同的 markdown 文件。
-3. 引用原文链接时，保证链接有效，不要链接一个目录，永远链接到一个具体的 Markdown 文件。并且链接的文本应当是对应的标题，而不是文件名。注意，由于生成到 SUMMARY 目录，引用 Markdown 文件时注意 .. 开头才是项目根目录（相对文件所在的位置）。
-4. 在开头添加 AI 分析的时间日期。注明是 AI 生成，内容仅供参考。
-5. 考虑时间跨度，给予最近的文章更高的权重。
-
-`,
-  ]
-    .join('\n')
-    .trim();
-
-  await runOpenCode(prompt, { model });
+  if (allFilesExist) {
+    console.info('🎉 所有分析报告生成完成！');
+  } else {
+    const missingCount = SUMMARY_STYLES.length - successCount;
+    throw new Error(`生成不完整: ${missingCount} 个报告未能成功生成。请检查上述错误信息并重试。`);
+  }
 };
