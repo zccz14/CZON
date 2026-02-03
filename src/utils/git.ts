@@ -1,4 +1,4 @@
-import { execSync } from 'child_process';
+import { spawnSync } from 'child_process';
 
 export interface GitRemote {
   name: string;
@@ -8,20 +8,25 @@ export interface GitRemote {
 
 /**
  * Execute a git command and return the output
+ * Uses spawnSync to avoid shell parsing issues with special characters
  * @throws Error if the command fails
  */
 function execGit(args: string[], options?: { cwd?: string }): string {
-  const command = ['git', ...args].join(' ');
-  try {
-    return execSync(command, {
-      cwd: options?.cwd ?? process.cwd(),
-      encoding: 'utf-8',
-      stdio: ['pipe', 'pipe', 'pipe'],
-    }).trim();
-  } catch (error: unknown) {
-    const err = error as { stderr?: string; message?: string };
-    throw new Error(err.stderr || err.message || 'Git command failed');
+  const result = spawnSync('git', args, {
+    cwd: options?.cwd ?? process.cwd(),
+    encoding: 'utf-8',
+    stdio: ['pipe', 'pipe', 'pipe'],
+  });
+
+  if (result.error) {
+    throw result.error;
   }
+
+  if (result.status !== 0) {
+    throw new Error(result.stderr || `git command failed with exit code ${result.status}`);
+  }
+
+  return (result.stdout || '').trim();
 }
 
 /**
