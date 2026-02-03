@@ -1,0 +1,187 @@
+---
+"title": "Psychological Analysis Style Report Guide"
+"summary": "This document is a guide for creating psychological analysis style reports, aiming to instruct how to extract and analyze psychological information from documents. It details reading focuses such as the author's self-description, decision-making processes, emotional expression, etc., and provides a knowledge base structure including file index, MBTI evidence index, values evidence index, etc. The document also explains compression strategies, style positioning, analysis framework (covering MBTI personality type analysis, Schwartz values analysis, psychological defense mechanism analysis, subconscious motivation analysis, interpersonal relationship patterns, and psychological portrait integration), as well as output files and a quality checklist. Its core value lies in providing systematic psychological analysis tools and methods for psychology enthusiasts or researchers."
+"tags":
+  - "Psychological Analysis"
+  - "MBTI"
+  - "Values Analysis"
+  - "Defense Mechanisms"
+  - "Document Analysis"
+  - "Structured Information"
+  - "Psychology Guide"
+---
+
+# Psychological Analysis Style Report
+
+## Reading Focus Points
+
+When reading each file, focus on extracting:
+
+- File path and title
+- Author's self-description and self-evaluation
+- Decision-making process and rationale
+- Emotional expression and mood fluctuations
+- Patterns of interaction with others
+- Value judgments and priority choices
+- Reactions to difficulties/failures
+- Expectations and concerns about the future
+
+**Pay Special Attention to**: First-person statements, emotional vocabulary, value judgment vocabulary, descriptions of interpersonal interactions.
+
+## Knowledge Base Structure
+
+```
+### File Index
+| File Path | Title | Psychological Analysis Relevance |
+|-----------|-------|----------------------------------|
+
+### MBTI Evidence Index
+| Dimension | Evidence Type | Specific Statement | Source File |
+|-----------|---------------|--------------------|-------------|
+(Dimensions: I/E, N/S, T/F, J/P)
+
+### Values Evidence Index
+| Values Dimension | Evidence | Strength | Source File |
+|------------------|----------|----------|-------------|
+(Schwartz Values: Self-Direction, Achievement, Stimulation, Universalism, Power, Security, Tradition, Conformity, Benevolence)
+
+### Emotional Expression Record
+| Situation | Emotional Reaction | Source File |
+|-----------|-------------------|-------------|
+
+### Interpersonal Interaction Record
+| Person | Nature of Relationship | Interaction Description | Source File |
+|--------|------------------------|-------------------------|-------------|
+
+### Defense Mechanism Evidence
+| Situation | Reaction Pattern | Possible Defense Mechanism | Confidence Level | Source File |
+|-----------|------------------|----------------------------|------------------|-------------|
+```
+
+## Compression Strategy
+
+When compressing the knowledge base is necessary:
+
+1. **Must Retain**: File Index, MBTI Evidence Index, Values Evidence Index
+2. **Can Be Streamlined**: Emotional Expression Record (keep typical cases), Interpersonal Interactions (keep core relationships)
+3. **Can Be Discarded**: Duplicate evidence, minor emotional fluctuations
+
+---
+
+## Style Positioning
+
+Conduct in-depth psychological analysis, exploring the underlying psychological motivations and behavioral patterns.
+
+**Target Audience**: Readers interested in psychology, those wishing to gain a deep understanding of the author.
+**Writing Tone**: Professional, analytical, well-reasoned.
+
+## Analysis Framework
+
+### 1. MBTI Personality Type Analysis
+
+**Must Include**:
+
+- Final determined MBTI type (e.g., INTJ)
+- Individual analysis of the four dimensions:
+  - I/E (Introversion/Extraversion)
+  - N/S (Intuition/Sensing)
+  - T/F (Thinking/Feeling)
+  - J/P (Judging/Perceiving)
+
+**For Each Dimension, Must Provide**:
+
+- Tendency determination (e.g., "Strong Introversion Tendency")
+- Supporting evidence (citing specific article content)
+- Counter-evidence (if any)
+- Conclusion
+
+**Example**:
+
+```markdown
+### 1.1 Introversion (I) vs. Extraversion (E) – **Strong Introversion Tendency**
+
+**Evidence Supporting Introversion (I):**
+
+- Describes self as a "high-energy-consumption brain" in [README.md](../README.md), indicating social interaction drains energy.
+- Logs frequently record independent work and deep thinking.
+
+**Counter-evidence (Limited Extraverted Behavior):**
+
+- Can effectively lead a team.
+- However, these are goal-oriented social interactions, not a source of energy.
+
+**Conclusion:** Clear preference for Introversion (I).
+```
+
+### 2. Schwartz Values Analysis
+
+Analyze the following value dimensions in order of priority:
+
+- Self-Direction
+- Achievement
+- Stimulation
+- Universalism
+- Power
+- Security
+- Tradition
+- Conformity
+- Benevolence
+
+**For Each Value, Must Provide**:
+
+- Priority determination (Highest/High/Medium/Low)
+- Specific evidence (citing articles)
+- Specific value manifested
+
+### 3. Psychological Defense Mechanism Analysis
+
+Analyze the primary defense mechanisms used:
+
+- Intellectualization
+- Sublimation
+- Humor
+- Anticipation
+- Denial
+- etc.
+
+**For Each Mechanism, Must Provide**:
+
+- Confidence level (High/Medium/Low)
+- Specific example
+- Function and impact
+
+### 4. Subconscious Motivation Analysis
+
+Explore possible subconscious motivations:
+
+- Fear of losing control
+- Need to prove self-worth
+- Pursuit of permanence
+- Resistance to dependence
+- etc.
+
+### 5. Interpersonal Relationship Patterns
+
+Analyze relationship patterns with individuals mentioned in the text:
+
+- Nature of the relationship
+- Interaction patterns
+- Psychological dynamics
+
+### 6. Psychological Portrait Integration
+
+- Core psychological characteristics (strengths and vulnerabilities)
+- Development suggestions
+- Mental health risk assessment
+
+## Output File
+
+`SUMMARY/7-psychological.md`
+
+## Quality Checklist
+
+- [ ] All four MBTI dimensions are analyzed.
+- [ ] Each dimension has specific evidence.
+- [ ] Values are prioritized with examples.
+- [ ] Defense mechanisms have confidence levels.
+- [ ] All links are valid.
