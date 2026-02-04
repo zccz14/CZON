@@ -36,6 +36,10 @@
       "clarityID": "v96n7w9buw",
       "navLinks": [
         {
+          "title": "全部文章",
+          "href": "index.html"
+        },
+        {
           "title": "博客",
           "href": "https://readme.zccz14.com/"
         }
@@ -1051,6 +1055,64 @@
       "es-MX": "Ingeniería de Prompt",
       "tr-TR": "Prompt Mühendisliği",
       "uk-UA": "Інженерія промптів"
+    }
+  },
+  "navLinkTranslations": {
+    "博客": {
+      "zh-Hans": "博客",
+      "en-US": "Blog",
+      "ja-JP": "ブログ",
+      "ko-KR": "블로그",
+      "es-ES": "Blog",
+      "fr-FR": "Blog",
+      "de-DE": "Blog",
+      "ru-RU": "Блог",
+      "pt-PT": "Blog",
+      "it-IT": "Blog",
+      "nl-NL": "Blog",
+      "pl-PL": "Blog",
+      "sv-SE": "Blogg",
+      "fi-FI": "Blogi",
+      "da-DK": "Blog",
+      "no-NO": "Blogg",
+      "zh-Hant": "部落格",
+      "hi-IN": "ब्लॉग",
+      "ar-SA": "مدونة",
+      "th-TH": "บล็อก",
+      "vi-VN": "Blog",
+      "id-ID": "Blog",
+      "pt-BR": "Blog",
+      "es-MX": "Blog",
+      "tr-TR": "Blog",
+      "uk-UA": "Блог"
+    },
+    "全部文章": {
+      "zh-Hans": "全部文章",
+      "en-US": "All Articles",
+      "ja-JP": "すべての記事",
+      "ko-KR": "모든 글",
+      "es-ES": "Todos los artículos",
+      "fr-FR": "Tous les articles",
+      "de-DE": "Alle Artikel",
+      "ru-RU": "Все статьи",
+      "pt-PT": "Todos os artigos",
+      "it-IT": "Tutti gli articoli",
+      "nl-NL": "Alle artikelen",
+      "pl-PL": "Wszystkie artykuły",
+      "sv-SE": "Alla artiklar",
+      "fi-FI": "Kaikki artikkelit",
+      "da-DK": "Alle artikler",
+      "no-NO": "Alle artikler",
+      "zh-Hant": "全部文章",
+      "hi-IN": "सभी लेख",
+      "ar-SA": "جميع المقالات",
+      "th-TH": "บทความทั้งหมด",
+      "vi-VN": "Tất cả bài viết",
+      "id-ID": "Semua Artikel",
+      "pt-BR": "Todos os Artigos",
+      "es-MX": "Todos los artículos",
+      "tr-TR": "Tüm Makaleler",
+      "uk-UA": "Усі статті"
     }
   }
 }

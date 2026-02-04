@@ -1,5 +1,6 @@
 import React from 'react';
-import { NavLink } from '../../types';
+import { MetaDataStore, NavLink } from '../../types';
+import { getNavLinkDisplayTitle } from '../utils/getNavLinkDisplayTitle';
 
 const mobileStyle = `
 /* Mobile hamburger menu styles */
@@ -233,7 +234,9 @@ const desktopStyle = `
  */
 export const NavLinksMobile: React.FC<{
   navLinks: NavLink[];
-}> = ({ navLinks }) => {
+  site: MetaDataStore;
+  lang: string | undefined;
+}> = ({ navLinks, site, lang }) => {
   if (!navLinks || navLinks.length === 0) {
     return null;
   }
@@ -259,7 +262,7 @@ export const NavLinksMobile: React.FC<{
         <div className="nav-links-dropdown-list">
           {navLinks.map((link, index) => (
             <a key={index} href={link.href} className="nav-link-mobile-item" role="menuitem">
-              {link.title}
+              {getNavLinkDisplayTitle(site, link.title, lang || '')}
             </a>
           ))}
         </div>
@@ -281,7 +284,9 @@ const MAX_VISIBLE_LINKS = 5;
  */
 export const NavLinksDesktop: React.FC<{
   navLinks: NavLink[];
-}> = ({ navLinks }) => {
+  site: MetaDataStore;
+  lang: string | undefined;
+}> = ({ navLinks, site, lang }) => {
   if (!navLinks || navLinks.length === 0) {
     return null;
   }
@@ -296,7 +301,7 @@ export const NavLinksDesktop: React.FC<{
       <div className="nav-links-desktop-list">
         {visibleLinks.map((link, index) => (
           <a key={index} href={link.href} className="nav-link-item">
-            {link.title}
+            {getNavLinkDisplayTitle(site, link.title, lang || '')}
           </a>
         ))}
       </div>
@@ -336,7 +341,7 @@ export const NavLinksDesktop: React.FC<{
             <div className="nav-links-more-list">
               {overflowLinks.map((link, index) => (
                 <a key={index} href={link.href} className="nav-link-more-item" role="menuitem">
-                  {link.title}
+                  {getNavLinkDisplayTitle(site, link.title, lang || '')}
                 </a>
               ))}
             </div>

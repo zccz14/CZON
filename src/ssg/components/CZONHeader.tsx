@@ -18,12 +18,16 @@ export const CZONHeader: React.FC<{
       {/* Left section: hamburger menu (mobile) + title + nav (desktop) */}
       <div className="flex items-center gap-4">
         {/* Mobile hamburger menu - left of title */}
-        {hasNavLinks && <NavLinksMobile navLinks={navLinks} />}
+        {hasNavLinks && (
+          <NavLinksMobile navLinks={navLinks} site={props.ctx.site} lang={props.lang} />
+        )}
         <h1 className="text-2xl font-bold">
           <a href={home}>{props.ctx.site.options.site?.title ?? 'CZON'}</a>
         </h1>
         {/* Desktop nav - right of title */}
-        {hasNavLinks && <NavLinksDesktop navLinks={navLinks} />}
+        {hasNavLinks && (
+          <NavLinksDesktop navLinks={navLinks} site={props.ctx.site} lang={props.lang} />
+        )}
       </div>
       {/* Right section: dark mode + language switch */}
       <div className="flex items-center gap-4">

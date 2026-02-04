@@ -10,6 +10,7 @@ import {
 } from '../paths';
 import { processExtractCategory } from '../process/category';
 import { processTranslateCategories } from '../process/translateCategories';
+import { processTranslateNavLinks } from '../process/translateNavLinks';
 import { storeNativeFiles } from '../process/enhanceMarkdownSource';
 import { extractMetadataByAI } from '../process/extractMetadataByAI';
 import { processTranslations } from '../process/processTranslations';
@@ -90,6 +91,9 @@ async function buildPipeline(options: BuildOptions): Promise<void> {
 
   // 翻译分类
   await processTranslateCategories();
+
+  // 翻译 navLinks
+  await processTranslateNavLinks();
 
   // 存储母语文件，并进行内容增强预处理
   await storeNativeFiles();

@@ -41,6 +41,7 @@ export interface MetaDataStore {
   options: BuildOptions;
   files: FileMetaData[];
   categoryTranslations?: Record<string, Record<string, string>>;
+  navLinkTranslations?: Record<string, Record<string, string>>;
 }
 
 /**
