@@ -1,6 +1,7 @@
 import React from 'react';
 import { IRenderContext } from '../types';
 import { toSortedBy } from '../utils/sortBy';
+import { getCategoryDisplayName } from './utils/getCategoryDisplayName';
 import { Analytics } from './components/Analytics';
 import { ContentMeta } from './components/ContentMeta';
 import { CZONFooter } from './components/CZONFooter';
@@ -76,7 +77,9 @@ export const IndexPage: React.FC<{
                 {/* Categories Filter: 前端根据 searchParams 中的 category 字段来确定是否显示 */}
                 <div className="mb-6 gap-6 flex flex-wrap">
                   {allCategories.map(category => {
-                    const title = category || 'All';
+                    const title = category
+                      ? getCategoryDisplayName(props.ctx.site, category, props.lang)
+                      : 'All';
                     const link = category ? `categories_${category}.html` : 'index.html';
                     const isActive = category === props.category;
                     const articlesCount = category

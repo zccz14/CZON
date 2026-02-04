@@ -9,6 +9,7 @@ import {
   INPUT_DIR,
 } from '../paths';
 import { processExtractCategory } from '../process/category';
+import { processTranslateCategories } from '../process/translateCategories';
 import { storeNativeFiles } from '../process/enhanceMarkdownSource';
 import { extractMetadataByAI } from '../process/extractMetadataByAI';
 import { processTranslations } from '../process/processTranslations';
@@ -86,6 +87,9 @@ async function buildPipeline(options: BuildOptions): Promise<void> {
 
   // 提取分类信息
   await processExtractCategory();
+
+  // 翻译分类
+  await processTranslateCategories();
 
   // 存储母语文件，并进行内容增强预处理
   await storeNativeFiles();

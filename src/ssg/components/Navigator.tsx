@@ -1,4 +1,5 @@
 import React from 'react';
+import { getCategoryDisplayName } from '../utils/getCategoryDisplayName';
 import { IRenderContext } from '../../types';
 import { toSortedBy } from '../../utils/sortBy';
 
@@ -27,7 +28,7 @@ export const Navigator: React.FC<{
         return (
           <div key={categoryKey}>
             <li className="nav-item font-bold" key={categoryKey}>
-              {category || '--'}
+              {getCategoryDisplayName(props.ctx.site, category, props.lang) || '--'}
             </li>
             {filesInCategory.map(file => {
               const link = file.metadata!.slug + '.html';

@@ -1,4 +1,5 @@
 import React from 'react';
+import { getCategoryDisplayName } from '../utils/getCategoryDisplayName';
 import { IRenderContext } from '../../types';
 import { TagList } from './TagList';
 
@@ -22,7 +23,9 @@ export const ContentMeta: React.FC<{
       <h2 className="text-2xl font-bold mb-2">
         <a href={`${props.file.metadata?.slug}.html`}>{title}</a>
       </h2>
-      <p className="font-semibold">{category}</p>
+      <p className="font-semibold">
+        {getCategoryDisplayName(props.ctx.site, category, props.lang)}
+      </p>
       <blockquote>{summary}</blockquote>
       <div>📅 {date}</div>
       <div className="tags">

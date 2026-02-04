@@ -40,6 +40,7 @@ export interface MetaDataStore {
   version: string;
   options: BuildOptions;
   files: FileMetaData[];
+  categoryTranslations?: Record<string, Record<string, string>>;
 }
 
 /**
