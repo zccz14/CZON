@@ -10,6 +10,7 @@ import {
 } from '../paths';
 import { processExtractCategory } from '../process/category';
 import { processTranslateCategories } from '../process/translateCategories';
+import { processTranslateMetadata } from '../process/translateMetadata';
 import { processTranslateNavLinks } from '../process/translateNavLinks';
 import { storeNativeFiles } from '../process/enhanceMarkdownSource';
 import { extractMetadataByAI } from '../process/extractMetadataByAI';
@@ -85,6 +86,9 @@ async function buildPipeline(options: BuildOptions): Promise<void> {
 
   // 运行 AI 元数据提取
   await extractMetadataByAI();
+
+  // 翻译 AI 提取的 metadata JSON
+  await processTranslateMetadata();
 
   // 提取分类信息
   await processExtractCategory();

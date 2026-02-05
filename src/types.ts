@@ -31,6 +31,18 @@ export interface FileMetaData {
    * lang -> translation metadata 映射
    */
   translations?: Record<string, { content_length?: number; token_used?: any }>;
+
+  /**
+   * AI Metadata 的多语言翻译
+   * lang -> TranslatedAIMetadata 映射
+   */
+  metadataTranslations?: Record<string, TranslatedAIMetadata>;
+
+  /**
+   * 记录翻译 metadata 时源 metadata 的哈希值
+   * 用于增量检测：当源 metadata 变化时重新翻译
+   */
+  metadataTranslationHash?: string;
 }
 
 /**
@@ -113,6 +125,20 @@ export interface AIMetadata {
     completion: number;
     total: number;
   }; // tokens 使用情况
+}
+
+/**
+ * 翻译后的 AI Metadata
+ * 仅包含需要翻译的文本字段
+ */
+export interface TranslatedAIMetadata {
+  title: string;
+  description: string;
+  summary: string;
+  short_summary: string;
+  key_points: string[];
+  audience: string;
+  tags: string[];
 }
 
 export interface IArticleContent {
