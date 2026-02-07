@@ -14,6 +14,8 @@ export const ContentMeta: React.FC<{
   const metadata = getLocalizedMetadata(props.file, props.lang);
   const title = metadata?.title || '(no title)';
   const summary = metadata?.summary || '';
+  const audience = metadata?.audience || '';
+  const keyPoints = metadata?.key_points || [];
   const date = props.file.metadata?.inferred_date || '--';
   const tags = metadata?.tags || [];
   const category = props.file.category;
@@ -23,11 +25,19 @@ export const ContentMeta: React.FC<{
       <h2 className="text-2xl font-bold mb-2">
         <a href={`${props.file.metadata?.slug}.html`}>{title}</a>
       </h2>
-      <p className="font-semibold">
+      <p className="font-semibold mb-2">
         {getCategoryDisplayName(props.ctx.site, category, props.lang)}
       </p>
+      {audience && <div>👤 {audience}</div>}
       <blockquote>{summary}</blockquote>
-      <div>📅 {date}</div>
+      {keyPoints.length > 0 && (
+        <ul className="key-points list-inside my-2">
+          {keyPoints.slice(0, 5).map((point, index) => (
+            <li key={index}>✨ {point}</li>
+          ))}
+        </ul>
+      )}
+      {date && date !== '--' && <div>📅 {date}</div>}
       <div className="tags">
         <TagList tags={tags} />
       </div>

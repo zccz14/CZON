@@ -24,7 +24,7 @@ export async function extractMetadataFromMarkdown(
     'summary: 文档中型摘要（用一段话总结文章，包含关键论点和结论，控制在 300 字以内），用于 邮件推送内容，newsletter 介绍',
     'inferred_date: 文档中隐含的创建日期（如果有的话，格式：YYYY-MM-DD，没有就留空字符串）',
     'inferred_lang: 文档使用的语言代码（例如：zh-Hans 表示简体中文，en-US 表示美式英语）',
-    'key_points: 文章的关键要点列表（5-10 个要点，简洁明了）',
+    'key_points: 文章的关键要点列表（最重要的 3-5 个要点，简洁明了）',
     'audience: 目标读者描述（简短描述，50 字以内）',
     'short_summary: 文档的超短摘要（用 2-3 句话概括文章主要内容，突出核心观点），用于文章列表页摘要，RSS feed 描述',
     ...(hasExistingSlug
