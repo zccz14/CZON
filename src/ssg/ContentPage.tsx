@@ -45,7 +45,16 @@ export const ContentPage: React.FC<{
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{title}</title>
         <link rel="icon" href={faviconUrl} type="image/x-icon" />
-        <meta name="description" content={`tags: ${tags.join(', ')}`} />
+        {
+          // 使用 short_summary 作为 description，有利于 SEO 和社交分享预览
+          metadata?.short_summary && (
+            <meta name="description" content={metadata?.short_summary.slice(0, 150)} />
+          )
+        }
+        {
+          // Keywords meta tag for SEO (using tags, if available)
+          tags.length > 0 && <meta name="keywords" content={tags.join(', ')} />
+        }
         <Analytics ctx={props.ctx} />
         <script src={getResourceUrlFrom(props.ctx.path, 'tailwindcss.js')}></script>
         <style>{style}</style>
