@@ -148,10 +148,6 @@ export interface IArticleContent {
    * 渲染后的 HTML 内容
    */
   body: string;
-  /**
-   * YAML Frontmatter 数据
-   */
-  frontmatter: any;
 
   /**
    * 提取的标题

@@ -2,12 +2,11 @@ import { readFile } from 'fs/promises';
 import path from 'path';
 import { MetaData } from '../metadata';
 import { CZON_SRC_DIR, INPUT_DIR } from '../paths';
-import { FileMetaData } from '../types';
-import { updateFrontmatter } from '../utils/frontmatter';
 import { writeFile } from '../utils/writeFile';
 
 /**
  * 存储母语文件到 .czon/src
+ * 直接复制原始文件，metadata 从 meta.json 获取
  */
 export async function storeNativeFiles(): Promise<void> {
   const { files } = MetaData;
@@ -21,18 +20,7 @@ export async function storeNativeFiles(): Promise<void> {
       const filePath = path.join(CZON_SRC_DIR, file.metadata.inferred_lang, file.path);
       const originalContent = await readFile(path.join(INPUT_DIR, file.path), 'utf-8');
 
-      // 增强 YAML Frontmatter
-      const enhancedContent = updateFrontmatter(originalContent, {
-        title: file.metadata.title,
-        summary: file.metadata.summary,
-        tags: file.metadata.tags,
-        date: file.metadata.inferred_date,
-      });
-
-      // 进行内链接替换, 将相对链接替换为基于 czon://hash 的链接
-      // const replacedContent = replaceInnerLinks(file, enhancedContent);
-
-      await writeFile(filePath, enhancedContent);
+      await writeFile(filePath, originalContent);
     } catch (error) {
       console.warn(`⚠️ Failed to store native file ${file.path}:`, error);
     }

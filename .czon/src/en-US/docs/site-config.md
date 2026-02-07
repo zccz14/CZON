@@ -1,19 +1,6 @@
----
-"title": "CZON Site Configuration Guide"
-"summary": "This document details the methods and options for configuring a CZON site. Configuration is located in the `options.site` field of the `.czon/meta.json` file and includes `site.baseUrl` (used for generating sitemap.xml and robots.txt), `site.title` (site title, default 'CZON'), `site.gaID` (Google Analytics Measurement ID), and `site.clarityID` (Microsoft Clarity Project ID). All configuration items are optional; changes require re-running `czon build` to take effect. If `baseUrl` is not configured, sitemap.xml generation is skipped. Analytics tools only load when their corresponding IDs are configured, without affecting page performance. The document provides configuration location, available options, a complete example, and notes to help users easily set up their site."
-"tags":
-  - "CZON"
-  - "Site Configuration"
-  - "meta.json"
-  - "Google Analytics"
-  - "Microsoft Clarity"
-  - "sitemap"
-  - "robots.txt"
----
-
 # Site Configuration
 
-CZON supports configuring site options via the `.czon/meta.json` file. These configurations are optional and will not block initial use.
+CZON supports configuring site options through the `.czon/meta.json` file. These configurations are optional and will not block initial usage.
 
 ## Configuration Location
 
@@ -44,7 +31,7 @@ Configuration items are located in the `options.site` field of the `.czon/meta.j
 
 ### `site.baseUrl`
 
-The base URL of the site, used for generating sitemap.xml and robots.txt.
+The site's base URL, used for generating sitemap.xml and robots.txt.
 
 - **Type**: `string`
 - **Format**: Full URL, e.g., `https://example.com`
@@ -65,7 +52,7 @@ Once configured, the following will be automatically generated:
 
 ### `site.title`
 
-The site title, displayed in the page header.
+Site title, displayed in the page header.
 
 - **Type**: `string`
 - **Default**: `"CZON"`
@@ -82,7 +69,7 @@ The site title, displayed in the page header.
 
 ### `site.gaID`
 
-Google Analytics Measurement ID, used for integrating Google Analytics.
+Google Analytics Measurement ID, used for integrating Google Analytics tracking.
 
 - **Type**: `string`
 - **Format**: `G-XXXXXXXXXX`
@@ -136,11 +123,10 @@ Homepage path configuration, used to customize the redirect target for the homep
 
 **Behavior Description**:
 
-- **When accessing the root homepage**: When a user visits `/index.html`, they will be automatically redirected to `/{detected-language}/{home}` based on browser language.
+- **When accessing the root homepage**: When a user visits `/index.html`, they will be automatically redirected to `/{detected-language}/{home}` based on their browser language.
 - **When clicking the Header title**: Redirects to the `home` path within the current language directory.
 
 **Use Cases**:
-
 - Want users to land directly on a specific page (e.g., getting started guide, product introduction) on their first visit.
 - The site homepage is not an article list but a specific documentation page.
 
@@ -166,9 +152,8 @@ Quick navigation link configuration, displaying navigation links in the page hea
 ```
 
 **Responsive Behavior**:
-
 - **Mobile**: Displays a hamburger menu icon; clicking expands all navigation links.
-- **Desktop**: Navigation links are displayed directly in the Header but limited to 40% of the screen width; excess links are shown in a "More" dropdown menu.
+- **Desktop**: Navigation links are displayed directly in the Header, but limited to 40% of the screen width; any overflow is displayed via a "More" dropdown menu.
 
 ## Complete Example
 
@@ -196,7 +181,7 @@ Quick navigation link configuration, displaying navigation links in the page hea
 
 ## Notes
 
-- After modifying the configuration, you must re-run `czon build` for changes to take effect.
+- After modifying the configuration, you need to run `czon build` again for the changes to take effect.
 - All `site` configuration items are optional; you can configure only the parts you need.
-- Analytics tools (GA, Clarity) only load when their corresponding IDs are configured, without affecting page performance.
+- Analytics tools (GA, Clarity) will only load if their corresponding IDs are configured, and they do not affect page performance.
 - If `baseUrl` is not configured, sitemap.xml generation will be skipped.

@@ -1,5 +1,6 @@
 import React from 'react';
 import { getCategoryDisplayName } from '../utils/getCategoryDisplayName';
+import { getLocalizedMetadata } from '../utils/getLocalizedMetadata';
 import { IRenderContext } from '../../types';
 import { TagList } from './TagList';
 
@@ -10,12 +11,11 @@ export const ContentMeta: React.FC<{
   showSummary?: boolean;
   lang: string;
 }> = props => {
-  const content = props.ctx.contents.find(c => c.file === props.file && c.lang === props.lang);
-  const frontmatter = content?.frontmatter || {};
-  const title = frontmatter.title;
-  const summary = frontmatter.summary;
-  const date = frontmatter.date || '--';
-  const tags = frontmatter.tags || [];
+  const metadata = getLocalizedMetadata(props.file, props.lang);
+  const title = metadata?.title || '(no title)';
+  const summary = metadata?.summary || '';
+  const date = props.file.metadata?.inferred_date || '--';
+  const tags = metadata?.tags || [];
   const category = props.file.category;
 
   return (

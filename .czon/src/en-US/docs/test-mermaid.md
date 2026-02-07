@@ -1,19 +1,4 @@
----
-"title": "Mermaid Diagram Test Document"
-"summary": "This document is a test file designed to verify the CZON platform's rendering support for Mermaid diagrams. It provides examples of various Mermaid diagram types, including flowcharts, sequence diagrams, Gantt charts, class diagrams, state diagrams, and pie charts, showcasing diagram definitions from basic structures to complex applications. Additionally, the document includes an error syntax test to verify the system's ability to handle incorrect diagrams. Through these examples, the document comprehensively tests the functionality and robustness of the Mermaid integration in the CZON platform, ensuring diagrams render correctly and handle exceptions appropriately."
-"tags":
-  - "Mermaid"
-  - "Diagram Testing"
-  - "CZON"
-  - "Flowchart"
-  - "Sequence Diagram"
-  - "Gantt Chart"
-  - "Class Diagram"
-  - "State Diagram"
-"date": "2024-01-01"
----
-
-# Mermaid Diagram Test
+# Mermaid Diagram Testing
 
 This is a test file to verify the Mermaid diagram rendering functionality in CZON.
 
@@ -91,8 +76,8 @@ classDiagram
 stateDiagram-v2
     [*] --> Idle
     Idle --> Processing : Start Processing
-    Processing --> Success : Process Succeeded
-    Processing --> Error : Process Failed
+    Processing --> Success : Processing Successful
+    Processing --> Error : Processing Failed
     Success --> [*]
     Error --> [*]
 ```
@@ -108,7 +93,7 @@ pie title Browser Usage Share
     "Other" : 1.8
 ```
 
-## Error Syntax Test (Should Display an Error Message)
+## Syntax Error Test (Should Display Error Message)
 
 ```mermaid
 graph TD
@@ -117,4 +102,4 @@ graph TD
     C --> D
 ```
 
-This test file includes various Mermaid diagram types to verify if the Mermaid integration in CZON is working correctly.
+This test file contains various Mermaid diagram types to verify if CZON's Mermaid integration is working correctly.

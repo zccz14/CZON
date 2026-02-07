@@ -3,31 +3,7 @@
   "options": {
     "langs": [
       "zh-Hans",
-      "en-US",
-      "ja-JP",
-      "ko-KR",
-      "es-ES",
-      "fr-FR",
-      "de-DE",
-      "ru-RU",
-      "pt-PT",
-      "it-IT",
-      "nl-NL",
-      "pl-PL",
-      "sv-SE",
-      "fi-FI",
-      "da-DK",
-      "no-NO",
-      "zh-Hant",
-      "hi-IN",
-      "ar-SA",
-      "th-TH",
-      "vi-VN",
-      "id-ID",
-      "pt-BR",
-      "es-MX",
-      "tr-TR",
-      "uk-UA"
+      "en-US"
     ],
     "site": {
       "baseUrl": "https://czon.zccz14.com/",
@@ -106,7 +82,7 @@
         }
       },
       "category": "Quick Start",
-      "nativeMarkdownHash": "b888e3f987f2c43f168accbc344f8b6ade566bdc09ff009bb771140cea3191fe",
+      "nativeMarkdownHash": "0b2ce1d6ff47006bf7d5f7e52389c0e44340ee36e459eefb8997dfd1fe17e760",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "CZON - AI-Native Markdown 内容引擎",
@@ -902,7 +878,7 @@
         }
       },
       "category": "Translation-Agent",
-      "nativeMarkdownHash": "d64f0d11311711f0830a42ba3d41f16c15409598667a87302e2141291e266b3d",
+      "nativeMarkdownHash": "d32a399845728b1d2147e460f6aae7c1aad8a8dadb3fea0fd4c401bd180416d1",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "Markdown翻译代理文档",
@@ -1598,7 +1574,7 @@
         }
       },
       "category": "Customization",
-      "nativeMarkdownHash": "3fef9268f5c6b24cc0c7a6769cdb32d3810c06bc04de637a29c5587a6efc346b",
+      "nativeMarkdownHash": "f972fb38d84f6890d1133dcd05d8c96d93dfd371f2d255f900efe0fdc2fa8cb7",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "CZON自定义样式指南",
@@ -2398,7 +2374,7 @@
       },
       "hash": "21f7a34860afd457852b293763f76854a8216607e05681f40452a1e79b37345c",
       "category": "Deployment",
-      "nativeMarkdownHash": "6df72b306c1cdbe296393083cec1ee93a36dd55844be9825f65d3e638783fac5",
+      "nativeMarkdownHash": "21f7a34860afd457852b293763f76854a8216607e05681f40452a1e79b37345c",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "部署 CZON 静态站点到 GitHub Pages 指南",
@@ -3148,7 +3124,7 @@
         }
       },
       "category": "Quick Start",
-      "nativeMarkdownHash": "0f5ea28768615b28c9ca12df71736270da8b1562b3ecd13dc42580db5836fb28",
+      "nativeMarkdownHash": "6e66baaeb6e49186d3f6cbed5ac40f63475f2daebf272858108975817c3c978e",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "CZON 站点配置指南",
@@ -3925,7 +3901,7 @@
         }
       },
       "category": "Content Writing",
-      "nativeMarkdownHash": "435cb813dd8a3b460e92be495827979975057c96b18e837b0deb7964a377b4b6",
+      "nativeMarkdownHash": "069babfab1044d915eabca9cec9a1d138d3bd1177191907d6a64f2383df9a2e2",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "Embla轮播图效果测试文档",
@@ -4643,7 +4619,7 @@
         }
       },
       "category": "Content Writing",
-      "nativeMarkdownHash": "46fa1865b87ad0b3f1a3f7153327c8d4f1dc580ee6d70b023dcc1545cf4d2a31",
+      "nativeMarkdownHash": "579c3a203225b8b7aead541f42381de0619d8bc1d451d0d9c3267dbc74205503",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "KaTeX公式显示效果测试文档",
@@ -5338,7 +5314,7 @@
         }
       },
       "category": "Content Writing",
-      "nativeMarkdownHash": "df29bfd08f26f8345671bf6def3b90de65953e67a2a7971dee159ad1bd56d529",
+      "nativeMarkdownHash": "a2e7b7a1e8d5f2f977c72ea0281c815423fab64b9bdb6c84fe1fd5174a8b901a",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "测试站内链接文档",
@@ -6009,7 +5985,7 @@
         }
       },
       "category": "Content Writing",
-      "nativeMarkdownHash": "4174dc77404950175cef3a8226e0fc22247550e1ab9087afa1095f77e1574ec5",
+      "nativeMarkdownHash": "8938d6aac9c056c06137a041b8e82379bfb619bb6d435b9ecec515337dd0cd69",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "Mermaid图表测试文档",
@@ -6807,7 +6783,7 @@
         }
       },
       "category": "Content Writing",
-      "nativeMarkdownHash": "3d9e6b100c286fcd98d3a9ea805b76efc2255774377333775c48e29e4626e41a",
+      "nativeMarkdownHash": "0a45691830406b3e23e4b7a96e8cf09fba179e96e3c0e97af8dfd502ba22e057",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "CZON文档日期声明技巧",
@@ -7530,7 +7506,7 @@
         }
       },
       "category": "Prompt Engineering",
-      "nativeMarkdownHash": "3826fd9eb3786efecfa5df7896d06e774d0f4c4c3ae02bbdd7caef5f58199a3e",
+      "nativeMarkdownHash": "908b35f03e09c8ed6c5dfbb69fe9245c6039a5da23b02d31ee577605d2c278cf",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "文艺感性风格分析报告指南",
@@ -8309,7 +8285,7 @@
         }
       },
       "category": "Prompt Engineering",
-      "nativeMarkdownHash": "6954c44310b6e6255157693091de786936dcbb330ac5d7ade8b2f9f773e5b9b9",
+      "nativeMarkdownHash": "5af9fff867c9948a872b802a1173c15e8d92a69ba68f97d69a587f7069d91376",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "AI分析报告生成基础规则",
@@ -9105,7 +9081,7 @@
         }
       },
       "category": "Prompt Engineering",
-      "nativeMarkdownHash": "edc7c2cced5017c5d2d7b2352dec1802d072e8fa9cbe817de74a217ead636828",
+      "nativeMarkdownHash": "d4f0abf6901c33cefbeeadcbbdf423b39ac81a20ba60541d76b4c39fec8bc3c9",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "客观批判风格分析报告指南",
@@ -9804,7 +9780,7 @@
         }
       },
       "category": "Prompt Engineering",
-      "nativeMarkdownHash": "4d285002edcac512f9c5b92ce9ebc648c7d7369afc19782dbacb7438bb810859",
+      "nativeMarkdownHash": "e3b8414462e33a7d3e8d5d56d53c93a28f7de4fecfce52ade1f0e7419fb72e09",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "历史时间跨度风格分析报告指南",
@@ -10529,7 +10505,7 @@
         }
       },
       "category": "Prompt Engineering",
-      "nativeMarkdownHash": "ec8633cc6c09b030d8dec0633269b3897b72e1345302d131eedf9a82d53b4b90",
+      "nativeMarkdownHash": "23b9da672b355cc94819eedc162e719bdb409a8ede16be89b49342ced730f4fa",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "客观中立风格分析报告指南",
@@ -11305,7 +11281,7 @@
         }
       },
       "category": "Prompt Engineering",
-      "nativeMarkdownHash": "82dc7f1c307a4aa47d1882fde421d553d96a28784efae79b8297c83236160180",
+      "nativeMarkdownHash": "d0aa8351c3d469db36e5c5ab26b86197c0a1965aa146c5ef30434d98caf453da",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "哲学思辨风格分析报告指南",
@@ -12103,7 +12079,7 @@
         }
       },
       "category": "Prompt Engineering",
-      "nativeMarkdownHash": "bd4bf6e77df923e06983e7318b04a3ea55d4dac17f7e39919582beb34991b01c",
+      "nativeMarkdownHash": "7d13bf8098313d35d3bea2dd30b0a151033b5092865e011f02adc50502c6976a",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "科普介绍风格分析报告",
@@ -12853,7 +12829,7 @@
         }
       },
       "category": "Prompt Engineering",
-      "nativeMarkdownHash": "02c2723e074ad07e30f470edae49e9a09e01755e882b6ec845dc26224b64e0fb",
+      "nativeMarkdownHash": "007eaf020c452c848db29696f18992c01c182cc3fff802dda8de2fe7d9959213",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "赞扬鼓励风格分析报告",
@@ -13652,7 +13628,7 @@
         }
       },
       "category": "Prompt Engineering",
-      "nativeMarkdownHash": "6cad4c71bb3c995e2c4563802a4b359bb8f8ef19fadacd5d12b3301d268f58b5",
+      "nativeMarkdownHash": "24ff273865579d18c4f7df7e3566bc46318b290ee15444f7592b4262c4736791",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "心理分析风格报告指南",

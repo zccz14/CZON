@@ -1,20 +1,3 @@
----
-"title": "CZON - AI-Native Markdown 内容引擎"
-"summary": "CZON 是一个 AI 原生的 Markdown 内容引擎，旨在帮助内容创作者简化写作流程。它强调零配置写作，通过深度集成 AI
-  技术，自动处理标题生成、摘要提取、标签分类、多语言翻译和站点导航等任务，减少用户干扰。CZON
-  内置静态站点生成功能，但主要专注于内容创作和管理，而非复杂的主题定制。它适合希望用母语写作并自动生成多语言版本的用户，尤其适合讨厌复杂配置的网站内容创作者\
-  。"
-"tags":
-  - "CZON"
-  - "AI-Native"
-  - "Markdown"
-  - "内容引擎"
-  - "多语言翻译"
-  - "静态站点生成"
-  - "零配置"
-  - "内容创作"
----
-
 ![Logo of CZON](logo.png)
 
 <div style="text-align: center; margin-bottom: 20px; font-size: 2em; font-weight: bold;">

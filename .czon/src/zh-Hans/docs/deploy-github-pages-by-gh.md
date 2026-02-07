@@ -1,19 +1,3 @@
----
-"title": "部署 CZON 静态站点到 GitHub Pages 指南"
-"summary": "本文详细介绍了如何通过 GitHub CLI 将 CZON 生成的多语言静态站点部署到 GitHub Pages。首先需要安装并登录
-  GitHub CLI，确保有 repo 权限。然后运行 npx czon@latest config github
-  命令，该命令会引导用户完成一系列步骤，包括检查权限、初始化 Git 仓库、配置远程仓库、启用 GitHub Pages 并设置为 workflow
-  类型、创建或更新 Workflow 文件、提交并推送更改，最后获取 Pages URL。整个过程自动化，简化了部署流程。"
-"tags":
-  - "GitHub Pages"
-  - "CZON"
-  - "静态站点"
-  - "部署指南"
-  - "GitHub CLI"
-  - "多语言"
-  - "自动化部署"
----
-
 # 部署到 GitHub Pages
 
 本指南介绍如何通过 GitHub CLI 将 CZON 生成的多语言静态站点部署到 GitHub Pages。

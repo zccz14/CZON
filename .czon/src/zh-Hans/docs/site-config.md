@@ -1,21 +1,3 @@
----
-"title": "CZON 站点配置指南"
-"summary": "本文档详细说明了 CZON 站点配置的方法和选项。配置位于 .czon/meta.json 文件的 options.site
-  字段中，包括 site.baseUrl（用于生成 sitemap.xml 和 robots.txt）、site.title（站点标题，默认值为
-  'CZON'）、site.gaID（Google Analytics Measurement ID）和 site.clarityID（Microsoft
-  Clarity Project ID）。所有配置项都是可选的，修改后需要重新运行 czon build 才能生效。未配置 baseUrl 时将跳过
-  sitemap.xml 生成，分析工具只有在配置了对应 ID
-  后才会加载，不影响页面性能。文档提供了配置位置、可用配置项、完整示例和注意事项，帮助用户轻松设置站点。"
-"tags":
-  - "CZON"
-  - "站点配置"
-  - "meta.json"
-  - "Google Analytics"
-  - "Microsoft Clarity"
-  - "sitemap"
-  - "robots.txt"
----
-
 # 站点配置
 
 CZON 支持通过 `.czon/meta.json` 文件配置站点选项。这些配置是可选的，不会阻塞初次使用。

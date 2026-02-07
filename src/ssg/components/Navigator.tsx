@@ -1,5 +1,6 @@
 import React from 'react';
 import { getCategoryDisplayName } from '../utils/getCategoryDisplayName';
+import { getLocalizedMetadata } from '../utils/getLocalizedMetadata';
 import { IRenderContext } from '../../types';
 import { toSortedBy } from '../../utils/sortBy';
 
@@ -33,11 +34,8 @@ export const Navigator: React.FC<{
             {filesInCategory.map(file => {
               const link = file.metadata!.slug + '.html';
               const isActive = props.file === file;
-              const theContent = props.ctx.contents.find(
-                c => c.lang === props.lang && c.file === file
-              );
-              const theTitle =
-                theContent?.frontmatter?.title || file.metadata!.title || '(no title)';
+              const theMetadata = getLocalizedMetadata(file, props.lang);
+              const theTitle = theMetadata?.title || '(no title)';
 
               return (
                 <li className="nav-item" key={file.path}>

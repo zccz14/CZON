@@ -19,7 +19,7 @@ import { renderToHTML } from '../ssg';
 import { EXTERNAL_RESOURCES } from '../ssg/resourceMap';
 import { IArticleContent, IRenderContext } from '../types';
 import { convertMarkdownToHtml } from '../utils/convertMarkdownToHtml';
-import { parseFrontmatter } from '../utils/frontmatter';
+import { stripFrontmatter } from '../utils/frontmatter';
 import { isExists } from '../utils/isExists';
 import { writeFile } from '../utils/writeFile';
 
@@ -85,13 +85,12 @@ export const spiderStaticSiteGenerator = async () => {
     if (!file.path.endsWith('.md')) continue;
     for (const lang of MetaData.options.langs || []) {
       const markdown = await fs.readFile(path.join(CZON_SRC_DIR, lang, file.path), 'utf-8');
-      const { frontmatter, body } = parseFrontmatter(markdown);
+      const body = stripFrontmatter(markdown);
 
       const article: IArticleContent = {
         lang,
         file,
         body: '',
-        frontmatter,
         headings: [],
       };
 

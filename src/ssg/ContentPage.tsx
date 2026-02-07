@@ -10,6 +10,7 @@ import { Navigator } from './components/Navigator';
 import { PageLayout } from './layouts/PageLayout';
 import { getFaviconUrlFrom, getCustomStyleUrlFrom, getResourceUrlFrom } from './resourceMap';
 import { style } from './style';
+import { getLocalizedMetadata } from './utils/getLocalizedMetadata';
 
 export const ContentPage: React.FC<{
   ctx: IRenderContext;
@@ -17,11 +18,11 @@ export const ContentPage: React.FC<{
   lang: string;
   content: IArticleContent;
 }> = props => {
-  const frontmatter = props.content.frontmatter || {};
-  const title = frontmatter.title;
-  const summary = frontmatter.summary;
-  const date = frontmatter.date || '--';
-  const tags = frontmatter.tags || [];
+  const metadata = getLocalizedMetadata(props.file, props.lang);
+  const title = metadata?.title || '(no title)';
+  const summary = metadata?.summary || '';
+  const date = props.file.metadata?.inferred_date || '--';
+  const tags = metadata?.tags || [];
   const category = props.file.category;
 
   const relatedContents = props.ctx.site.files.filter(
@@ -113,12 +114,12 @@ export const ContentPage: React.FC<{
                     <h2>See Also</h2>
                     <ul>
                       {relatedContents.map(f => {
-                        const theContent = props.ctx.contents.find(
-                          c => c.lang === props.lang && c.file === f
-                        );
+                        const theMetadata = getLocalizedMetadata(f, props.lang);
                         return (
                           <li key={f.path}>
-                            <a href={`${f.metadata?.slug}.html`}>{theContent?.frontmatter.title}</a>
+                            <a href={`${f.metadata?.slug}.html`}>
+                              {theMetadata?.title || '(no title)'}
+                            </a>
                           </li>
                         );
                       })}
@@ -131,12 +132,12 @@ export const ContentPage: React.FC<{
                     <h2>Referenced By</h2>
                     <ul>
                       {referencedFiles.map(f => {
-                        const theContent = props.ctx.contents.find(
-                          c => c.lang === props.lang && c.file === f
-                        );
+                        const theMetadata = getLocalizedMetadata(f, props.lang);
                         return (
                           <li key={f.path}>
-                            <a href={`${f.metadata?.slug}.html`}>{theContent?.frontmatter.title}</a>
+                            <a href={`${f.metadata?.slug}.html`}>
+                              {theMetadata?.title || '(no title)'}
+                            </a>
                           </li>
                         );
                       })}
