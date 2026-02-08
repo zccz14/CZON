@@ -8240,7 +8240,7 @@
       "metadataTranslationHash": "e00adb6a7e9733bb0a88939db526a41d1787a0b5db45c139df222e9c48eaf56e"
     },
     {
-      "hash": "5af9fff867c9948a872b802a1173c15e8d92a69ba68f97d69a587f7069d91376",
+      "hash": "a1efc989d105113224e9b291c6f6b49382c52086bd46797511fd4ba68aaf9875",
       "path": "prompts/summary-base.md",
       "links": [
         "../INSIGHTS/6.md",
@@ -8251,98 +8251,74 @@
       "metadata": {
         "title": "AI分析报告生成基础规则",
         "description": "本文档详细规定了AI分析报告的生成流程、核心原则和通用规则，确保报告基于事实、结构完整。",
-        "short_summary": "本文档规定了AI分析报告的生成流程，要求严格遵循五个阶段，确保基于事实和完整性。通用规则包括引用规范、时间权重和输出位置，旨在生成高质量、可信的报告。",
-        "audience": "AI分析报告生成者、文档处理人员、技术写作者",
+        "short_summary": "本文档规定了AI分析报告的生成流程，强调必须逐一阅读所有文件并基于事实提取信息。通用规则包括引用规范和报告格式，确保输出准确可靠。",
+        "audience": "AI分析报告生成工具的开发者和用户，需要遵循结构化流程处理大量文档的人员。",
         "key_points": [
-          "必须逐一阅读所有Markdown文件，不得跳过",
+          "必须逐一阅读所有Markdown文件，不得跳过任何文件",
           "采用渐进式阅读与摘要策略，分批处理文件",
-          "上下文接近限制时需压缩知识库，保留文件索引",
-          "生成报告前必须验证所有文件已处理",
           "所有观点必须有原文支撑，不得虚构内容",
-          "引用链接需链接到具体文件，使用标题作为链接文本",
-          "报告以特定格式开头，输出到SUMMARY目录",
-          "考虑时间跨度，给予最近文章更高权重",
-          "禁止在阅读完所有文件前开始生成报告",
-          "文件列表中的所有文件都必须处理"
+          "引用链接需规范，链接到具体文件并使用标题文本",
+          "报告生成前必须完成完整性验证，确保所有文件已处理"
         ],
-        "summary": "本文档为AI分析报告生成提供了基础规则，强调必须严格遵循文档阅读流程，包括获取文件列表、分批阅读与摘要、上下文管理、完整性验证和生成报告五个阶段。核心原则包括逐一阅读所有文件、以事实为依据、规范引用链接、考虑时间权重等。通用规则要求报告以特定格式开头，输出到指定目录，并禁止在阅读完所有文件前生成报告或跳过任何文件。",
+        "summary": "本文档为AI分析报告生成制定了基础规则，包括必须严格遵循的文档阅读流程（分阶段获取文件、分批阅读与摘要、上下文管理、完整性验证和生成报告），以及通用规则如事实依据原则、引用链接规范、头部格式、时间权重和输出位置。核心目标是确保报告基于所有相关Markdown文件的事实内容，避免虚构或遗漏，并生成结构化的摘要和报告。",
         "slug": "ai-analysis-report-generation-basic-rules",
         "tags": [
           "AI分析",
           "报告生成",
           "文档阅读",
-          "规则",
           "Markdown",
-          "事实依据",
-          "引用规范",
-          "流程管理"
+          "规则指南"
         ],
         "inferred_lang": "zh-Hans",
         "tokens_used": {
           "prompt": 1285,
-          "completion": 404,
-          "total": 1689
+          "completion": 322,
+          "total": 1607
         }
       },
       "category": "Prompt Engineering",
-      "nativeMarkdownHash": "5af9fff867c9948a872b802a1173c15e8d92a69ba68f97d69a587f7069d91376",
+      "nativeMarkdownHash": "a1efc989d105113224e9b291c6f6b49382c52086bd46797511fd4ba68aaf9875",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "AI分析报告生成基础规则",
           "description": "本文档详细规定了AI分析报告的生成流程、核心原则和通用规则，确保报告基于事实、结构完整。",
-          "summary": "本文档为AI分析报告生成提供了基础规则，强调必须严格遵循文档阅读流程，包括获取文件列表、分批阅读与摘要、上下文管理、完整性验证和生成报告五个阶段。核心原则包括逐一阅读所有文件、以事实为依据、规范引用链接、考虑时间权重等。通用规则要求报告以特定格式开头，输出到指定目录，并禁止在阅读完所有文件前生成报告或跳过任何文件。",
-          "short_summary": "本文档规定了AI分析报告的生成流程，要求严格遵循五个阶段，确保基于事实和完整性。通用规则包括引用规范、时间权重和输出位置，旨在生成高质量、可信的报告。",
+          "summary": "本文档为AI分析报告生成制定了基础规则，包括必须严格遵循的文档阅读流程（分阶段获取文件、分批阅读与摘要、上下文管理、完整性验证和生成报告），以及通用规则如事实依据原则、引用链接规范、头部格式、时间权重和输出位置。核心目标是确保报告基于所有相关Markdown文件的事实内容，避免虚构或遗漏，并生成结构化的摘要和报告。",
+          "short_summary": "本文档规定了AI分析报告的生成流程，强调必须逐一阅读所有文件并基于事实提取信息。通用规则包括引用规范和报告格式，确保输出准确可靠。",
           "key_points": [
-            "必须逐一阅读所有Markdown文件，不得跳过",
+            "必须逐一阅读所有Markdown文件，不得跳过任何文件",
             "采用渐进式阅读与摘要策略，分批处理文件",
-            "上下文接近限制时需压缩知识库，保留文件索引",
-            "生成报告前必须验证所有文件已处理",
             "所有观点必须有原文支撑，不得虚构内容",
-            "引用链接需链接到具体文件，使用标题作为链接文本",
-            "报告以特定格式开头，输出到SUMMARY目录",
-            "考虑时间跨度，给予最近文章更高权重",
-            "禁止在阅读完所有文件前开始生成报告",
-            "文件列表中的所有文件都必须处理"
+            "引用链接需规范，链接到具体文件并使用标题文本",
+            "报告生成前必须完成完整性验证，确保所有文件已处理"
           ],
-          "audience": "AI分析报告生成者、文档处理人员、技术写作者",
+          "audience": "AI分析报告生成工具的开发者和用户，需要遵循结构化流程处理大量文档的人员。",
           "tags": [
             "AI分析",
             "报告生成",
             "文档阅读",
-            "规则",
             "Markdown",
-            "事实依据",
-            "引用规范",
-            "流程管理"
+            "规则指南"
           ]
         },
         "en-US": {
           "title": "Basic Rules for AI Analysis Report Generation",
-          "description": "This document specifies the generation process, core principles, and general rules for AI analysis reports, ensuring reports are fact-based and structurally complete.",
-          "summary": "This document provides basic rules for AI analysis report generation, emphasizing strict adherence to the document reading process, which includes five stages: obtaining file lists, batch reading and summarization, context management, completeness verification, and report generation. Core principles include reading all files one by one, basing content on facts, standardizing link citations, and considering time weighting. General rules require reports to start with a specific format, be output to a designated directory, and prohibit generating reports or skipping any files before all files are read.",
-          "short_summary": "This document specifies the generation process for AI analysis reports, requiring strict adherence to five stages to ensure fact-based and complete content. General rules include citation standards, time weighting, and output location, aiming to generate high-quality, credible reports.",
+          "description": "This document specifies the generation process, core principles, and general rules for AI analysis reports to ensure reports are fact-based and structurally complete.",
+          "summary": "This document establishes basic rules for AI analysis report generation, including mandatory document reading processes (phased file acquisition, batch reading and summarization, context management, completeness verification, and report generation), as well as general rules such as the fact-based principle, citation link standards, header format, time weighting, and output location. The core goal is to ensure reports are based on factual content from all relevant Markdown files, avoiding fabrication or omission, and generating structured summaries and reports.",
+          "short_summary": "This document defines the generation process for AI analysis reports, emphasizing the need to read all files sequentially and extract information based on facts. General rules include citation standards and report formats to ensure accurate and reliable output.",
           "key_points": [
-            "Must read all Markdown files one by one, without skipping any",
+            "Must read all Markdown files one by one; no files may be skipped",
             "Adopt a progressive reading and summarization strategy, processing files in batches",
-            "Compress the knowledge base when context limits are approached, retaining file indices",
-            "Must verify that all files have been processed before generating the report",
-            "All viewpoints must be supported by original text, no fictional content allowed",
-            "Citation links must link to specific files, using titles as link text",
-            "Reports must start with a specific format and be output to the SUMMARY directory",
-            "Consider time span, giving higher weight to more recent articles",
-            "Prohibit starting report generation before all files are read",
-            "All files in the file list must be processed"
+            "All viewpoints must be supported by original text; no content may be fabricated",
+            "Citation links must be standardized, linking to specific files using title text",
+            "Completeness verification must be completed before report generation to ensure all files are processed"
           ],
-          "audience": "AI analysis report generators, document processors, technical writers",
+          "audience": "Developers and users of AI analysis report generation tools, and personnel who need to follow structured processes to handle large volumes of documents.",
           "tags": [
-            "AI analysis",
-            "report generation",
-            "document reading",
-            "rules",
+            "AI Analysis",
+            "Report Generation",
+            "Document Reading",
             "Markdown",
-            "fact-based",
-            "citation standards",
-            "process management"
+            "Rule Guide"
           ]
         },
         "ja-JP": {
@@ -9042,7 +9018,7 @@
           ]
         }
       },
-      "metadataTranslationHash": "c9709f239b94df6e4d3ae9dfc15e81d0245dc6254917bbff7fcb6dc5a126b008"
+      "metadataTranslationHash": "c2466b2a23a5f6d5ad7f450ce72804f4657f8410cbb9f659c11dcdf0b58b133d"
     },
     {
       "hash": "d4f0abf6901c33cefbeeadcbbdf423b39ac81a20ba60541d76b4c39fec8bc3c9",
@@ -13589,97 +13565,85 @@
       "metadataTranslationHash": "9188a5f72fca37123c304844dd51efd1437743062670c10dc40cb2637bcc1163"
     },
     {
-      "hash": "24ff273865579d18c4f7df7e3566bc46318b290ee15444f7592b4262c4736791",
+      "hash": "3c66adb619ef185d10d7790d806321194044eaf080bbeeb0954d8e7a0a218ba1",
       "path": "prompts/summary-psychological.md",
       "links": [
         "../README.md"
       ],
       "metadata": {
         "title": "心理分析风格报告指南",
-        "description": "提供心理分析文档的结构化框架，包括MBTI、价值观、防御机制等维度的提取和分析方法。",
-        "short_summary": "本文档是一份心理分析指南，定义了如何从文档中提取心理信息，如MBTI、价值观和防御机制。它提供了详细的分析框架和知识库结构，帮助用户进行深度心理分析。目标读者是对心理学感兴趣或希望深入了解作者的人。",
-        "audience": "对心理学感兴趣的读者、希望深入了解作者的人",
+        "description": "提供心理分析文档的结构化框架，包括MBTI、价值观、防御机制等分析方法和输出格式。",
+        "short_summary": "本文档为心理分析提供结构化指南，涵盖MBTI、价值观和防御机制等分析框架。它详细说明如何提取信息、组织知识库并输出专业报告，适用于对心理学感兴趣的读者。",
+        "audience": "对心理学感兴趣的读者、希望深入了解作者的人，如心理学爱好者、研究人员或分析师。",
         "key_points": [
-          "定义心理分析文档的阅读关注点，如自我描述、情感表达等",
-          "提供知识库结构，包括文件索引、MBTI证据索引、价值观证据索引等",
-          "阐述压缩策略，优先保留核心索引",
-          "定位为专业、分析性的风格，面向心理学爱好者",
-          "详细分析框架涵盖MBTI、价值观、防御机制、潜意识动机等维度",
-          "指定输出文件为SUMMARY/7-psychological.md",
-          "包含质量检查清单以确保分析完整性",
-          "强调使用第一人称表述、情感词汇等作为分析重点"
+          "提供心理分析的结构化框架，包括MBTI、价值观和防御机制分析",
+          "详细说明知识库组织和压缩策略，确保信息提取高效",
+          "强调专业分析风格，目标读者为心理学爱好者和研究者",
+          "包含输出文件和质量检查清单，指导完整分析流程"
         ],
-        "summary": "本文档是一份心理分析风格报告指南，旨在指导如何从文档中提取和分析心理信息。它详细定义了阅读关注点，如作者的自我描述、决策过程、情感表达等，并提供了知识库结构，包括文件索引、MBTI证据索引、价值观证据索引等。文档还阐述了压缩策略、风格定位、分析框架（涵盖MBTI人格类型分析、施瓦茨价值观分析、心理防御机制分析、潜意识动机分析、人际关系模式和心理肖像整合），以及输出文件和质量检查清单。核心价值在于为心理学爱好者或研究者提供系统化的心理分析工具和方法。",
+        "summary": "本文档是一份心理分析风格报告指南，旨在指导如何从文档中提取结构化信息进行深度心理分析。它详细介绍了分析框架，包括MBTI人格类型分析（涵盖I/E、N/S、T/F、J/P四个维度）、施瓦茨价值观分析（如自我导向、成就等）、心理防御机制分析（如理智化、升华）、潜意识动机分析、人际关系模式和心理肖像整合。文档还提供了知识库结构（如文件索引、MBTI证据索引）、压缩策略、风格定位（专业、分析性）、输出文件要求和质量检查清单，确保分析过程系统化、有理有据。",
         "slug": "psychological-analysis-style-report-guide",
         "tags": [
           "心理分析",
           "MBTI",
           "价值观分析",
           "防御机制",
-          "文档分析",
+          "文档指南",
           "结构化信息",
-          "心理学指南"
+          "心理学"
         ],
         "inferred_lang": "zh-Hans",
         "tokens_used": {
-          "prompt": 1569,
-          "completion": 435,
-          "total": 2004
+          "prompt": 1538,
+          "completion": 366,
+          "total": 1904
         }
       },
       "category": "Prompt Engineering",
-      "nativeMarkdownHash": "24ff273865579d18c4f7df7e3566bc46318b290ee15444f7592b4262c4736791",
+      "nativeMarkdownHash": "3c66adb619ef185d10d7790d806321194044eaf080bbeeb0954d8e7a0a218ba1",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "心理分析风格报告指南",
-          "description": "提供心理分析文档的结构化框架，包括MBTI、价值观、防御机制等维度的提取和分析方法。",
-          "summary": "本文档是一份心理分析风格报告指南，旨在指导如何从文档中提取和分析心理信息。它详细定义了阅读关注点，如作者的自我描述、决策过程、情感表达等，并提供了知识库结构，包括文件索引、MBTI证据索引、价值观证据索引等。文档还阐述了压缩策略、风格定位、分析框架（涵盖MBTI人格类型分析、施瓦茨价值观分析、心理防御机制分析、潜意识动机分析、人际关系模式和心理肖像整合），以及输出文件和质量检查清单。核心价值在于为心理学爱好者或研究者提供系统化的心理分析工具和方法。",
-          "short_summary": "本文档是一份心理分析指南，定义了如何从文档中提取心理信息，如MBTI、价值观和防御机制。它提供了详细的分析框架和知识库结构，帮助用户进行深度心理分析。目标读者是对心理学感兴趣或希望深入了解作者的人。",
+          "description": "提供心理分析文档的结构化框架，包括MBTI、价值观、防御机制等分析方法和输出格式。",
+          "summary": "本文档是一份心理分析风格报告指南，旨在指导如何从文档中提取结构化信息进行深度心理分析。它详细介绍了分析框架，包括MBTI人格类型分析（涵盖I/E、N/S、T/F、J/P四个维度）、施瓦茨价值观分析（如自我导向、成就等）、心理防御机制分析（如理智化、升华）、潜意识动机分析、人际关系模式和心理肖像整合。文档还提供了知识库结构（如文件索引、MBTI证据索引）、压缩策略、风格定位（专业、分析性）、输出文件要求和质量检查清单，确保分析过程系统化、有理有据。",
+          "short_summary": "本文档为心理分析提供结构化指南，涵盖MBTI、价值观和防御机制等分析框架。它详细说明如何提取信息、组织知识库并输出专业报告，适用于对心理学感兴趣的读者。",
           "key_points": [
-            "定义心理分析文档的阅读关注点，如自我描述、情感表达等",
-            "提供知识库结构，包括文件索引、MBTI证据索引、价值观证据索引等",
-            "阐述压缩策略，优先保留核心索引",
-            "定位为专业、分析性的风格，面向心理学爱好者",
-            "详细分析框架涵盖MBTI、价值观、防御机制、潜意识动机等维度",
-            "指定输出文件为SUMMARY/7-psychological.md",
-            "包含质量检查清单以确保分析完整性",
-            "强调使用第一人称表述、情感词汇等作为分析重点"
+            "提供心理分析的结构化框架，包括MBTI、价值观和防御机制分析",
+            "详细说明知识库组织和压缩策略，确保信息提取高效",
+            "强调专业分析风格，目标读者为心理学爱好者和研究者",
+            "包含输出文件和质量检查清单，指导完整分析流程"
           ],
-          "audience": "对心理学感兴趣的读者、希望深入了解作者的人",
+          "audience": "对心理学感兴趣的读者、希望深入了解作者的人，如心理学爱好者、研究人员或分析师。",
           "tags": [
             "心理分析",
             "MBTI",
             "价值观分析",
             "防御机制",
-            "文档分析",
+            "文档指南",
             "结构化信息",
-            "心理学指南"
+            "心理学"
           ]
         },
         "en-US": {
           "title": "Psychological Analysis Style Report Guide",
-          "description": "Provides a structured framework for psychological analysis documents, including extraction and analysis methods for dimensions such as MBTI, values, defense mechanisms, etc.",
-          "summary": "This document is a psychological analysis style report guide, aiming to instruct how to extract and analyze psychological information from documents. It details reading focuses, such as the author's self-description, decision-making processes, emotional expression, etc., and provides a knowledge base structure, including file indexing, MBTI evidence indexing, values evidence indexing, etc. The document also explains compression strategies, style positioning, analysis frameworks (covering MBTI personality type analysis, Schwartz values analysis, psychological defense mechanism analysis, subconscious motivation analysis, interpersonal relationship patterns, and psychological portrait integration), as well as output files and quality checklists. Its core value lies in providing systematic psychological analysis tools and methods for psychology enthusiasts or researchers.",
-          "short_summary": "This document is a psychological analysis guide that defines how to extract psychological information from documents, such as MBTI, values, and defense mechanisms. It provides a detailed analysis framework and knowledge base structure to help users conduct in-depth psychological analysis. The target audience is those interested in psychology or who wish to gain a deeper understanding of authors.",
+          "description": "Provides a structured framework for psychological analysis documents, including analysis methods and output formats such as MBTI, values, and defense mechanisms.",
+          "summary": "This document is a psychological analysis style report guide, aimed at instructing how to extract structured information from documents for in-depth psychological analysis. It details the analysis framework, including MBTI personality type analysis (covering the four dimensions of I/E, N/S, T/F, J/P), Schwartz values analysis (such as self-direction, achievement), psychological defense mechanism analysis (such as intellectualization, sublimation), subconscious motivation analysis, interpersonal relationship patterns, and psychological portrait integration. The document also provides knowledge base structure (such as file indexing, MBTI evidence indexing), compression strategies, style positioning (professional, analytical), output file requirements, and quality checklists to ensure the analysis process is systematic and well-founded.",
+          "short_summary": "This document provides a structured guide for psychological analysis, covering analysis frameworks such as MBTI, values, and defense mechanisms. It details how to extract information, organize knowledge bases, and output professional reports, suitable for readers interested in psychology.",
           "key_points": [
-            "Defines reading focuses for psychological analysis documents, such as self-description, emotional expression, etc.",
-            "Provides a knowledge base structure, including file indexing, MBTI evidence indexing, values evidence indexing, etc.",
-            "Explains compression strategies, prioritizing the retention of core indexes.",
-            "Positioned as a professional, analytical style, targeting psychology enthusiasts.",
-            "Detailed analysis framework covers dimensions such as MBTI, values, defense mechanisms, subconscious motivation, etc.",
-            "Specifies the output file as SUMMARY/7-psychological.md.",
-            "Includes quality checklists to ensure analysis completeness.",
-            "Emphasizes using first-person expressions, emotional vocabulary, etc., as key analysis focuses."
+            "Provides a structured framework for psychological analysis, including MBTI, values, and defense mechanism analysis",
+            "Details knowledge base organization and compression strategies to ensure efficient information extraction",
+            "Emphasizes professional analysis style, targeting psychology enthusiasts and researchers",
+            "Includes output files and quality checklists to guide the complete analysis process"
           ],
-          "audience": "Readers interested in psychology, those who wish to gain a deeper understanding of authors.",
+          "audience": "Readers interested in psychology, those seeking to understand authors in depth, such as psychology enthusiasts, researchers, or analysts.",
           "tags": [
             "Psychological Analysis",
             "MBTI",
             "Values Analysis",
             "Defense Mechanisms",
-            "Document Analysis",
+            "Document Guide",
             "Structured Information",
-            "Psychology Guide"
+            "Psychology"
           ]
         },
         "ja-JP": {
@@ -14307,7 +14271,7 @@
           ]
         }
       },
-      "metadataTranslationHash": "e594d658992bc4b16508b157ec0d23fb5f56d2c111e1cc986c66b53a6e4efebc"
+      "metadataTranslationHash": "6582b7d69449dc47c050c03b9fd4791a26bc3ca51f8a221f70c06bb5ba705fb4"
     }
   ],
   "categoryTranslations": {

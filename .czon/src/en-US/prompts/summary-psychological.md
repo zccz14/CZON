@@ -4,16 +4,16 @@
 
 When reading each file, focus on extracting:
 
--   File path and title
--   Author's self-description and self-evaluation
--   Decision-making process and rationale
--   Emotional expression and mood fluctuations
--   Patterns of interaction with others
--   Value judgments and priority choices
--   Reactions to difficulties/failure
--   Hopes and concerns for the future
+- File path and title
+- Author's self-description and self-evaluation
+- Decision-making process and rationale
+- Emotional expression and mood fluctuations
+- Patterns of interaction with others
+- Value judgments and priority choices
+- Reactions to difficulties/failures
+- Expectations and concerns for the future
 
-**Pay Special Attention To**: First-person statements, emotional vocabulary, value judgment words, descriptions of interpersonal interactions.
+**Pay Special Attention to**: First-person statements, emotional vocabulary, value judgment vocabulary, descriptions of interpersonal interactions.
 
 ## Knowledge Base Structure
 
@@ -32,11 +32,11 @@ When reading each file, focus on extracting:
 |------------------|----------|----------|-------------|
 (Schwartz Values: Self-Direction, Achievement, Stimulation, Universalism, Power, Security, Tradition, Conformity, Benevolence)
 
-### Emotional Expression Log
+### Emotional Expression Record
 | Situation | Emotional Reaction | Source File |
 |-----------|-------------------|-------------|
 
-### Interpersonal Interaction Log
+### Interpersonal Interaction Record
 | Person | Nature of Relationship | Interaction Description | Source File |
 |--------|------------------------|-------------------------|-------------|
 
@@ -50,7 +50,7 @@ When reading each file, focus on extracting:
 When compressing the knowledge base is necessary:
 
 1.  **Must Retain**: File Index, MBTI Evidence Index, Values Evidence Index
-2.  **Can Be Streamlined**: Emotional Expression Log (keep typical cases), Interpersonal Interactions (keep core relationships)
+2.  **Can Be Streamlined**: Emotional Expression Record (keep typical cases), Interpersonal Interactions (keep core relationships)
 3.  **Can Be Discarded**: Duplicate evidence, minor emotional fluctuations
 
 ---
@@ -75,7 +75,7 @@ Conduct in-depth psychological analysis, exploring the underlying psychological 
     -   T/F (Thinking/Feeling)
     -   J/P (Judging/Perceiving)
 
-**Each dimension must provide**:
+**For Each Dimension, Must Provide**:
 
 -   Tendency determination (e.g., "Strong Introversion tendency")
 -   Supporting evidence (citing specific article content)
@@ -85,14 +85,14 @@ Conduct in-depth psychological analysis, exploring the underlying psychological 
 **Example**:
 
 ```markdown
-### 1.1 Introversion (I) vs. Extraversion (E) – **Strong Introversion Tendency**
+### 1.1 Introversion (I) vs. Extraversion (E) – Strong Introversion Tendency
 
 **Evidence Supporting Introversion (I):**
 
--   In [README.md](../README.md), describes self as a "high-energy-consumption brain," indicating social interaction drains energy.
+-   In [README.md](../README.md), self-describes as a "high-energy-consumption brain," indicating social interaction drains energy.
 -   Logs frequently record independent work and deep thinking.
 
-**Counter-evidence (Limited Extraverted Behavior):**
+**Counter-evidence (Limited Extraversion Expression):**
 
 -   Can effectively lead teams.
 -   However, these are goal-oriented social interactions, not a source of energy.
@@ -114,7 +114,7 @@ Analyze the following value dimensions in order of priority:
 -   Conformity
 -   Benevolence
 
-**Each value must provide**:
+**For Each Value, Must Provide**:
 
 -   Priority determination (Highest/High/Medium/Low)
 -   Specific evidence (citing articles)
@@ -131,7 +131,7 @@ Analyze the primary defense mechanisms used:
 -   Denial
 -   etc.
 
-**Each mechanism must provide**:
+**For Each Mechanism, Must Provide**:
 
 -   Confidence level (High/Medium/Low)
 -   Specific example

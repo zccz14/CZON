@@ -1,5 +1,6 @@
 import { readdir, readFile } from 'fs/promises';
 import { join } from 'path';
+import type { AssistantMessage, Part } from '@opencode-ai/sdk';
 import { MetaData } from '../metadata';
 import { GLOBAL_OPENCODE_AGENT_DIR, LOCAL_OPENCODE_AGENT_DIR } from '../paths';
 import { writeFile } from '../utils/writeFile';
@@ -20,130 +21,111 @@ export interface RunOpenCodeOptions {
   cwd?: string;
 }
 
+/** Response from a session prompt call. */
+export interface SessionPromptResult {
+  info: AssistantMessage;
+  parts: Part[];
+}
+
+/**
+ * A handle to an OpenCode session that allows sending additional prompts
+ * to the same conversation.
+ */
+export interface OpenCodeSessionHandle {
+  /** Session ID */
+  readonly sessionId: string;
+  /** Session URL for debugging */
+  readonly url: string;
+  /** Send a prompt to this session and wait for response */
+  prompt(text: string, options?: { signal?: AbortSignal }): Promise<SessionPromptResult>;
+  /** Abort the current running prompt */
+  abort(): Promise<void>;
+  /** Delete the session */
+  delete(): Promise<void>;
+}
+
 /**
  * Run OpenCode to generate AI response for a given prompt.
  *
  * This function uses the OpenCode SDK to connect to a running OpenCode server.
  * Assumes an OpenCode server is already running externally.
  *
+ * Creates a new session, sends the initial prompt, and returns a handle that
+ * can be used to continue the conversation by calling `handle.prompt()`.
+ *
  * @param prompt - The prompt to send to OpenCode
  * @param options - Optional configuration
- * @returns Promise that resolves when the operation completes
- *
- * @important
- * The AI response is handled internally by OpenCode. This function does not
- * return the response content. Any output files or results are managed by
- * the OpenCode agent or session directly.
+ * @returns A session handle for continued interaction
  */
-export const runOpenCode = (prompt: string, options?: RunOpenCodeOptions): Promise<void> => {
+export const runOpenCode = async (
+  prompt: string,
+  options?: RunOpenCodeOptions
+): Promise<OpenCodeSessionHandle> => {
   const model = options?.model ?? 'opencode/gpt-5-nano';
   const signal = options?.signal;
   const cwd = options?.cwd || process.cwd();
   const agent = options?.agent;
-  console.info(`🛠️  Running OpenCode with model: ${model}, agent: ${agent || 'none'}`);
+  const agentInfo = agent ? ` with agent ${agent}` : '';
+  console.info(`🚀 Running OpenCode with model ${model}${agentInfo}`);
 
-  return new Promise<void>(async (resolve, reject) => {
-    const agentInfo = agent ? ` with agent ${agent}` : '';
-    console.info(`🚀 Running OpenCode with model ${model}${agentInfo}`);
+  const { createOpencodeClient } = await import('@opencode-ai/sdk');
+  const baseUrl = 'http://localhost:4096';
+  const client = createOpencodeClient({
+    baseUrl: baseUrl,
+    directory: cwd,
+  });
 
-    let cancelled = false;
+  const modelObj = parseModelString(model);
 
-    const cleanup = () => {
-      if (signal) {
-        signal.removeEventListener('abort', onAbort);
-      }
-    };
+  const session = await client.session.create();
 
-    const onAbort = () => {
-      cancelled = true;
-      cleanup();
-      reject(new Error('OpenCode execution was aborted'));
-    };
+  if (!session.data?.id)
+    throw new Error('Failed to create OpenCode session', { cause: session.error });
 
-    if (signal) {
-      signal.addEventListener('abort', onAbort);
-      if (signal.aborted) {
-        onAbort();
-        return;
-      }
-    }
+  const sessionId = session.data.id;
 
-    try {
-      const { createOpencodeClient } = await import('@opencode-ai/sdk');
-      const baseUrl = 'http://localhost:4096';
-      const client = createOpencodeClient({
-        baseUrl: baseUrl,
-        directory: cwd,
-      });
+  const directoryBase64 = Buffer.from(session.data.directory).toString('base64');
+  const url = `${baseUrl}/${directoryBase64}/session/${sessionId}`;
+  console.info('OpenCode Session Created', url);
 
-      const modelObj = parseModelString(model);
+  const handle: OpenCodeSessionHandle = {
+    sessionId,
+    url,
 
-      const session = await client.session.create();
-
-      if (!session.data?.id)
-        throw new Error('Failed to create OpenCode session', { cause: session.error });
-
-      options?.signal?.addEventListener('abort', () => {
-        console.info(`🛑 Aborting OpenCode session ${session.data.id}...`);
-        client.session.abort({
-          path: {
-            id: session.data.id,
-          },
-        });
-      });
-
-      const directoryBase64 = Buffer.from(session.data.directory).toString('base64');
-      const url = `${baseUrl}/${directoryBase64}/session/${session.data.id}`;
-      console.info('OpenCode Session Created', url);
+    async prompt(text: string, promptOptions?: { signal?: AbortSignal }) {
+      const promptSignal = promptOptions?.signal;
 
       const response = await client.session.prompt({
-        path: {
-          id: session.data.id,
-        },
+        path: { id: sessionId },
         body: {
           model: modelObj,
           agent,
-          parts: [
-            {
-              type: 'text',
-              text: prompt,
-            },
-          ],
+          parts: [{ type: 'text' as const, text }],
         },
-        query: {
-          directory: cwd,
-        },
-        signal,
+        query: { directory: cwd },
+        signal: promptSignal,
       });
-
-      if (cancelled) {
-        throw new Error('Cancelled');
-      }
 
       if (response.error) {
         throw new Error(`OpenCode API error: ${JSON.stringify(response.error)}`);
       }
 
-      // await client.session.delete({
-      //   path: {
-      //     id: session.data.id,
-      //   },
-      // });
+      return response.data as SessionPromptResult;
+    },
 
-      cleanup();
-      resolve();
-    } catch (err) {
-      if (cancelled) {
-        return;
-      }
-      cleanup();
-      reject(
-        new Error(
-          `OpenCode SDK error: ${err instanceof Error ? err.message : String(err)}. Make sure an OpenCode server is running.`
-        )
-      );
-    }
-  });
+    async abort() {
+      await client.session.abort({ path: { id: sessionId } });
+    },
+
+    async delete() {
+      await client.session.delete({ path: { id: sessionId } });
+    },
+  };
+
+  // Send the initial prompt
+  await handle.prompt(prompt, { signal });
+
+  return handle;
 };
 
 export const installAgentsToGlobal = async (): Promise<void> => {
