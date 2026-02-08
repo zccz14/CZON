@@ -1,8 +1,12 @@
-import { Command } from 'clipanion';
+import { Command, Option } from 'clipanion';
 import { findMarkdownEntries } from '../findEntries';
 
 export class LsFilesCommand extends Command {
   static paths = [['ls-files']];
+
+  aigc = Option.Boolean('--aigc', false, {
+    description: 'Include files under .czon/AIGC directory',
+  });
 
   static usage = Command.Usage({
     description: 'List all markdown files in the current directory',
@@ -17,7 +21,7 @@ export class LsFilesCommand extends Command {
 
   async execute() {
     try {
-      const files = await findMarkdownEntries(process.cwd());
+      const files = await findMarkdownEntries(process.cwd(), { aigc: this.aigc });
 
       if (files.length === 0) {
         this.context.stdout.write('No markdown files found.\n');

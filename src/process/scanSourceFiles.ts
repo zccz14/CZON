@@ -24,7 +24,7 @@ export async function scanSourceFiles(): Promise<void> {
   const queue: string[] = [];
   const isVisited = new Set<string>();
 
-  const markdownFiles = await findMarkdownEntries(INPUT_DIR);
+  const markdownFiles = await findMarkdownEntries(INPUT_DIR, { aigc: true });
 
   for (const filePath of markdownFiles) {
     queue.push(filePath);

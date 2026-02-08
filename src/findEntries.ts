@@ -11,9 +11,15 @@ const execAsync = promisify(exec);
  * 然后过滤掉.czon目录和只保留.md文件
  *
  * @param dirPath 要扫描的目录路径
+ * @param options 可选参数
+ * @param options.aigc 是否包含 .czon/AIGC 目录下的文件
  * @returns Promise<string[]> 返回Markdown文件的相对路径数组
  */
-export const findMarkdownEntries = async (dirPath: string): Promise<string[]> => {
+export const findMarkdownEntries = async (
+  dirPath: string,
+  options?: { aigc?: boolean }
+): Promise<string[]> => {
+  const aigc = options?.aigc ?? false;
   // 获取git仓库的根目录
   const gitRoot = (
     await execAsync('git rev-parse --show-toplevel', { cwd: dirPath })
@@ -30,7 +36,7 @@ export const findMarkdownEntries = async (dirPath: string): Promise<string[]> =>
   const files = stdout
     .split('\0') // 按空字符分割文件名
     .filter(line => line.trim() !== '') // 移除空行
-    .filter(file => !file.startsWith('.')) // 过滤掉隐藏目录下的文件
+    .filter(file => !file.startsWith('.') || (aigc && file.startsWith('.czon/AIGC/'))) // 过滤掉隐藏目录下的文件（aigc 模式下保留 .czon/AIGC/）
     .filter(file => file.endsWith('.md')); // 只保留.md文件
 
   // 排除文件系统中不存在的文件
