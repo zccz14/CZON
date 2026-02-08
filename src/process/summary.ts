@@ -1,22 +1,27 @@
-import { mkdir, readFile, rm } from 'fs/promises';
-import { existsSync } from 'fs';
+import { readFile, stat } from 'fs/promises';
 import { join } from 'path';
+import { CZON_DIR, INPUT_DIR } from '../paths';
 import { runOpenCode } from '../services/opencode';
-import { execSync } from 'child_process';
 
 // Prompt 模板目录路径（在项目根目录的 prompts/ 文件夹中）
 const PROMPTS_DIR = join(__dirname, '../../prompts');
 
+// 输出目录：.czon/AIGC/SUMMARY/
+const SUMMARY_DIR = join(CZON_DIR, 'AIGC', 'SUMMARY');
+
+// 最大重试次数
+const MAX_RETRIES = 3;
+
 // 风格配置
 const SUMMARY_STYLES = [
-  { skill: 'summary-objective', output: '1-objective.md', name: '客观中立' },
-  { skill: 'summary-critical', output: '2-critical.md', name: '客观批判' },
-  { skill: 'summary-positive', output: '3-positive.md', name: '赞扬鼓励' },
-  { skill: 'summary-popular', output: '4-popular.md', name: '科普介绍' },
-  { skill: 'summary-artistic', output: '5-artistic.md', name: '文艺感性' },
-  { skill: 'summary-philosophical', output: '6-philosophical.md', name: '哲学思辨' },
-  { skill: 'summary-psychological', output: '7-psychological.md', name: '心理分析' },
-  { skill: 'summary-historical', output: '8-history.md', name: '历史时间跨度' },
+  { skill: 'summary-objective', name: '客观中立' },
+  { skill: 'summary-critical', name: '客观批判' },
+  { skill: 'summary-positive', name: '赞扬鼓励' },
+  { skill: 'summary-popular', name: '科普介绍' },
+  { skill: 'summary-artistic', name: '文艺感性' },
+  { skill: 'summary-philosophical', name: '哲学思辨' },
+  { skill: 'summary-psychological', name: '心理分析' },
+  { skill: 'summary-historical', name: '历史时间跨度' },
 ] as const;
 
 /**
@@ -28,14 +33,19 @@ const loadPromptTemplate = async (templateName: string): Promise<string> => {
 };
 
 /**
- * 验证文件是否存在
+ * 获取文件的 mtime（毫秒），文件不存在则返回 null
  */
-const verifyFileExists = (filePath: string): boolean => {
-  return existsSync(filePath);
+const getFileMtimeMs = async (filePath: string): Promise<number | null> => {
+  try {
+    const s = await stat(filePath);
+    return s.mtimeMs;
+  } catch {
+    return null;
+  }
 };
 
 /**
- * 生成单个风格的报告
+ * 生成单个风格的报告（带重试循环）
  */
 const generateStyleReport = async (
   model: string,
@@ -44,6 +54,9 @@ const generateStyleReport = async (
   cwd: string
 ): Promise<{ success: boolean; error?: string }> => {
   try {
+    const relativeOutput = `.czon/AIGC/SUMMARY/${styleConfig.skill}.md`;
+    const outputPath = join(INPUT_DIR, relativeOutput);
+
     const styleContent = await loadPromptTemplate(styleConfig.skill);
 
     const prompt = `
@@ -59,26 +72,52 @@ ${styleContent}
 
 请严格按照上述指南，生成「${styleConfig.name}」风格的分析报告。
 
-输出文件：SUMMARY/${styleConfig.output}
+输出文件：${relativeOutput}
 
 注意：
 1. 必须生成完整的报告文件
-2. 文件必须保存到 SUMMARY/${styleConfig.output}
+2. 文件必须保存到 ${relativeOutput}
 3. 确保所有链接使用 ../ 开头的相对路径
 `.trim();
 
-    await runOpenCode(prompt, { model, cwd });
+    // 记录发送前的 mtime
+    const mtimeBefore = await getFileMtimeMs(outputPath);
 
-    // 验证文件是否生成
-    const outputPath = join(cwd, 'SUMMARY', styleConfig.output);
-    if (!verifyFileExists(outputPath)) {
-      return {
-        success: false,
-        error: `文件未生成: ${outputPath}`,
-      };
+    // 发送初始 prompt，获取句柄
+    const handle = await runOpenCode(prompt, { model, cwd });
+
+    // 验证 + 重试循环
+    for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+      const mtimeAfter = await getFileMtimeMs(outputPath);
+      const fileExists = mtimeAfter !== null;
+      const fileModified = mtimeBefore !== mtimeAfter;
+
+      if (fileExists && fileModified) {
+        return { success: true };
+      }
+
+      // 构造错误反馈
+      let errorMsg: string;
+      if (!fileExists) {
+        errorMsg = `错误：文件 ${relativeOutput} 未生成。请立即创建并写入完整的报告内容到 ${relativeOutput}。`;
+      } else {
+        errorMsg = `错误：文件 ${relativeOutput} 未被修改。请重新生成完整内容并覆盖写入 ${relativeOutput}。`;
+      }
+
+      console.warn(`  ⚠️ 重试 ${attempt}/${MAX_RETRIES}: ${errorMsg}`);
+      await handle.prompt(errorMsg);
     }
 
-    return { success: true };
+    // 最终检查
+    const mtimeFinal = await getFileMtimeMs(outputPath);
+    if (mtimeFinal !== null && mtimeBefore !== mtimeFinal) {
+      return { success: true };
+    }
+
+    return {
+      success: false,
+      error: `${MAX_RETRIES} 次重试后仍未成功生成文件: ${relativeOutput}`,
+    };
   } catch (error) {
     return {
       success: false,
@@ -97,17 +136,11 @@ export const processSummary = async (model: string): Promise<void> => {
   console.info('📖 加载基础规则...');
   const baseContent = await loadPromptTemplate('summary-base');
 
-  // Phase 0: 清空 SUMMARY 目录
-  console.info('🗑️  清空 SUMMARY 目录...');
-  await rm(join(cwd, 'SUMMARY'), { recursive: true, force: true });
-  await mkdir(join(cwd, 'SUMMARY'), { recursive: true });
-
   // Phase 1: 串行生成 8 种风格报告
   console.info(`\n📊 开始生成 ${SUMMARY_STYLES.length} 种风格的分析报告...\n`);
 
   const results: Array<{
     name: string;
-    output: string;
     success: boolean;
     error?: string;
   }> = [];
@@ -119,7 +152,6 @@ export const processSummary = async (model: string): Promise<void> => {
     const result = await generateStyleReport(model, baseContent, style, cwd);
     results.push({
       name: style.name,
-      output: style.output,
       ...result,
     });
 
@@ -141,7 +173,7 @@ export const processSummary = async (model: string): Promise<void> => {
   if (failedResults.length > 0) {
     console.info('❌ 失败的报告:');
     for (const failed of failedResults) {
-      console.info(`   - ${failed.name} (${failed.output}): ${failed.error}`);
+      console.info(`   - ${failed.name}: ${failed.error}`);
     }
     console.info('');
   }
@@ -150,10 +182,10 @@ export const processSummary = async (model: string): Promise<void> => {
   console.info('📁 验证文件存在性:');
   let allFilesExist = true;
   for (const style of SUMMARY_STYLES) {
-    const filePath = join(cwd, 'SUMMARY', style.output);
-    const exists = verifyFileExists(filePath);
+    const filePath = join(SUMMARY_DIR, style.skill + '.md');
+    const exists = (await getFileMtimeMs(filePath)) !== null;
     const status = exists ? '✅' : '❌';
-    console.info(`   ${status} SUMMARY/${style.output}`);
+    console.info(`   ${status} .czon/AIGC/SUMMARY/${style.skill}.md`);
     if (!exists) {
       allFilesExist = false;
     }

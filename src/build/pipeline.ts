@@ -47,6 +47,8 @@ async function buildPipeline(options: BuildOptions): Promise<void> {
   // 清理输出目录
   await fs.rm(CZON_DIST_DIR, { recursive: true, force: true });
 
+  // 扫描源文件
+  await scanSourceFiles();
   // 确保 .czon/.gitignore 文件
   await writeFile(
     path.join(CZON_DIR, '.gitignore'),
@@ -54,13 +56,11 @@ async function buildPipeline(options: BuildOptions): Promise<void> {
       'dist',
       'tmp',
       // 忽略所有非 md 文件: 先忽略所有文件，再排除 Markdown 文件不忽略
-      'src/**/*.*',
-      '!src/**/*.md',
+      ...Array.from(
+        new Set(MetaData.files.filter(f => !f.path.endsWith('.md')).map(f => path.extname(f.path)))
+      ).map(ext => `src/**/*${ext}`),
     ].join('\n')
   );
-
-  // 扫描源文件
-  await scanSourceFiles();
 
   // 链接资源文件 (非翻译文件)
   for (const file of MetaData.files) {
