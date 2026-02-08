@@ -12,7 +12,7 @@ When reading each file, focus on extracting:
 -   Narrative elements (beginning, development, climax, conclusion)
 -   Imagery and metaphors
 
-**Special Attention**: First-person narration, emotional vocabulary, vivid descriptions, life reflections
+**Special Attention**: First-person narration, emotional vocabulary, vivid descriptions, life reflections.
 
 ## Knowledge Base Structure
 
@@ -37,7 +37,7 @@ When reading each file, focus on extracting:
 | Theme | Beginning | Development | Climax | Conclusion | Related Files |
 |-------|-----------|-------------|--------|------------|---------------|
 
-### Emotional Timeline
+### Emotional Trajectory
 | Time Period | Dominant Emotion | Key Event | Source File |
 |-------------|------------------|-----------|-------------|
 ```
@@ -46,33 +46,33 @@ When reading each file, focus on extracting:
 
 When compressing the knowledge base is necessary:
 
-1.  **Must Keep**: File Index, Notable Quotes Index, Emotional Timeline
-2.  **Can Simplify**: Imagery Index (keep core imagery), Character Sketches (keep main characters)
-3.  **Can Discard**: Minor emotional details
+1.  **Must Keep**: File Index, Notable Quotes Index, Emotional Trajectory
+2.  **Can Be Streamlined**: Imagery Index (keep core imagery), Character Sketches (keep main characters)
+3.  **Can Be Discarded**: Minor emotional details
 
 ---
 
 ## Style Positioning
 
-Create an immersive feeling through nuanced descriptions and emotional expression, allowing readers to sense the emotions and atmosphere within the content.
+Create an immersive feeling through nuanced descriptions and emotional expression, allowing readers to experience the emotions and atmosphere within the content.
 
-**Target Audience**: Readers who appreciate literary expression, readers seeking emotional resonance
-**Writing Tone**: Poetic, sensual, visually evocative
-**Purpose**: To evoke resonance and emotional response, making the content more impactful
+**Target Audience**: Readers who appreciate literary expression, readers seeking emotional resonance.
+**Writing Tone**: Poetic, sensual, visually evocative.
+**Purpose**: To evoke resonance and emotional response, making the content more impactful.
 
 ## Core Principles
 
--   ✅ Use vivid language and figurative metaphors
--   ✅ Create visual imagery and artistic conception
--   ✅ Tell a story, guiding readers into the scene
--   ✅ Express emotion, but based on factual content
--   ❌ Do not fabricate or stray from the original content
+-   ✅ Use vivid language and figurative metaphors.
+-   ✅ Create visual imagery and artistic conception.
+-   ✅ Tell a story, guiding the reader into the scene.
+-   ✅ Express emotion, but remain grounded in the factual content.
+-   ❌ Do not fabricate details that stray from the original text.
 
 ## Required Chapter Structure
 
 ### Introduction (Poetic Opening)
 
-Open with evocative language to set the emotional tone.
+Begin with evocative language to set the emotional tone.
 
 ```markdown
 In the digital forest where code and prose intertwine, a traveler is recording his footprints...
@@ -80,35 +80,35 @@ In the digital forest where code and prose intertwine, a traveler is recording h
 
 ### Thematic Chapters
 
-Expand each theme with narrative paragraphs:
+Each theme unfolds in a narrative paragraph:
 
 ```markdown
 ## [Poetic Chapter Title]
 
-[Describe the thematic content in a story-like manner, incorporating emotion and imagery]
+[Describe the thematic content in a story-like manner, incorporating emotion and imagery.]
 
 When [Character] wrote [Content], it was as if one could see [Imagery description]...
 
 > "[Quote an impactful sentence from the original text]"
 > —— [Source](../path/to/file.md)
 
-[Continue the narrative, connecting to the next point]
+[Continue the narrative, connecting to the next point.]
 ```
 
 ### Character Sketches
 
-Depict character portraits using literary language.
+Depict character images using literary language.
 
 ### The River of Time
 
-Describe changes along the timeline in a narrative style.
+Describe changes along the timeline in a narrative way.
 
 ### Conclusion (Emotional Elevation)
 
 A poetic, summarizing conclusion that leaves room for reflection.
 
 ```markdown
-This is not merely a code repository, but the footprints left by a thinker in the digital age...
+This is more than just a code repository; it is the footprints left by a thinker in the digital age...
 ```
 
 ## Writing Techniques
@@ -118,14 +118,10 @@ This is not merely a code repository, but the footprints left by a thinker in th
 -   Use rhythm: Alternate between long and short sentences to create a sense of cadence.
 -   Quote the original text: Select impactful sentences.
 
-## Output File
-
-`SUMMARY/5-artistic.md`
-
 ## Quality Checklist
 
--   [ ] Language is visually evocative
--   [ ] Emotional expression is genuine
--   [ ] Original text quotes are appropriate
--   [ ] Narrative is coherent and flows smoothly
--   [ ] All links are valid
+-   [ ] Language is visually evocative.
+-   [ ] Emotional expression is sincere.
+-   [ ] Original text quotes are appropriate.
+-   [ ] Narrative is coherent and flows smoothly.
+-   [ ] All links are valid.

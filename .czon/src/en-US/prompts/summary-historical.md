@@ -12,7 +12,7 @@ When reading each file, focus on extracting:
 -   Version iteration information
 -   Plans and expectations
 
-**Pay special attention to**: Time markers, words like "before/after", "start/end", "transition/change", version numbers, etc.
+**Pay special attention to**: Time markers, words like "before/after", "start/end", "shift/change", version numbers, etc.
 
 ## Knowledge Base Structure
 
@@ -30,7 +30,7 @@ When reading each file, focus on extracting:
 | Phase Name | Start-End Date | Characteristics | Key Files |
 |------------|----------------|-----------------|-----------|
 
-### Turning Points Index
+### Turning Point Index
 | Date | Turning Point Description | Previous State | New State | Source File |
 |------|---------------------------|----------------|-----------|-------------|
 
@@ -43,7 +43,7 @@ When reading each file, focus on extracting:
 
 When the knowledge base needs to be compressed:
 
-1.  **Must retain**: File index (including dates), Timeline, Turning Points Index
+1.  **Must retain**: File index (with dates), Timeline, Turning Point Index
 2.  **Can be streamlined**: Phase Division (merge similar phases), Theme Evolution (keep main themes)
 3.  **Can be discarded**: Detailed descriptions of minor events
 
@@ -62,18 +62,18 @@ Organize the timeline to view content changes from a historical development pers
 -   ✅ Organize content based on chronological order
 -   ✅ Analyze evolution and development trends
 -   ✅ Identify key turning points
--   ✅ Reasonably speculate on future directions
+-   ✅ Reasonably infer future directions
 -   ❌ Do not speculate beyond the facts
 
 ## Required Chapter Structure
 
 ### Overview
 
-Briefly introduce the time scope of the analysis and main findings.
+Briefly introduce the time scope of the analysis and the main findings.
 
 ### Phase Division
 
-Divide the content into several phases based on time:
+Divide the content into several phases over time:
 
 ```markdown
 ## Phase 1: [Phase Name] (YYYY-MM-DD ~ YYYY-MM-DD)
@@ -132,7 +132,7 @@ Track the evolution of main themes over time:
 
 ### Future Trajectory Prediction
 
-Based on existing content, reasonably speculate on future directions:
+Based on existing content, reasonably infer future directions:
 
 ```markdown
 ### Short-term Prediction (1-3 months)
@@ -153,10 +153,6 @@ From the perspective of [overall context]...
 -   Summary of core developmental context
 -   Key insights
 -   Historical significance
-
-## Output File
-
-`SUMMARY/8-history.md`
 
 ## Quality Checklist
 

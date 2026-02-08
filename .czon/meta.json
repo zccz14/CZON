@@ -7465,103 +7465,88 @@
       "metadataTranslationHash": "f446a898f3638eb079e2a2939c22aec862906f8b8ec41852f86a5a4e6757e922"
     },
     {
-      "hash": "908b35f03e09c8ed6c5dfbb69fe9245c6039a5da23b02d31ee577605d2c278cf",
+      "hash": "ae4454c37de3a8026c2f22c028e7297d12153d8d2c38f7dbb79753e17eee183d",
       "path": "prompts/summary-artistic.md",
       "links": [
         "../path/to/file.md"
       ],
       "metadata": {
         "title": "文艺感性风格分析报告指南",
-        "description": "提供文艺感性风格文档的分析框架、知识库结构和写作指南，帮助创建富有情感和画面感的文学性内容。",
-        "short_summary": "本文档是一份文艺感性风格分析报告的指南，定义了如何提取情感、意象和故事性元素，并构建结构化的知识库。它强调使用诗意语言和生动描写来激发读者共鸣，适用于文学性内容的创作和分析。",
-        "audience": "喜欢文学性表达、寻求情感共鸣的读者，如文学爱好者或内容创作者。",
+        "description": "提供文艺感性风格文档的分析框架、知识库结构和写作指南，帮助创建富有情感和画面感的内容。",
+        "short_summary": "本文档指导如何分析文艺感性风格内容，提取情感、意象和故事元素。它提供了知识库结构和写作框架，帮助创建富有感染力的叙事。适用于寻求情感共鸣的读者和文学爱好者。",
+        "audience": "喜欢文学性表达的读者、寻求情感共鸣的读者",
         "key_points": [
-          "重点提取情感表达、画面感描述和故事性元素",
-          "构建包括文件索引、金句索引和情感脉络的知识库",
-          "使用压缩策略精简次要内容",
-          "定位为诗意、感性的风格以激发情感共鸣",
-          "核心原则基于事实表达情感，不虚构内容",
-          "必需章节包括引言、主题篇章和结语",
-          "应用比喻、意象和节奏等写作技巧",
-          "输出文件为SUMMARY/5-artistic.md",
-          "目标读者是喜欢文学性表达的群体",
-          "通过质量检查确保语言画面感和叙事连贯性"
+          "提取情感表达和画面感描述",
+          "构建结构化知识库索引",
+          "使用诗意语言和叙事技巧",
+          "针对文学爱好者读者",
+          "强调真实性和感染力"
         ],
-        "summary": "本文档详细介绍了文艺感性风格分析报告的完整框架，包括阅读关注点、知识库结构、压缩策略、风格定位、核心原则、必需章节结构、写作技巧和输出要求。它指导如何从文档中提取情感表达、画面感描述、人物形象等元素，并构建结构化的知识库（如文件索引、金句索引、情感脉络等）。文档强调使用生动的语言、比喻和意象来营造身临其境的感觉，目标读者是喜欢文学性表达和寻求情感共鸣的人群。核心原则包括基于事实表达情感、不虚构内容，并提供了从诗意开场到情感升华的完整写作流程。",
+        "summary": "本文档是一份文艺感性风格分析报告指南，详细阐述了如何从文档中提取结构化信息，包括阅读关注点如情感表达、画面感描述和故事性元素；构建知识库结构，涵盖文件索引、金句索引、意象索引等；并提供了压缩策略、风格定位、核心原则、必需章节结构和写作技巧。指南强调使用生动的语言、比喻和叙事手法，以激发读者情感共鸣，适用于喜欢文学性表达的读者。",
         "slug": "artistic-style-analysis-guide",
         "tags": [
           "文艺分析",
           "感性风格",
-          "文档指南",
-          "文学创作",
-          "情感表达",
+          "文档提取",
           "知识库结构",
-          "写作技巧"
+          "写作指南",
+          "情感共鸣",
+          "文学表达"
         ],
         "inferred_lang": "zh-Hans",
         "tokens_used": {
-          "prompt": 1264,
-          "completion": 457,
-          "total": 1721
+          "prompt": 1220,
+          "completion": 310,
+          "total": 1530
         }
       },
       "category": "Prompt Engineering",
-      "nativeMarkdownHash": "908b35f03e09c8ed6c5dfbb69fe9245c6039a5da23b02d31ee577605d2c278cf",
+      "nativeMarkdownHash": "ae4454c37de3a8026c2f22c028e7297d12153d8d2c38f7dbb79753e17eee183d",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "文艺感性风格分析报告指南",
-          "description": "提供文艺感性风格文档的分析框架、知识库结构和写作指南，帮助创建富有情感和画面感的文学性内容。",
-          "summary": "本文档详细介绍了文艺感性风格分析报告的完整框架，包括阅读关注点、知识库结构、压缩策略、风格定位、核心原则、必需章节结构、写作技巧和输出要求。它指导如何从文档中提取情感表达、画面感描述、人物形象等元素，并构建结构化的知识库（如文件索引、金句索引、情感脉络等）。文档强调使用生动的语言、比喻和意象来营造身临其境的感觉，目标读者是喜欢文学性表达和寻求情感共鸣的人群。核心原则包括基于事实表达情感、不虚构内容，并提供了从诗意开场到情感升华的完整写作流程。",
-          "short_summary": "本文档是一份文艺感性风格分析报告的指南，定义了如何提取情感、意象和故事性元素，并构建结构化的知识库。它强调使用诗意语言和生动描写来激发读者共鸣，适用于文学性内容的创作和分析。",
+          "description": "提供文艺感性风格文档的分析框架、知识库结构和写作指南，帮助创建富有情感和画面感的内容。",
+          "summary": "本文档是一份文艺感性风格分析报告指南，详细阐述了如何从文档中提取结构化信息，包括阅读关注点如情感表达、画面感描述和故事性元素；构建知识库结构，涵盖文件索引、金句索引、意象索引等；并提供了压缩策略、风格定位、核心原则、必需章节结构和写作技巧。指南强调使用生动的语言、比喻和叙事手法，以激发读者情感共鸣，适用于喜欢文学性表达的读者。",
+          "short_summary": "本文档指导如何分析文艺感性风格内容，提取情感、意象和故事元素。它提供了知识库结构和写作框架，帮助创建富有感染力的叙事。适用于寻求情感共鸣的读者和文学爱好者。",
           "key_points": [
-            "重点提取情感表达、画面感描述和故事性元素",
-            "构建包括文件索引、金句索引和情感脉络的知识库",
-            "使用压缩策略精简次要内容",
-            "定位为诗意、感性的风格以激发情感共鸣",
-            "核心原则基于事实表达情感，不虚构内容",
-            "必需章节包括引言、主题篇章和结语",
-            "应用比喻、意象和节奏等写作技巧",
-            "输出文件为SUMMARY/5-artistic.md",
-            "目标读者是喜欢文学性表达的群体",
-            "通过质量检查确保语言画面感和叙事连贯性"
+            "提取情感表达和画面感描述",
+            "构建结构化知识库索引",
+            "使用诗意语言和叙事技巧",
+            "针对文学爱好者读者",
+            "强调真实性和感染力"
           ],
-          "audience": "喜欢文学性表达、寻求情感共鸣的读者，如文学爱好者或内容创作者。",
+          "audience": "喜欢文学性表达的读者、寻求情感共鸣的读者",
           "tags": [
             "文艺分析",
             "感性风格",
-            "文档指南",
-            "文学创作",
-            "情感表达",
+            "文档提取",
             "知识库结构",
-            "写作技巧"
+            "写作指南",
+            "情感共鸣",
+            "文学表达"
           ]
         },
         "en-US": {
-          "title": "Guide to Artistic and Sensitive Style Analysis Reports",
-          "description": "Provides an analytical framework, knowledge base structure, and writing guidelines for artistic and sensitive style documents, helping to create literary content rich in emotion and imagery.",
-          "summary": "This document details the complete framework for artistic and sensitive style analysis reports, including reading focus points, knowledge base structure, compression strategies, style positioning, core principles, required chapter structure, writing techniques, and output requirements. It guides how to extract elements such as emotional expression, imagery descriptions, and character portrayals from documents, and build a structured knowledge base (e.g., file index, quote index, emotional thread). The document emphasizes using vivid language, metaphors, and imagery to create an immersive experience, targeting audiences who appreciate literary expression and seek emotional resonance. Core principles include expressing emotions based on facts without fabricating content, and it provides a complete writing process from poetic openings to emotional climaxes.",
-          "short_summary": "This document is a guide for artistic and sensitive style analysis reports, defining how to extract emotional, imagery, and narrative elements and build a structured knowledge base. It emphasizes using poetic language and vivid descriptions to evoke reader resonance, suitable for the creation and analysis of literary content.",
+          "title": "Guide to Literary and Emotional Style Analysis Reports",
+          "description": "Provides an analytical framework, knowledge base structure, and writing guidelines for literary and emotional style documents, helping to create content rich in emotion and imagery.",
+          "summary": "This document is a guide to literary and emotional style analysis reports, detailing how to extract structured information from documents, including reading focuses such as emotional expression, imagery description, and narrative elements; constructing a knowledge base structure covering file indexing, key quote indexing, imagery indexing, etc.; and providing compression strategies, style positioning, core principles, essential chapter structures, and writing techniques. The guide emphasizes the use of vivid language, metaphors, and narrative techniques to evoke emotional resonance in readers, suitable for readers who appreciate literary expression.",
+          "short_summary": "This document guides how to analyze literary and emotional style content, extracting elements of emotion, imagery, and narrative. It provides a knowledge base structure and writing framework to help create compelling narratives. Suitable for readers seeking emotional resonance and literary enthusiasts.",
           "key_points": [
-            "Focus on extracting emotional expression, imagery descriptions, and narrative elements",
-            "Build a knowledge base including file index, quote index, and emotional thread",
-            "Use compression strategies to streamline secondary content",
-            "Position as a poetic, sensitive style to evoke emotional resonance",
-            "Core principles based on expressing emotions from facts without fabrication",
-            "Required chapters include introduction, thematic sections, and conclusion",
-            "Apply writing techniques such as metaphors, imagery, and rhythm",
-            "Output file as SUMMARY/5-artistic.md",
-            "Target audience is groups who appreciate literary expression",
-            "Ensure language imagery and narrative coherence through quality checks"
+            "Extract emotional expression and imagery description",
+            "Construct a structured knowledge base index",
+            "Use poetic language and narrative techniques",
+            "Target literary enthusiast readers",
+            "Emphasize authenticity and impact"
           ],
-          "audience": "Readers who appreciate literary expression and seek emotional resonance, such as literature enthusiasts or content creators.",
+          "audience": "Readers who appreciate literary expression, readers seeking emotional resonance",
           "tags": [
-            "Artistic Analysis",
-            "Sensitive Style",
-            "Document Guide",
-            "Literary Creation",
-            "Emotional Expression",
+            "Literary Analysis",
+            "Emotional Style",
+            "Document Extraction",
             "Knowledge Base Structure",
-            "Writing Techniques"
+            "Writing Guide",
+            "Emotional Resonance",
+            "Literary Expression"
           ]
         },
         "ja-JP": {
@@ -8237,10 +8222,10 @@
           ]
         }
       },
-      "metadataTranslationHash": "e00adb6a7e9733bb0a88939db526a41d1787a0b5db45c139df222e9c48eaf56e"
+      "metadataTranslationHash": "63cf4cfc03d9d792454a95b7e96f1cba71524272ff8241cf4eae74cf913ae7ae"
     },
     {
-      "hash": "a1efc989d105113224e9b291c6f6b49382c52086bd46797511fd4ba68aaf9875",
+      "hash": "14154a968393cdd62780036c5f670424c6b2ad4d09b8de30211a69e6a3e3aeac",
       "path": "prompts/summary-base.md",
       "links": [
         "../INSIGHTS/6.md",
@@ -8250,75 +8235,78 @@
       ],
       "metadata": {
         "title": "AI分析报告生成基础规则",
-        "description": "本文档详细规定了AI分析报告的生成流程、核心原则和通用规则，确保报告基于事实、结构完整。",
-        "short_summary": "本文档规定了AI分析报告的生成流程，强调必须逐一阅读所有文件并基于事实提取信息。通用规则包括引用规范和报告格式，确保输出准确可靠。",
-        "audience": "AI分析报告生成工具的开发者和用户，需要遵循结构化流程处理大量文档的人员。",
+        "description": "本文档详细规定了AI分析报告的生成流程，包括文档阅读、信息提取、知识库管理和报告撰写等核心步骤。",
+        "short_summary": "本文档定义了AI分析报告生成的基础规则，要求严格遵循文档阅读流程，包括分批处理、知识库管理和分段报告撰写。强调事实依据、引用规范和完整性验证，确保报告质量。",
+        "audience": "AI分析报告生成工具的开发者和使用者，需要遵循严格文档处理流程的团队。",
         "key_points": [
-          "必须逐一阅读所有Markdown文件，不得跳过任何文件",
-          "采用渐进式阅读与摘要策略，分批处理文件",
-          "所有观点必须有原文支撑，不得虚构内容",
-          "引用链接需规范，链接到具体文件并使用标题文本",
-          "报告生成前必须完成完整性验证，确保所有文件已处理"
+          "必须逐一阅读所有Markdown文件，禁止跳过任何文件",
+          "采用渐进式阅读与摘要策略，分批处理文件并管理知识库",
+          "报告生成必须分段进行，确保内容控制在单次写入限制内",
+          "所有观点必须有原文支撑，禁止虚构内容",
+          "引用链接需使用相对路径并链接到具体文件，链接文本为标题"
         ],
-        "summary": "本文档为AI分析报告生成制定了基础规则，包括必须严格遵循的文档阅读流程（分阶段获取文件、分批阅读与摘要、上下文管理、完整性验证和生成报告），以及通用规则如事实依据原则、引用链接规范、头部格式、时间权重和输出位置。核心目标是确保报告基于所有相关Markdown文件的事实内容，避免虚构或遗漏，并生成结构化的摘要和报告。",
+        "summary": "本文档为AI分析报告生成提供了系统性的基础规则，强调严格遵循文档阅读流程，包括获取文件列表、分批阅读与摘要、上下文管理、完整性验证和分段生成报告。核心原则包括逐一阅读所有文件、以事实为依据、规范引用链接，并禁止在阅读完成前开始生成报告。文档还规定了报告头部格式、时间权重考虑以及通用规则，确保报告生成的准确性和完整性。",
         "slug": "ai-analysis-report-generation-basic-rules",
         "tags": [
           "AI分析",
           "报告生成",
           "文档阅读",
           "Markdown",
-          "规则指南"
+          "知识库管理",
+          "流程规范"
         ],
         "inferred_lang": "zh-Hans",
         "tokens_used": {
-          "prompt": 1285,
-          "completion": 322,
-          "total": 1607
+          "prompt": 1617,
+          "completion": 346,
+          "total": 1963
         }
       },
       "category": "Prompt Engineering",
-      "nativeMarkdownHash": "a1efc989d105113224e9b291c6f6b49382c52086bd46797511fd4ba68aaf9875",
+      "nativeMarkdownHash": "14154a968393cdd62780036c5f670424c6b2ad4d09b8de30211a69e6a3e3aeac",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "AI分析报告生成基础规则",
-          "description": "本文档详细规定了AI分析报告的生成流程、核心原则和通用规则，确保报告基于事实、结构完整。",
-          "summary": "本文档为AI分析报告生成制定了基础规则，包括必须严格遵循的文档阅读流程（分阶段获取文件、分批阅读与摘要、上下文管理、完整性验证和生成报告），以及通用规则如事实依据原则、引用链接规范、头部格式、时间权重和输出位置。核心目标是确保报告基于所有相关Markdown文件的事实内容，避免虚构或遗漏，并生成结构化的摘要和报告。",
-          "short_summary": "本文档规定了AI分析报告的生成流程，强调必须逐一阅读所有文件并基于事实提取信息。通用规则包括引用规范和报告格式，确保输出准确可靠。",
+          "description": "本文档详细规定了AI分析报告的生成流程，包括文档阅读、信息提取、知识库管理和报告撰写等核心步骤。",
+          "summary": "本文档为AI分析报告生成提供了系统性的基础规则，强调严格遵循文档阅读流程，包括获取文件列表、分批阅读与摘要、上下文管理、完整性验证和分段生成报告。核心原则包括逐一阅读所有文件、以事实为依据、规范引用链接，并禁止在阅读完成前开始生成报告。文档还规定了报告头部格式、时间权重考虑以及通用规则，确保报告生成的准确性和完整性。",
+          "short_summary": "本文档定义了AI分析报告生成的基础规则，要求严格遵循文档阅读流程，包括分批处理、知识库管理和分段报告撰写。强调事实依据、引用规范和完整性验证，确保报告质量。",
           "key_points": [
-            "必须逐一阅读所有Markdown文件，不得跳过任何文件",
-            "采用渐进式阅读与摘要策略，分批处理文件",
-            "所有观点必须有原文支撑，不得虚构内容",
-            "引用链接需规范，链接到具体文件并使用标题文本",
-            "报告生成前必须完成完整性验证，确保所有文件已处理"
+            "必须逐一阅读所有Markdown文件，禁止跳过任何文件",
+            "采用渐进式阅读与摘要策略，分批处理文件并管理知识库",
+            "报告生成必须分段进行，确保内容控制在单次写入限制内",
+            "所有观点必须有原文支撑，禁止虚构内容",
+            "引用链接需使用相对路径并链接到具体文件，链接文本为标题"
           ],
-          "audience": "AI分析报告生成工具的开发者和用户，需要遵循结构化流程处理大量文档的人员。",
+          "audience": "AI分析报告生成工具的开发者和使用者，需要遵循严格文档处理流程的团队。",
           "tags": [
             "AI分析",
             "报告生成",
             "文档阅读",
             "Markdown",
-            "规则指南"
+            "知识库管理",
+            "流程规范"
           ]
         },
         "en-US": {
           "title": "Basic Rules for AI Analysis Report Generation",
-          "description": "This document specifies the generation process, core principles, and general rules for AI analysis reports to ensure reports are fact-based and structurally complete.",
-          "summary": "This document establishes basic rules for AI analysis report generation, including mandatory document reading processes (phased file acquisition, batch reading and summarization, context management, completeness verification, and report generation), as well as general rules such as the fact-based principle, citation link standards, header format, time weighting, and output location. The core goal is to ensure reports are based on factual content from all relevant Markdown files, avoiding fabrication or omission, and generating structured summaries and reports.",
-          "short_summary": "This document defines the generation process for AI analysis reports, emphasizing the need to read all files sequentially and extract information based on facts. General rules include citation standards and report formats to ensure accurate and reliable output.",
+          "description": "This document specifies the generation process for AI analysis reports in detail, including core steps such as document reading, information extraction, knowledge base management, and report writing.",
+          "summary": "This document provides systematic basic rules for AI analysis report generation, emphasizing strict adherence to the document reading process, including obtaining file lists, batch reading and summarization, context management, completeness verification, and segmented report generation. Core principles include reading all files one by one, basing content on facts, standardizing citation links, and prohibiting report generation before reading is complete. The document also specifies report header formats, time weighting considerations, and general rules to ensure the accuracy and completeness of report generation.",
+          "short_summary": "This document defines the basic rules for AI analysis report generation, requiring strict adherence to the document reading process, including batch processing, knowledge base management, and segmented report writing. It emphasizes factual basis, citation standards, and completeness verification to ensure report quality.",
           "key_points": [
-            "Must read all Markdown files one by one; no files may be skipped",
-            "Adopt a progressive reading and summarization strategy, processing files in batches",
-            "All viewpoints must be supported by original text; no content may be fabricated",
-            "Citation links must be standardized, linking to specific files using title text",
-            "Completeness verification must be completed before report generation to ensure all files are processed"
+            "Must read all Markdown files one by one; skipping any files is prohibited",
+            "Adopt a progressive reading and summarization strategy, processing files in batches and managing the knowledge base",
+            "Report generation must be done in segments to ensure content stays within single-write limits",
+            "All viewpoints must be supported by original text; fabrication of content is prohibited",
+            "Citation links must use relative paths and link to specific files, with link text as the title"
           ],
-          "audience": "Developers and users of AI analysis report generation tools, and personnel who need to follow structured processes to handle large volumes of documents.",
+          "audience": "Developers and users of AI analysis report generation tools, and teams that need to follow strict document processing procedures.",
           "tags": [
             "AI Analysis",
             "Report Generation",
             "Document Reading",
             "Markdown",
-            "Rule Guide"
+            "Knowledge Base Management",
+            "Process Standardization"
           ]
         },
         "ja-JP": {
@@ -9018,95 +9006,89 @@
           ]
         }
       },
-      "metadataTranslationHash": "c2466b2a23a5f6d5ad7f450ce72804f4657f8410cbb9f659c11dcdf0b58b133d"
+      "metadataTranslationHash": "4b4c2866a5e4ae5c9e7a8fb71006ab9c6f580da4213105a176ecf1fa8e46a758"
     },
     {
-      "hash": "d4f0abf6901c33cefbeeadcbbdf423b39ac81a20ba60541d76b4c39fec8bc3c9",
+      "hash": "d538c4d53e0c4b11bc8cbcd974ad178316ba5cf9ea3ef303a772230760261370",
       "path": "prompts/summary-critical.md",
       "links": [],
       "metadata": {
         "title": "客观批判风格分析报告指南",
-        "description": "提供客观批判性分析文档的框架、原则和结构，帮助读者深入评估内容价值。",
-        "short_summary": "本文档是一份客观批判风格分析报告的指南，定义了分析框架和原则，包括知识库索引、批判性评估章节和建设性建议。它旨在帮助读者系统性地评估内容，识别优缺点，并提供改进方向。",
+        "description": "提供客观批判性分析报告的撰写指南，包括结构、原则和框架，帮助读者全面评估内容价值。",
+        "short_summary": "本文档提供了撰写客观批判性分析报告的完整指南，包括结构、原则和框架。它强调基于事实的建设性批判，帮助读者全面评估内容，识别优缺点，并提出改进建议。",
         "audience": "希望深入评估内容价值的读者、潜在合作者、内容创作者本人",
         "key_points": [
-          "重点提取文件路径、观点、论证、假设和潜在问题",
-          "构建知识库索引包括文件、主张、假设、问题和优势",
-          "压缩策略保留关键索引并精简次要内容",
-          "风格定位为客观、建设性、基于事实的批判",
-          "必需章节包括概述、架构设计、投资策略、技术实践和理论体系评估",
-          "批判框架模板提供现状描述、优势、不足和改进建议结构",
-          "输出文件为SUMMARY/2-critical.md",
-          "质量检查清单确保批评有依据、建议可操作、语气专业"
+          "定义客观批判性分析的核心原则和风格定位",
+          "提供必需的报告章节结构和批判框架模板",
+          "强调基于事实的建设性批判和平衡的优缺点分析",
+          "包括知识库结构和压缩策略以支持信息提取",
+          "设定质量检查清单确保报告的专业性和有效性"
         ],
-        "summary": "本文档详细介绍了如何进行客观批判风格分析，包括阅读关注点、知识库结构、压缩策略、风格定位、核心原则、必需章节结构和批判框架模板。它强调基于事实的建设性批判，旨在帮助目标读者（如内容创作者、潜在合作者）全面理解内容优缺点，促进改进。文档提供了具体的评估领域（如架构设计、投资策略、技术实践、理论体系）和输出文件要求，确保分析专业、有理有据。",
+        "summary": "本文档是一份关于如何撰写客观批判风格分析报告的详细指南。它定义了分析报告的阅读关注点、知识库结构、压缩策略、风格定位、核心原则、必需章节结构、批判框架模板和质量检查清单。核心价值在于指导用户基于事实进行建设性批判，平衡优缺点分析，以促进内容改进。文档强调专业、有理有据的语气，目标读者包括希望深入评估内容价值的读者、潜在合作者和内容创作者本人。",
         "slug": "objective-critical-analysis-report-guide",
         "tags": [
           "批判性分析",
           "文档分析",
+          "报告撰写",
+          "客观评估",
           "建设性反馈",
-          "知识库管理",
-          "评估框架",
-          "专业写作"
+          "知识库结构",
+          "质量检查"
         ],
         "inferred_lang": "zh-Hans",
         "tokens_used": {
-          "prompt": 1328,
-          "completion": 400,
-          "total": 1728
+          "prompt": 1285,
+          "completion": 333,
+          "total": 1618
         }
       },
       "category": "Prompt Engineering",
-      "nativeMarkdownHash": "d4f0abf6901c33cefbeeadcbbdf423b39ac81a20ba60541d76b4c39fec8bc3c9",
+      "nativeMarkdownHash": "d538c4d53e0c4b11bc8cbcd974ad178316ba5cf9ea3ef303a772230760261370",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "客观批判风格分析报告指南",
-          "description": "提供客观批判性分析文档的框架、原则和结构，帮助读者深入评估内容价值。",
-          "summary": "本文档详细介绍了如何进行客观批判风格分析，包括阅读关注点、知识库结构、压缩策略、风格定位、核心原则、必需章节结构和批判框架模板。它强调基于事实的建设性批判，旨在帮助目标读者（如内容创作者、潜在合作者）全面理解内容优缺点，促进改进。文档提供了具体的评估领域（如架构设计、投资策略、技术实践、理论体系）和输出文件要求，确保分析专业、有理有据。",
-          "short_summary": "本文档是一份客观批判风格分析报告的指南，定义了分析框架和原则，包括知识库索引、批判性评估章节和建设性建议。它旨在帮助读者系统性地评估内容，识别优缺点，并提供改进方向。",
+          "description": "提供客观批判性分析报告的撰写指南，包括结构、原则和框架，帮助读者全面评估内容价值。",
+          "summary": "本文档是一份关于如何撰写客观批判风格分析报告的详细指南。它定义了分析报告的阅读关注点、知识库结构、压缩策略、风格定位、核心原则、必需章节结构、批判框架模板和质量检查清单。核心价值在于指导用户基于事实进行建设性批判，平衡优缺点分析，以促进内容改进。文档强调专业、有理有据的语气，目标读者包括希望深入评估内容价值的读者、潜在合作者和内容创作者本人。",
+          "short_summary": "本文档提供了撰写客观批判性分析报告的完整指南，包括结构、原则和框架。它强调基于事实的建设性批判，帮助读者全面评估内容，识别优缺点，并提出改进建议。",
           "key_points": [
-            "重点提取文件路径、观点、论证、假设和潜在问题",
-            "构建知识库索引包括文件、主张、假设、问题和优势",
-            "压缩策略保留关键索引并精简次要内容",
-            "风格定位为客观、建设性、基于事实的批判",
-            "必需章节包括概述、架构设计、投资策略、技术实践和理论体系评估",
-            "批判框架模板提供现状描述、优势、不足和改进建议结构",
-            "输出文件为SUMMARY/2-critical.md",
-            "质量检查清单确保批评有依据、建议可操作、语气专业"
+            "定义客观批判性分析的核心原则和风格定位",
+            "提供必需的报告章节结构和批判框架模板",
+            "强调基于事实的建设性批判和平衡的优缺点分析",
+            "包括知识库结构和压缩策略以支持信息提取",
+            "设定质量检查清单确保报告的专业性和有效性"
           ],
           "audience": "希望深入评估内容价值的读者、潜在合作者、内容创作者本人",
           "tags": [
             "批判性分析",
             "文档分析",
+            "报告撰写",
+            "客观评估",
             "建设性反馈",
-            "知识库管理",
-            "评估框架",
-            "专业写作"
+            "知识库结构",
+            "质量检查"
           ]
         },
         "en-US": {
           "title": "Guide to Objective Critical Style Analysis Reports",
-          "description": "Provides a framework, principles, and structure for objective critical analysis documents to help readers deeply evaluate content value.",
-          "summary": "This document details how to conduct objective critical style analysis, including reading focus points, knowledge base structure, compression strategies, style positioning, core principles, required chapter structure, and critical framework templates. It emphasizes fact-based constructive criticism, aiming to help target audiences (such as content creators, potential collaborators) fully understand content strengths and weaknesses to promote improvement. The document provides specific evaluation areas (e.g., architecture design, investment strategies, technical practices, theoretical systems) and output file requirements to ensure analysis is professional and well-founded.",
-          "short_summary": "This document is a guide for objective critical style analysis reports, defining the analysis framework and principles, including knowledge base indexing, critical evaluation chapters, and constructive suggestions. It aims to help readers systematically evaluate content, identify strengths and weaknesses, and provide directions for improvement.",
+          "description": "Provides guidelines for writing objective critical analysis reports, including structure, principles, and frameworks, to help readers comprehensively evaluate content value.",
+          "summary": "This document is a detailed guide on how to write objective critical style analysis reports. It defines the reading focus points, knowledge base structure, compression strategies, style positioning, core principles, required chapter structure, critical framework templates, and quality checklists for analysis reports. The core value lies in guiding users to conduct constructive criticism based on facts, balance strengths and weaknesses analysis, and promote content improvement. The document emphasizes a professional, well-reasoned tone, targeting readers who wish to deeply evaluate content value, potential collaborators, and content creators themselves.",
+          "short_summary": "This document provides a complete guide to writing objective critical analysis reports, including structure, principles, and frameworks. It emphasizes constructive criticism based on facts, helping readers comprehensively evaluate content, identify strengths and weaknesses, and propose improvement suggestions.",
           "key_points": [
-            "Focus on extracting file paths, viewpoints, arguments, assumptions, and potential issues",
-            "Build knowledge base indexes including files, claims, assumptions, problems, and strengths",
-            "Compression strategies retain key indexes and streamline secondary content",
-            "Style positioning as objective, constructive, fact-based criticism",
-            "Required chapters include overview, architecture design, investment strategy, technical practice, and theoretical system evaluation",
-            "Critical framework templates provide structures for current status description, strengths, weaknesses, and improvement suggestions",
-            "Output file is SUMMARY/2-critical.md",
-            "Quality checklist ensures criticism is evidence-based, suggestions are actionable, and tone is professional"
+            "Define the core principles and style positioning of objective critical analysis",
+            "Provide the required report chapter structure and critical framework templates",
+            "Emphasize constructive criticism based on facts and balanced analysis of strengths and weaknesses",
+            "Include knowledge base structure and compression strategies to support information extraction",
+            "Set quality checklists to ensure the professionalism and effectiveness of reports"
           ],
-          "audience": "Readers seeking to deeply evaluate content value, potential collaborators, content creators themselves",
+          "audience": "Readers who wish to deeply evaluate content value, potential collaborators, content creators themselves",
           "tags": [
             "Critical Analysis",
             "Document Analysis",
+            "Report Writing",
+            "Objective Evaluation",
             "Constructive Feedback",
-            "Knowledge Base Management",
-            "Evaluation Framework",
-            "Professional Writing"
+            "Knowledge Base Structure",
+            "Quality Check"
           ]
         },
         "ja-JP": {
@@ -9710,10 +9692,10 @@
           ]
         }
       },
-      "metadataTranslationHash": "fe9efeeb516230f1ff50bf0d4a9256a440a722f2058a2c3a4e8e976dfced36a4"
+      "metadataTranslationHash": "cda60c75fc186df3481400f9693fe002cb900239d66c0c829fb2537c6ddd0f4f"
     },
     {
-      "hash": "e3b8414462e33a7d3e8d5d56d53c93a28f7de4fecfce52ade1f0e7419fb72e09",
+      "hash": "f8fb03c5945f10ede26addf8e15a6312db3eba1b151df1a5816f08900c017ec6",
       "path": "prompts/summary-historical.md",
       "links": [
         "../path/to/file.md",
@@ -9724,90 +9706,78 @@
       ],
       "metadata": {
         "title": "历史时间跨度风格分析报告指南",
-        "description": "提供历史时间跨度风格分析报告的撰写指南，包括阅读关注点、知识库结构、核心原则和必需章节结构。",
-        "short_summary": "本文档指导如何撰写历史时间跨度风格分析报告，强调基于时间顺序分析内容演变。它提供了阅读关注点、知识库结构、核心原则和详细章节结构，帮助用户提取关键信息并组织成结构化报告。目标读者是希望理解发展脉络的研究者和读者。",
-        "audience": "希望了解发展脉络的读者和研究者，需要撰写历史分析报告的用户",
+        "description": "本文档提供历史时间跨度风格分析报告的撰写指南，包括结构、原则和提取策略，帮助读者理解内容发展脉络。",
+        "short_summary": "本文档指导如何撰写历史时间跨度风格分析报告，强调基于时间顺序组织内容，分析演变趋势和识别转折点。它提供了详细的章节结构和提取策略，帮助读者理解内容的历史背景和发展过程。",
+        "audience": "希望了解内容发展脉络的研究者、读者和文档分析人员",
         "key_points": [
-          "阅读时需重点提取精确日期、事件描述和转折点等信息",
-          "知识库应包含文件索引、时间线、阶段划分、转折点索引和主题演进索引",
-          "分析报告需基于时间顺序组织内容，识别关键转折点",
-          "风格定位要求客观、纵深、有洞察力，目标读者为研究者和读者",
-          "必需章节包括概述、阶段划分、关键转折点、主题演进、未来轨迹预测和结论",
-          "输出文件为SUMMARY/8-history.md，需进行质量检查确保准确性",
-          "压缩策略建议保留核心索引，精简或丢弃次要内容",
-          "核心原则强调基于事实分析，不脱离事实进行推测"
+          "基于时间顺序组织内容，优先提取精确日期",
+          "识别关键转折点和分析演变趋势",
+          "提供必需章节结构如阶段划分和主题演进",
+          "强调客观分析和合理推测未来方向",
+          "目标读者为研究者和希望了解发展脉络的读者"
         ],
-        "summary": "本文档是一份历史时间跨度风格分析报告的撰写指南，旨在帮助用户基于时间顺序组织内容，分析演变和发展趋势。文档详细说明了阅读时应关注的重点（如精确日期、事件描述、转折点等），并提供了知识库的结构建议（包括文件索引、时间线、阶段划分、转折点索引和主题演进索引）。此外，文档还阐述了风格定位（目标读者为希望了解发展脉络的读者和研究者，写作语气需客观、纵深、有洞察力）、核心原则（如基于时间顺序、识别关键转折点、合理推测未来方向）以及必需章节结构（包括概述、阶段划分、关键转折点、主题演进、未来轨迹预测和结论）。文档最后列出了输出文件和质量检查清单，确保报告的准确性和完整性。",
+        "summary": "本文档是一份关于如何撰写历史时间跨度风格分析报告的详细指南，旨在帮助用户基于时间顺序组织内容，分析演变趋势，识别关键转折点，并合理推测未来方向。文档定义了必需章节结构，如概述、阶段划分、关键转折点、主题演进和未来轨迹预测，并强调基于事实的客观分析。核心原则包括优先提取精确日期、关注事件关联和变化，以及压缩知识库时的保留策略。目标读者是希望了解发展脉络的研究者和读者，写作语气要求客观、纵深且有洞察力。",
         "slug": "historical-time-span-analysis-report-guide",
         "tags": [
           "历史分析",
           "时间跨度",
           "风格指南",
           "文档撰写",
-          "知识库结构",
           "转折点识别",
           "主题演进"
         ],
         "inferred_lang": "zh-Hans",
         "tokens_used": {
-          "prompt": 1424,
-          "completion": 515,
-          "total": 1939
+          "prompt": 1381,
+          "completion": 348,
+          "total": 1729
         }
       },
       "category": "Prompt Engineering",
-      "nativeMarkdownHash": "e3b8414462e33a7d3e8d5d56d53c93a28f7de4fecfce52ade1f0e7419fb72e09",
+      "nativeMarkdownHash": "f8fb03c5945f10ede26addf8e15a6312db3eba1b151df1a5816f08900c017ec6",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "历史时间跨度风格分析报告指南",
-          "description": "提供历史时间跨度风格分析报告的撰写指南，包括阅读关注点、知识库结构、核心原则和必需章节结构。",
-          "summary": "本文档是一份历史时间跨度风格分析报告的撰写指南，旨在帮助用户基于时间顺序组织内容，分析演变和发展趋势。文档详细说明了阅读时应关注的重点（如精确日期、事件描述、转折点等），并提供了知识库的结构建议（包括文件索引、时间线、阶段划分、转折点索引和主题演进索引）。此外，文档还阐述了风格定位（目标读者为希望了解发展脉络的读者和研究者，写作语气需客观、纵深、有洞察力）、核心原则（如基于时间顺序、识别关键转折点、合理推测未来方向）以及必需章节结构（包括概述、阶段划分、关键转折点、主题演进、未来轨迹预测和结论）。文档最后列出了输出文件和质量检查清单，确保报告的准确性和完整性。",
-          "short_summary": "本文档指导如何撰写历史时间跨度风格分析报告，强调基于时间顺序分析内容演变。它提供了阅读关注点、知识库结构、核心原则和详细章节结构，帮助用户提取关键信息并组织成结构化报告。目标读者是希望理解发展脉络的研究者和读者。",
+          "description": "本文档提供历史时间跨度风格分析报告的撰写指南，包括结构、原则和提取策略，帮助读者理解内容发展脉络。",
+          "summary": "本文档是一份关于如何撰写历史时间跨度风格分析报告的详细指南，旨在帮助用户基于时间顺序组织内容，分析演变趋势，识别关键转折点，并合理推测未来方向。文档定义了必需章节结构，如概述、阶段划分、关键转折点、主题演进和未来轨迹预测，并强调基于事实的客观分析。核心原则包括优先提取精确日期、关注事件关联和变化，以及压缩知识库时的保留策略。目标读者是希望了解发展脉络的研究者和读者，写作语气要求客观、纵深且有洞察力。",
+          "short_summary": "本文档指导如何撰写历史时间跨度风格分析报告，强调基于时间顺序组织内容，分析演变趋势和识别转折点。它提供了详细的章节结构和提取策略，帮助读者理解内容的历史背景和发展过程。",
           "key_points": [
-            "阅读时需重点提取精确日期、事件描述和转折点等信息",
-            "知识库应包含文件索引、时间线、阶段划分、转折点索引和主题演进索引",
-            "分析报告需基于时间顺序组织内容，识别关键转折点",
-            "风格定位要求客观、纵深、有洞察力，目标读者为研究者和读者",
-            "必需章节包括概述、阶段划分、关键转折点、主题演进、未来轨迹预测和结论",
-            "输出文件为SUMMARY/8-history.md，需进行质量检查确保准确性",
-            "压缩策略建议保留核心索引，精简或丢弃次要内容",
-            "核心原则强调基于事实分析，不脱离事实进行推测"
+            "基于时间顺序组织内容，优先提取精确日期",
+            "识别关键转折点和分析演变趋势",
+            "提供必需章节结构如阶段划分和主题演进",
+            "强调客观分析和合理推测未来方向",
+            "目标读者为研究者和希望了解发展脉络的读者"
           ],
-          "audience": "希望了解发展脉络的读者和研究者，需要撰写历史分析报告的用户",
+          "audience": "希望了解内容发展脉络的研究者、读者和文档分析人员",
           "tags": [
             "历史分析",
             "时间跨度",
             "风格指南",
             "文档撰写",
-            "知识库结构",
             "转折点识别",
             "主题演进"
           ]
         },
         "en-US": {
           "title": "Guide to Historical Time-Span Style Analysis Reports",
-          "description": "Provides a guide for writing historical time-span style analysis reports, including reading focus points, knowledge base structure, core principles, and required chapter structure.",
-          "summary": "This document is a guide for writing historical time-span style analysis reports, aimed at helping users organize content chronologically to analyze evolution and development trends. It details key points to focus on while reading (such as precise dates, event descriptions, turning points, etc.) and provides suggestions for knowledge base structure (including file indexing, timeline, phase division, turning point indexing, and theme evolution indexing). Additionally, the document explains style positioning (target audience: readers and researchers seeking to understand development trajectories; writing tone should be objective, in-depth, and insightful), core principles (e.g., based on chronological order, identifying key turning points, reasonably speculating future directions), and required chapter structure (including overview, phase division, key turning points, theme evolution, future trajectory prediction, and conclusion). Finally, the document lists output files and quality checklists to ensure report accuracy and completeness.",
-          "short_summary": "This document guides how to write historical time-span style analysis reports, emphasizing analyzing content evolution based on chronological order. It provides reading focus points, knowledge base structure, core principles, and detailed chapter structure to help users extract key information and organize it into structured reports. The target audience is researchers and readers seeking to understand development trajectories.",
+          "description": "This document provides guidelines for writing historical time-span style analysis reports, including structure, principles, and extraction strategies, helping readers understand the development context of content.",
+          "summary": "This document is a detailed guide on how to write historical time-span style analysis reports, aiming to help users organize content chronologically, analyze evolutionary trends, identify key turning points, and reasonably predict future directions. It defines essential chapter structures such as overview, phase division, key turning points, thematic evolution, and future trajectory prediction, and emphasizes fact-based objective analysis. Core principles include prioritizing the extraction of precise dates, focusing on event correlations and changes, and retention strategies when compressing knowledge bases. The target audience is researchers and readers who wish to understand development contexts, with a writing tone that should be objective, in-depth, and insightful.",
+          "short_summary": "This document guides how to write historical time-span style analysis reports, emphasizing organizing content chronologically, analyzing evolutionary trends, and identifying turning points. It provides detailed chapter structures and extraction strategies to help readers understand the historical context and development process of content.",
           "key_points": [
-            "When reading, focus on extracting information such as precise dates, event descriptions, and turning points",
-            "The knowledge base should include file indexing, timeline, phase division, turning point indexing, and theme evolution indexing",
-            "Analysis reports must organize content based on chronological order and identify key turning points",
-            "Style positioning requires objectivity, depth, and insightfulness, with target audience being researchers and readers",
-            "Required chapters include overview, phase division, key turning points, theme evolution, future trajectory prediction, and conclusion",
-            "Output file is SUMMARY/8-history.md, requiring quality checks to ensure accuracy",
-            "Compression strategy suggests retaining core indexes while simplifying or discarding secondary content",
-            "Core principles emphasize analysis based on facts, avoiding speculation detached from facts"
+            "Organize content based on chronological order, prioritizing the extraction of precise dates",
+            "Identify key turning points and analyze evolutionary trends",
+            "Provide essential chapter structures such as phase division and thematic evolution",
+            "Emphasize objective analysis and reasonable prediction of future directions",
+            "Target audience includes researchers and readers who wish to understand development contexts"
           ],
-          "audience": "Readers and researchers seeking to understand development trajectories, users needing to write historical analysis reports",
+          "audience": "Researchers, readers, and document analysts who wish to understand the development context of content",
           "tags": [
             "Historical Analysis",
-            "Time Span",
+            "Time-Span",
             "Style Guide",
             "Document Writing",
-            "Knowledge Base Structure",
             "Turning Point Identification",
-            "Theme Evolution"
+            "Thematic Evolution"
           ]
         },
         "ja-JP": {
@@ -10435,10 +10405,10 @@
           ]
         }
       },
-      "metadataTranslationHash": "0067388d032a756df660ae66a381c054fad64a9d84105ae3025280f8dfb8c16c"
+      "metadataTranslationHash": "f27c9c5569609cc37d85dc93415953520f0509515996d182e9a75ee780309b9b"
     },
     {
-      "hash": "23b9da672b355cc94819eedc162e719bdb409a8ede16be89b49342ced730f4fa",
+      "hash": "c34ee61af44980f69a580e954e89e3730b83a3707b51d170dccee989de7b6599",
       "path": "prompts/summary-objective.md",
       "links": [
         "../path/to/file.md",
@@ -10447,96 +10417,81 @@
       ],
       "metadata": {
         "title": "客观中立风格分析报告指南",
-        "description": "提供如何从文档中提取结构化信息并生成客观中立分析报告的详细指南，包括阅读关注点、知识库结构、压缩策略和必需章节结构。",
-        "short_summary": "本文档指导如何从文档中提取结构化信息，生成客观中立的分析报告。它定义了阅读关注点、知识库结构和压缩策略，强调避免主观评价，并列出必需章节如概述、项目介绍和时间线。目标读者包括新读者和潜在合作者。",
+        "description": "提供如何从文档中提取结构化信息并生成客观中立分析报告的详细指南。",
+        "short_summary": "本文档指导如何从文档中提取结构化信息，生成客观中立的分析报告。它详细列出了阅读关注点、知识库结构、压缩策略和必需章节，强调避免主观评价，确保信息准确可靠。",
         "audience": "需要快速了解仓库全貌的新读者、潜在合作者、投资人",
         "key_points": [
-          "阅读文档时重点提取文件路径、日期、项目名称、人物角色和客观事实",
+          "阅读文档时需关注文件路径、日期、项目名称、人物角色等客观信息",
           "知识库结构包括文件索引、项目索引、人物索引、时间线和理论框架索引",
-          "压缩策略要求保留文件索引、项目索引和人物索引，精简时间线和理论索引",
-          "风格定位强调客观中立，避免主观评价和情感表达",
-          "禁止事项包括不要加入情感表达、推测或主观评价词汇",
-          "必需章节结构包括概述、项目介绍、关键主题、时间线、主要人物和理论框架摘要",
-          "目标读者是新读者、潜在合作者和投资人",
-          "输出文件为SUMMARY/1-objective.md",
-          "质量检查清单确保无主观评价、格式正确和链接准确",
-          "文档用于帮助读者全面了解内容并形成自己的判断"
+          "报告风格必须客观中立，避免主观评价和情感表达",
+          "必需章节包括概述、项目介绍、关键主题、时间线、主要人物和理论框架摘要",
+          "提供质量检查清单以确保报告质量"
         ],
-        "summary": "本文档是一份关于如何创建客观中立风格分析报告的指南，详细说明了在分析文档时应关注的阅读点（如文件路径、日期、项目名称、人物角色、客观事实等），并定义了知识库的结构（包括文件索引、项目索引、人物索引、时间线和理论框架索引）。文档还提供了压缩策略，指导在需要时如何精简内容，同时强调必须保留关键索引。风格定位要求以客观中立的角度介绍内容，避免主观评价和情感色彩，目标读者包括新读者、潜在合作者和投资人。文档列出了禁止事项（如不要加入情感表达或推测）和必需章节结构（如概述、项目介绍、关键主题、时间线、主要人物和理论框架摘要），并指定输出文件和质量检查清单。",
+        "summary": "本文档是一份关于如何创建客观中立风格分析报告的指南，详细说明了阅读文档时应关注的重点（如文件路径、日期、项目名称、人物角色、客观事实等），并提供了知识库的结构（包括文件索引、项目索引、人物索引、时间线和理论框架索引）。文档还介绍了压缩策略、风格定位（强调客观、专业、中性）、禁止事项（如避免主观评价和情感表达）以及必需章节结构（如概述、项目介绍、关键主题、时间线、主要人物和理论框架摘要）。最后，提供了质量检查清单以确保报告符合要求。",
         "slug": "objective-neutral-analysis-report-guide",
         "tags": [
           "文档分析",
           "客观中立",
-          "知识库结构",
-          "信息提取",
-          "风格指南",
-          "报告撰写",
-          "结构化数据"
+          "结构化信息",
+          "知识库",
+          "报告指南",
+          "SEO",
+          "内容提取"
         ],
         "inferred_lang": "zh-Hans",
         "tokens_used": {
-          "prompt": 1351,
-          "completion": 536,
-          "total": 1887
+          "prompt": 1307,
+          "completion": 383,
+          "total": 1690
         }
       },
       "category": "Prompt Engineering",
-      "nativeMarkdownHash": "23b9da672b355cc94819eedc162e719bdb409a8ede16be89b49342ced730f4fa",
+      "nativeMarkdownHash": "c34ee61af44980f69a580e954e89e3730b83a3707b51d170dccee989de7b6599",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "客观中立风格分析报告指南",
-          "description": "提供如何从文档中提取结构化信息并生成客观中立分析报告的详细指南，包括阅读关注点、知识库结构、压缩策略和必需章节结构。",
-          "summary": "本文档是一份关于如何创建客观中立风格分析报告的指南，详细说明了在分析文档时应关注的阅读点（如文件路径、日期、项目名称、人物角色、客观事实等），并定义了知识库的结构（包括文件索引、项目索引、人物索引、时间线和理论框架索引）。文档还提供了压缩策略，指导在需要时如何精简内容，同时强调必须保留关键索引。风格定位要求以客观中立的角度介绍内容，避免主观评价和情感色彩，目标读者包括新读者、潜在合作者和投资人。文档列出了禁止事项（如不要加入情感表达或推测）和必需章节结构（如概述、项目介绍、关键主题、时间线、主要人物和理论框架摘要），并指定输出文件和质量检查清单。",
-          "short_summary": "本文档指导如何从文档中提取结构化信息，生成客观中立的分析报告。它定义了阅读关注点、知识库结构和压缩策略，强调避免主观评价，并列出必需章节如概述、项目介绍和时间线。目标读者包括新读者和潜在合作者。",
+          "description": "提供如何从文档中提取结构化信息并生成客观中立分析报告的详细指南。",
+          "summary": "本文档是一份关于如何创建客观中立风格分析报告的指南，详细说明了阅读文档时应关注的重点（如文件路径、日期、项目名称、人物角色、客观事实等），并提供了知识库的结构（包括文件索引、项目索引、人物索引、时间线和理论框架索引）。文档还介绍了压缩策略、风格定位（强调客观、专业、中性）、禁止事项（如避免主观评价和情感表达）以及必需章节结构（如概述、项目介绍、关键主题、时间线、主要人物和理论框架摘要）。最后，提供了质量检查清单以确保报告符合要求。",
+          "short_summary": "本文档指导如何从文档中提取结构化信息，生成客观中立的分析报告。它详细列出了阅读关注点、知识库结构、压缩策略和必需章节，强调避免主观评价，确保信息准确可靠。",
           "key_points": [
-            "阅读文档时重点提取文件路径、日期、项目名称、人物角色和客观事实",
+            "阅读文档时需关注文件路径、日期、项目名称、人物角色等客观信息",
             "知识库结构包括文件索引、项目索引、人物索引、时间线和理论框架索引",
-            "压缩策略要求保留文件索引、项目索引和人物索引，精简时间线和理论索引",
-            "风格定位强调客观中立，避免主观评价和情感表达",
-            "禁止事项包括不要加入情感表达、推测或主观评价词汇",
-            "必需章节结构包括概述、项目介绍、关键主题、时间线、主要人物和理论框架摘要",
-            "目标读者是新读者、潜在合作者和投资人",
-            "输出文件为SUMMARY/1-objective.md",
-            "质量检查清单确保无主观评价、格式正确和链接准确",
-            "文档用于帮助读者全面了解内容并形成自己的判断"
+            "报告风格必须客观中立，避免主观评价和情感表达",
+            "必需章节包括概述、项目介绍、关键主题、时间线、主要人物和理论框架摘要",
+            "提供质量检查清单以确保报告质量"
           ],
           "audience": "需要快速了解仓库全貌的新读者、潜在合作者、投资人",
           "tags": [
             "文档分析",
             "客观中立",
-            "知识库结构",
-            "信息提取",
-            "风格指南",
-            "报告撰写",
-            "结构化数据"
+            "结构化信息",
+            "知识库",
+            "报告指南",
+            "SEO",
+            "内容提取"
           ]
         },
         "en-US": {
           "title": "Guide to Objective and Neutral Style Analysis Reports",
-          "description": "Provides a detailed guide on how to extract structured information from documents and generate objective and neutral analysis reports, including reading focus points, knowledge base structure, compression strategies, and required chapter structures.",
-          "summary": "This document is a guide on how to create objective and neutral style analysis reports. It details the reading points to focus on when analyzing documents (such as file paths, dates, project names, character roles, objective facts, etc.) and defines the structure of the knowledge base (including file index, project index, character index, timeline, and theoretical framework index). The document also provides compression strategies, guiding how to streamline content when necessary while emphasizing the retention of key indexes. The style positioning requires introducing content from an objective and neutral perspective, avoiding subjective evaluations and emotional tones. The target audience includes new readers, potential collaborators, and investors. The document lists prohibited items (such as not adding emotional expressions or speculation) and required chapter structures (such as overview, project introduction, key themes, timeline, main characters, and theoretical framework summary), and specifies output files and quality checklists.",
-          "short_summary": "This document guides how to extract structured information from documents to generate objective and neutral analysis reports. It defines reading focus points, knowledge base structure, and compression strategies, emphasizes avoiding subjective evaluations, and lists required chapters such as overview, project introduction, and timeline. The target audience includes new readers and potential collaborators.",
+          "description": "Provides a detailed guide on how to extract structured information from documents and generate objective and neutral analysis reports.",
+          "summary": "This document is a guide on how to create objective and neutral style analysis reports. It details the key points to focus on when reading documents (such as file paths, dates, project names, character roles, objective facts, etc.) and provides the structure of the knowledge base (including file index, project index, character index, timeline, and theoretical framework index). The document also introduces compression strategies, style positioning (emphasizing objectivity, professionalism, and neutrality), prohibited practices (such as avoiding subjective evaluations and emotional expressions), and required chapter structures (such as overview, project introduction, key themes, timeline, main characters, and theoretical framework summary). Finally, it provides a quality checklist to ensure the report meets requirements.",
+          "short_summary": "This document guides how to extract structured information from documents and generate objective and neutral analysis reports. It details reading focus points, knowledge base structure, compression strategies, and required chapters, emphasizing the avoidance of subjective evaluations to ensure information is accurate and reliable.",
           "key_points": [
-            "When reading documents, focus on extracting file paths, dates, project names, character roles, and objective facts",
-            "Knowledge base structure includes file index, project index, character index, timeline, and theoretical framework index",
-            "Compression strategy requires retaining file index, project index, and character index, while streamlining timeline and theoretical index",
-            "Style positioning emphasizes objectivity and neutrality, avoiding subjective evaluations and emotional expressions",
-            "Prohibited items include not adding emotional expressions, speculation, or subjective evaluation vocabulary",
-            "Required chapter structures include overview, project introduction, key themes, timeline, main characters, and theoretical framework summary",
-            "Target audience is new readers, potential collaborators, and investors",
-            "Output file is SUMMARY/1-objective.md",
-            "Quality checklist ensures no subjective evaluations, correct formatting, and accurate links",
-            "The document is used to help readers comprehensively understand the content and form their own judgments"
+            "When reading documents, focus on objective information such as file paths, dates, project names, and character roles.",
+            "The knowledge base structure includes file index, project index, character index, timeline, and theoretical framework index.",
+            "The report style must be objective and neutral, avoiding subjective evaluations and emotional expressions.",
+            "Required chapters include overview, project introduction, key themes, timeline, main characters, and theoretical framework summary.",
+            "Provides a quality checklist to ensure report quality."
           ],
-          "audience": "New readers who need to quickly understand the overall repository, potential collaborators, investors",
+          "audience": "New readers, potential collaborators, and investors who need to quickly understand the overall picture of the repository.",
           "tags": [
             "Document Analysis",
-            "Objective and Neutral",
-            "Knowledge Base Structure",
-            "Information Extraction",
-            "Style Guide",
-            "Report Writing",
-            "Structured Data"
+            "Objective Neutral",
+            "Structured Information",
+            "Knowledge Base",
+            "Report Guide",
+            "SEO",
+            "Content Extraction"
           ]
         },
         "ja-JP": {
@@ -11212,109 +11167,91 @@
           ]
         }
       },
-      "metadataTranslationHash": "3184ddbb086d8ee1c88a04f770d47cab3d4ea5382cf40afc38871e597f77d05c"
+      "metadataTranslationHash": "eb1c63acb41ed0c17ad492bb9b31f100a3a83750eb5d67b41c52000037f2b8ea"
     },
     {
-      "hash": "d0aa8351c3d469db36e5c5ab26b86197c0a1965aa146c5ef30434d98caf453da",
+      "hash": "8834494ae640e148a9168b33d05b9bfa89516b784063d5a6936797a4315edf12",
       "path": "prompts/summary-philosophical.md",
       "links": [
         "../path/to/file.md"
       ],
       "metadata": {
         "title": "哲学思辨风格分析报告指南",
-        "description": "提供哲学思辨风格文档分析的框架，包括阅读关注点、知识库结构、压缩策略和必需章节结构，旨在深度思考和分析内容。",
-        "short_summary": "本文档指导如何以哲学视角分析内容，提取核心命题、价值判断和本质追问，构建结构化知识库。它强调深度思考和逻辑推理，面向哲学爱好者，提供必需章节和哲学框架参考。",
-        "audience": "喜欢深度思考的读者、哲学爱好者，寻求以哲学视角分析文档内容",
+        "description": "提供如何从文档中提取哲学思辨元素并结构化分析的详细指南，包括阅读关注点、知识库结构和必需章节。",
+        "short_summary": "本文档指导如何分析文档的哲学思辨元素，包括提取核心命题、价值判断和本质追问。它提供了结构化知识库和必需章节，强调逻辑推理和哲学对照，旨在引发读者思考和反思。",
+        "audience": "喜欢深度思考的读者和哲学爱好者，寻求提升认知水平。",
         "key_points": [
-          "定义哲学思辨风格分析的阅读关注点，如核心命题和本质问题",
-          "提供知识库结构，包括文件索引、命题索引和价值判断索引",
-          "介绍压缩策略，优先保留核心索引，精简次要内容",
-          "风格定位为深邃、思辨、严谨，目标读者是哲学爱好者",
-          "核心原则基于逻辑推理和哲学理论对照，避免术语堆砌",
-          "必需章节结构包括引言、命题分析、精神肖像和结论",
-          "可参考存在主义、实用主义等哲学框架进行对照分析",
-          "输出文件为SUMMARY/6-philosophical.md，附质量检查清单",
-          "强调对存在、自由、意义等主题的特别关注",
-          "旨在引发读者思考和反思，提升认知水平"
+          "提供哲学思辨分析的阅读关注点和知识库结构",
+          "规定必需章节如引言、命题分析和精神肖像",
+          "强调基于逻辑推理和哲学理论引用",
+          "目标读者为深度思考者和哲学爱好者",
+          "写作语气深邃、思辨、严谨"
         ],
-        "summary": "本文档是一份哲学思辨风格分析报告指南，详细阐述了如何从文档中提取结构化信息，如文件路径、核心命题、价值判断和本质追问。它定义了阅读关注点，包括对存在、自由、意义等主题的特别关注，并提供了知识库结构，涵盖文件索引、命题索引、价值判断索引、本质追问索引和思想特征记录。文档还介绍了压缩策略，强调必须保留核心索引，可以精简或丢弃次要内容。风格定位以深邃、思辨、严谨的语气，面向喜欢深度思考的读者和哲学爱好者，核心原则基于逻辑推理和哲学理论对照。必需章节结构包括引言、命题分析、精神肖像和结论，可参考存在主义、实用主义等哲学框架。输出文件为SUMMARY/6-philosophical.md，并附有质量检查清单以确保分析质量。",
+        "summary": "本文档是一份哲学思辨风格分析报告的指南，旨在指导如何从文档中提取结构化信息，如文件路径、核心命题、价值判断和本质追问等。它详细说明了阅读时的关注点，包括对存在、自由、意义等主题的论述；提供了知识库的结构，如文件索引、命题索引和价值判断索引；并规定了必需章节结构，如引言、命题分析和精神肖像。文档强调基于逻辑推理、引用哲学理论，并避免空洞术语堆砌，目标读者是喜欢深度思考和哲学爱好者，写作语气深邃、思辨、严谨。",
         "slug": "philosophical-analysis-report-guide",
         "tags": [
           "哲学分析",
           "思辨风格",
           "文档提取",
-          "知识库结构",
+          "结构化信息",
+          "知识库",
           "深度思考",
-          "逻辑推理",
-          "存在主义",
-          "实用主义"
+          "逻辑推理"
         ],
         "inferred_lang": "zh-Hans",
         "tokens_used": {
-          "prompt": 1334,
-          "completion": 536,
-          "total": 1870
+          "prompt": 1289,
+          "completion": 360,
+          "total": 1649
         }
       },
       "category": "Prompt Engineering",
-      "nativeMarkdownHash": "d0aa8351c3d469db36e5c5ab26b86197c0a1965aa146c5ef30434d98caf453da",
+      "nativeMarkdownHash": "8834494ae640e148a9168b33d05b9bfa89516b784063d5a6936797a4315edf12",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "哲学思辨风格分析报告指南",
-          "description": "提供哲学思辨风格文档分析的框架，包括阅读关注点、知识库结构、压缩策略和必需章节结构，旨在深度思考和分析内容。",
-          "summary": "本文档是一份哲学思辨风格分析报告指南，详细阐述了如何从文档中提取结构化信息，如文件路径、核心命题、价值判断和本质追问。它定义了阅读关注点，包括对存在、自由、意义等主题的特别关注，并提供了知识库结构，涵盖文件索引、命题索引、价值判断索引、本质追问索引和思想特征记录。文档还介绍了压缩策略，强调必须保留核心索引，可以精简或丢弃次要内容。风格定位以深邃、思辨、严谨的语气，面向喜欢深度思考的读者和哲学爱好者，核心原则基于逻辑推理和哲学理论对照。必需章节结构包括引言、命题分析、精神肖像和结论，可参考存在主义、实用主义等哲学框架。输出文件为SUMMARY/6-philosophical.md，并附有质量检查清单以确保分析质量。",
-          "short_summary": "本文档指导如何以哲学视角分析内容，提取核心命题、价值判断和本质追问，构建结构化知识库。它强调深度思考和逻辑推理，面向哲学爱好者，提供必需章节和哲学框架参考。",
+          "description": "提供如何从文档中提取哲学思辨元素并结构化分析的详细指南，包括阅读关注点、知识库结构和必需章节。",
+          "summary": "本文档是一份哲学思辨风格分析报告的指南，旨在指导如何从文档中提取结构化信息，如文件路径、核心命题、价值判断和本质追问等。它详细说明了阅读时的关注点，包括对存在、自由、意义等主题的论述；提供了知识库的结构，如文件索引、命题索引和价值判断索引；并规定了必需章节结构，如引言、命题分析和精神肖像。文档强调基于逻辑推理、引用哲学理论，并避免空洞术语堆砌，目标读者是喜欢深度思考和哲学爱好者，写作语气深邃、思辨、严谨。",
+          "short_summary": "本文档指导如何分析文档的哲学思辨元素，包括提取核心命题、价值判断和本质追问。它提供了结构化知识库和必需章节，强调逻辑推理和哲学对照，旨在引发读者思考和反思。",
           "key_points": [
-            "定义哲学思辨风格分析的阅读关注点，如核心命题和本质问题",
-            "提供知识库结构，包括文件索引、命题索引和价值判断索引",
-            "介绍压缩策略，优先保留核心索引，精简次要内容",
-            "风格定位为深邃、思辨、严谨，目标读者是哲学爱好者",
-            "核心原则基于逻辑推理和哲学理论对照，避免术语堆砌",
-            "必需章节结构包括引言、命题分析、精神肖像和结论",
-            "可参考存在主义、实用主义等哲学框架进行对照分析",
-            "输出文件为SUMMARY/6-philosophical.md，附质量检查清单",
-            "强调对存在、自由、意义等主题的特别关注",
-            "旨在引发读者思考和反思，提升认知水平"
+            "提供哲学思辨分析的阅读关注点和知识库结构",
+            "规定必需章节如引言、命题分析和精神肖像",
+            "强调基于逻辑推理和哲学理论引用",
+            "目标读者为深度思考者和哲学爱好者",
+            "写作语气深邃、思辨、严谨"
           ],
-          "audience": "喜欢深度思考的读者、哲学爱好者，寻求以哲学视角分析文档内容",
+          "audience": "喜欢深度思考的读者和哲学爱好者，寻求提升认知水平。",
           "tags": [
             "哲学分析",
             "思辨风格",
             "文档提取",
-            "知识库结构",
+            "结构化信息",
+            "知识库",
             "深度思考",
-            "逻辑推理",
-            "存在主义",
-            "实用主义"
+            "逻辑推理"
           ]
         },
         "en-US": {
           "title": "Guide to Philosophical Speculative Style Analysis Reports",
-          "description": "Provides a framework for analyzing documents in a philosophical speculative style, including reading focuses, knowledge base structure, compression strategies, and required chapter structures, aimed at deep thinking and content analysis.",
-          "summary": "This document is a guide to philosophical speculative style analysis reports, detailing how to extract structured information from documents, such as file paths, core propositions, value judgments, and essential inquiries. It defines reading focuses, including special attention to themes like existence, freedom, and meaning, and provides a knowledge base structure covering file indexing, proposition indexing, value judgment indexing, essential inquiry indexing, and thought characteristic records. The document also introduces compression strategies, emphasizing the retention of core indexes while simplifying or discarding secondary content. The style is positioned with a profound, speculative, and rigorous tone, targeting readers who enjoy deep thinking and philosophy enthusiasts, with core principles based on logical reasoning and philosophical theory comparison. Required chapter structures include introduction, proposition analysis, spiritual portrait, and conclusion, with references to philosophical frameworks such as existentialism and pragmatism. The output file is SUMMARY/6-philosophical.md, accompanied by a quality checklist to ensure analysis quality.",
-          "short_summary": "This document guides how to analyze content from a philosophical perspective, extracting core propositions, value judgments, and essential inquiries to build a structured knowledge base. It emphasizes deep thinking and logical reasoning, targets philosophy enthusiasts, and provides required chapters and philosophical framework references.",
+          "description": "Provides a detailed guide on how to extract philosophical speculative elements from documents and conduct structured analysis, including reading focus points, knowledge base structure, and required sections.",
+          "summary": "This document is a guide for philosophical speculative style analysis reports, aiming to instruct how to extract structured information from documents, such as file paths, core propositions, value judgments, and essential inquiries. It details reading focus points, including discussions on themes like existence, freedom, and meaning; provides the structure of the knowledge base, such as file indexes, proposition indexes, and value judgment indexes; and specifies required section structures, such as introduction, proposition analysis, and spiritual portrait. The document emphasizes logical reasoning, references to philosophical theories, and avoids empty terminology accumulation. The target audience is those who enjoy deep thinking and philosophy enthusiasts, with a writing tone that is profound, speculative, and rigorous.",
+          "short_summary": "This document guides how to analyze the philosophical speculative elements of documents, including extracting core propositions, value judgments, and essential inquiries. It provides a structured knowledge base and required sections, emphasizing logical reasoning and philosophical comparison, aiming to provoke reader thought and reflection.",
           "key_points": [
-            "Defines reading focuses for philosophical speculative style analysis, such as core propositions and essential questions",
-            "Provides a knowledge base structure, including file indexing, proposition indexing, and value judgment indexing",
-            "Introduces compression strategies, prioritizing the retention of core indexes and simplifying secondary content",
-            "Style is positioned as profound, speculative, and rigorous, with target readers being philosophy enthusiasts",
-            "Core principles are based on logical reasoning and philosophical theory comparison, avoiding jargon accumulation",
-            "Required chapter structures include introduction, proposition analysis, spiritual portrait, and conclusion",
-            "Can reference philosophical frameworks like existentialism and pragmatism for comparative analysis",
-            "Output file is SUMMARY/6-philosophical.md, accompanied by a quality checklist",
-            "Emphasizes special attention to themes such as existence, freedom, and meaning",
-            "Aims to provoke reader thought and reflection, enhancing cognitive levels"
+            "Provides reading focus points and knowledge base structure for philosophical speculative analysis",
+            "Specifies required sections such as introduction, proposition analysis, and spiritual portrait",
+            "Emphasizes logical reasoning and references to philosophical theories",
+            "Target audience is deep thinkers and philosophy enthusiasts",
+            "Writing tone is profound, speculative, and rigorous"
           ],
-          "audience": "Readers who enjoy deep thinking, philosophy enthusiasts, seeking to analyze document content from a philosophical perspective",
+          "audience": "Readers who enjoy deep thinking and philosophy enthusiasts, seeking to enhance cognitive levels.",
           "tags": [
             "Philosophical Analysis",
             "Speculative Style",
             "Document Extraction",
-            "Knowledge Base Structure",
+            "Structured Information",
+            "Knowledge Base",
             "Deep Thinking",
-            "Logical Reasoning",
-            "Existentialism",
-            "Pragmatism"
+            "Logical Reasoning"
           ]
         },
         "ja-JP": {
@@ -12014,101 +11951,86 @@
           ]
         }
       },
-      "metadataTranslationHash": "fb5d0ea8378dd05586429fb524ad2d0d2346d6fa32ace596fb0c3a1b4258c7a9"
+      "metadataTranslationHash": "7d12b5662cd11a690d6660dc9655f6061e5ca7ce1525b77ab8a3a321f33dbd82"
     },
     {
-      "hash": "7d13bf8098313d35d3bea2dd30b0a151033b5092865e011f02adc50502c6976a",
+      "hash": "5eadfc706b146df34c67ef2dea2effb278ba50f03f0a8dd9ada652bd54115b72",
       "path": "prompts/summary-popular.md",
       "links": [],
       "metadata": {
         "title": "科普介绍风格分析报告",
-        "description": "提供如何以通俗易懂方式向非专业读者介绍技术内容的指南，包括结构、原则和示例。",
-        "short_summary": "本文档指导如何以通俗易懂的方式向非专业读者介绍技术内容，强调使用简单语言和生活类比。它提供了详细的结构和原则，帮助降低理解难度，使学习过程更轻松愉快。",
-        "audience": "非专业背景的普通读者、对领域感兴趣的新手、内容创作者和文档编写者",
+        "description": "本文档提供如何以通俗易懂的语言向非专业读者介绍复杂内容的指南，包括结构、原则和检查清单。",
+        "short_summary": "本文档指导如何创建通俗易懂的科普内容，通过使用简单语言、生活类比和结构化章节，降低理解难度。它面向非专业读者，提供从文件索引到推荐阅读顺序的完整框架，并包含质量检查以确保内容友好有效。",
+        "audience": "非专业背景的普通读者、对领域感兴趣的新手",
         "key_points": [
-          "重点提取文件路径、核心概念、类比和应用场景",
-          "知识库结构包括文件索引、概念索引、项目索引和应用场景索引",
-          "压缩策略优先保留文件索引和概念索引",
-          "风格定位为轻松友好，目标读者是非专业背景的普通读者",
-          "核心原则包括使用简单语言、生活类比和避免专业术语",
-          "必需章节结构包括这是什么、核心项目、核心理念、适合谁看和从哪里开始",
-          "输出文件为SUMMARY/4-popular.md",
-          "质量检查清单确保无未解释术语、有类比和语言简单"
+          "使用简单语言和生活类比解释复杂概念",
+          "结构化知识库包括文件、概念、项目和应用场景索引",
+          "面向非专业读者，强调轻松友好的写作语气",
+          "提供必需章节如核心项目和核心理念的类比解释",
+          "包含质量检查清单确保内容易懂无专业术语"
         ],
-        "summary": "本文档是一份关于如何撰写科普风格内容的分析报告，旨在指导如何向非专业背景的普通读者介绍复杂概念。报告详细列出了阅读关注点、知识库结构、压缩策略、风格定位、核心原则和必需章节结构，强调使用简单语言、生活类比和循序渐进的方法，以降低理解难度，使读者在轻松氛围中学习。文档还提供了输出文件和质量检查清单，确保内容易于理解和有效。",
+        "summary": "本文档是一份关于如何撰写科普风格内容的分析报告，旨在帮助作者以轻松友好的语气向普通读者介绍复杂概念。报告详细列出了阅读关注点、知识库结构、压缩策略、风格定位、核心原则、必需章节结构和质量检查清单，强调使用简单语言、生活类比和循序渐进的方式，确保内容易于理解，适合非专业背景的新手。",
         "slug": "popular-science-style-analysis-report",
         "tags": [
           "科普",
-          "风格分析",
-          "文档指南",
-          "非专业读者",
-          "通俗易懂",
-          "生活类比",
-          "知识库",
-          "入门友好"
+          "文档分析",
+          "风格指南",
+          "入门友好",
+          "内容创作",
+          "知识库"
         ],
         "inferred_lang": "zh-Hans",
         "tokens_used": {
-          "prompt": 1241,
-          "completion": 409,
-          "total": 1650
+          "prompt": 1197,
+          "completion": 320,
+          "total": 1517
         }
       },
       "category": "Prompt Engineering",
-      "nativeMarkdownHash": "7d13bf8098313d35d3bea2dd30b0a151033b5092865e011f02adc50502c6976a",
+      "nativeMarkdownHash": "5eadfc706b146df34c67ef2dea2effb278ba50f03f0a8dd9ada652bd54115b72",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "科普介绍风格分析报告",
-          "description": "提供如何以通俗易懂方式向非专业读者介绍技术内容的指南，包括结构、原则和示例。",
-          "summary": "本文档是一份关于如何撰写科普风格内容的分析报告，旨在指导如何向非专业背景的普通读者介绍复杂概念。报告详细列出了阅读关注点、知识库结构、压缩策略、风格定位、核心原则和必需章节结构，强调使用简单语言、生活类比和循序渐进的方法，以降低理解难度，使读者在轻松氛围中学习。文档还提供了输出文件和质量检查清单，确保内容易于理解和有效。",
-          "short_summary": "本文档指导如何以通俗易懂的方式向非专业读者介绍技术内容，强调使用简单语言和生活类比。它提供了详细的结构和原则，帮助降低理解难度，使学习过程更轻松愉快。",
+          "description": "本文档提供如何以通俗易懂的语言向非专业读者介绍复杂内容的指南，包括结构、原则和检查清单。",
+          "summary": "本文档是一份关于如何撰写科普风格内容的分析报告，旨在帮助作者以轻松友好的语气向普通读者介绍复杂概念。报告详细列出了阅读关注点、知识库结构、压缩策略、风格定位、核心原则、必需章节结构和质量检查清单，强调使用简单语言、生活类比和循序渐进的方式，确保内容易于理解，适合非专业背景的新手。",
+          "short_summary": "本文档指导如何创建通俗易懂的科普内容，通过使用简单语言、生活类比和结构化章节，降低理解难度。它面向非专业读者，提供从文件索引到推荐阅读顺序的完整框架，并包含质量检查以确保内容友好有效。",
           "key_points": [
-            "重点提取文件路径、核心概念、类比和应用场景",
-            "知识库结构包括文件索引、概念索引、项目索引和应用场景索引",
-            "压缩策略优先保留文件索引和概念索引",
-            "风格定位为轻松友好，目标读者是非专业背景的普通读者",
-            "核心原则包括使用简单语言、生活类比和避免专业术语",
-            "必需章节结构包括这是什么、核心项目、核心理念、适合谁看和从哪里开始",
-            "输出文件为SUMMARY/4-popular.md",
-            "质量检查清单确保无未解释术语、有类比和语言简单"
+            "使用简单语言和生活类比解释复杂概念",
+            "结构化知识库包括文件、概念、项目和应用场景索引",
+            "面向非专业读者，强调轻松友好的写作语气",
+            "提供必需章节如核心项目和核心理念的类比解释",
+            "包含质量检查清单确保内容易懂无专业术语"
           ],
-          "audience": "非专业背景的普通读者、对领域感兴趣的新手、内容创作者和文档编写者",
+          "audience": "非专业背景的普通读者、对领域感兴趣的新手",
           "tags": [
             "科普",
-            "风格分析",
-            "文档指南",
-            "非专业读者",
-            "通俗易懂",
-            "生活类比",
-            "知识库",
-            "入门友好"
+            "文档分析",
+            "风格指南",
+            "入门友好",
+            "内容创作",
+            "知识库"
           ]
         },
         "en-US": {
           "title": "Popular Science Style Analysis Report",
-          "description": "A guide on how to introduce technical content to non-specialist readers in an easy-to-understand manner, including structure, principles, and examples.",
-          "summary": "This document is an analysis report on how to write content in a popular science style, aiming to guide the introduction of complex concepts to general readers without a professional background. The report details reading focus points, knowledge base structure, compression strategies, style positioning, core principles, and required chapter structure, emphasizing the use of simple language, everyday analogies, and a step-by-step approach to reduce comprehension difficulty and enable readers to learn in a relaxed atmosphere. The document also provides output files and a quality checklist to ensure content is easy to understand and effective.",
-          "short_summary": "This document guides how to introduce technical content to non-specialist readers in an easy-to-understand way, emphasizing the use of simple language and everyday analogies. It provides detailed structure and principles to help reduce comprehension difficulty and make the learning process more enjoyable.",
+          "description": "This document provides a guide on how to introduce complex content to non-specialist readers in an easy-to-understand language, including structure, principles, and checklists.",
+          "summary": "This document is an analysis report on how to write popular science style content, aiming to help authors introduce complex concepts to general readers in a light and friendly tone. The report details reading focus points, knowledge base structure, compression strategies, style positioning, core principles, essential chapter structures, and quality checklists, emphasizing the use of simple language, everyday analogies, and step-by-step approaches to ensure content is easy to understand and suitable for beginners without a professional background.",
+          "short_summary": "This document guides how to create easy-to-understand popular science content by using simple language, everyday analogies, and structured chapters to reduce comprehension difficulty. It targets non-specialist readers, provides a complete framework from file indexing to recommended reading order, and includes quality checks to ensure content is friendly and effective.",
           "key_points": [
-            "Focus on extracting file paths, core concepts, analogies, and application scenarios",
-            "Knowledge base structure includes file index, concept index, project index, and application scenario index",
-            "Compression strategy prioritizes retaining file index and concept index",
-            "Style positioning is relaxed and friendly, targeting general readers without a professional background",
-            "Core principles include using simple language, everyday analogies, and avoiding technical jargon",
-            "Required chapter structure includes What is this, Core projects, Core ideas, Who is it for, and Where to start",
-            "Output file is SUMMARY/4-popular.md",
-            "Quality checklist ensures no unexplained terms, presence of analogies, and simple language"
+            "Use simple language and everyday analogies to explain complex concepts",
+            "Structured knowledge base includes indexes for files, concepts, projects, and application scenarios",
+            "Target non-specialist readers, emphasizing a light and friendly writing tone",
+            "Provide essential chapters such as analogical explanations for core projects and core ideas",
+            "Include quality checklists to ensure content is understandable and free of jargon"
           ],
-          "audience": "General readers without a professional background, beginners interested in the field, content creators, and document writers",
+          "audience": "General readers without a professional background, beginners interested in the field",
           "tags": [
             "Popular Science",
-            "Style Analysis",
-            "Documentation Guide",
-            "Non-specialist Readers",
-            "Easy-to-Understand",
-            "Everyday Analogies",
-            "Knowledge Base",
-            "Beginner-Friendly"
+            "Document Analysis",
+            "Style Guide",
+            "Beginner-Friendly",
+            "Content Creation",
+            "Knowledge Base"
           ]
         },
         "ja-JP": {
@@ -12760,109 +12682,91 @@
           ]
         }
       },
-      "metadataTranslationHash": "cb811f8ab386cb019ce72a5b0528689b94f61b54295b299aa15446c5597aba66"
+      "metadataTranslationHash": "5296c283a22d00769ff93507ac0097dc4708394aac0cdc000eb9dc3d41d45d3a"
     },
     {
-      "hash": "007eaf020c452c848db29696f18992c01c182cc3fff802dda8de2fe7d9959213",
+      "hash": "50b72a5ab9f1d56cce29d44d8951ae13b5f0e3d44b1e9cb3906603cd26f5c5a5",
       "path": "prompts/summary-positive.md",
       "links": [
         "../path/to/file.md"
       ],
       "metadata": {
-        "title": "赞扬鼓励风格分析报告",
-        "description": "本文档提供赞扬鼓励风格分析报告的框架，包括知识库结构、压缩策略和必需章节结构，旨在基于事实突出亮点和创新。",
-        "short_summary": "本文档定义了赞扬鼓励风格分析报告的框架，指导如何提取和结构化文档中的亮点信息。它强调基于事实的积极评价，突出创新和价值，并提供了详细的章节结构和质量检查标准。",
+        "title": "赞扬鼓励风格分析报告指南",
+        "description": "本文档提供如何从积极角度分析内容、提取亮点并结构化呈现的指南，旨在激发读者兴趣和鼓励创作者。",
+        "short_summary": "本文档指导如何以积极风格分析内容，提取亮点如创新点和成果，并结构化呈现。它强调真诚鼓励和事实依据，帮助读者激发兴趣并认可创作者的努力。",
         "audience": "对内容感兴趣的潜在读者和内容创作者本人，旨在激发兴趣和增强认可感。",
         "key_points": [
-          "文档分析框架包括文件索引、创新点索引、成果索引、努力证据索引和项目亮点索引",
-          "压缩策略优先保留文件索引、创新点索引和项目亮点索引",
-          "风格定位以积极正面角度介绍内容，强调优点和亮点",
-          "核心原则基于事实评价，突出真正亮点，避免夸大",
-          "必需章节结构涵盖开篇亮点、核心项目亮点、思想贡献、行动力体现、适合人群和总结与展望",
-          "目标读者为对内容感兴趣的潜在读者和内容创作者本人",
-          "写作语气要求积极、热情、真诚",
-          "质量检查清单确保赞扬有事实依据、语气真诚、亮点具体",
-          "输出文件指定为SUMMARY/3-positive.md",
-          "文档语言为简体中文"
+          "基于事实的积极评价和亮点提取",
+          "结构化知识库索引包括文件、创新点和成果",
+          "必需章节如开篇亮点、核心项目亮点和思想贡献",
+          "目标读者为潜在读者和内容创作者",
+          "强调真诚鼓励而非夸大其词"
         ],
-        "summary": "本文档是一份赞扬鼓励风格分析报告的指南，详细阐述了如何从文档中提取结构化信息，如文件路径、创新点、成果和努力证据，并组织成知识库索引。它强调了以积极正面的角度介绍内容，突出优点和亮点，同时基于事实进行评价，避免夸大。文档还规定了必需章节结构，包括开篇亮点、核心项目亮点、思想贡献、行动力体现、适合人群和总结与展望，并提供了质量检查清单以确保内容真诚有效。",
+        "summary": "本文档是一份关于赞扬鼓励风格分析报告的指南，详细介绍了如何从文档中提取结构化信息，包括阅读关注点、知识库结构、压缩策略、风格定位、核心原则、必需章节结构和质量检查清单。它强调基于事实的积极评价，突出创新点和成果，以真诚的语气鼓励读者和创作者，适用于内容分析和报告撰写。",
         "slug": "praise-encouragement-style-analysis-report",
         "tags": [
           "文档分析",
-          "赞扬鼓励",
-          "知识库结构",
+          "赞扬风格",
+          "结构化提取",
+          "内容指南",
+          "积极评价",
           "创新点",
-          "成果索引",
-          "风格定位",
-          "SEO",
-          "内容创作"
+          "成果索引"
         ],
         "inferred_lang": "zh-Hans",
         "tokens_used": {
-          "prompt": 1208,
-          "completion": 460,
-          "total": 1668
+          "prompt": 1165,
+          "completion": 309,
+          "total": 1474
         }
       },
       "category": "Prompt Engineering",
-      "nativeMarkdownHash": "007eaf020c452c848db29696f18992c01c182cc3fff802dda8de2fe7d9959213",
+      "nativeMarkdownHash": "50b72a5ab9f1d56cce29d44d8951ae13b5f0e3d44b1e9cb3906603cd26f5c5a5",
       "metadataTranslations": {
         "zh-Hans": {
-          "title": "赞扬鼓励风格分析报告",
-          "description": "本文档提供赞扬鼓励风格分析报告的框架，包括知识库结构、压缩策略和必需章节结构，旨在基于事实突出亮点和创新。",
-          "summary": "本文档是一份赞扬鼓励风格分析报告的指南，详细阐述了如何从文档中提取结构化信息，如文件路径、创新点、成果和努力证据，并组织成知识库索引。它强调了以积极正面的角度介绍内容，突出优点和亮点，同时基于事实进行评价，避免夸大。文档还规定了必需章节结构，包括开篇亮点、核心项目亮点、思想贡献、行动力体现、适合人群和总结与展望，并提供了质量检查清单以确保内容真诚有效。",
-          "short_summary": "本文档定义了赞扬鼓励风格分析报告的框架，指导如何提取和结构化文档中的亮点信息。它强调基于事实的积极评价，突出创新和价值，并提供了详细的章节结构和质量检查标准。",
+          "title": "赞扬鼓励风格分析报告指南",
+          "description": "本文档提供如何从积极角度分析内容、提取亮点并结构化呈现的指南，旨在激发读者兴趣和鼓励创作者。",
+          "summary": "本文档是一份关于赞扬鼓励风格分析报告的指南，详细介绍了如何从文档中提取结构化信息，包括阅读关注点、知识库结构、压缩策略、风格定位、核心原则、必需章节结构和质量检查清单。它强调基于事实的积极评价，突出创新点和成果，以真诚的语气鼓励读者和创作者，适用于内容分析和报告撰写。",
+          "short_summary": "本文档指导如何以积极风格分析内容，提取亮点如创新点和成果，并结构化呈现。它强调真诚鼓励和事实依据，帮助读者激发兴趣并认可创作者的努力。",
           "key_points": [
-            "文档分析框架包括文件索引、创新点索引、成果索引、努力证据索引和项目亮点索引",
-            "压缩策略优先保留文件索引、创新点索引和项目亮点索引",
-            "风格定位以积极正面角度介绍内容，强调优点和亮点",
-            "核心原则基于事实评价，突出真正亮点，避免夸大",
-            "必需章节结构涵盖开篇亮点、核心项目亮点、思想贡献、行动力体现、适合人群和总结与展望",
-            "目标读者为对内容感兴趣的潜在读者和内容创作者本人",
-            "写作语气要求积极、热情、真诚",
-            "质量检查清单确保赞扬有事实依据、语气真诚、亮点具体",
-            "输出文件指定为SUMMARY/3-positive.md",
-            "文档语言为简体中文"
+            "基于事实的积极评价和亮点提取",
+            "结构化知识库索引包括文件、创新点和成果",
+            "必需章节如开篇亮点、核心项目亮点和思想贡献",
+            "目标读者为潜在读者和内容创作者",
+            "强调真诚鼓励而非夸大其词"
           ],
           "audience": "对内容感兴趣的潜在读者和内容创作者本人，旨在激发兴趣和增强认可感。",
           "tags": [
             "文档分析",
-            "赞扬鼓励",
-            "知识库结构",
+            "赞扬风格",
+            "结构化提取",
+            "内容指南",
+            "积极评价",
             "创新点",
-            "成果索引",
-            "风格定位",
-            "SEO",
-            "内容创作"
+            "成果索引"
           ]
         },
         "en-US": {
-          "title": "Praise and Encouragement Style Analysis Report",
-          "description": "This document provides a framework for praise and encouragement style analysis reports, including knowledge base structure, compression strategies, and required chapter structure, aiming to highlight strengths and innovations based on facts.",
-          "summary": "This document is a guide for praise and encouragement style analysis reports, detailing how to extract structured information from documents, such as file paths, innovation points, achievements, and evidence of effort, and organize it into a knowledge base index. It emphasizes presenting content from a positive perspective, highlighting strengths and highlights, while evaluating based on facts to avoid exaggeration. The document also specifies required chapter structures, including opening highlights, core project highlights, intellectual contributions, demonstration of action, target audience, and summary with outlook, and provides a quality checklist to ensure content is sincere and effective.",
-          "short_summary": "This document defines the framework for praise and encouragement style analysis reports, guiding how to extract and structure highlight information from documents. It emphasizes fact-based positive evaluation, highlighting innovation and value, and provides detailed chapter structures and quality check standards.",
+          "title": "Guide to Praise and Encouragement Style Analysis Reports",
+          "description": "This document provides guidance on how to analyze content from a positive perspective, extract highlights, and present them in a structured manner, aiming to spark reader interest and encourage creators.",
+          "summary": "This document is a guide to praise and encouragement style analysis reports, detailing how to extract structured information from documents, including reading focus points, knowledge base structure, compression strategies, style positioning, core principles, required chapter structures, and quality checklists. It emphasizes fact-based positive evaluations, highlights innovations and achievements, encourages readers and creators with a sincere tone, and is applicable to content analysis and report writing.",
+          "short_summary": "This document guides how to analyze content in a positive style, extract highlights such as innovations and achievements, and present them in a structured way. It emphasizes sincere encouragement and factual basis, helping readers spark interest and recognize creators' efforts.",
           "key_points": [
-            "Document analysis framework includes file index, innovation point index, achievement index, effort evidence index, and project highlight index",
-            "Compression strategy prioritizes retaining file index, innovation point index, and project highlight index",
-            "Style positioning introduces content from a positive perspective, emphasizing strengths and highlights",
-            "Core principle is to evaluate based on facts, highlight genuine strengths, and avoid exaggeration",
-            "Required chapter structure covers opening highlights, core project highlights, intellectual contributions, demonstration of action, target audience, and summary with outlook",
-            "Target audience includes potential readers interested in the content and the content creators themselves",
-            "Writing tone should be positive, enthusiastic, and sincere",
-            "Quality checklist ensures praise is fact-based, tone is sincere, and highlights are specific",
-            "Output file is specified as SUMMARY/3-positive.md",
-            "Document language is Simplified Chinese"
+            "Fact-based positive evaluation and highlight extraction",
+            "Structured knowledge base indexing including files, innovations, and achievements",
+            "Required chapters such as opening highlights, core project highlights, and intellectual contributions",
+            "Target audience includes potential readers and content creators",
+            "Emphasizes sincere encouragement rather than exaggeration"
           ],
           "audience": "Potential readers interested in the content and the content creators themselves, aiming to spark interest and enhance recognition.",
           "tags": [
             "Document Analysis",
-            "Praise and Encouragement",
-            "Knowledge Base Structure",
+            "Praise Style",
+            "Structured Extraction",
+            "Content Guide",
+            "Positive Evaluation",
             "Innovation Points",
-            "Achievement Index",
-            "Style Positioning",
-            "SEO",
-            "Content Creation"
+            "Achievement Indexing"
           ]
         },
         "ja-JP": {
@@ -13562,88 +13466,88 @@
           ]
         }
       },
-      "metadataTranslationHash": "9188a5f72fca37123c304844dd51efd1437743062670c10dc40cb2637bcc1163"
+      "metadataTranslationHash": "2bc0999c5f584ffaa06f179064e9c2c9b137e6136b6d55b89708c9573cc95df2"
     },
     {
-      "hash": "3c66adb619ef185d10d7790d806321194044eaf080bbeeb0954d8e7a0a218ba1",
+      "hash": "c9babef0e3d0087eb68115010e3bb0cb83fd9722d114334008e86b9de1e194a1",
       "path": "prompts/summary-psychological.md",
       "links": [
         "../README.md"
       ],
       "metadata": {
         "title": "心理分析风格报告指南",
-        "description": "提供心理分析文档的结构化框架，包括MBTI、价值观、防御机制等分析方法和输出格式。",
-        "short_summary": "本文档为心理分析提供结构化指南，涵盖MBTI、价值观和防御机制等分析框架。它详细说明如何提取信息、组织知识库并输出专业报告，适用于对心理学感兴趣的读者。",
-        "audience": "对心理学感兴趣的读者、希望深入了解作者的人，如心理学爱好者、研究人员或分析师。",
+        "description": "提供心理分析文档的结构化框架，包括MBTI人格类型、价值观、防御机制等分析方法和知识库管理策略。",
+        "short_summary": "本文档提供了一套完整的心理分析框架，指导如何从文档中提取信息进行MBTI人格、价值观和防御机制等分析。它定义了知识库结构和压缩策略，确保分析的系统性和深度。目标读者是心理学爱好者和需要深入了解作者的人。",
+        "audience": "对心理学感兴趣的读者、希望深入了解作者的人",
         "key_points": [
           "提供心理分析的结构化框架，包括MBTI、价值观和防御机制分析",
-          "详细说明知识库组织和压缩策略，确保信息提取高效",
-          "强调专业分析风格，目标读者为心理学爱好者和研究者",
-          "包含输出文件和质量检查清单，指导完整分析流程"
+          "定义知识库结构，支持信息提取和压缩策略",
+          "目标读者为心理学爱好者和需要深度了解作者的人",
+          "强调专业、分析性的写作语气和质量检查"
         ],
-        "summary": "本文档是一份心理分析风格报告指南，旨在指导如何从文档中提取结构化信息进行深度心理分析。它详细介绍了分析框架，包括MBTI人格类型分析（涵盖I/E、N/S、T/F、J/P四个维度）、施瓦茨价值观分析（如自我导向、成就等）、心理防御机制分析（如理智化、升华）、潜意识动机分析、人际关系模式和心理肖像整合。文档还提供了知识库结构（如文件索引、MBTI证据索引）、压缩策略、风格定位（专业、分析性）、输出文件要求和质量检查清单，确保分析过程系统化、有理有据。",
+        "summary": "本文档是一份心理分析风格报告指南，详细介绍了如何从文档中提取结构化信息进行深度心理分析。它定义了阅读关注点，如作者的自我描述、决策过程、情感表达等，并提供了知识库结构，包括文件索引、MBTI证据索引、价值观证据索引等。文档还阐述了压缩策略，强调必须保留核心索引。分析框架涵盖MBTI人格类型分析（含四个维度的倾向判定、证据和结论）、施瓦茨价值观分析（按优先级排序）、心理防御机制分析（含置信度和例子）、潜意识动机分析、人际关系模式和心理肖像整合。最后，文档列出了质量检查清单，确保分析完整性。目标读者是对心理学感兴趣的读者或希望深入了解作者的人，写作语气专业、分析性、有理有据。",
         "slug": "psychological-analysis-style-report-guide",
         "tags": [
           "心理分析",
           "MBTI",
           "价值观分析",
           "防御机制",
-          "文档指南",
-          "结构化信息",
-          "心理学"
+          "文档分析",
+          "知识库",
+          "结构化信息"
         ],
         "inferred_lang": "zh-Hans",
         "tokens_used": {
-          "prompt": 1538,
-          "completion": 366,
-          "total": 1904
+          "prompt": 1525,
+          "completion": 402,
+          "total": 1927
         }
       },
       "category": "Prompt Engineering",
-      "nativeMarkdownHash": "3c66adb619ef185d10d7790d806321194044eaf080bbeeb0954d8e7a0a218ba1",
+      "nativeMarkdownHash": "c9babef0e3d0087eb68115010e3bb0cb83fd9722d114334008e86b9de1e194a1",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "心理分析风格报告指南",
-          "description": "提供心理分析文档的结构化框架，包括MBTI、价值观、防御机制等分析方法和输出格式。",
-          "summary": "本文档是一份心理分析风格报告指南，旨在指导如何从文档中提取结构化信息进行深度心理分析。它详细介绍了分析框架，包括MBTI人格类型分析（涵盖I/E、N/S、T/F、J/P四个维度）、施瓦茨价值观分析（如自我导向、成就等）、心理防御机制分析（如理智化、升华）、潜意识动机分析、人际关系模式和心理肖像整合。文档还提供了知识库结构（如文件索引、MBTI证据索引）、压缩策略、风格定位（专业、分析性）、输出文件要求和质量检查清单，确保分析过程系统化、有理有据。",
-          "short_summary": "本文档为心理分析提供结构化指南，涵盖MBTI、价值观和防御机制等分析框架。它详细说明如何提取信息、组织知识库并输出专业报告，适用于对心理学感兴趣的读者。",
+          "description": "提供心理分析文档的结构化框架，包括MBTI人格类型、价值观、防御机制等分析方法和知识库管理策略。",
+          "summary": "本文档是一份心理分析风格报告指南，详细介绍了如何从文档中提取结构化信息进行深度心理分析。它定义了阅读关注点，如作者的自我描述、决策过程、情感表达等，并提供了知识库结构，包括文件索引、MBTI证据索引、价值观证据索引等。文档还阐述了压缩策略，强调必须保留核心索引。分析框架涵盖MBTI人格类型分析（含四个维度的倾向判定、证据和结论）、施瓦茨价值观分析（按优先级排序）、心理防御机制分析（含置信度和例子）、潜意识动机分析、人际关系模式和心理肖像整合。最后，文档列出了质量检查清单，确保分析完整性。目标读者是对心理学感兴趣的读者或希望深入了解作者的人，写作语气专业、分析性、有理有据。",
+          "short_summary": "本文档提供了一套完整的心理分析框架，指导如何从文档中提取信息进行MBTI人格、价值观和防御机制等分析。它定义了知识库结构和压缩策略，确保分析的系统性和深度。目标读者是心理学爱好者和需要深入了解作者的人。",
           "key_points": [
             "提供心理分析的结构化框架，包括MBTI、价值观和防御机制分析",
-            "详细说明知识库组织和压缩策略，确保信息提取高效",
-            "强调专业分析风格，目标读者为心理学爱好者和研究者",
-            "包含输出文件和质量检查清单，指导完整分析流程"
+            "定义知识库结构，支持信息提取和压缩策略",
+            "目标读者为心理学爱好者和需要深度了解作者的人",
+            "强调专业、分析性的写作语气和质量检查"
           ],
-          "audience": "对心理学感兴趣的读者、希望深入了解作者的人，如心理学爱好者、研究人员或分析师。",
+          "audience": "对心理学感兴趣的读者、希望深入了解作者的人",
           "tags": [
             "心理分析",
             "MBTI",
             "价值观分析",
             "防御机制",
-            "文档指南",
-            "结构化信息",
-            "心理学"
+            "文档分析",
+            "知识库",
+            "结构化信息"
           ]
         },
         "en-US": {
           "title": "Psychological Analysis Style Report Guide",
-          "description": "Provides a structured framework for psychological analysis documents, including analysis methods and output formats such as MBTI, values, and defense mechanisms.",
-          "summary": "This document is a psychological analysis style report guide, aimed at instructing how to extract structured information from documents for in-depth psychological analysis. It details the analysis framework, including MBTI personality type analysis (covering the four dimensions of I/E, N/S, T/F, J/P), Schwartz values analysis (such as self-direction, achievement), psychological defense mechanism analysis (such as intellectualization, sublimation), subconscious motivation analysis, interpersonal relationship patterns, and psychological portrait integration. The document also provides knowledge base structure (such as file indexing, MBTI evidence indexing), compression strategies, style positioning (professional, analytical), output file requirements, and quality checklists to ensure the analysis process is systematic and well-founded.",
-          "short_summary": "This document provides a structured guide for psychological analysis, covering analysis frameworks such as MBTI, values, and defense mechanisms. It details how to extract information, organize knowledge bases, and output professional reports, suitable for readers interested in psychology.",
+          "description": "Provides a structured framework for psychological analysis documents, including analysis methods such as MBTI personality types, values, defense mechanisms, and knowledge base management strategies.",
+          "summary": "This document is a psychological analysis style report guide that details how to extract structured information from documents for in-depth psychological analysis. It defines reading focuses, such as the author's self-description, decision-making processes, emotional expression, etc., and provides a knowledge base structure, including file indexing, MBTI evidence indexing, values evidence indexing, etc. The document also explains compression strategies, emphasizing the need to retain core indexes. The analysis framework covers MBTI personality type analysis (including tendency determination, evidence, and conclusions for four dimensions), Schwartz values analysis (prioritized), psychological defense mechanism analysis (including confidence levels and examples), subconscious motivation analysis, interpersonal relationship patterns, and psychological portrait integration. Finally, the document lists a quality check checklist to ensure analysis completeness. The target audience is readers interested in psychology or those seeking to gain a deep understanding of the author, with a professional, analytical, and evidence-based writing tone.",
+          "short_summary": "This document provides a comprehensive psychological analysis framework, guiding how to extract information from documents for analysis of MBTI personality, values, defense mechanisms, etc. It defines knowledge base structure and compression strategies to ensure systematic and in-depth analysis. The target audience is psychology enthusiasts and those needing a deep understanding of the author.",
           "key_points": [
             "Provides a structured framework for psychological analysis, including MBTI, values, and defense mechanism analysis",
-            "Details knowledge base organization and compression strategies to ensure efficient information extraction",
-            "Emphasizes professional analysis style, targeting psychology enthusiasts and researchers",
-            "Includes output files and quality checklists to guide the complete analysis process"
+            "Defines knowledge base structure to support information extraction and compression strategies",
+            "Target audience is psychology enthusiasts and those needing a deep understanding of the author",
+            "Emphasizes professional, analytical writing tone and quality checks"
           ],
-          "audience": "Readers interested in psychology, those seeking to understand authors in depth, such as psychology enthusiasts, researchers, or analysts.",
+          "audience": "Readers interested in psychology, those seeking to gain a deep understanding of the author",
           "tags": [
             "Psychological Analysis",
             "MBTI",
             "Values Analysis",
             "Defense Mechanisms",
-            "Document Guide",
-            "Structured Information",
-            "Psychology"
+            "Document Analysis",
+            "Knowledge Base",
+            "Structured Information"
           ]
         },
         "ja-JP": {
@@ -14271,7 +14175,7 @@
           ]
         }
       },
-      "metadataTranslationHash": "6582b7d69449dc47c050c03b9fd4791a26bc3ca51f8a221f70c06bb5ba705fb4"
+      "metadataTranslationHash": "71ecadc18060897023cf61561211a2044e2116c8e32f192cd35ec6fece2cfa5f"
     }
   ],
   "categoryTranslations": {

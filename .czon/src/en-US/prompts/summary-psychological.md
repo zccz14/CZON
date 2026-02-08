@@ -10,10 +10,10 @@ When reading each file, focus on extracting:
 - Emotional expression and mood fluctuations
 - Patterns of interaction with others
 - Value judgments and priority choices
-- Reactions to difficulties/failures
-- Expectations and concerns for the future
+- Reactions to difficulties/failure
+- Expectations and concerns about the future
 
-**Pay Special Attention to**: First-person statements, emotional vocabulary, value judgment vocabulary, descriptions of interpersonal interactions.
+**Pay Special Attention To**: First-person statements, emotional vocabulary, value judgment vocabulary, descriptions of interpersonal interactions.
 
 ## Knowledge Base Structure
 
@@ -32,11 +32,11 @@ When reading each file, focus on extracting:
 |------------------|----------|----------|-------------|
 (Schwartz Values: Self-Direction, Achievement, Stimulation, Universalism, Power, Security, Tradition, Conformity, Benevolence)
 
-### Emotional Expression Record
+### Emotional Expression Log
 | Situation | Emotional Reaction | Source File |
 |-----------|-------------------|-------------|
 
-### Interpersonal Interaction Record
+### Interpersonal Interaction Log
 | Person | Nature of Relationship | Interaction Description | Source File |
 |--------|------------------------|-------------------------|-------------|
 
@@ -50,16 +50,16 @@ When reading each file, focus on extracting:
 When compressing the knowledge base is necessary:
 
 1.  **Must Retain**: File Index, MBTI Evidence Index, Values Evidence Index
-2.  **Can Be Streamlined**: Emotional Expression Record (keep typical cases), Interpersonal Interactions (keep core relationships)
+2.  **Can Be Streamlined**: Emotional Expression Log (keep typical cases), Interpersonal Interactions (keep core relationships)
 3.  **Can Be Discarded**: Duplicate evidence, minor emotional fluctuations
 
 ---
 
 ## Style Positioning
 
-Conduct in-depth psychological analysis, exploring the underlying psychological motivations and behavioral patterns behind the content.
+Conduct in-depth psychological analysis, exploring the underlying psychological motivations and behavioral patterns within the content.
 
-**Target Audience**: Readers interested in psychology, those wishing to gain a deeper understanding of the author.
+**Target Audience**: Readers interested in psychology, individuals wishing to gain a deeper understanding of the author.
 **Writing Tone**: Professional, analytical, well-reasoned.
 
 ## Analysis Framework
@@ -92,12 +92,12 @@ Conduct in-depth psychological analysis, exploring the underlying psychological 
 -   In [README.md](../README.md), self-describes as a "high-energy-consumption brain," indicating social interaction drains energy.
 -   Logs frequently record independent work and deep thinking.
 
-**Counter-evidence (Limited Extraversion Expression):**
+**Counter-evidence (Limited Extraverted Expression):**
 
 -   Can effectively lead teams.
 -   However, these are goal-oriented social interactions, not a source of energy.
 
-**Conclusion:** Clear preference for Introversion (I).
+**Conclusion:** Clear Introversion preference (I).
 ```
 
 ### 2. Schwartz Values Analysis
@@ -137,9 +137,9 @@ Analyze the primary defense mechanisms used:
 -   Specific example
 -   Function and impact
 
-### 4. Subconscious Motivation Analysis
+### 4. Unconscious Motivation Analysis
 
-Explore possible subconscious motivations:
+Explore possible unconscious motivations:
 
 -   Fear of losing control
 -   Need to prove self-worth
@@ -161,14 +161,10 @@ Analyze relationship patterns with individuals mentioned in the text:
 -   Development suggestions
 -   Mental health risk assessment
 
-## Output File
-
-`SUMMARY/7-psychological.md`
-
 ## Quality Checklist
 
 -   [ ] All four MBTI dimensions are analyzed.
 -   [ ] Each dimension has specific evidence.
 -   [ ] Values are prioritized with examples.
 -   [ ] Defense mechanisms have confidence levels assigned.
--   [ ] All links are valid.
+-   [ ] All links are functional.

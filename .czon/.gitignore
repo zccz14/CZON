@@ -1,4 +1,4 @@
 dist
 tmp
-src/**/*.*
-!src/**/*.md
+src/**/*.png
+src/**/*.json

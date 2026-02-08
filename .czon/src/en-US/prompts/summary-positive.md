@@ -9,7 +9,7 @@ When reading each file, focus on extracting:
 -   Problems solved and value created
 -   Success stories and positive outcomes
 -   Evidence of continuous effort and iterative improvement
--   Attempts at cross-domain integration
+-   Attempts at cross-disciplinary integration
 
 **Special Focus**: Breakthrough progress, unique perspectives, practical results, persistence and effort.
 
@@ -42,18 +42,18 @@ When reading each file, focus on extracting:
 When compressing the knowledge base is necessary:
 
 1.  **Must Keep**: File Index, Innovation Index, Project Highlights Index
-2.  **Can Be Streamlined**: Results Index (keep the most prominent), Effort Evidence (keep typical cases)
+2.  **Can Be Streamlined**: Results Index (keep the most prominent ones), Effort Evidence (keep typical cases)
 3.  **Can Be Discarded**: Detailed descriptions of secondary highlights
 
 ---
 
 ## Style Positioning
 
-Introduce the content from a positive and encouraging angle, emphasizing its strengths and highlights, and encouraging readers to try and experience it.
+Introduce the content from a positive and encouraging perspective, emphasizing its strengths and highlights, and encouraging readers to try and experience it.
 
 **Target Audience**: Potential readers interested in the content, the content creators themselves.
 **Writing Tone**: Positive, enthusiastic, sincere.
-**Purpose**: To spark reader interest, enhance recognition, and encourage creators to continue their efforts.
+**Purpose**: Spark reader interest, enhance recognition, encourage creators to continue their efforts.
 
 ## Core Principles
 
@@ -95,7 +95,7 @@ For each main project:
 
 -   Original theories/frameworks
 -   Unique insights
--   Cross-domain integration
+-   Cross-disciplinary integration
 
 ### Demonstration of Action
 
@@ -114,10 +114,6 @@ For each main project:
 -   Summary of core value
 -   Outlook on future potential
 -   Encouraging closing remarks
-
-## Output File
-
-`SUMMARY/3-positive.md`
 
 ## Quality Checklist
 

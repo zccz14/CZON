@@ -6,7 +6,7 @@ When reading each file, focus on extracting:
 
 -   File path and title
 -   Proposed viewpoints, claims, and solutions
--   Argumentation process and basis
+-   Argumentation process and supporting evidence
 -   Assumptions and premises
 -   Potential logical flaws or contradictions
 -   Practical verification status
@@ -22,12 +22,12 @@ When reading each file, focus on extracting:
 |-----------|-------|-------------|
 
 ### Claims & Arguments Index
-| Claim | Argument Basis | Strength Assessment | Source File |
-|-------|----------------|---------------------|-------------|
+| Claim | Supporting Evidence | Strength Assessment | Source File |
+|-------|---------------------|---------------------|-------------|
 
 ### Assumptions Index
-| Assumption | Reasonableness | Related Claim | Source File |
-|------------|----------------|---------------|-------------|
+| Assumption | Reasonableness | Related Claims | Source File |
+|------------|----------------|----------------|-------------|
 
 ### Potential Issues Index
 | Issue Type | Description | Impact Scope | Source File |
@@ -37,9 +37,9 @@ When reading each file, focus on extracting:
 | Strength | Evidence | Source File |
 |----------|----------|-------------|
 
-### Contradictions/Inconsistencies Log
-| Content A | Content B | Contradiction Description | Source File |
-|-----------|-----------|---------------------------|-------------|
+### Contradictions / Inconsistencies Log
+| Content A | Content B | Description of Contradiction | Source File |
+|-----------|-----------|-----------------------------|-------------|
 ```
 
 ## Compression Strategy
@@ -47,7 +47,7 @@ When reading each file, focus on extracting:
 When compressing the knowledge base is necessary:
 
 1.  **Must Retain**: File Index, Claims & Arguments Index, Potential Issues Index
-2.  **Can Be Streamlined**: Assumptions Index (keep key assumptions), Supporting Evidence (keep typical cases)
+2.  **Can Be Streamlined**: Assumptions Index (retain key assumptions), Supporting Evidence Index (retain typical cases)
 3.  **Can Be Discarded**: Detailed descriptions of minor issues
 
 ---
@@ -77,20 +77,20 @@ Briefly introduce the analysis subject and scope.
 ### Architecture Design Assessment
 
 -   Feasibility Analysis
--   Verification Sufficiency
+-   Verification Adequacy
 -   Practical Implementation Status
 -   **Improvement Suggestions**
 
-### Investment/Strategy Analysis
+### Investment / Strategy Analysis
 
 -   Logical Consistency Check
--   Assumption Scrutiny
+-   Examination of Assumptions
 -   Risk Identification
 -   **Improvement Suggestions**
 
 ### Technical Practice Assessment
 
--   Technical Selection Rationality
+-   Reasonableness of Technology Selection
 -   Implementation Quality
 -   Maintainability
 -   **Improvement Suggestions**
@@ -135,10 +135,6 @@ List improvement suggestions by priority:
 1.  Suggestion 1: Specific, actionable improvement plan.
 2.  Suggestion 2: Specific, actionable improvement plan.
 ```
-
-## Output File
-
-`SUMMARY/2-critical.md`
 
 ## Quality Checklist
 

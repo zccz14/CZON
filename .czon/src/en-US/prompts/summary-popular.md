@@ -4,14 +4,14 @@
 
 When reading each file, focus on extracting:
 
--   File path and title
--   Core concepts and terminology
--   The essence of concepts (for analogies)
--   Practical application scenarios
--   Connections to everyday life
--   Beginner-friendly content
+- File path and title
+- Core concepts and terminology
+- The essence of concepts (for analogies)
+- Practical application scenarios
+- Connections to daily life
+- Beginner-friendly content
 
-**Pay Special Attention To**: Complex concepts that can be explained in simple language, vivid examples, practical applications.
+**Pay special attention to**: Complex concepts that can be explained in simple language, vivid examples, practical applications.
 
 ## Knowledge Base Structure
 
@@ -51,26 +51,26 @@ When the knowledge base needs to be compressed:
 
 Introduce content to ordinary people in plain, easy-to-understand language, lowering the barrier to comprehension.
 
-**Target Audience**: Ordinary readers without a professional background, newcomers interested in the field.
+**Target Audience**: Non-specialist general readers, newcomers interested in the field.
 **Writing Tone**: Relaxed, friendly, easy to understand.
 **Purpose**: To help readers understand the content in a relaxed and enjoyable atmosphere.
 
 ## Core Principles
 
--   ✅ Use simple language.
--   ✅ Use analogies from everyday life.
--   ✅ Avoid professional jargon; if necessary, explain it.
--   ✅ Progress step-by-step, from simple to complex.
--   ❌ Do not assume the reader has a professional background.
+- ✅ Use simple language.
+- ✅ Use analogies from everyday life.
+- ✅ Avoid professional jargon; if necessary, explain it.
+- ✅ Progress step-by-step, from simple to complex.
+- ❌ Do not assume the reader has a professional background.
 
-## Required Chapter Structure
+## Required Section Structure
 
 ### What Is This?
 
-Introduce what this repository is to someone who knows nothing about it, in one paragraph.
+Introduce what this repository is in one paragraph to someone who knows nothing about it.
 
 ```markdown
-Imagine someone putting all their thoughts, projects, and study notes in one place,
+Imagine someone putting all their thoughts, projects, and learning notes in one place,
 like a public "brain backup." That's what this repository is—[Owner]'s digital thinking space.
 ```
 
@@ -83,8 +83,8 @@ like a public "brain backup." That's what this repository is—[Owner]'s digital
 
 **What it can do**:
 
--   [Function 1]: Just like [everyday analogy]
--   [Function 2]: Just like [everyday analogy]
+- [Function 1]: It's like [everyday analogy]
+- [Function 2]: It's like [everyday analogy]
 
 **Why it's useful**: [Explain its value in simple language]
 ```
@@ -107,24 +107,20 @@ like a public "brain backup." That's what this repository is—[Owner]'s digital
 ### Who Is This For?
 
 ```markdown
--   👨‍💻 If you're a programmer: You'll find...
--   💰 If you're interested in investing: You'll learn...
--   ✍️ If you want to write a blog: You'll understand...
--   🤔 If you're just curious: You'll see...
+- 👨‍💻 If you're a programmer: You'll discover...
+- 💰 If you're interested in investing: You'll learn...
+- ✍️ If you want to write a blog: You'll understand...
+- 🤔 If you're just curious: You'll see...
 ```
 
 ### Where to Start?
 
 Recommended reading order, starting with the easiest to understand.
 
-## Output File
-
-`SUMMARY/4-popular.md`
-
 ## Quality Checklist
 
--   [ ] No unexplained professional jargon.
--   [ ] Every concept has an analogy or example.
--   [ ] Language is simple and easy to understand.
--   [ ] Clear reading suggestions are provided.
--   [ ] All links are valid.
+- [ ] No unexplained professional jargon.
+- [ ] Every concept has an analogy or example.
+- [ ] Language is simple and easy to understand.
+- [ ] Clear reading suggestions are provided.
+- [ ] All links are valid.

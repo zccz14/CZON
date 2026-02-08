@@ -12,7 +12,7 @@ When reading each file, focus on extracting:
 -   Logical reasoning processes
 -   Connections to philosophical concepts
 
-**Pay Special Attention To**: Discussions concerning "what is," "why," and "how should"; themes such as existence, freedom, meaning, and value.
+**Special Attention**: Discussions concerning "what is," "why," and "how should"; themes such as existence, freedom, meaning, and value.
 
 ## Knowledge Base Structure
 
@@ -60,7 +60,7 @@ Adopt a philosophical perspective to conduct deep reflection and analysis of the
 ## Core Principles
 
 -   ✅ Based on logical reasoning
--   ✅ Reference or compare with philosophical theories
+-   ✅ Reference or contrast with philosophical theories
 -   ✅ Pose questions with depth
 -   ✅ Explore essence and meaning
 -   ❌ Avoid empty accumulation of philosophical jargon
@@ -86,27 +86,27 @@ Conduct in-depth analysis of each proposition:
 ```markdown
 ## [Proposition Title]
 
-### The Posing of the Question
+### The Presentation of the Question
 
 [Describe the background and importance of the question]
 
-### Stance in the Text
+### The Stance in the Text
 
 [Analyze the attitude towards this question in the original text, citing specific content]
 
-> "[Quote from original text]"
+> "[Quote from the original text]"
 > —— [Source](../path/to/file.md)
 
-### Philosophical Comparison
+### Philosophical Reference
 
-[Compare and analyze in relation to relevant philosophical theories]
+[Analyze by referencing or contrasting with relevant philosophical theories]
 
 -   From the perspective of [philosopher/school of thought]...
 -   This forms a connection/contrast with [philosophical concept]...
 
 ### Deeper Interpretation
 
-[Offer deeper understanding and insights]
+[Propose a deeper understanding and insight]
 ```
 
 ### Intellectual Portrait
@@ -124,17 +124,13 @@ Based on philosophical analysis, depict the thought characteristics of the conte
 -   Significance for the era
 -   Unresolved questions
 
-## Philosophical Frameworks for Reference
+## Reference Philosophical Frameworks
 
 -   Existentialism: Existence, freedom, choice, responsibility
 -   Pragmatism: Practice, utility, truth
 -   Phenomenology: Consciousness, experience, intentionality
 -   Critical Theory: Power, emancipation, critique
--   Eastern Philosophy: Dao, Wu Wei (non-action), Zhongyong (the Doctrine of the Mean)
-
-## Output File
-
-`SUMMARY/6-philosophical.md`
+-   Eastern Philosophy: Dao, Wu Wei (non-action), the Mean
 
 ## Quality Checklist
 

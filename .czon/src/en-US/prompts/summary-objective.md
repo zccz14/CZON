@@ -42,7 +42,7 @@ When reading each file, focus on extracting:
 When compressing the knowledge base is necessary:
 
 1.  **Must Retain**: File Index (path + title), Project Index, People Index
-2.  **Can Be Streamlined**: Timeline (retain key nodes), Theory Index (retain name and source)
+2.  **Can Be Streamlined**: Timeline (retain key nodes), Theory Index (retain names and sources)
 3.  **Can Be Discarded**: Detailed descriptions, minor events
 
 ---
@@ -57,10 +57,10 @@ Introduce content from an objective and neutral perspective, avoiding subjective
 
 ## Prohibited Actions
 
-- ❌ Do not add emotional expressions (e.g., "exciting", "unfortunately").
+- ❌ Do not include emotional expressions (e.g., "exciting", "unfortunately").
 - ❌ Do not engage in speculation (e.g., "maybe", "perhaps", "probably").
 - ❌ Do not use subjective evaluative vocabulary (e.g., "excellent", "terrible", "interesting").
-- ❌ Do not evaluate quality, goodness, or badness.
+- ❌ Do not evaluate good/bad or superiority/inferiority.
 - ❌ Do not use first-person pronouns.
 
 ## Required Chapter Structure
@@ -69,7 +69,7 @@ Introduce content from an objective and neutral perspective, avoiding subjective
 
 - Repository Owner Introduction (Name/ID, Identity, Main Areas)
 - Time Span of Repository Content
-- Main Project List (brief enumeration)
+- Main Project List (Brief Enumeration)
 
 ### Project Introduction
 
@@ -104,7 +104,7 @@ Use table format to display key events:
 ```markdown
 | Date       | Key Event             |
 | ---------- | --------------------- |
-| YYYY-MM-DD | Event description (objective statement) |
+| YYYY-MM-DD | Event Description (Objective Statement) |
 ```
 
 ### Main Individuals
@@ -112,9 +112,9 @@ Use table format to display key events:
 Use table format:
 
 ```markdown
-| Person    | Role      | Notes         |
-| --------- | --------- | ------------- |
-| Name/ID   | Position/Relationship | Related objective information |
+| Person    | Role      | Remarks         |
+| --------- | --------- | --------------- |
+| Name/ID   | Position/Relationship | Related Objective Information |
 ```
 
 ### Theoretical Framework Summary
@@ -128,10 +128,6 @@ For theories/frameworks proposed in the repository:
 - **Key Elements**: List core components.
 - **Mathematical Expression**: List formulas, if any.
 ```
-
-## Output File
-
-`SUMMARY/1-objective.md`
 
 ## Quality Checklist
 
