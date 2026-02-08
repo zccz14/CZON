@@ -1,7 +1,8 @@
-import { readFile } from 'fs/promises';
+import { mkdir, readFile, rm } from 'fs/promises';
 import { existsSync } from 'fs';
 import { join } from 'path';
 import { runOpenCode } from '../services/opencode';
+import { execSync } from 'child_process';
 
 // Prompt 模板目录路径（在项目根目录的 prompts/ 文件夹中）
 const PROMPTS_DIR = join(__dirname, '../../prompts');
@@ -98,7 +99,8 @@ export const processSummary = async (model: string): Promise<void> => {
 
   // Phase 0: 清空 SUMMARY 目录
   console.info('🗑️  清空 SUMMARY 目录...');
-  await runOpenCode('rm -rf SUMMARY && mkdir -p SUMMARY', { model, cwd });
+  await rm(join(cwd, 'SUMMARY'), { recursive: true, force: true });
+  await mkdir(join(cwd, 'SUMMARY'), { recursive: true });
 
   // Phase 1: 串行生成 8 种风格报告
   console.info(`\n📊 开始生成 ${SUMMARY_STYLES.length} 种风格的分析报告...\n`);
