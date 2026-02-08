@@ -53,7 +53,8 @@ export const convertMarkdownToHtml = (
     const file = MetaData.files.find(f => f.path === resolvedPath);
     if (!file) {
       console.warn(`⚠️ Link target not found for path ${resolvedPath} in file ${path}`);
-      return originalLinkRenderer.call(this, link);
+      // 链接目标不存在，使用斜体表示损坏的链接，不渲染为 <a> 标签
+      return `<em title="Link target not found: ${escapeHtml(link.href)}">${link.text}</em>`;
     }
     if (link.href.endsWith('.md')) {
       if (!file.metadata?.slug) {
