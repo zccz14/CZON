@@ -1,7 +1,9 @@
 import { readFile, stat } from 'fs/promises';
 import { join } from 'path';
+import { loadMetaData, MetaData, saveMetaData } from '../metadata';
 import { CZON_DIR, INPUT_DIR } from '../paths';
 import { runOpenCode } from '../services/opencode';
+import { AIMetadata } from '../types';
 
 // Prompt 模板目录路径（在项目根目录的 prompts/ 文件夹中）
 const PROMPTS_DIR = join(__dirname, '../../prompts');
@@ -14,14 +16,54 @@ const MAX_RETRIES = 3;
 
 // 风格配置
 const SUMMARY_STYLES = [
-  { skill: 'summary-objective', name: '客观中立' },
-  { skill: 'summary-critical', name: '客观批判' },
-  { skill: 'summary-positive', name: '赞扬鼓励' },
-  { skill: 'summary-popular', name: '科普介绍' },
-  { skill: 'summary-artistic', name: '文艺感性' },
-  { skill: 'summary-philosophical', name: '哲学思辨' },
-  { skill: 'summary-psychological', name: '心理分析' },
-  { skill: 'summary-historical', name: '历史时间跨度' },
+  {
+    skill: 'summary-objective',
+    name: '客观中立',
+    title: 'AI 总结: 客观中立风格',
+    slug: 'aigc-summary-objective',
+  },
+  {
+    skill: 'summary-critical',
+    name: '客观批判',
+    title: 'AI 总结: 客观批判风格',
+    slug: 'aigc-summary-critical',
+  },
+  {
+    skill: 'summary-positive',
+    name: '赞扬鼓励',
+    title: 'AI 总结: 赞扬鼓励风格',
+    slug: 'aigc-summary-positive',
+  },
+  {
+    skill: 'summary-popular',
+    name: '科普介绍',
+    title: 'AI 总结: 科普介绍风格',
+    slug: 'aigc-summary-popular',
+  },
+  {
+    skill: 'summary-artistic',
+    name: '文艺感性',
+    title: 'AI 总结: 文艺感性风格',
+    slug: 'aigc-summary-artistic',
+  },
+  {
+    skill: 'summary-philosophical',
+    name: '哲学思辨',
+    title: 'AI 总结: 哲学思辨风格',
+    slug: 'aigc-summary-philosophical',
+  },
+  {
+    skill: 'summary-psychological',
+    name: '心理分析',
+    title: 'AI 总结: 心理分析风格',
+    slug: 'aigc-summary-psychological',
+  },
+  {
+    skill: 'summary-historical',
+    name: '历史时间跨度',
+    title: 'AI 总结: 历史时间跨度风格',
+    slug: 'aigc-summary-historical',
+  },
 ] as const;
 
 /**
@@ -132,6 +174,9 @@ ${styleContent}
 export const processSummary = async (model: string): Promise<void> => {
   const cwd = process.cwd();
 
+  // 加载 MetaData 以便写入预设的 title/slug
+  await loadMetaData();
+
   // 加载基础规则
   console.info('📖 加载基础规则...');
   const baseContent = await loadPromptTemplate('summary-base');
@@ -156,6 +201,18 @@ export const processSummary = async (model: string): Promise<void> => {
     });
 
     if (result.success) {
+      // 预设 title 和 slug 到 MetaData（不设 hash，确保后续 AI 提取不跳过）
+      const relativePath = `.czon/AIGC/SUMMARY/${style.skill}.md`;
+      let fileMeta = MetaData.files.find(f => f.path === relativePath);
+      if (!fileMeta) {
+        fileMeta = { path: relativePath, links: [] };
+        MetaData.files.push(fileMeta);
+      }
+      fileMeta.metadata = {
+        ...fileMeta.metadata,
+        title: style.title,
+        slug: style.slug,
+      } as AIMetadata;
       console.info(`✅ 「${style.name}」风格报告生成成功\n`);
     } else {
       console.error(`❌ 「${style.name}」风格报告生成失败: ${result.error}\n`);
@@ -199,4 +256,7 @@ export const processSummary = async (model: string): Promise<void> => {
     const missingCount = SUMMARY_STYLES.length - successCount;
     throw new Error(`生成不完整: ${missingCount} 个报告未能成功生成。请检查上述错误信息并重试。`);
   }
+
+  // 保存 MetaData（包含预设的 title/slug）
+  await saveMetaData();
 };

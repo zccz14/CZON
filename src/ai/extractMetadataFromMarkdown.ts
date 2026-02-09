@@ -6,19 +6,26 @@ import { AIMetadata } from '../types';
  * AI Metadata 提取模块
  *
  * 优化策略说明：
- * 1. 从 MetaData 全局状态读取已有 slug，不作为参数传递
- * 2. 如果已有 slug，条件化 prompt - 完全不提及 slug 相关指令
+ * 1. 从 MetaData 全局状态读取已有 title/slug，不作为参数传递
+ * 2. 如果已有 title/slug，条件化 prompt - 完全不提及对应字段的指令
  * 3. trade-off: 优先提升 AI 质量（减少无关任务干扰），可能降低 context 缓存命中率
  */
 export async function extractMetadataFromMarkdown(
   filePath: string,
   content: string
 ): Promise<AIMetadata> {
-  const existingSlug = MetaData.files.find(f => f.path === filePath)?.metadata?.slug;
+  const existingMeta = MetaData.files.find(f => f.path === filePath)?.metadata;
+  const existingSlug = existingMeta?.slug;
   const hasExistingSlug = !!existingSlug;
+  const existingTitle = existingMeta?.title;
+  const hasExistingTitle = !!existingTitle;
 
   const fields: string[] = [
-    'title: 文档的标题（简洁明了，不超过 30 个字）',
+    ...(hasExistingTitle
+      ? []
+      : [
+          'title: 文档的标题（简洁明了，不超过 30 个字。优先采用文档的一级标题或 frontmatter 中的 title 字段，如果没有则自行提炼）',
+        ]),
     'tags: 关键词列表（3-8 个关键词，使用中文或英文）',
     'description: 文档的简短描述，微摘要（用一句话概括本文核心价值，不超过 100 字符），用于 SEO meta description，社交卡片短描述',
     'summary: 文档中型摘要（用一段话总结文章，包含关键论点和结论，控制在 300 字以内），用于 邮件推送内容，newsletter 介绍',
@@ -34,7 +41,7 @@ export async function extractMetadataFromMarkdown(
 
   const jsonFields: string[] = [
     '{',
-    '  "title": "文档标题",',
+    ...(hasExistingTitle ? [] : ['  "title": "文档标题",']),
     '  "description": "用一句话概括本文核心价值，不超过 100 字符",',
     '  "summary": "中型摘要，用一段话总结文章，包含关键论点和结论",',
     '  "short_summary": "超短摘要，用 2-3 句话概括文章主要内容，突出核心观点",',
@@ -80,7 +87,7 @@ ${jsonFields.join('\n')}`;
   const metadata = JSON.parse(response.choices[0].message.content);
 
   const result: AIMetadata = {
-    title: metadata.title?.trim() || '',
+    title: metadata.title?.trim() || existingTitle || '',
     description: metadata.description?.trim() || '',
     short_summary: metadata.short_summary?.trim() || '',
     audience: metadata.audience?.trim() || '',
