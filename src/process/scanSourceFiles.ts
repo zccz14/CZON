@@ -1,9 +1,8 @@
 import { access, readFile } from 'fs/promises';
 import path from 'path';
-import { findMarkdownEntries } from '../findEntries';
+import { findEntries } from '../findEntries';
 import { MetaData } from '../metadata';
 import { INPUT_DIR } from '../paths';
-import { sha256 } from '../utils/sha256';
 
 const extractLinksFromMarkdown = (content: string): string[] => {
   const linkRegex = /\[.*?\]\((.*?)\)/g;
@@ -24,7 +23,7 @@ export async function scanSourceFiles(): Promise<void> {
   const queue: string[] = [];
   const isVisited = new Set<string>();
 
-  const markdownFiles = await findMarkdownEntries(INPUT_DIR, { aigc: true });
+  const markdownFiles = await findEntries(INPUT_DIR, { aigc: true });
 
   for (const filePath of markdownFiles) {
     queue.push(filePath);

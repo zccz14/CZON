@@ -7,7 +7,7 @@ import { Marked, Token, Tokens } from 'marked';
  */
 const lexer = new Marked({ gfm: true });
 import path from 'path';
-import { findMarkdownEntries } from '../findEntries';
+import { findEntries } from '../findEntries';
 import { INPUT_DIR } from '../paths';
 import { isExists } from '../utils/isExists';
 
@@ -21,9 +21,11 @@ export interface LinkIssue {
   /** 链接目标 href */
   href: string;
   /** 问题类型 */
-  type: 'dead-link' | 'absolute-path';
+  type: 'dead-link' | 'absolute-path' | 'cross-boundary';
   /** 问题描述 */
   message: string;
+  /** 修复建议（候选路径） */
+  suggestions: string[];
 }
 
 interface ExtractedLink {
@@ -132,13 +134,26 @@ function extractLinksWithLineNumbers(
 export async function checkLinks(): Promise<LinkIssue[]> {
   console.log('🔍 正在扫描 Markdown 文件...');
 
-  const markdownFiles = await findMarkdownEntries(INPUT_DIR, { aigc: true });
+  const markdownFiles = await findEntries(INPUT_DIR, { aigc: true });
+  const allFiles = await findEntries(INPUT_DIR, { allTypes: true });
   const issues: LinkIssue[] = [];
 
   // 构建已知文件集合，用于死链接检测
   const knownFiles = new Set(markdownFiles);
 
-  console.log(`📄 发现 ${markdownFiles.length} 个 Markdown 文件\n`);
+  // 构建全部文件集合，用于建议生成
+  const allFilesSet = new Set(allFiles);
+
+  // 构建 basename -> 相对路径列表 的索引，用于模糊匹配
+  const basenameIndex = new Map<string, string[]>();
+  for (const file of allFiles) {
+    const base = path.basename(file);
+    const list = basenameIndex.get(base) ?? [];
+    list.push(file);
+    basenameIndex.set(base, list);
+  }
+
+  console.log(`📄 发现 ${markdownFiles.length} 个 Markdown 文件，${allFiles.length} 个总文件\n`);
 
   for (const filePath of markdownFiles) {
     const fullPath = path.join(INPUT_DIR, filePath);
@@ -157,6 +172,14 @@ export async function checkLinks(): Promise<LinkIssue[]> {
 
       // 检查 1: 路径格式规范 — 不应使用 / 开头的绝对路径
       if (hrefWithoutHash.startsWith('/')) {
+        // 尝试生成建议：去掉开头的 /，看是否能在已知文件中找到
+        const suggestions: string[] = [];
+        const targetRelative = hrefWithoutHash.slice(1); // 去掉开头的 /
+        if (allFilesSet.has(targetRelative)) {
+          const suggested = path.relative(path.dirname(filePath), targetRelative);
+          suggestions.push(suggested);
+        }
+
         issues.push({
           file: filePath,
           line: link.line,
@@ -164,6 +187,7 @@ export async function checkLinks(): Promise<LinkIssue[]> {
           href: link.href,
           type: 'absolute-path',
           message: '不应使用 / 开头的绝对路径，请使用相对路径',
+          suggestions,
         });
         // 绝对路径无法正确解析，跳过死链接检测
         continue;
@@ -181,6 +205,23 @@ export async function checkLinks(): Promise<LinkIssue[]> {
           href: link.href,
           type: 'dead-link',
           message: '链接指向项目目录之外',
+          suggestions: [],
+        });
+        continue;
+      }
+
+      // 检查 2: .czon/src 边界隔离 — 外部文件不能引用 .czon/src 内部的文件
+      const sourceIsInternal = filePath.startsWith('.czon/src/');
+      const targetIsInternal = resolvedRelative.startsWith('.czon/src/');
+      if (!sourceIsInternal && targetIsInternal) {
+        issues.push({
+          file: filePath,
+          line: link.line,
+          raw: link.raw,
+          href: link.href,
+          type: 'cross-boundary',
+          message: '不能引用 .czon/src 内部的文件',
+          suggestions: [],
         });
         continue;
       }
@@ -194,6 +235,16 @@ export async function checkLinks(): Promise<LinkIssue[]> {
       // 再检查文件系统
       const resolvedFullPath = path.join(INPUT_DIR, resolvedRelative);
       if (!(await isExists(resolvedFullPath))) {
+        // 通过 basename 模糊匹配，生成候选建议（最多 3 个）
+        const suggestions: string[] = [];
+        const targetBasename = path.basename(hrefWithoutHash);
+        const candidates = basenameIndex.get(targetBasename) ?? [];
+        for (const candidate of candidates) {
+          if (suggestions.length >= 3) break;
+          const suggested = path.relative(path.dirname(filePath), candidate);
+          suggestions.push(suggested);
+        }
+
         issues.push({
           file: filePath,
           line: link.line,
@@ -201,6 +252,7 @@ export async function checkLinks(): Promise<LinkIssue[]> {
           href: link.href,
           type: 'dead-link',
           message: '目标文件不存在',
+          suggestions,
         });
       }
     }
@@ -230,19 +282,24 @@ export function formatCheckResults(issues: LinkIssue[]): string {
   for (const [file, fileIssues] of grouped) {
     lines.push(file);
     for (const issue of fileIssues) {
-      const icon = issue.type === 'dead-link' ? '✖' : '⚠';
+      const icon = issue.type === 'dead-link' ? '✖' : issue.type === 'cross-boundary' ? '⊘' : '⚠';
       lines.push(`  line ${issue.line}: ${icon} ${issue.raw}`);
       lines.push(`    ${issue.message}`);
+      for (const suggestion of issue.suggestions) {
+        lines.push(`    建议: ${suggestion}`);
+      }
     }
     lines.push('');
   }
 
   const deadCount = issues.filter(i => i.type === 'dead-link').length;
   const formatCount = issues.filter(i => i.type === 'absolute-path').length;
+  const boundaryCount = issues.filter(i => i.type === 'cross-boundary').length;
 
   const parts: string[] = [];
   if (deadCount > 0) parts.push(`${deadCount} 个死链接`);
   if (formatCount > 0) parts.push(`${formatCount} 个路径格式问题`);
+  if (boundaryCount > 0) parts.push(`${boundaryCount} 个跨边界引用`);
 
   lines.push(`发现 ${issues.length} 个问题（${parts.join('，')}），涉及 ${grouped.size} 个文件。`);
 
