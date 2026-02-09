@@ -17,7 +17,6 @@ import { extractMetadataByAI } from '../process/extractMetadataByAI';
 import { processTranslations } from '../process/processTranslations';
 import { scanSourceFiles } from '../process/scanSourceFiles';
 import { downloadCDNResources, spiderStaticSiteGenerator } from '../process/template';
-import { installAgentsToGlobal } from '../services/opencode';
 import { BuildOptions } from '../types';
 import { writeFile } from '../utils/writeFile';
 import { generateRobotsTxt } from './robots';
@@ -41,8 +40,6 @@ async function applyConfig(options: BuildOptions): Promise<void> {
 async function buildPipeline(options: BuildOptions): Promise<void> {
   // 验证配置
   await applyConfig(options);
-  // 安装 OpenCode 代理到全局目录
-  await installAgentsToGlobal();
 
   // 清理输出目录
   await fs.rm(CZON_DIST_DIR, { recursive: true, force: true });

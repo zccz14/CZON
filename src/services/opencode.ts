@@ -1,9 +1,4 @@
-import { readdir, readFile } from 'fs/promises';
-import { join } from 'path';
 import type { AssistantMessage, OpencodeClient, Part } from '@opencode-ai/sdk';
-import { MetaData } from '../metadata';
-import { GLOBAL_OPENCODE_AGENT_DIR, LOCAL_OPENCODE_AGENT_DIR } from '../paths';
-import { writeFile } from '../utils/writeFile';
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -237,21 +232,4 @@ export const runOpenCode = async (
   await handle.prompt(prompt, { signal });
 
   return handle;
-};
-
-export const installAgentsToGlobal = async (): Promise<void> => {
-  const installedAgents = await readdir(LOCAL_OPENCODE_AGENT_DIR)
-    .then(files => files.filter(f => f.startsWith('czon-')))
-    .catch(() => []);
-
-  // 3. Copy local agents from .opencode/agent to global directory
-  for (const agentFile of installedAgents) {
-    console.log(`📁 Installing OpenCode agent: ${agentFile} to global directory...`);
-    await writeFile(
-      join(GLOBAL_OPENCODE_AGENT_DIR, agentFile),
-      await readFile(join(LOCAL_OPENCODE_AGENT_DIR, agentFile))
-    );
-  }
-
-  console.log(`✅ Installed ${installedAgents.length} OpenCode agents to global directory.`);
 };
