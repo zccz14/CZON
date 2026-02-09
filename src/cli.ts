@@ -6,6 +6,7 @@ import {
   BuildCommand,
   CheckCommand,
   ConfigGithubCommand,
+  GenTodoListCommand,
   LsFilesCommand,
   SummaryCommand,
 } from './commands';
@@ -24,6 +25,7 @@ const cli = new Cli({
 // 注册命令
 cli.register(BuildCommand);
 cli.register(CheckCommand);
+cli.register(GenTodoListCommand);
 cli.register(LsFilesCommand);
 cli.register(SummaryCommand);
 cli.register(ConfigGithubCommand);

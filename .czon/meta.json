@@ -8268,46 +8268,48 @@
       "metadataTranslations": {
         "zh-Hans": {
           "title": "AI分析报告生成基础规则",
-          "description": "本文档详细规定了AI分析报告的生成流程，包括文档阅读、信息提取、知识库管理和报告撰写等核心步骤。",
-          "summary": "本文档为AI分析报告生成提供了系统性的基础规则，强调严格遵循文档阅读流程，包括获取文件列表、分批阅读与摘要、上下文管理、完整性验证和分段生成报告。核心原则包括逐一阅读所有文件、以事实为依据、规范引用链接，并禁止在阅读完成前开始生成报告。文档还规定了报告头部格式、时间权重考虑以及通用规则，确保报告生成的准确性和完整性。",
-          "short_summary": "本文档定义了AI分析报告生成的基础规则，要求严格遵循文档阅读流程，包括分批处理、知识库管理和分段报告撰写。强调事实依据、引用规范和完整性验证，确保报告质量。",
+          "description": "本文档详细介绍了AI分析报告的生成流程和规则，包括文件阅读、摘要提取、报告生成等关键步骤。",
+          "summary": "本文档为AI分析报告生成的基础规则，核心内容包括文档阅读流程（分阶段获取文件列表、分批阅读与摘要、上下文管理、完整性验证和报告生成）、通用规则（如事实依据原则、引用链接规范、头部格式和时间权重）以及禁止行为。文档强调必须严格遵循流程，逐一阅读所有文件，基于事实生成报告，并提供了具体的操作指南和示例，旨在确保报告的系统性、准确性和完整性。",
+          "short_summary": "本文档定义了AI分析报告生成的完整流程，从文件阅读到报告生成，强调严格遵循规则以确保质量。它涵盖了核心原则、阶段步骤和通用规范，适用于需要自动化文档分析的场景。",
           "key_points": [
-            "必须逐一阅读所有Markdown文件，禁止跳过任何文件",
-            "采用渐进式阅读与摘要策略，分批处理文件并管理知识库",
-            "报告生成必须分段进行，确保内容控制在单次写入限制内",
+            "必须逐一阅读所有Markdown文件，不得跳过任何文件",
+            "采用渐进式阅读与摘要策略，分批处理文件并管理上下文",
+            "报告生成需分段写入，确保内容控制在2000字以内并遵循格式规范",
             "所有观点必须有原文支撑，禁止虚构内容",
             "引用链接需使用相对路径并链接到具体文件，链接文本为标题"
           ],
-          "audience": "AI分析报告生成工具的开发者和使用者，需要遵循严格文档处理流程的团队。",
+          "audience": "AI开发人员、文档分析师、自动化报告生成工具的用户，需要处理大量Markdown文件并生成结构化报告的人员。",
           "tags": [
-            "AI分析",
-            "报告生成",
-            "文档阅读",
+            "AI分析报告",
+            "文档处理",
             "Markdown",
-            "知识库管理",
-            "流程规范"
+            "规则指南",
+            "自动化流程",
+            "摘要生成",
+            "报告生成"
           ]
         },
         "en-US": {
           "title": "Basic Rules for AI Analysis Report Generation",
-          "description": "This document specifies the generation process for AI analysis reports in detail, including core steps such as document reading, information extraction, knowledge base management, and report writing.",
-          "summary": "This document provides systematic basic rules for AI analysis report generation, emphasizing strict adherence to the document reading process, including obtaining file lists, batch reading and summarization, context management, completeness verification, and segmented report generation. Core principles include reading all files one by one, basing content on facts, standardizing citation links, and prohibiting report generation before reading is complete. The document also specifies report header formats, time weighting considerations, and general rules to ensure the accuracy and completeness of report generation.",
-          "short_summary": "This document defines the basic rules for AI analysis report generation, requiring strict adherence to the document reading process, including batch processing, knowledge base management, and segmented report writing. It emphasizes factual basis, citation standards, and completeness verification to ensure report quality.",
+          "description": "This document details the generation process and rules for AI analysis reports, including key steps such as file reading, summary extraction, and report generation.",
+          "summary": "This document outlines the basic rules for AI analysis report generation, with core content covering the document reading process (phased file list acquisition, batch reading and summarization, context management, completeness verification, and report generation), general rules (such as the fact-based principle, citation link specifications, header format, and time weighting), and prohibited behaviors. It emphasizes strict adherence to the process, reading all files one by one, generating reports based on facts, and provides specific operational guidelines and examples to ensure the systematicity, accuracy, and completeness of reports.",
+          "short_summary": "This document defines the complete process for AI analysis report generation, from file reading to report generation, emphasizing strict rule adherence to ensure quality. It covers core principles, phased steps, and general specifications, applicable to scenarios requiring automated document analysis.",
           "key_points": [
-            "Must read all Markdown files one by one; skipping any files is prohibited",
-            "Adopt a progressive reading and summarization strategy, processing files in batches and managing the knowledge base",
-            "Report generation must be done in segments to ensure content stays within single-write limits",
-            "All viewpoints must be supported by original text; fabrication of content is prohibited",
-            "Citation links must use relative paths and link to specific files, with link text as the title"
+            "Must read all Markdown files one by one, without skipping any files",
+            "Adopt a progressive reading and summarization strategy, processing files in batches and managing context",
+            "Report generation requires segmented writing, ensuring content is within 2000 words and follows format specifications",
+            "All viewpoints must be supported by original text, prohibiting fabricated content",
+            "Citation links must use relative paths and link to specific files, with link text as titles"
           ],
-          "audience": "Developers and users of AI analysis report generation tools, and teams that need to follow strict document processing procedures.",
+          "audience": "AI developers, document analysts, users of automated report generation tools, and personnel who need to process large numbers of Markdown files and generate structured reports.",
           "tags": [
-            "AI Analysis",
-            "Report Generation",
-            "Document Reading",
+            "AI Analysis Report",
+            "Document Processing",
             "Markdown",
-            "Knowledge Base Management",
-            "Process Standardization"
+            "Rule Guide",
+            "Automated Process",
+            "Summary Generation",
+            "Report Generation"
           ]
         },
         "ja-JP": {
@@ -9007,7 +9009,7 @@
           ]
         }
       },
-      "metadataTranslationHash": "4b4c2866a5e4ae5c9e7a8fb71006ab9c6f580da4213105a176ecf1fa8e46a758"
+      "metadataTranslationHash": "5bc6f4f0cf05d479302e61612783f3e29781125091840a9a86671b4738f3c626"
     },
     {
       "hash": "d538c4d53e0c4b11bc8cbcd974ad178316ba5cf9ea3ef303a772230760261370",
@@ -14177,6 +14179,96 @@
         }
       },
       "metadataTranslationHash": "71ecadc18060897023cf61561211a2044e2116c8e32f192cd35ec6fece2cfa5f"
+    },
+    {
+      "path": "prompts/todo-summary.md",
+      "links": [
+        "../../../path/to/file.md",
+        "../../../INSIGHTS/6.md",
+        "../../../INSIGHTS/6.md"
+      ],
+      "metadata": {
+        "title": "TODO 待办事项提取报告",
+        "description": "本文档详细介绍了从大量 Markdown 文件中提取、分析和报告待办事项的完整流程与规则。",
+        "short_summary": "本文档提供了从大量 Markdown 文件中提取和分析待办事项的完整框架。它定义了 TODO 的提取规则、状态判断和优先级标记方法，并详细说明了如何生成结构化的报告。文档强调严格遵循流程，确保报告的准确性和完整性。",
+        "audience": "需要从文档中提取和管理待办事项的开发者、项目经理或 AI 助手用户。",
+        "key_points": [
+          "定义了从 Markdown 文件中提取显式和隐式 TODO 的详细规则。",
+          "提供了判断 TODO 状态（已完成、进行中、待开始）和优先级（高、中、低）的准则。",
+          "规定了输出报告的格式，包括头部、概览和按状态分组的 TODO 列表。",
+          "强调了分段写入、引用链接规范和禁止行为，以确保报告质量。",
+          "概述了完整的文档阅读流程，包括分批处理、上下文管理和完整性验证。"
+        ],
+        "summary": "本文档是一份关于如何从大量 Markdown 文件中提取待办事项（TODO）的详细指南。它首先概述了文档阅读流程，包括获取文件列表、分批阅读提取、上下文管理和完整性验证四个阶段。接着，文档定义了显式和隐式 TODO 的提取规则，并规定了提取要素（如描述、来源文件等）。此外，文档还提供了状态判断规则（已完成、进行中、待开始）、优先级标记规则（高、中、低）以及输出格式要求，包括头部格式、概览和 TODO 列表的展示方式。最后，文档强调了引用链接规范、分段写入规则和禁止行为，确保报告的准确性和可读性。",
+        "slug": "todo-extraction-report",
+        "tags": [
+          "TODO 提取",
+          "文档分析",
+          "Markdown",
+          "待办事项",
+          "AI 助手",
+          "报告生成",
+          "工作流程"
+        ],
+        "inferred_lang": "zh-Hans",
+        "tokens_used": {
+          "prompt": 2164,
+          "completion": 455,
+          "total": 2619
+        }
+      },
+      "hash": "967f2fd12b6517f34bde1becb0429ff8c84b9d159ee2ded45fa9be1aa70ee9a1",
+      "metadataTranslations": {
+        "zh-Hans": {
+          "title": "TODO 待办事项提取报告",
+          "description": "本文档详细介绍了从大量 Markdown 文件中提取、分析和报告待办事项的完整流程与规则。",
+          "summary": "本文档是一份关于如何从大量 Markdown 文件中提取待办事项（TODO）的详细指南。它首先概述了文档阅读流程，包括获取文件列表、分批阅读提取、上下文管理和完整性验证四个阶段。接着，文档定义了显式和隐式 TODO 的提取规则，并规定了提取要素（如描述、来源文件等）。此外，文档还提供了状态判断规则（已完成、进行中、待开始）、优先级标记规则（高、中、低）以及输出格式要求，包括头部格式、概览和 TODO 列表的展示方式。最后，文档强调了引用链接规范、分段写入规则和禁止行为，确保报告的准确性和可读性。",
+          "short_summary": "本文档提供了从大量 Markdown 文件中提取和分析待办事项的完整框架。它定义了 TODO 的提取规则、状态判断和优先级标记方法，并详细说明了如何生成结构化的报告。文档强调严格遵循流程，确保报告的准确性和完整性。",
+          "key_points": [
+            "定义了从 Markdown 文件中提取显式和隐式 TODO 的详细规则。",
+            "提供了判断 TODO 状态（已完成、进行中、待开始）和优先级（高、中、低）的准则。",
+            "规定了输出报告的格式，包括头部、概览和按状态分组的 TODO 列表。",
+            "强调了分段写入、引用链接规范和禁止行为，以确保报告质量。",
+            "概述了完整的文档阅读流程，包括分批处理、上下文管理和完整性验证。"
+          ],
+          "audience": "需要从文档中提取和管理待办事项的开发者、项目经理或 AI 助手用户。",
+          "tags": [
+            "TODO 提取",
+            "文档分析",
+            "Markdown",
+            "待办事项",
+            "AI 助手",
+            "报告生成",
+            "工作流程"
+          ]
+        },
+        "en-US": {
+          "title": "TODO Extraction Report",
+          "description": "This document details the complete process and rules for extracting, analyzing, and reporting TODO items from a large number of Markdown files.",
+          "summary": "This document is a detailed guide on how to extract TODO items from a large number of Markdown files. It first outlines the document reading process, including four stages: obtaining file lists, batch reading and extraction, context management, and integrity verification. Next, the document defines extraction rules for explicit and implicit TODOs and specifies extraction elements (such as description, source file, etc.). Additionally, the document provides rules for status determination (completed, in progress, not started), priority marking rules (high, medium, low), and output format requirements, including header format, overview, and display methods for TODO lists. Finally, the document emphasizes citation link standards, segmented writing rules, and prohibited behaviors to ensure the accuracy and readability of reports.",
+          "short_summary": "This document provides a complete framework for extracting and analyzing TODO items from a large number of Markdown files. It defines extraction rules for TODOs, methods for status determination and priority marking, and details how to generate structured reports. The document emphasizes strict adherence to the process to ensure report accuracy and completeness.",
+          "key_points": [
+            "Defines detailed rules for extracting explicit and implicit TODOs from Markdown files.",
+            "Provides guidelines for determining TODO status (completed, in progress, not started) and priority (high, medium, low).",
+            "Specifies the format of output reports, including headers, overviews, and TODO lists grouped by status.",
+            "Emphasizes segmented writing, citation link standards, and prohibited behaviors to ensure report quality.",
+            "Outlines the complete document reading process, including batch processing, context management, and integrity verification."
+          ],
+          "audience": "Developers, project managers, or AI assistant users who need to extract and manage TODO items from documents.",
+          "tags": [
+            "TODO extraction",
+            "Document analysis",
+            "Markdown",
+            "To-do items",
+            "AI assistant",
+            "Report generation",
+            "Workflow"
+          ]
+        }
+      },
+      "metadataTranslationHash": "bed87631c176a4e4ad486775ae461935fb898c8ba866970c9a94005614a6ac29",
+      "category": "Document Analysis",
+      "nativeMarkdownHash": "967f2fd12b6517f34bde1becb0429ff8c84b9d159ee2ded45fa9be1aa70ee9a1"
     }
   ],
   "categoryTranslations": {
@@ -14347,6 +14439,10 @@
       "es-MX": "Ingeniería de Prompt",
       "tr-TR": "Prompt Mühendisliği",
       "uk-UA": "Інженерія промптів"
+    },
+    "Document Analysis": {
+      "zh-Hans": "文档分析",
+      "en-US": "Document Analysis"
     }
   },
   "navLinkTranslations": {
