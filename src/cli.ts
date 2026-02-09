@@ -2,7 +2,13 @@
 
 import { Cli } from 'clipanion';
 import { config } from 'dotenv';
-import { BuildCommand, ConfigGithubCommand, LsFilesCommand, SummaryCommand } from './commands';
+import {
+  BuildCommand,
+  CheckCommand,
+  ConfigGithubCommand,
+  LsFilesCommand,
+  SummaryCommand,
+} from './commands';
 import { CZON_VERSION } from './version';
 
 // 加载 .env 文件中的环境变量
@@ -17,6 +23,7 @@ const cli = new Cli({
 
 // 注册命令
 cli.register(BuildCommand);
+cli.register(CheckCommand);
 cli.register(LsFilesCommand);
 cli.register(SummaryCommand);
 cli.register(ConfigGithubCommand);
