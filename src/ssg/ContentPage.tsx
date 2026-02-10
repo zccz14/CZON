@@ -92,9 +92,8 @@ export const ContentPage: React.FC<{
                   key={heading.id}
                   href={`#${heading.id}`}
                   className={`block ms-${(heading.depth - 1) * 4} mb-2 border-b`}
-                >
-                  {heading.text}
-                </a>
+                  dangerouslySetInnerHTML={{ __html: heading.html }}
+                />
               ))}
             </aside>
           }
@@ -109,9 +108,8 @@ export const ContentPage: React.FC<{
                     href={`#${heading.id}`}
                     // 按照 heading.depth 设置缩进
                     className={`block ps-${heading.depth * 4} mb-2`}
-                  >
-                    {heading.text}
-                  </a>
+                    dangerouslySetInnerHTML={{ __html: heading.html }}
+                  />
                 ))}
               </div>
 

@@ -109,13 +109,17 @@ export const convertMarkdownToHtml = (
       }
     })();
 
+    // 使用 parseInline 渲染 inline tokens（KaTeX、加粗、斜体等）
+    const renderedHtml = this.parser.parseInline(heading.tokens);
+
     headings.push({
       id,
       text: heading.text,
+      html: renderedHtml,
       depth: heading.depth,
     });
     // TODO: 处理重复的标题文本以避免重复的 id
-    return `<h${heading.depth} id="${id}" class="anchor-heading">${heading.text}</h${heading.depth}>`;
+    return `<h${heading.depth} id="${id}" class="anchor-heading">${renderedHtml}</h${heading.depth}>`;
   };
 
   // 重写代码块渲染器以支持 Mermaid - 使用 any 类型绕过类型检查

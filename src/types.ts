@@ -156,6 +156,7 @@ export interface IArticleContent {
   headings: Array<{
     id: string;
     text: string;
+    html: string;
     depth: number;
   }>;
 }
