@@ -21,48 +21,56 @@ const SUMMARY_STYLES = [
     name: '客观中立',
     title: 'AI 总结: 客观中立风格',
     slug: 'aigc-summary-objective',
+    category: 'AI Summary',
   },
   {
     skill: 'summary-critical',
     name: '客观批判',
     title: 'AI 总结: 客观批判风格',
     slug: 'aigc-summary-critical',
+    category: 'AI Summary',
   },
   {
     skill: 'summary-positive',
     name: '赞扬鼓励',
     title: 'AI 总结: 赞扬鼓励风格',
     slug: 'aigc-summary-positive',
+    category: 'AI Summary',
   },
   {
     skill: 'summary-popular',
     name: '科普介绍',
     title: 'AI 总结: 科普介绍风格',
     slug: 'aigc-summary-popular',
+    category: 'AI Summary',
   },
   {
     skill: 'summary-artistic',
     name: '文艺感性',
     title: 'AI 总结: 文艺感性风格',
     slug: 'aigc-summary-artistic',
+    category: 'AI Summary',
   },
   {
     skill: 'summary-philosophical',
     name: '哲学思辨',
     title: 'AI 总结: 哲学思辨风格',
     slug: 'aigc-summary-philosophical',
+    category: 'AI Summary',
   },
   {
     skill: 'summary-psychological',
     name: '心理分析',
     title: 'AI 总结: 心理分析风格',
     slug: 'aigc-summary-psychological',
+    category: 'AI Summary',
   },
   {
     skill: 'summary-historical',
     name: '历史时间跨度',
     title: 'AI 总结: 历史时间跨度风格',
     slug: 'aigc-summary-historical',
+    category: 'AI Summary',
   },
 ] as const;
 
@@ -213,6 +221,7 @@ export const processSummary = async (model: string): Promise<void> => {
         title: style.title,
         slug: style.slug,
       } as AIMetadata;
+      fileMeta.category = style.category;
       console.info(`✅ 「${style.name}」风格报告生成成功\n`);
     } else {
       console.error(`❌ 「${style.name}」风格报告生成失败: ${result.error}\n`);

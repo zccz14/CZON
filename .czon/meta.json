@@ -13492,91 +13492,98 @@
       "path": "prompts/todo-summary.md",
       "links": [
         "../../../path/to/file.md",
+        "../../../path/to/file.md",
+        "../../../path/to/later-file.md",
+        "../../../path/to/file.md",
+        "../../../path/to/evidence-file.md",
         "../../../INSIGHTS/6.md",
         "../../../INSIGHTS/6.md"
       ],
       "metadata": {
         "title": "TODO 待办事项提取报告",
-        "description": "本文档详细介绍了从大量 Markdown 文件中提取、分析和报告待办事项的完整流程与规则。",
-        "short_summary": "本文档提供了从大量 Markdown 文件中提取和分析待办事项的完整框架。它定义了 TODO 的提取规则、状态判断和优先级标记方法，并详细说明了如何生成结构化的报告。文档强调严格遵循流程，确保报告的准确性和完整性。",
-        "audience": "需要从文档中提取和管理待办事项的开发者、项目经理或 AI 助手用户。",
+        "description": "本文档详细介绍了从大量Markdown文件中提取和分析待办事项（TODO）的完整流程、规则和输出格式，旨在实现自动化、结构化的任务管理。",
+        "short_summary": "本文档提供了一套完整的流程和规则，用于从大量Markdown文件中提取待办事项（TODO）。它详细说明了如何识别TODO、判断状态和优先级，并生成结构化的报告。文档强调自动化处理、严格遵循流程和避免虚构信息，旨在提高任务管理的效率和准确性。",
+        "audience": "需要从大量Markdown文档中自动化提取和管理待办事项的开发者、项目经理或文档分析人员。",
         "key_points": [
-          "定义了从 Markdown 文件中提取显式和隐式 TODO 的详细规则。",
-          "提供了判断 TODO 状态（已完成、进行中、待开始）和优先级（高、中、低）的准则。",
-          "规定了输出报告的格式，包括头部、概览和按状态分组的 TODO 列表。",
-          "强调了分段写入、引用链接规范和禁止行为，以确保报告质量。",
-          "概述了完整的文档阅读流程，包括分批处理、上下文管理和完整性验证。"
+          "文档定义了从Markdown文件中提取TODO的完整流程，包括四个阶段：获取文件列表、分批阅读提取、上下文管理和完整性验证。",
+          "文档详细说明了TODO的提取规则，包括显式和隐式TODO的识别，以及提取要素如描述、来源文件、原文引用和推断日期。",
+          "文档提供了状态判断规则（已完成、进行中、待开始）和优先级标记规则（高、中、低优先级），以帮助分类和排序TODO项。",
+          "文档指定了输出格式，包括头部、概览和TODO列表的展示方式，并强调引用链接规范、分段写入规则和禁止行为，确保报告质量。",
+          "文档的核心目标是实现自动化、结构化的任务管理，通过系统化方法处理大量文档，生成准确、可读的报告。"
         ],
-        "summary": "本文档是一份关于如何从大量 Markdown 文件中提取待办事项（TODO）的详细指南。它首先概述了文档阅读流程，包括获取文件列表、分批阅读提取、上下文管理和完整性验证四个阶段。接着，文档定义了显式和隐式 TODO 的提取规则，并规定了提取要素（如描述、来源文件等）。此外，文档还提供了状态判断规则（已完成、进行中、待开始）、优先级标记规则（高、中、低）以及输出格式要求，包括头部格式、概览和 TODO 列表的展示方式。最后，文档强调了引用链接规范、分段写入规则和禁止行为，确保报告的准确性和可读性。",
+        "summary": "本文档是一份关于如何从大量Markdown文件中提取待办事项（TODO）的详细指南。它首先概述了文档阅读流程，包括获取文件列表、分批阅读提取、上下文管理和完整性验证四个阶段。接着，文档定义了TODO的提取规则，包括显式和隐式TODO的识别，以及提取要素如描述、来源文件、原文引用和推断日期。文档还提供了状态判断规则（如已完成、进行中、待开始）和优先级标记规则（高、中、低优先级）。最后，文档指定了输出格式，包括头部格式、概览和TODO列表的展示方式，并强调了引用链接规范、分段写入规则和禁止行为。核心价值在于提供一套系统化方法，帮助用户自动化处理大量文档中的任务信息，生成结构化的报告。",
         "slug": "todo-extraction-report",
         "tags": [
-          "TODO 提取",
+          "TODO提取",
           "文档分析",
+          "任务管理",
           "Markdown",
-          "待办事项",
-          "AI 助手",
-          "报告生成",
-          "工作流程"
+          "自动化",
+          "结构化报告",
+          "优先级",
+          "状态跟踪"
         ],
         "inferred_lang": "zh-Hans",
         "tokens_used": {
-          "prompt": 2164,
-          "completion": 455,
-          "total": 2619
+          "prompt": 2478,
+          "completion": 539,
+          "total": 3017
         }
       },
-      "hash": "967f2fd12b6517f34bde1becb0429ff8c84b9d159ee2ded45fa9be1aa70ee9a1",
+      "hash": "d6b1d351b89c16580c34c4c5c609fce365b5c59e3759e6caa662621d426b2087",
       "metadataTranslations": {
         "zh-Hans": {
           "title": "TODO 待办事项提取报告",
-          "description": "本文档详细介绍了从大量 Markdown 文件中提取、分析和报告待办事项的完整流程与规则。",
-          "summary": "本文档是一份关于如何从大量 Markdown 文件中提取待办事项（TODO）的详细指南。它首先概述了文档阅读流程，包括获取文件列表、分批阅读提取、上下文管理和完整性验证四个阶段。接着，文档定义了显式和隐式 TODO 的提取规则，并规定了提取要素（如描述、来源文件等）。此外，文档还提供了状态判断规则（已完成、进行中、待开始）、优先级标记规则（高、中、低）以及输出格式要求，包括头部格式、概览和 TODO 列表的展示方式。最后，文档强调了引用链接规范、分段写入规则和禁止行为，确保报告的准确性和可读性。",
-          "short_summary": "本文档提供了从大量 Markdown 文件中提取和分析待办事项的完整框架。它定义了 TODO 的提取规则、状态判断和优先级标记方法，并详细说明了如何生成结构化的报告。文档强调严格遵循流程，确保报告的准确性和完整性。",
+          "description": "本文档详细介绍了从大量Markdown文件中提取和分析待办事项（TODO）的完整流程、规则和输出格式，旨在实现自动化、结构化的任务管理。",
+          "summary": "本文档是一份关于如何从大量Markdown文件中提取待办事项（TODO）的详细指南。它首先概述了文档阅读流程，包括获取文件列表、分批阅读提取、上下文管理和完整性验证四个阶段。接着，文档定义了TODO的提取规则，包括显式和隐式TODO的识别，以及提取要素如描述、来源文件、原文引用和推断日期。文档还提供了状态判断规则（如已完成、进行中、待开始）和优先级标记规则（高、中、低优先级）。最后，文档指定了输出格式，包括头部格式、概览和TODO列表的展示方式，并强调了引用链接规范、分段写入规则和禁止行为。核心价值在于提供一套系统化方法，帮助用户自动化处理大量文档中的任务信息，生成结构化的报告。",
+          "short_summary": "本文档提供了一套完整的流程和规则，用于从大量Markdown文件中提取待办事项（TODO）。它详细说明了如何识别TODO、判断状态和优先级，并生成结构化的报告。文档强调自动化处理、严格遵循流程和避免虚构信息，旨在提高任务管理的效率和准确性。",
           "key_points": [
-            "定义了从 Markdown 文件中提取显式和隐式 TODO 的详细规则。",
-            "提供了判断 TODO 状态（已完成、进行中、待开始）和优先级（高、中、低）的准则。",
-            "规定了输出报告的格式，包括头部、概览和按状态分组的 TODO 列表。",
-            "强调了分段写入、引用链接规范和禁止行为，以确保报告质量。",
-            "概述了完整的文档阅读流程，包括分批处理、上下文管理和完整性验证。"
+            "文档定义了从Markdown文件中提取TODO的完整流程，包括四个阶段：获取文件列表、分批阅读提取、上下文管理和完整性验证。",
+            "文档详细说明了TODO的提取规则，包括显式和隐式TODO的识别，以及提取要素如描述、来源文件、原文引用和推断日期。",
+            "文档提供了状态判断规则（已完成、进行中、待开始）和优先级标记规则（高、中、低优先级），以帮助分类和排序TODO项。",
+            "文档指定了输出格式，包括头部、概览和TODO列表的展示方式，并强调引用链接规范、分段写入规则和禁止行为，确保报告质量。",
+            "文档的核心目标是实现自动化、结构化的任务管理，通过系统化方法处理大量文档，生成准确、可读的报告。"
           ],
-          "audience": "需要从文档中提取和管理待办事项的开发者、项目经理或 AI 助手用户。",
+          "audience": "需要从大量Markdown文档中自动化提取和管理待办事项的开发者、项目经理或文档分析人员。",
           "tags": [
-            "TODO 提取",
+            "TODO提取",
             "文档分析",
+            "任务管理",
             "Markdown",
-            "待办事项",
-            "AI 助手",
-            "报告生成",
-            "工作流程"
+            "自动化",
+            "结构化报告",
+            "优先级",
+            "状态跟踪"
           ]
         },
         "en-US": {
           "title": "TODO Extraction Report",
-          "description": "This document details the complete process and rules for extracting, analyzing, and reporting TODO items from a large number of Markdown files.",
-          "summary": "This document is a detailed guide on how to extract TODO items from a large number of Markdown files. It first outlines the document reading process, including four stages: obtaining file lists, batch reading and extraction, context management, and integrity verification. Next, the document defines extraction rules for explicit and implicit TODOs and specifies extraction elements (such as description, source file, etc.). Additionally, the document provides rules for status determination (completed, in progress, not started), priority marking rules (high, medium, low), and output format requirements, including header format, overview, and display methods for TODO lists. Finally, the document emphasizes citation link standards, segmented writing rules, and prohibited behaviors to ensure the accuracy and readability of reports.",
-          "short_summary": "This document provides a complete framework for extracting and analyzing TODO items from a large number of Markdown files. It defines extraction rules for TODOs, methods for status determination and priority marking, and details how to generate structured reports. The document emphasizes strict adherence to the process to ensure report accuracy and completeness.",
+          "description": "This document details the complete process, rules, and output format for extracting and analyzing TODO items from a large number of Markdown files, aiming to achieve automated and structured task management.",
+          "summary": "This document is a detailed guide on how to extract TODO items from a large number of Markdown files. It first outlines the document reading process, including four stages: obtaining file lists, batch reading and extraction, context management, and completeness verification. Next, the document defines TODO extraction rules, including the identification of explicit and implicit TODOs, as well as extraction elements such as description, source file, original text reference, and inferred date. The document also provides status judgment rules (e.g., completed, in progress, not started) and priority marking rules (high, medium, low priority). Finally, the document specifies the output format, including header format, overview, and TODO list presentation, and emphasizes citation link standards, segmented writing rules, and prohibited behaviors. The core value lies in providing a systematic method to help users automate the processing of task information from a large number of documents and generate structured reports.",
+          "short_summary": "This document provides a complete process and rules for extracting TODO items from a large number of Markdown files. It details how to identify TODOs, determine status and priority, and generate structured reports. The document emphasizes automated processing, strict adherence to the process, and avoiding fabricated information, aiming to improve the efficiency and accuracy of task management.",
           "key_points": [
-            "Defines detailed rules for extracting explicit and implicit TODOs from Markdown files.",
-            "Provides guidelines for determining TODO status (completed, in progress, not started) and priority (high, medium, low).",
-            "Specifies the format of output reports, including headers, overviews, and TODO lists grouped by status.",
-            "Emphasizes segmented writing, citation link standards, and prohibited behaviors to ensure report quality.",
-            "Outlines the complete document reading process, including batch processing, context management, and integrity verification."
+            "The document defines a complete process for extracting TODOs from Markdown files, including four stages: obtaining file lists, batch reading and extraction, context management, and completeness verification.",
+            "The document details TODO extraction rules, including the identification of explicit and implicit TODOs, as well as extraction elements such as description, source file, original text reference, and inferred date.",
+            "The document provides status judgment rules (completed, in progress, not started) and priority marking rules (high, medium, low priority) to help categorize and sort TODO items.",
+            "The document specifies the output format, including header, overview, and TODO list presentation, and emphasizes citation link standards, segmented writing rules, and prohibited behaviors to ensure report quality.",
+            "The document's core goal is to achieve automated and structured task management by systematically processing a large number of documents to generate accurate and readable reports."
           ],
-          "audience": "Developers, project managers, or AI assistant users who need to extract and manage TODO items from documents.",
+          "audience": "Developers, project managers, or document analysts who need to automate the extraction and management of TODO items from a large number of Markdown documents.",
           "tags": [
             "TODO extraction",
-            "Document analysis",
+            "document analysis",
+            "task management",
             "Markdown",
-            "To-do items",
-            "AI assistant",
-            "Report generation",
-            "Workflow"
+            "automation",
+            "structured reporting",
+            "priority",
+            "status tracking"
           ]
         }
       },
-      "metadataTranslationHash": "bed87631c176a4e4ad486775ae461935fb898c8ba866970c9a94005614a6ac29",
+      "metadataTranslationHash": "3f85f7c04c13eba6159a9e4f21eeda3360f8026e667c5c938d36206b3ccc2d31",
       "category": "Document Analysis",
-      "nativeMarkdownHash": "967f2fd12b6517f34bde1becb0429ff8c84b9d159ee2ded45fa9be1aa70ee9a1"
+      "nativeMarkdownHash": "d6b1d351b89c16580c34c4c5c609fce365b5c59e3759e6caa662621d426b2087"
     }
   ],
   "categoryTranslations": {

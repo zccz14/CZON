@@ -16,6 +16,7 @@ const TODO_CONFIG = {
   promptFile: 'todo-summary',
   title: 'AI 总结：待办事项',
   slug: 'aigc-todo-list',
+  category: 'AI Summary',
   outputRelative: '.czon/AIGC/TODO/todo-summary.md',
 };
 
@@ -100,6 +101,7 @@ ${promptContent}
         title: TODO_CONFIG.title,
         slug: TODO_CONFIG.slug,
       } as AIMetadata;
+      fileMeta.category = TODO_CONFIG.category;
 
       // 保存 MetaData
       await saveMetaData();
@@ -134,6 +136,7 @@ ${promptContent}
       title: TODO_CONFIG.title,
       slug: TODO_CONFIG.slug,
     } as AIMetadata;
+    fileMeta.category = TODO_CONFIG.category;
 
     await saveMetaData();
     return;
