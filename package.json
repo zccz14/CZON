@@ -61,7 +61,6 @@
     "marked": "^17.0.1",
     "marked-footnote": "^1.4.0",
     "marked-katex-extension": "^5.1.6",
-    "minimatch": "^10.1.1",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "yaml": "^2.8.2"
