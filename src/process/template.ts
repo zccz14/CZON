@@ -21,6 +21,7 @@ import { IArticleContent, IRenderContext } from '../types';
 import { convertMarkdownToHtml } from '../utils/convertMarkdownToHtml';
 import { stripFrontmatter } from '../utils/frontmatter';
 import { isExists } from '../utils/isExists';
+import { countWords, estimateReadingTime } from '../utils/wordCount';
 import { writeFile } from '../utils/writeFile';
 
 const copyFavicon = async () => {
@@ -86,12 +87,16 @@ export const spiderStaticSiteGenerator = async () => {
     for (const lang of MetaData.options.langs || []) {
       const markdown = await fs.readFile(path.join(CZON_SRC_DIR, lang, file.path), 'utf-8');
       const body = stripFrontmatter(markdown);
+      const { total: wordCount } = countWords(body);
+      const readingTimeMinutes = estimateReadingTime(body);
 
       const article: IArticleContent = {
         lang,
         file,
         body: '',
         headings: [],
+        wordCount,
+        readingTimeMinutes,
       };
 
       convertMarkdownToHtml(article, file.path, lang, body);

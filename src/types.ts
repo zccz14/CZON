@@ -159,6 +159,16 @@ export interface IArticleContent {
     html: string;
     depth: number;
   }>;
+
+  /**
+   * 文章字数（CJK 字符数 + 拉丁单词数）
+   */
+  wordCount: number;
+
+  /**
+   * 建议阅读时长（分钟）
+   */
+  readingTimeMinutes: number;
 }
 
 /**
