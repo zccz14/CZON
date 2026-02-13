@@ -241,6 +241,18 @@ export const ContentPage: React.FC<{
         }
         
         `}</script>
+        <script>{`
+        // 页面加载后将当前激活的导航链接滚动到可视区域
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', scrollActiveNavLink);
+        } else {
+          scrollActiveNavLink();
+        }
+        function scrollActiveNavLink() {
+          var el = document.querySelector('.nav-link.active');
+          if (el) el.scrollIntoView({ block: 'center', behavior: 'instant' });
+        }
+        `}</script>
         <script
           id="embla-lib"
           src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"
