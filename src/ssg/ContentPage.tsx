@@ -85,33 +85,37 @@ export const ContentPage: React.FC<{
             </nav>
           }
           rightSidebar={
-            <aside className="sidebar border-l">
-              <h2 className="text-2xl font-semibold mb-2">Table of Contents</h2>
-              {props.content.headings.map(heading => (
-                <a
-                  key={heading.id}
-                  href={`#${heading.id}`}
-                  className={`block ms-${(heading.depth - 1) * 4} mb-2 border-b`}
-                  dangerouslySetInnerHTML={{ __html: heading.html }}
-                />
-              ))}
-            </aside>
-          }
-          main={
-            <main className="content max-w-4xl mx-auto my-8 px-4">
-              <ContentMeta ctx={props.ctx} file={props.file} lang={props.lang} />
-              <div className="border-b mb-4 pb-2 xl:hidden">
+            props.content.headings.length > 0 ? (
+              <aside className="sidebar border-l">
                 <h2 className="text-2xl font-semibold mb-2">Table of Contents</h2>
                 {props.content.headings.map(heading => (
                   <a
                     key={heading.id}
                     href={`#${heading.id}`}
-                    // 按照 heading.depth 设置缩进
-                    className={`block ps-${heading.depth * 4} mb-2`}
+                    className={`block ms-${(heading.depth - 1) * 4} mb-2 border-b`}
                     dangerouslySetInnerHTML={{ __html: heading.html }}
                   />
                 ))}
-              </div>
+              </aside>
+            ) : undefined
+          }
+          main={
+            <main className="content max-w-4xl mx-auto my-8 px-4">
+              <ContentMeta ctx={props.ctx} file={props.file} lang={props.lang} />
+              {props.content.headings.length > 0 && (
+                <div className="border-b mb-4 pb-2 xl:hidden">
+                  <h2 className="text-2xl font-semibold mb-2">Table of Contents</h2>
+                  {props.content.headings.map(heading => (
+                    <a
+                      key={heading.id}
+                      href={`#${heading.id}`}
+                      // 按照 heading.depth 设置缩进
+                      className={`block ps-${heading.depth * 4} mb-2`}
+                      dangerouslySetInnerHTML={{ __html: heading.html }}
+                    />
+                  ))}
+                </div>
+              )}
 
               <div className="content-body">
                 <article dangerouslySetInnerHTML={{ __html: props.content.body }} />
