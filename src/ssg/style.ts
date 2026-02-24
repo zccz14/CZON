@@ -375,4 +375,75 @@ html:not(.dark) body {
   flex: 0 0 100%;
   min-width: 0;
 }
+
+/* Share feature */
+.share-float-btn {
+  display: none;
+  position: absolute;
+  z-index: 1000;
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  white-space: nowrap;
+  line-height: 1.6;
+}
+.share-float-btn:hover {
+  opacity: 0.9;
+}
+
+.share-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+}
+.share-modal-overlay.active {
+  display: flex;
+}
+.share-modal {
+  background: var(--bg-primary);
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: auto;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.share-modal canvas {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+}
+.share-modal-actions {
+  display: flex;
+  gap: 12px;
+}
+.share-modal-actions button {
+  padding: 8px 24px;
+  border-radius: 6px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+.share-modal-actions .share-download-btn {
+  background: var(--primary-color);
+  color: #fff;
+}
+.share-modal-actions .share-close-btn {
+  background: var(--tag-bg);
+  color: var(--tag-text);
+}
 `;

@@ -164,6 +164,248 @@ export const ContentPage: React.FC<{
           }
         />
 
+        {/* Share feature */}
+        <button className="share-float-btn" id="share-float-btn">
+          Share
+        </button>
+        <div className="share-modal-overlay" id="share-modal-overlay">
+          <div className="share-modal">
+            <canvas id="share-canvas"></canvas>
+            <div className="share-modal-actions">
+              <button className="share-download-btn" id="share-download-btn">
+                Save Image
+              </button>
+              <button className="share-close-btn" id="share-close-btn">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+        <script
+          id="qrcode-lib"
+          src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"
+          defer
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+(function() {
+  var floatBtn = document.getElementById('share-float-btn');
+  var overlay = document.getElementById('share-modal-overlay');
+  var canvas = document.getElementById('share-canvas');
+  var downloadBtn = document.getElementById('share-download-btn');
+  var closeBtn = document.getElementById('share-close-btn');
+  var selectedText = '';
+  var articleTitle = ${JSON.stringify(title)};
+  var siteName = ${JSON.stringify(props.ctx.site.options?.site?.title || 'CZON')};
+
+  // Detect text selection within .content-body
+  document.addEventListener('selectionchange', function() {
+    var sel = window.getSelection();
+    if (!sel || sel.isCollapsed || !sel.rangeCount) {
+      floatBtn.style.display = 'none';
+      return;
+    }
+    var range = sel.getRangeAt(0);
+    var container = document.querySelector('.content-body');
+    if (!container || !container.contains(range.commonAncestorContainer)) {
+      floatBtn.style.display = 'none';
+      return;
+    }
+    var text = sel.toString().trim();
+    if (!text) {
+      floatBtn.style.display = 'none';
+      return;
+    }
+    selectedText = text;
+    var rect = range.getBoundingClientRect();
+    floatBtn.style.display = 'block';
+    floatBtn.style.top = (window.scrollY + rect.top - 36) + 'px';
+    floatBtn.style.left = (window.scrollX + rect.left + rect.width / 2 - 30) + 'px';
+  });
+
+  // Hide float button on click elsewhere
+  document.addEventListener('mousedown', function(e) {
+    if (e.target === floatBtn) return;
+    // Let selectionchange handle hiding
+  });
+
+  floatBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!selectedText) return;
+    renderShareCard(selectedText);
+    overlay.classList.add('active');
+    floatBtn.style.display = 'none';
+  });
+
+  closeBtn.addEventListener('click', function() {
+    overlay.classList.remove('active');
+  });
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) overlay.classList.remove('active');
+  });
+
+  downloadBtn.addEventListener('click', function() {
+    canvas.toBlob(function(blob) {
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'share.png';
+      a.click();
+      URL.revokeObjectURL(url);
+    }, 'image/png');
+  });
+
+  function wrapText(ctx, text, maxWidth, lineHeight) {
+    var lines = [];
+    var paragraphs = text.split('\\n');
+    for (var p = 0; p < paragraphs.length; p++) {
+      var words = paragraphs[p];
+      var line = '';
+      for (var i = 0; i < words.length; i++) {
+        var testLine = line + words[i];
+        var metrics = ctx.measureText(testLine);
+        if (metrics.width > maxWidth && line.length > 0) {
+          lines.push(line);
+          line = words[i];
+        } else {
+          line = testLine;
+        }
+      }
+      if (line) lines.push(line);
+      if (p < paragraphs.length - 1) lines.push('');
+    }
+    return lines;
+  }
+
+  function renderShareCard(text) {
+    var dpr = window.devicePixelRatio || 1;
+    var W = 800;
+    var pad = 48;
+    var contentW = W - pad * 2;
+    var ctx = canvas.getContext('2d');
+
+    // Pre-calculate heights
+    ctx.font = 'bold 28px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+    var titleLines = wrapText(ctx, articleTitle, contentW, 36);
+    var titleH = titleLines.length * 36;
+
+    ctx.font = '20px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+    var maxTextLen = 300;
+    var displayText = text.length > maxTextLen ? text.slice(0, maxTextLen) + '...' : text;
+    var textLines = wrapText(ctx, displayText, contentW - 32, 30);
+    var textH = textLines.length * 30;
+
+    var qrSize = 120;
+    var siteNameH = 40;
+    var separatorGap = 24;
+    var quoteTopPad = 24;
+    var quoteBottomPad = 24;
+    var qrTopPad = 32;
+    var qrBottomPad = 16;
+    var bottomPad = 32;
+
+    var H = pad + siteNameH + titleH + separatorGap * 2 + quoteTopPad + textH + quoteBottomPad + qrTopPad + qrSize + qrBottomPad + 20 + bottomPad;
+
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.scale(dpr, dpr);
+
+    // Background
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.roundRect(0, 0, W, H, 12);
+    ctx.fill();
+
+    var y = pad;
+
+    // Site name
+    ctx.fillStyle = '#999999';
+    ctx.font = '16px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+    ctx.fillText(siteName, pad, y + 16);
+    y += siteNameH;
+
+    // Title
+    ctx.fillStyle = '#1a1a1a';
+    ctx.font = 'bold 28px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+    for (var i = 0; i < titleLines.length; i++) {
+      ctx.fillText(titleLines[i], pad, y + 28);
+      y += 36;
+    }
+    y += separatorGap;
+
+    // Separator
+    ctx.strokeStyle = '#e5e5e5';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(pad, y);
+    ctx.lineTo(W - pad, y);
+    ctx.stroke();
+    y += separatorGap;
+
+    // Quote block background
+    var quoteBlockY = y;
+    var quoteBlockH = quoteTopPad + textH + quoteBottomPad;
+    ctx.fillStyle = '#f8f9fa';
+    ctx.beginPath();
+    ctx.roundRect(pad, quoteBlockY, contentW, quoteBlockH, 8);
+    ctx.fill();
+
+    // Quote accent bar
+    ctx.fillStyle = '#007bff';
+    ctx.beginPath();
+    ctx.roundRect(pad, quoteBlockY, 4, quoteBlockH, 2);
+    ctx.fill();
+
+    // Quote text
+    y += quoteTopPad;
+    ctx.fillStyle = '#333333';
+    ctx.font = '20px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+    for (var i = 0; i < textLines.length; i++) {
+      if (textLines[i] !== '') {
+        ctx.fillText(textLines[i], pad + 16, y + 20);
+      }
+      y += 30;
+    }
+    y += quoteBottomPad + qrTopPad;
+
+    // QR code
+    if (typeof qrcode !== 'undefined') {
+      var qr = qrcode(0, 'M');
+      qr.addData(window.location.href);
+      qr.make();
+      var moduleCount = qr.getModuleCount();
+      var cellSize = qrSize / moduleCount;
+      var qrX = W - pad - qrSize;
+      var qrY = y;
+
+      // White background for QR
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(qrX - 4, qrY - 4, qrSize + 8, qrSize + 8);
+
+      ctx.fillStyle = '#1a1a1a';
+      for (var r = 0; r < moduleCount; r++) {
+        for (var c = 0; c < moduleCount; c++) {
+          if (qr.isDark(r, c)) {
+            ctx.fillRect(qrX + c * cellSize, qrY + r * cellSize, cellSize + 0.5, cellSize + 0.5);
+          }
+        }
+      }
+
+      // Hint text next to QR
+      ctx.fillStyle = '#999999';
+      ctx.font = '14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      ctx.fillText('Scan to read the original', pad, y + qrSize / 2 + 5);
+    }
+  }
+})();
+`,
+          }}
+        />
+
         <script
           id="hljs-lib"
           src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"
