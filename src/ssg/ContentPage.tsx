@@ -220,7 +220,7 @@ export const ContentPage: React.FC<{
     selectedText = text;
     var rect = range.getBoundingClientRect();
     floatBtn.style.display = 'block';
-    floatBtn.style.top = (window.scrollY + rect.top - 36) + 'px';
+    floatBtn.style.top = (window.scrollY + rect.bottom + 6) + 'px';
     floatBtn.style.left = (window.scrollX + rect.left + rect.width / 2 - 30) + 'px';
   });
 
@@ -281,32 +281,41 @@ export const ContentPage: React.FC<{
 
   function renderShareCard(text) {
     var dpr = window.devicePixelRatio || 1;
-    var W = 800;
-    var pad = 48;
+    var W = 540;
+    var pad = 36;
     var contentW = W - pad * 2;
     var ctx = canvas.getContext('2d');
 
+    var qrSize = 64;
+    var qrHintH = 16;
+    var qrBlockW = qrSize + 12; // QR + right margin
+    var titleContentW = contentW - qrBlockW; // title wraps narrower to avoid QR
+
     // Pre-calculate heights
-    ctx.font = 'bold 28px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-    var titleLines = wrapText(ctx, articleTitle, contentW, 36);
-    var titleH = titleLines.length * 36;
+    ctx.font = 'bold 24px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+    var titleLines = wrapText(ctx, articleTitle, titleContentW, 32);
+    var titleH = titleLines.length * 32;
 
-    ctx.font = '20px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-    var maxTextLen = 300;
+    ctx.font = '18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+    var maxTextLen = 500;
     var displayText = text.length > maxTextLen ? text.slice(0, maxTextLen) + '...' : text;
-    var textLines = wrapText(ctx, displayText, contentW - 32, 30);
-    var textH = textLines.length * 30;
+    var textLines = wrapText(ctx, displayText, contentW - 28, 28);
+    var textH = textLines.length * 28;
 
-    var qrSize = 120;
-    var siteNameH = 40;
-    var separatorGap = 24;
-    var quoteTopPad = 24;
-    var quoteBottomPad = 24;
-    var qrTopPad = 32;
-    var qrBottomPad = 16;
-    var bottomPad = 32;
+    var siteNameH = 32;
+    var separatorGap = 20;
+    var quoteTopPad = 20;
+    var quoteBottomPad = 20;
+    var bottomPad = 28;
 
-    var H = pad + siteNameH + titleH + separatorGap * 2 + quoteTopPad + textH + quoteBottomPad + qrTopPad + qrSize + qrBottomPad + 20 + bottomPad;
+    // QR block height in header area
+    var qrBlockH = qrSize + qrHintH + 4;
+    var headerH = Math.max(siteNameH + titleH, qrBlockH);
+
+    var H = pad + headerH + separatorGap * 2 + quoteTopPad + textH + quoteBottomPad + bottomPad;
+    // Enforce portrait ratio: minimum 3:4
+    var minH = Math.round(W * 4 / 3);
+    if (H < minH) H = minH;
 
     canvas.width = W * dpr;
     canvas.height = H * dpr;
@@ -322,20 +331,49 @@ export const ContentPage: React.FC<{
 
     var y = pad;
 
+    // QR code (top-right corner)
+    if (typeof qrcode !== 'undefined') {
+      var qr = qrcode(0, 'M');
+      qr.addData(window.location.href);
+      qr.make();
+      var moduleCount = qr.getModuleCount();
+      var cellSize = qrSize / moduleCount;
+      var qrX = W - pad - qrSize;
+      var qrY = pad;
+
+      ctx.fillStyle = '#1a1a1a';
+      for (var r = 0; r < moduleCount; r++) {
+        for (var c = 0; c < moduleCount; c++) {
+          if (qr.isDark(r, c)) {
+            ctx.fillRect(qrX + c * cellSize, qrY + r * cellSize, cellSize + 0.5, cellSize + 0.5);
+          }
+        }
+      }
+
+      // Hint text below QR, centered
+      ctx.fillStyle = '#bbbbbb';
+      ctx.font = '10px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      var hintText = 'Scan to read';
+      var hintW = ctx.measureText(hintText).width;
+      ctx.fillText(hintText, qrX + (qrSize - hintW) / 2, qrY + qrSize + 12);
+    }
+
     // Site name
     ctx.fillStyle = '#999999';
-    ctx.font = '16px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-    ctx.fillText(siteName, pad, y + 16);
+    ctx.font = '14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+    ctx.fillText(siteName, pad, y + 14);
     y += siteNameH;
 
     // Title
     ctx.fillStyle = '#1a1a1a';
-    ctx.font = 'bold 28px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+    ctx.font = 'bold 24px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
     for (var i = 0; i < titleLines.length; i++) {
-      ctx.fillText(titleLines[i], pad, y + 28);
-      y += 36;
+      ctx.fillText(titleLines[i], pad, y + 24);
+      y += 32;
     }
-    y += separatorGap;
+
+    // Align y to after header area
+    y = pad + headerH + separatorGap;
 
     // Separator
     ctx.strokeStyle = '#e5e5e5';
@@ -363,42 +401,12 @@ export const ContentPage: React.FC<{
     // Quote text
     y += quoteTopPad;
     ctx.fillStyle = '#333333';
-    ctx.font = '20px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+    ctx.font = '18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
     for (var i = 0; i < textLines.length; i++) {
       if (textLines[i] !== '') {
-        ctx.fillText(textLines[i], pad + 16, y + 20);
+        ctx.fillText(textLines[i], pad + 14, y + 18);
       }
-      y += 30;
-    }
-    y += quoteBottomPad + qrTopPad;
-
-    // QR code
-    if (typeof qrcode !== 'undefined') {
-      var qr = qrcode(0, 'M');
-      qr.addData(window.location.href);
-      qr.make();
-      var moduleCount = qr.getModuleCount();
-      var cellSize = qrSize / moduleCount;
-      var qrX = W - pad - qrSize;
-      var qrY = y;
-
-      // White background for QR
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(qrX - 4, qrY - 4, qrSize + 8, qrSize + 8);
-
-      ctx.fillStyle = '#1a1a1a';
-      for (var r = 0; r < moduleCount; r++) {
-        for (var c = 0; c < moduleCount; c++) {
-          if (qr.isDark(r, c)) {
-            ctx.fillRect(qrX + c * cellSize, qrY + r * cellSize, cellSize + 0.5, cellSize + 0.5);
-          }
-        }
-      }
-
-      // Hint text next to QR
-      ctx.fillStyle = '#999999';
-      ctx.font = '14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-      ctx.fillText('Scan to read the original', pad, y + qrSize / 2 + 5);
+      y += 28;
     }
   }
 })();
