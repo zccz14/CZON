@@ -392,12 +392,6 @@ export const ContentPage: React.FC<{
     ctx.roundRect(pad, quoteBlockY, contentW, quoteBlockH, 8);
     ctx.fill();
 
-    // Quote accent bar
-    ctx.fillStyle = '#007bff';
-    ctx.beginPath();
-    ctx.roundRect(pad, quoteBlockY, 4, quoteBlockH, 2);
-    ctx.fill();
-
     // Quote text
     y += quoteTopPad;
     ctx.fillStyle = '#333333';
