@@ -421,7 +421,7 @@ html:not(.dark) body {
   align-items: center;
   gap: 16px;
 }
-.share-modal canvas {
+.share-modal img.share-preview {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
@@ -445,5 +445,90 @@ html:not(.dark) body {
 .share-modal-actions .share-close-btn {
   background: var(--tag-bg);
   color: var(--tag-text);
+}
+
+/* Share card (off-screen DOM for html2canvas capture) */
+.share-card {
+  display: none;
+  position: fixed;
+  left: -9999px;
+  top: 0;
+  width: 540px;
+  min-height: 720px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 36px;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #1a1a1a;
+  flex-direction: column;
+  pointer-events: none;
+}
+.share-card.rendering {
+  display: flex;
+}
+.share-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.share-card-header-left {
+  flex: 1;
+  min-width: 0;
+}
+.share-card-site {
+  font-size: 14px;
+  color: #999999;
+  margin-bottom: 8px;
+}
+.share-card-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.3;
+  word-wrap: break-word;
+}
+.share-card-qr {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.share-card-qr canvas {
+  display: block;
+}
+.share-card-qr-hint {
+  font-size: 10px;
+  color: #bbbbbb;
+  margin-top: 4px;
+  white-space: nowrap;
+}
+.share-card-divider {
+  height: 1px;
+  background: #e5e5e5;
+  margin-bottom: 20px;
+}
+.share-card-body {
+  flex: 1;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  font-size: 18px;
+  line-height: 1.8;
+  color: #333333;
+  overflow: hidden;
+}
+.share-card-body img {
+  max-width: 100%;
+  height: auto;
+}
+.share-card-body pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.share-card-body strong {
+  color: #ff5722;
 }
 `;

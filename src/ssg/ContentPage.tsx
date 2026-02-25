@@ -170,7 +170,12 @@ export const ContentPage: React.FC<{
         </button>
         <div className="share-modal-overlay" id="share-modal-overlay">
           <div className="share-modal">
-            <canvas id="share-canvas"></canvas>
+            <img
+              className="share-preview"
+              id="share-preview"
+              alt="Share preview"
+              src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+            />
             <div className="share-modal-actions">
               <button className="share-download-btn" id="share-download-btn">
                 Save Image
@@ -181,9 +186,28 @@ export const ContentPage: React.FC<{
             </div>
           </div>
         </div>
+        <div className="share-card" id="share-card">
+          <div className="share-card-header">
+            <div className="share-card-header-left">
+              <div className="share-card-site" id="share-card-site"></div>
+              <div className="share-card-title" id="share-card-title"></div>
+            </div>
+            <div className="share-card-qr">
+              <canvas id="share-qr-canvas" width="64" height="64"></canvas>
+              <span className="share-card-qr-hint">Scan to read</span>
+            </div>
+          </div>
+          <div className="share-card-divider"></div>
+          <div className="share-card-body" id="share-card-body"></div>
+        </div>
         <script
           id="qrcode-lib"
           src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"
+          defer
+        ></script>
+        <script
+          id="html2canvas-lib"
+          src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"
           defer
         ></script>
         <script
@@ -192,10 +216,15 @@ export const ContentPage: React.FC<{
 (function() {
   var floatBtn = document.getElementById('share-float-btn');
   var overlay = document.getElementById('share-modal-overlay');
-  var canvas = document.getElementById('share-canvas');
+  var preview = document.getElementById('share-preview');
   var downloadBtn = document.getElementById('share-download-btn');
   var closeBtn = document.getElementById('share-close-btn');
-  var selectedText = '';
+  var shareCard = document.getElementById('share-card');
+  var cardSite = document.getElementById('share-card-site');
+  var cardTitle = document.getElementById('share-card-title');
+  var cardBody = document.getElementById('share-card-body');
+  var qrCanvas = document.getElementById('share-qr-canvas');
+  var savedRange = null;
   var articleTitle = ${JSON.stringify(title)};
   var siteName = ${JSON.stringify(props.ctx.site.options?.site?.title || 'CZON')};
 
@@ -217,25 +246,18 @@ export const ContentPage: React.FC<{
       floatBtn.style.display = 'none';
       return;
     }
-    selectedText = text;
+    savedRange = range.cloneRange();
     var rect = range.getBoundingClientRect();
     floatBtn.style.display = 'block';
     floatBtn.style.top = (window.scrollY + rect.bottom + 6) + 'px';
     floatBtn.style.left = (window.scrollX + rect.left + rect.width / 2 - 30) + 'px';
   });
 
-  // Hide float button on click elsewhere
-  document.addEventListener('mousedown', function(e) {
-    if (e.target === floatBtn) return;
-    // Let selectionchange handle hiding
-  });
-
   floatBtn.addEventListener('click', function(e) {
     e.preventDefault();
     e.stopPropagation();
-    if (!selectedText) return;
-    renderShareCard(selectedText);
-    overlay.classList.add('active');
+    if (!savedRange) return;
+    renderShareCard(savedRange);
     floatBtn.style.display = 'none';
   });
 
@@ -247,161 +269,82 @@ export const ContentPage: React.FC<{
   });
 
   downloadBtn.addEventListener('click', function() {
-    canvas.toBlob(function(blob) {
-      var url = URL.createObjectURL(blob);
-      var a = document.createElement('a');
-      a.href = url;
-      a.download = 'share.png';
-      a.click();
-      URL.revokeObjectURL(url);
-    }, 'image/png');
+    var a = document.createElement('a');
+    a.href = preview.src;
+    a.download = 'share.png';
+    a.click();
   });
 
-  function wrapText(ctx, text, maxWidth, lineHeight) {
-    var lines = [];
-    var paragraphs = text.split('\\n');
-    for (var p = 0; p < paragraphs.length; p++) {
-      var words = paragraphs[p];
-      var line = '';
-      for (var i = 0; i < words.length; i++) {
-        var testLine = line + words[i];
-        var metrics = ctx.measureText(testLine);
-        if (metrics.width > maxWidth && line.length > 0) {
-          lines.push(line);
-          line = words[i];
-        } else {
-          line = testLine;
+  function renderQR() {
+    if (typeof qrcode === 'undefined') return;
+    var size = 64;
+    var qr = qrcode(0, 'M');
+    qr.addData(window.location.href);
+    qr.make();
+    var moduleCount = qr.getModuleCount();
+    var cellSize = size / moduleCount;
+    var ctx = qrCanvas.getContext('2d');
+    ctx.clearRect(0, 0, size, size);
+    ctx.fillStyle = '#1a1a1a';
+    for (var r = 0; r < moduleCount; r++) {
+      for (var c = 0; c < moduleCount; c++) {
+        if (qr.isDark(r, c)) {
+          ctx.fillRect(c * cellSize, r * cellSize, cellSize + 0.5, cellSize + 0.5);
         }
       }
-      if (line) lines.push(line);
-      if (p < paragraphs.length - 1) lines.push('');
     }
-    return lines;
   }
 
-  function renderShareCard(text) {
-    var dpr = window.devicePixelRatio || 1;
-    var W = 540;
-    var pad = 36;
-    var contentW = W - pad * 2;
-    var ctx = canvas.getContext('2d');
+  function renderShareCard(range) {
+    // Populate card content
+    cardSite.textContent = siteName;
+    cardTitle.textContent = articleTitle;
 
-    var qrSize = 64;
-    var qrHintH = 16;
-    var qrBlockW = qrSize + 12; // QR + right margin
-    var titleContentW = contentW - qrBlockW; // title wraps narrower to avoid QR
+    // Clone selected DOM fragment with rich formatting
+    var fragment = range.cloneContents();
+    cardBody.innerHTML = '';
+    cardBody.appendChild(fragment);
 
-    // Pre-calculate heights
-    ctx.font = 'bold 24px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-    var titleLines = wrapText(ctx, articleTitle, titleContentW, 32);
-    var titleH = titleLines.length * 32;
+    // Copy computed styles for elements that need them (e.g. KaTeX)
+    var allStyles = document.querySelectorAll('style, link[rel="stylesheet"]');
+    var styleClones = [];
+    allStyles.forEach(function(s) {
+      styleClones.push(s.cloneNode(true));
+    });
 
-    ctx.font = '18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-    var maxTextLen = 500;
-    var displayText = text.length > maxTextLen ? text.slice(0, maxTextLen) + '...' : text;
-    var textLines = wrapText(ctx, displayText, contentW - 28, 28);
-    var textH = textLines.length * 28;
+    // Render QR code
+    renderQR();
 
-    var siteNameH = 32;
-    var separatorGap = 20;
-    var quoteTopPad = 20;
-    var quoteBottomPad = 20;
-    var bottomPad = 28;
+    // Show card for html2canvas to capture
+    shareCard.classList.add('rendering');
 
-    // QR block height in header area
-    var qrBlockH = qrSize + qrHintH + 4;
-    var headerH = Math.max(siteNameH + titleH, qrBlockH);
-
-    var H = pad + headerH + separatorGap * 2 + quoteTopPad + textH + quoteBottomPad + bottomPad;
-    // Enforce portrait ratio: minimum 3:4
-    var minH = Math.round(W * 4 / 3);
-    if (H < minH) H = minH;
-
-    canvas.width = W * dpr;
-    canvas.height = H * dpr;
-    canvas.style.width = W + 'px';
-    canvas.style.height = H + 'px';
-    ctx.scale(dpr, dpr);
-
-    // Background
-    ctx.fillStyle = '#ffffff';
-    ctx.beginPath();
-    ctx.roundRect(0, 0, W, H, 12);
-    ctx.fill();
-
-    var y = pad;
-
-    // QR code (top-right corner)
-    if (typeof qrcode !== 'undefined') {
-      var qr = qrcode(0, 'M');
-      qr.addData(window.location.href);
-      qr.make();
-      var moduleCount = qr.getModuleCount();
-      var cellSize = qrSize / moduleCount;
-      var qrX = W - pad - qrSize;
-      var qrY = pad;
-
-      ctx.fillStyle = '#1a1a1a';
-      for (var r = 0; r < moduleCount; r++) {
-        for (var c = 0; c < moduleCount; c++) {
-          if (qr.isDark(r, c)) {
-            ctx.fillRect(qrX + c * cellSize, qrY + r * cellSize, cellSize + 0.5, cellSize + 0.5);
-          }
-        }
+    // Wait a frame for layout
+    requestAnimationFrame(function() {
+      // Enforce minimum 3:4 aspect ratio
+      var cardW = shareCard.offsetWidth;
+      var cardH = shareCard.offsetHeight;
+      var minH = Math.round(cardW * 4 / 3);
+      if (cardH < minH) {
+        shareCard.style.minHeight = minH + 'px';
       }
 
-      // Hint text below QR, centered
-      ctx.fillStyle = '#bbbbbb';
-      ctx.font = '10px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-      var hintText = 'Scan to read';
-      var hintW = ctx.measureText(hintText).width;
-      ctx.fillText(hintText, qrX + (qrSize - hintW) / 2, qrY + qrSize + 12);
-    }
+      html2canvas(shareCard, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#ffffff',
+        logging: false,
+      }).then(function(canvas) {
+        shareCard.classList.remove('rendering');
+        shareCard.style.minHeight = '';
 
-    // Site name
-    ctx.fillStyle = '#999999';
-    ctx.font = '14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-    ctx.fillText(siteName, pad, y + 14);
-    y += siteNameH;
-
-    // Title
-    ctx.fillStyle = '#1a1a1a';
-    ctx.font = 'bold 24px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-    for (var i = 0; i < titleLines.length; i++) {
-      ctx.fillText(titleLines[i], pad, y + 24);
-      y += 32;
-    }
-
-    // Align y to after header area
-    y = pad + headerH + separatorGap;
-
-    // Separator
-    ctx.strokeStyle = '#e5e5e5';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(pad, y);
-    ctx.lineTo(W - pad, y);
-    ctx.stroke();
-    y += separatorGap;
-
-    // Quote block background
-    var quoteBlockY = y;
-    var quoteBlockH = quoteTopPad + textH + quoteBottomPad;
-    ctx.fillStyle = '#f8f9fa';
-    ctx.beginPath();
-    ctx.roundRect(pad, quoteBlockY, contentW, quoteBlockH, 8);
-    ctx.fill();
-
-    // Quote text
-    y += quoteTopPad;
-    ctx.fillStyle = '#333333';
-    ctx.font = '18px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-    for (var i = 0; i < textLines.length; i++) {
-      if (textLines[i] !== '') {
-        ctx.fillText(textLines[i], pad + 14, y + 18);
-      }
-      y += 28;
-    }
+        preview.src = canvas.toDataURL('image/png');
+        overlay.classList.add('active');
+      }).catch(function(err) {
+        console.error('Share card render error:', err);
+        shareCard.classList.remove('rendering');
+        shareCard.style.minHeight = '';
+      });
+    });
   }
 })();
 `,
@@ -523,7 +466,7 @@ export const ContentPage: React.FC<{
 
           function renderEmblaCarousels() {
             // Detect image groups, make them carousels automatically
-            Map.groupBy(document.querySelectorAll('img'), x => x.parentNode).entries().forEach(([container, images]) => {
+            Map.groupBy(document.querySelectorAll('.content-body img'), x => x.parentNode).entries().forEach(([container, images]) => {
                 const outer = document.createElement('div');
                 outer.classList.add('embla');
                 container.appendChild(outer);
