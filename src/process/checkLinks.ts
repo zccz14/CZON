@@ -10,6 +10,7 @@ import path from 'path';
 import { findEntries } from '../findEntries';
 import { INPUT_DIR } from '../paths';
 import { isExists } from '../utils/isExists';
+import { isFile } from '../utils/isFile';
 
 export interface LinkIssue {
   /** 源文件相对路径 */
@@ -234,7 +235,9 @@ export async function checkLinks(): Promise<LinkIssue[]> {
 
       // 再检查文件系统
       const resolvedFullPath = path.join(INPUT_DIR, resolvedRelative);
-      if (!(await isExists(resolvedFullPath))) {
+      const targetExists = await isExists(resolvedFullPath);
+      const targetIsFile = targetExists ? await isFile(resolvedFullPath) : false;
+      if (!targetExists || !targetIsFile) {
         // 通过 basename 模糊匹配，生成候选建议（最多 3 个）
         const suggestions: string[] = [];
         const targetBasename = path.basename(hrefWithoutHash);
@@ -251,7 +254,7 @@ export async function checkLinks(): Promise<LinkIssue[]> {
           raw: link.raw,
           href: link.href,
           type: 'dead-link',
-          message: '目标文件不存在',
+          message: targetExists ? '目标是目录，不是文件' : '目标文件不存在',
           suggestions,
         });
       }

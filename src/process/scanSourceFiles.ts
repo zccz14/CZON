@@ -1,8 +1,10 @@
-import { access, readFile } from 'fs/promises';
+import { readFile } from 'fs/promises';
 import path from 'path';
 import { findEntries } from '../findEntries';
 import { MetaData } from '../metadata';
 import { INPUT_DIR } from '../paths';
+import { isExists } from '../utils/isExists';
+import { isFile } from '../utils/isFile';
 
 const extractLinksFromMarkdown = (content: string): string[] => {
   const linkRegex = /\[.*?\]\((.*?)\)/g;
@@ -45,13 +47,12 @@ export async function scanSourceFiles(): Promise<void> {
     if (isVisited.has(fullPath)) continue;
     isVisited.add(fullPath);
 
-    const isExists = await access(fullPath).then(
-      () => true,
-      () => false
-    );
-
-    if (!isExists) {
+    if (!(await isExists(fullPath))) {
       console.warn(`⚠️ File does not exist: ${fullPath}, skipping.`);
+      continue;
+    }
+    if (!(await isFile(fullPath))) {
+      console.warn(`⚠️ Path is not a file: ${fullPath}, skipping.`);
       continue;
     }
 
@@ -75,10 +76,23 @@ export async function scanSourceFiles(): Promise<void> {
 
       for (const link of links) {
         if (URL.canParse(link)) continue;
-        const resolvedPath = path.resolve(path.dirname(fullPath), link);
-        const relativePath = path.relative(INPUT_DIR, resolvedPath);
-        if (!isVisited.has(relativePath)) {
-          queue.push(relativePath);
+        const hrefWithoutHash = link.split('#')[0];
+        const hrefWithoutQuery = hrefWithoutHash.split('?')[0];
+        if (!hrefWithoutQuery) continue;
+
+        const resolvedPath = path.resolve(path.dirname(fullPath), hrefWithoutQuery);
+        if ((await isExists(resolvedPath)) && !(await isFile(resolvedPath))) {
+          console.warn(`⚠️ Link target is a directory: ${link} in ${relativePath}, skipping.`);
+          continue;
+        }
+
+        const resolvedRelativePath = path.relative(INPUT_DIR, resolvedPath);
+        if (resolvedRelativePath.startsWith('..') || path.isAbsolute(resolvedRelativePath))
+          continue;
+
+        const resolvedFullPath = path.join(INPUT_DIR, resolvedRelativePath);
+        if (!isVisited.has(resolvedFullPath)) {
+          queue.push(resolvedRelativePath);
         }
       }
     }
