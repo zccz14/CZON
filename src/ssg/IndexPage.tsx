@@ -11,6 +11,18 @@ import { PageLayout } from './layouts/PageLayout';
 import { getFaviconUrlFrom, getCustomStyleUrlFrom, getResourceUrlFrom } from './resourceMap';
 import { style } from './style';
 
+export const buildIndexPageTitle = (params: {
+  siteTitle?: string;
+  lang: string;
+  categoryDisplayName?: string;
+}): string => {
+  const safeSiteTitle = params.siteTitle?.trim() || 'CZON';
+  if (params.categoryDisplayName) {
+    return `${safeSiteTitle} - ${params.categoryDisplayName}`;
+  }
+  return `${safeSiteTitle} - Index of ${params.lang}`;
+};
+
 export const IndexPage: React.FC<{
   ctx: IRenderContext;
   lang: string;
@@ -36,12 +48,21 @@ export const IndexPage: React.FC<{
 
   const faviconUrl = getFaviconUrlFrom(props.ctx.path);
   const customStyleUrl = props.ctx.hasCustomStyle ? getCustomStyleUrlFrom(props.ctx.path) : null;
+  const siteTitle = props.ctx.site.options.site?.title;
+  const categoryDisplayName = props.category
+    ? getCategoryDisplayName(props.ctx.site, props.category, props.lang)
+    : undefined;
+  const pageTitle = buildIndexPageTitle({
+    siteTitle,
+    lang: props.lang,
+    categoryDisplayName,
+  });
 
   return (
     <html>
       <head>
         <meta charSet="UTF-8" />
-        <title>{`Index of ${props.lang.toString()}`}</title>
+        <title>{pageTitle}</title>
         <link rel="icon" href={faviconUrl} type="image/x-icon" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content={`Index page for language ${props.lang}`} />
