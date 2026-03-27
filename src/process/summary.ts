@@ -1,9 +1,12 @@
-import { readFile, stat } from 'fs/promises';
+import { mkdir, readFile, rm, stat } from 'fs/promises';
 import { join } from 'path';
 import { loadMetaData, MetaData, saveMetaData } from '../metadata';
 import { CZON_DIR, INPUT_DIR } from '../paths';
 import { runOpenCode } from '../services/opencode';
 import { AIMetadata } from '../types';
+
+// 临时文件目录：.czon/tmp/
+const TMP_DIR = join(CZON_DIR, 'tmp');
 
 // Prompt 模板目录路径（在项目根目录的 prompts/ 文件夹中）
 const PROMPTS_DIR = join(__dirname, '../../prompts');
@@ -103,10 +106,16 @@ const generateStyleReport = async (
   styleConfig: (typeof SUMMARY_STYLES)[number],
   cwd: string
 ): Promise<{ success: boolean; error?: string }> => {
-  try {
-    const relativeOutput = `.czon/AIGC/SUMMARY/${styleConfig.skill}.md`;
-    const outputPath = join(INPUT_DIR, relativeOutput);
+  const relativeOutput = `.czon/AIGC/SUMMARY/${styleConfig.skill}.md`;
+  const outputPath = join(INPUT_DIR, relativeOutput);
+  const relativeTmpDir = `.czon/tmp/summary-${styleConfig.skill}`;
+  const tmpDir = join(TMP_DIR, `summary-${styleConfig.skill}`);
 
+  // 开始前清理并创建 tmp 目录
+  await rm(tmpDir, { recursive: true, force: true });
+  await mkdir(tmpDir, { recursive: true });
+
+  try {
     const styleContent = await loadPromptTemplate(styleConfig.skill);
 
     const prompt = `
@@ -123,11 +132,14 @@ ${styleContent}
 请严格按照上述指南，生成「${styleConfig.name}」风格的分析报告。
 
 输出文件：${relativeOutput}
+SubAgent 摘要临时目录：${relativeTmpDir}/
 
 注意：
 1. 必须生成完整的报告文件
 2. 文件必须保存到 ${relativeOutput}
 3. 确保所有链接使用 ../ 开头的相对路径
+4. SubAgent 提取的摘要必须写入 ${relativeTmpDir}/batch-{N}.md（N 为批次编号，从 1 开始）
+5. 每个 SubAgent 完成后，检查对应的临时文件是否已生成，未生成则重试该批次
 `.trim();
 
     // 记录发送前的 mtime
@@ -149,9 +161,9 @@ ${styleContent}
       // 构造错误反馈
       let errorMsg: string;
       if (!fileExists) {
-        errorMsg = `错误：文件 ${relativeOutput} 未生成。请立即创建并写入完整的报告内容到 ${relativeOutput}。`;
+        errorMsg = `错误：文件 ${relativeOutput} 未生成。请立即创建并写入完整的报告内容到 ${relativeOutput}。先写大纲，再分批填充内容，每次写入不超过2000字。`;
       } else {
-        errorMsg = `错误：文件 ${relativeOutput} 未被修改。请重新生成完整内容并覆盖写入 ${relativeOutput}。`;
+        errorMsg = `错误：文件 ${relativeOutput} 未被修改。请重新生成完整内容并覆盖写入 ${relativeOutput}。先写大纲，再分批填充内容，每次写入不超过2000字。`;
       }
 
       console.warn(`  ⚠️ 重试 ${attempt}/${MAX_RETRIES}: ${errorMsg}`);
@@ -173,6 +185,9 @@ ${styleContent}
       success: false,
       error: error instanceof Error ? error.message : String(error),
     };
+  } finally {
+    // 无论成功失败，清理 tmp 目录
+    await rm(tmpDir, { recursive: true, force: true });
   }
 };
 
