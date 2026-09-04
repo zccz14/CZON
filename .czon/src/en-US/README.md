@@ -55,8 +55,8 @@ And some non-AI features:
 
 ```bash
 export OPENAI_API_KEY="sk-xxxxxx"  # Required: Replace with your OpenAI API Key
-export OPENAI_BASE_URL="https://api.openai.com/v1"  # Optional, defaults to the official OpenAI API
-export OPENAI_MODEL="gpt-3.5-turbo"  # Optional, defaults to the gpt-3.5-turbo model
+export OPENAI_BASE_URL="https://openai.ntnl.io/v1"  # Optional, defaults to OpenAI LB
+export OPENAI_MODEL="gpt-5.6-luna"  # Optional, defaults to the gpt-5.6-luna model
 export OPENAI_MAX_TOKENS="4096"  # Optional, sets the maximum token limit (if omitted, uses the model's default; for long-text translation, a higher value like 8192 is recommended, depending on the model's maximum supported tokens)
 
 # If you need to use an HTTP proxy to access the OpenAI API, you can set the following variables

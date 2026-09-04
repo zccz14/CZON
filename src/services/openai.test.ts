@@ -1,7 +1,12 @@
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import test from 'node:test';
-import { completeMessages } from './openai';
+import {
+  completeMessages,
+  DEFAULT_OPENAI_BASE_URL,
+  DEFAULT_OPENAI_MODEL,
+  responsesApiUrl,
+} from './openai';
 
 const withResponsesServer = async (
   handler: (body: Record<string, unknown>, respond: (events: string[]) => void) => void,
@@ -45,6 +50,16 @@ const withResponsesServer = async (
     );
   }
 };
+
+test('uses OpenAI LB and gpt-5.6-luna as the default Responses configuration', () => {
+  assert.equal(DEFAULT_OPENAI_BASE_URL, 'https://openai.ntnl.io/v1');
+  assert.equal(DEFAULT_OPENAI_MODEL, 'gpt-5.6-luna');
+  assert.equal(responsesApiUrl(DEFAULT_OPENAI_BASE_URL), 'https://openai.ntnl.io/v1/responses');
+  assert.equal(
+    responsesApiUrl(`${DEFAULT_OPENAI_BASE_URL}/`),
+    'https://openai.ntnl.io/v1/responses'
+  );
+});
 
 test('completeMessages sends a Responses request and converts streamed output', async () => {
   await withResponsesServer(
