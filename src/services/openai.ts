@@ -10,7 +10,9 @@ export interface OpenAIMessage {
 }
 
 /**
- * OpenAI 响应接口
+ * CZON 保持的 Chat Completions 兼容响应接口。
+ *
+ * 上游已经迁移到 Responses API；此类型保留现有 AI 调用方的读取契约。
  */
 export interface OpenAIResponse {
   id: string;
@@ -31,6 +33,27 @@ export interface OpenAIResponse {
     total_tokens: number;
   };
 }
+
+type ResponsesUsage = {
+  input_tokens?: number;
+  output_tokens?: number;
+  total_tokens?: number;
+};
+
+type ResponsesStreamEvent = {
+  type?: string;
+  delta?: string;
+  text?: string;
+  error?: { message?: string };
+  response?: {
+    id?: string;
+    model?: string;
+    created_at?: number;
+    status?: string;
+    usage?: ResponsesUsage;
+  };
+};
+
 const startTime = Date.now();
 let totalContentGenerated = 0;
 const processingTaskIds = new Set<string>();
@@ -41,7 +64,6 @@ const printReport = () => {
   console.error(
     `⏳ AI Processing output speed=${speed} total=${totalContentGenerated} elapsed=${elapsed} s tasks=${processingTaskIds.size}`
   );
-  // 取前 5 个正在处理的任务ID
   let i = 5;
   for (const id of processingTaskIds) {
     if (i-- <= 0) break;
@@ -54,26 +76,42 @@ const setupReport = async () => {
   if (isReporting) return;
   isReporting = true;
   while (processingTaskIds.size > 0) {
-    try {
-      printReport();
-    } catch (e) {}
+    printReport();
     await new Promise(resolve => setTimeout(resolve, 1000));
   }
   isReporting = false;
 };
 
+const responseUsage = (usage?: ResponsesUsage): OpenAIResponse['usage'] => ({
+  prompt_tokens: usage?.input_tokens ?? 0,
+  completion_tokens: usage?.output_tokens ?? 0,
+  total_tokens: usage?.total_tokens ?? 0,
+});
+
+const appendOutputText = (content: string, event: ResponsesStreamEvent): string => {
+  if (event.type === 'response.output_text.delta' && typeof event.delta === 'string') {
+    totalContentGenerated += event.delta.length;
+    return content + event.delta;
+  }
+  if (event.type === 'response.output_text.done' && typeof event.text === 'string') {
+    return content || event.text;
+  }
+  return content;
+};
+
+const responseInput = (messages: OpenAIMessage[]) =>
+  messages.map(message => ({
+    role: message.role,
+    content: message.content,
+  }));
+
 /**
- * 使用 OpenAI API 补全消息
- * @param messages 消息数组
- * @param options 可选配置
- * @returns Promise<OpenAIResponse> 返回完整的OpenAI响应
+ * 使用 OpenAI Responses API 补全消息。
+ * 对外保留 CZON 既有 Chat Completions 兼容返回形状，避免改动全部调用方。
  */
 export const completeMessages = async (
   messages: OpenAIMessage[],
   options?: {
-    /**
-     * 可选的任务ID，用于标识请求，便于日志记录
-     */
     task_id?: string;
     response_format?: { type: 'json_object' | 'text' };
   }
@@ -81,45 +119,35 @@ export const completeMessages = async (
   try {
     if (options?.task_id) {
       processingTaskIds.add(options.task_id);
-      setupReport();
+      void setupReport();
     }
-    // 从环境变量读取配置
+
     const apiKey = process.env.OPENAI_API_KEY || '';
-    const baseUrl = process.env.OPENAI_BASE_URL || 'https://api.openai.com/v1';
-    const model = process.env.OPENAI_MODEL || 'gpt-3.5-turbo';
-    const max_tokens = process.env.OPENAI_MAX_TOKENS ? +process.env.OPENAI_MAX_TOKENS : undefined; // 不填就使用模型默认值
+    const baseUrl = (process.env.OPENAI_BASE_URL || 'https://api.openai.com/v1').replace(/\/$/, '');
+    const model = process.env.OPENAI_MODEL || 'gpt-4.1-mini';
+    const maxOutputTokens = process.env.OPENAI_MAX_TOKENS
+      ? +process.env.OPENAI_MAX_TOKENS
+      : undefined;
 
     if (!apiKey) {
       throw new Error('OPENAI_API_KEY environment variable is not set');
     }
 
-    let finishReason: string | null = null;
-    let responseId: string | null = null;
-    let responseModel: string | null = null;
-    let responseCreated: number | null = null;
-    let usage: OpenAIResponse['usage'] | null = null;
-
-    const requestBody: any = {
+    const requestBody: Record<string, unknown> = {
       model,
-      messages,
-      temperature: 0, // 总是设置为 0，提取内容不需要随机性
-      stream: true, // 启用流式响应
-      max_tokens, // 可选的最大 token 数量
+      input: responseInput(messages),
+      temperature: 0,
+      stream: true,
     };
-
-    // 添加可选的response_format
-    if (options?.response_format) {
-      requestBody.response_format = options.response_format;
+    if (maxOutputTokens !== undefined) requestBody.max_output_tokens = maxOutputTokens;
+    if (options?.response_format?.type === 'json_object') {
+      requestBody.text = { format: { type: 'json_object' } };
     }
 
-    // 打印请求信息 (for debug)
-    //   for (const msg of messages) {
-    //     console.info(`💬 [${msg.role}] ${msg.content}`);
-    //   }
-
-    const response = await fetch(`${baseUrl}/chat/completions`, {
+    const response = await fetch(`${baseUrl}/responses`, {
       method: 'POST',
       headers: {
+        Accept: 'text/event-stream',
         'Content-Type': 'application/json',
         Authorization: `Bearer ${apiKey}`,
       },
@@ -127,111 +155,90 @@ export const completeMessages = async (
     });
 
     if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`OpenAI API error (${response.status}): ${errorText}`);
+      throw new Error(`OpenAI Responses API error (${response.status}): ${await response.text()}`);
     }
-
-    // 处理流式响应
 
     const decoder = new TextDecoder();
     let buffer = '';
-
     let content = '';
+    let responseId: string | undefined;
+    let responseModel: string | undefined;
+    let responseCreated: number | undefined;
+    let usage: OpenAIResponse['usage'] | undefined;
+    let finishReason = 'stop';
+
+    const handleEvent = (event: ResponsesStreamEvent) => {
+      if (event.response) {
+        responseId = event.response.id || responseId;
+        responseModel = event.response.model || responseModel;
+        responseCreated = event.response.created_at || responseCreated;
+        if (event.response.usage) usage = responseUsage(event.response.usage);
+        if (event.response.status === 'incomplete') finishReason = 'length';
+      }
+      if (event.type === 'error' || event.type === 'response.failed') {
+        throw new Error(event.error?.message || 'OpenAI Responses API stream failed');
+      }
+      content = appendOutputText(content, event);
+    };
 
     const handleData = (value: Uint8Array) => {
       buffer += decoder.decode(value, { stream: true });
-      const lines = buffer.split('\n');
-      buffer = lines.pop() || ''; // 保留未完成的行
-
-      for (const line of lines) {
-        const trimmedLine = line.trim();
-        if (!trimmedLine || trimmedLine === 'data: [DONE]') continue;
-
-        if (trimmedLine.startsWith('data: ')) {
-          const jsonStr = trimmedLine.slice(6);
-          try {
-            const chunk = JSON.parse(jsonStr);
-
-            // 收集元数据
-            if (chunk.id) responseId = chunk.id;
-            if (chunk.model) responseModel = chunk.model;
-            if (chunk.created) responseCreated = chunk.created;
-
-            // 处理 choices
-            if (chunk.choices && Array.isArray(chunk.choices)) {
-              for (const choice of chunk.choices) {
-                if (choice.delta?.content) {
-                  totalContentGenerated += choice.delta.content.length;
-                  content += choice.delta.content;
-                }
-                if (choice.finish_reason) {
-                  finishReason = choice.finish_reason;
-                }
-              }
-            }
-
-            // 处理 usage
-            if (chunk.usage) {
-              usage = chunk.usage;
-            }
-          } catch (error) {
-            console.warn('Failed to parse SSE chunk:', jsonStr, error);
-          }
+      const events = buffer.split('\n\n');
+      buffer = events.pop() || '';
+      for (const rawEvent of events) {
+        const data = rawEvent
+          .split('\n')
+          .filter(line => line.startsWith('data:'))
+          .map(line => line.slice(5).trimStart())
+          .join('\n');
+        if (!data || data === '[DONE]') continue;
+        let event: ResponsesStreamEvent;
+        try {
+          event = JSON.parse(data) as ResponsesStreamEvent;
+        } catch (error) {
+          console.warn('Failed to parse Responses SSE event:', data, error);
+          continue;
         }
+        handleEvent(event);
       }
     };
 
-    //
-
     await new Promise<void>((resolve, reject) => {
-      response.body.on('data', handleData);
-      response.body.on('end', () => resolve());
-      response.body.on('error', err => reject(err));
+      response.body.on('data', (value: Uint8Array) => {
+        try {
+          handleData(value);
+        } catch (error) {
+          reject(error);
+        }
+      });
+      response.body.on('end', resolve);
+      response.body.on('error', reject);
     });
 
-    // 确保所有剩余数据被解码
-    if (buffer) {
-      buffer += decoder.decode();
-      // 可以尝试解析剩余数据，但通常不会有完整数据
-    }
-
-    // 构建最终的响应对象
     const finalResponse: OpenAIResponse = {
-      id: responseId || `chatcmpl-${Date.now()}`,
-      object: 'chat.completion',
+      id: responseId || `resp-${Date.now()}`,
+      object: 'response',
       created: responseCreated || Math.floor(Date.now() / 1000),
       model: responseModel || model,
       choices: [
         {
           index: 0,
-          message: {
-            role: 'assistant',
-            content: content,
-          },
-          finish_reason: finishReason || 'stop',
+          message: { role: 'assistant', content },
+          finish_reason: finishReason,
         },
       ],
-      usage: usage || {
-        prompt_tokens: 0,
-        completion_tokens: 0,
-        total_tokens: 0,
-      },
+      usage: usage || { prompt_tokens: 0, completion_tokens: 0, total_tokens: 0 },
     };
 
     console.info('🤖 AI Token Usages', finalResponse.usage);
-
-    // 验证响应
-    if (!finalResponse.choices?.[0]?.message?.content?.trim()) {
-      throw new Error('Empty response from OpenAI API');
+    if (!finalResponse.choices[0].message.content.trim()) {
+      throw new Error('Empty response from OpenAI Responses API');
     }
-
     return finalResponse;
   } catch (error) {
-    console.error('❌ Failed to call OpenAI API:', error);
+    console.error('❌ Failed to call OpenAI Responses API:', error);
     throw error;
   } finally {
-    if (options?.task_id) {
-      processingTaskIds.delete(options.task_id);
-    }
+    if (options?.task_id) processingTaskIds.delete(options.task_id);
   }
 };

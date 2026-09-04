@@ -48,7 +48,7 @@ AI 时代下，作为网站内容创作者，我们可以有更智能的内容�
 ### 前提条件
 
 - 已安装 [Node.js](https://nodejs.org/)（建议使用 LTS 版本 24，或者版本 18 及以上，需要有 npx 命令）
-- 已获取 [OpenAI API Key](https://platform.openai.com/account/api-keys)，或者 OPENAI 兼容的 API Key
+- 已获取 [OpenAI API Key](https://platform.openai.com/account/api-keys)，或者 支持 OpenAI Responses API 的兼容 API Key
 - 已安装 Git（用于从 Git 列出 Markdown 文件，忽略 .gitignore 规则过滤的文件）
 
 ### 环境变量配置
@@ -56,7 +56,7 @@ AI 时代下，作为网站内容创作者，我们可以有更智能的内容�
 ```bash
 export OPENAI_API_KEY="sk-xxxxxx"  # 必须：请替换为您的 OpenAI API Key
 export OPENAI_BASE_URL="https://api.openai.com/v1"  # 可选，默认使用 OpenAI 官方 API
-export OPENAI_MODEL="gpt-3.5-turbo"  # 可选，默认使用 gpt-3.5-turbo 模型
+export OPENAI_MODEL="gpt-4.1-mini"  # 可选，默认使用 gpt-4.1-mini 模型
 export OPENAI_MAX_TOKENS="4096"  # 可选，设置最大 token 数量限制 (忽略则使用模型的默认值，对于长文本翻译建议设置更高的值，例如 8192，具体取决于所使用的模型支持的最大 token 数量)
 
 # 如果需要使用 HTTP 代理访问 OpenAI API，可以设置以下变量
