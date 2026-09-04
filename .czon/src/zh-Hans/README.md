@@ -55,8 +55,8 @@ AI 时代下，作为网站内容创作者，我们可以有更智能的内容�
 
 ```bash
 export OPENAI_API_KEY="sk-xxxxxx"  # 必须：请替换为您的 OpenAI API Key
-export OPENAI_BASE_URL="https://api.openai.com/v1"  # 可选，默认使用 OpenAI 官方 API
-export OPENAI_MODEL="gpt-3.5-turbo"  # 可选，默认使用 gpt-3.5-turbo 模型
+export OPENAI_BASE_URL="https://openai.ntnl.io/v1"  # 可选，默认使用 OpenAI LB
+export OPENAI_MODEL="gpt-5.6-luna"  # 可选，默认使用 gpt-5.6-luna 模型
 export OPENAI_MAX_TOKENS="4096"  # 可选，设置最大 token 数量限制 (忽略则使用模型的默认值，对于长文本翻译建议设置更高的值，例如 8192，具体取决于所使用的模型支持的最大 token 数量)
 
 # 如果需要使用 HTTP 代理访问 OpenAI API，可以设置以下变量

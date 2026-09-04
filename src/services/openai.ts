@@ -40,6 +40,11 @@ type ResponsesUsage = {
   total_tokens?: number;
 };
 
+export const DEFAULT_OPENAI_BASE_URL = 'https://openai.ntnl.io/v1';
+export const DEFAULT_OPENAI_MODEL = 'gpt-5.6-luna';
+
+export const responsesApiUrl = (baseUrl: string) => `${baseUrl.replace(/\/$/, '')}/responses`;
+
 type ResponsesStreamEvent = {
   type?: string;
   delta?: string;
@@ -123,8 +128,8 @@ export const completeMessages = async (
     }
 
     const apiKey = process.env.OPENAI_API_KEY || '';
-    const baseUrl = (process.env.OPENAI_BASE_URL || 'https://api.openai.com/v1').replace(/\/$/, '');
-    const model = process.env.OPENAI_MODEL || 'gpt-4.1-mini';
+    const baseUrl = process.env.OPENAI_BASE_URL || DEFAULT_OPENAI_BASE_URL;
+    const model = process.env.OPENAI_MODEL || DEFAULT_OPENAI_MODEL;
     const maxOutputTokens = process.env.OPENAI_MAX_TOKENS
       ? +process.env.OPENAI_MAX_TOKENS
       : undefined;
@@ -144,7 +149,7 @@ export const completeMessages = async (
       requestBody.text = { format: { type: 'json_object' } };
     }
 
-    const response = await fetch(`${baseUrl}/responses`, {
+    const response = await fetch(responsesApiUrl(baseUrl), {
       method: 'POST',
       headers: {
         Accept: 'text/event-stream',
