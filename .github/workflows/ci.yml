@@ -32,13 +32,13 @@ jobs:
       - name: Run linting (if configured)
         run: |
           if [ -f .eslintrc.js ] || [ -f .eslintrc.json ] || [ -f .eslintrc ]; then
-            pnpm dlx eslint src/ --ext .ts,.tsx
+            pnpm exec eslint src/ --ext .ts,.tsx
           else
             echo "No ESLint config found, skipping linting"
           fi
 
       - name: Type check
-        run: pnpm dlx tsc --noEmit
+        run: pnpm exec tsc --noEmit
 
       - name: Run tests
         run: pnpm test
