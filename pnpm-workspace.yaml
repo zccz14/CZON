@@ -1,0 +1,7 @@
+# pnpm 10 起 pnpm 专属配置从 package.json 的 "pnpm" 字段迁到这里。
+# 覆盖这几个传递依赖：安全公告的修复版本落在 semver 范围内的最新补丁上，
+# 钉住它们可避免将来重新解析到公告里的受影响版本（见 PR 说明）。
+overrides:
+  ip-address: ^10.7.1
+  brace-expansion: ^5.0.12
+  http-cache-semantics: ^4.3.0
