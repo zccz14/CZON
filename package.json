@@ -14,7 +14,7 @@
     "test:cli": "node -e \"const pkg = require('./package.json'); console.log('Package:', pkg.name, 'v' + pkg.version)\"",
     "format": "prettier --write \"**/*.{ts,js,json,md}\"",
     "format:check": "prettier --check \"**/*.{ts,js,json,md}\"",
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "pnpm run build",
     "prepare": "husky"
   },
   "keywords": [
@@ -64,5 +64,6 @@
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
     "yaml": "^2.8.2"
-  }
+  },
+  "packageManager": "pnpm@10.15.0"
 }

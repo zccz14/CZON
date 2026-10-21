@@ -21,27 +21,27 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          cache: 'pnpm'
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Run linting (if configured)
         run: |
           if [ -f .eslintrc.js ] || [ -f .eslintrc.json ] || [ -f .eslintrc ]; then
-            npx eslint src/ --ext .ts,.tsx
+            pnpm dlx eslint src/ --ext .ts,.tsx
           else
             echo "No ESLint config found, skipping linting"
           fi
 
       - name: Type check
-        run: npx tsc --noEmit
+        run: pnpm dlx tsc --noEmit
 
       - name: Run tests
-        run: npm test
+        run: pnpm test
 
       - name: Build package
-        run: npm run build
+        run: pnpm run build
 
   security:
     runs-on: ubuntu-latest
@@ -55,7 +55,7 @@ jobs:
           node-version: '22.x'
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Run npm audit
         run: npm audit --audit-level=moderate

@@ -67,13 +67,13 @@ jobs:
           echo "New version: $NEW_VERSION"
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: Run tests
         run: |
-          npm run test:types
-          npm run test:build
-          npm run test:cli
+          pnpm run test:types
+          pnpm run test:build
+          pnpm run test:cli
 
       - name: Show changed files
         run: |
@@ -109,4 +109,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           add-paths: |
             package.json
-            package-lock.json
+            pnpm-lock.yaml

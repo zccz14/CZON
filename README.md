@@ -47,7 +47,7 @@ AI 时代下，作为网站内容创作者，我们可以有更智能的内容�
 
 ### 前提条件
 
-- 已安装 [Node.js](https://nodejs.org/)（建议使用 LTS 版本 24，或者版本 18 及以上，需要有 npx 命令）
+- 已安装 [Node.js](https://nodejs.org/)（建议使用 LTS 版本 24，或者版本 18 及以上，需要有 pnpm dlx 命令）
 - 已获取 [OpenAI API Key](https://platform.openai.com/account/api-keys)，或者 支持 OpenAI Responses API 的兼容 API Key
 - 已安装 Git（用于从 Git 列出 Markdown 文件，忽略 .gitignore 规则过滤的文件）
 
@@ -69,7 +69,7 @@ export HTTP_PROXY="http://your-proxy.com:8080"   # 可选，设置 HTTP 代理
 在任意 Git 管理的文件夹中运行：
 
 ```bash
-npx czon@latest build --lang zh-Hans --lang en-US
+pnpm dlx czon@latest build --lang zh-Hans --lang en-US
 ```
 
 由于语言代码后续会用作静态站点生成中许多功能的一部分，请确保使用 BCP 47 标准的语言代码。例如，`zh-Hans` 代表简体中文，`en-US` 代表美国英语。您可以根据需要添加更多语言，例如 `es-ES` (西班牙语) `ja-JP`（日语）、`ko-KR`（韩语）等。
@@ -77,7 +77,7 @@ npx czon@latest build --lang zh-Hans --lang en-US
 
 输出目录：`.czon/dist`，后续需要部署该目录下的内容到静态站点托管平台。
 
-详细用法请运行 `npx czon@latest --help`。
+详细用法请运行 `pnpm dlx czon@latest --help`。
 
 ## 🔗 与其他工具的比较
 
