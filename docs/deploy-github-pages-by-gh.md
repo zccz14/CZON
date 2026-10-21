@@ -18,7 +18,7 @@ $ gh auth status # 查看登录状态，确保已成功登录，并且有权限 
 剩下的只需要运行以下命令，根据提示操作即可：
 
 ```bash
-$ npx czon@latest config github
+$ pnpm dlx czon@latest config github
 ```
 
 该命令会引导你完成以下步骤：
