@@ -24,6 +24,9 @@ jobs:
           git fetch --all
           git fetch --tags
 
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.15.0
       - name: Setup Node.js for npm publish
         uses: actions/setup-node@v4
         with:
