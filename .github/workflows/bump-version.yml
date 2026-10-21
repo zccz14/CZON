@@ -75,7 +75,7 @@ jobs:
       - name: Run tests
         run: |
           pnpm run test:types
-          pnpm run test:build
+          pnpm run build
           pnpm run test:cli
 
       - name: Show changed files
